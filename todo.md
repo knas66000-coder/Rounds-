@@ -1,0 +1,26 @@
+# Project TODO
+
+- [x] Inspect the supplied Rounds NCLEX specification
+- [x] Define portrait-first mobile screen structure and key user flows
+- [x] Define the Clinical Minimalism color and interaction system
+- [x] Generate and install the custom Rounds NCLEX app icon and branding assets
+- [x] Update app configuration with the Rounds NCLEX display name and logo metadata
+- [x] Add the typed question-bank data model and NCLEX category data
+- [x] Add representative nursing questions with answers, keywords, and clinical teaching content
+- [x] Implement keyword-based answer evaluation with correct, partial, and incorrect verdicts
+- [x] Implement local session state and progress persistence with AsyncStorage
+- [x] Implement native text-to-speech question delivery
+- [ ] Implement native microphone recording and speech-to-text answer capture
+- [x] Implement a text-entry fallback when speech recognition is unavailable
+- [x] Implement manual practice mode
+- [x] Implement auto-advance practice mode with safe cancellation
+- [x] Implement Practice screen and question interaction states
+- [x] Implement Review screen with clinical context and explanations
+- [x] Implement Categories screen and category filtering
+- [x] Implement Progress screen with session metrics
+- [x] Implement Settings screen with voice and session preferences
+- [ ] Add haptic feedback, accessibility labels, and permission guidance
+- [x] Add deterministic unit tests for grading and session logic
+- [x] Run type checking, linting, and tests
+- [x] Verify native-safe layouts and responsive web preview
+- [ ] Save the final project checkpoint for user delivery
