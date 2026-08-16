@@ -54,3 +54,10 @@
 - [x] Add mock-exam results with score, unanswered count, time used, and focused next steps
 - [x] Add deterministic tests for bookmark persistence and mock-exam timing logic
 - [x] Validate and checkpoint the mock-exam and bookmark release
+- [x] Audit the existing sign-in integration and visible app branding
+- [x] Add a branded secure sign-in screen and authenticated application gate
+- [x] Add a private account area with session-aware sign-out controls
+- [x] Require authenticated access for the main learning and study routes
+- [x] Remove visible Manus-related names and references from the application interface
+- [x] Add deterministic tests for authentication gate states and sign-out behavior
+- [x] Validate and checkpoint the secure authentication release

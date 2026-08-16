@@ -1,6 +1,6 @@
 import "@/global.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Stack } from "expo-router";
+import { Stack, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -18,6 +18,9 @@ import type { EdgeInsets, Metrics, Rect } from "react-native-safe-area-context";
 
 import { trpc, createTRPCClient } from "@/lib/trpc";
 import { initManusRuntime, subscribeSafeAreaInsets } from "@/lib/_core/manus-runtime";
+import { AuthSessionProvider, useAuthSession } from "@/lib/auth-session";
+import { accessStateFor } from "@/lib/auth-gate";
+import { SecureAccessGate } from "@/components/secure-access-gate";
 
 const DEFAULT_WEB_INSETS: EdgeInsets = { top: 0, right: 0, bottom: 0, left: 0 };
 const DEFAULT_WEB_FRAME: Rect = { x: 0, y: 0, width: 0, height: 0 };
@@ -82,15 +85,7 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>
-          {/* Default to hiding native headers so raw route segments don't appear (e.g. "(tabs)", "products/[id]"). */}
-          {/* If a screen needs the native header, explicitly enable it and set a human title via Stack.Screen options. */}
-          {/* in order for ios apps tab switching to work properly, use presentation: "fullScreenModal" for login page, whenever you decide to use presentation: "modal*/}
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="(tabs)" />
-            <Stack.Screen name="mock-exam" />
-            <Stack.Screen name="bookmark-review" />
-            <Stack.Screen name="oauth/callback" />
-          </Stack>
+          <AuthSessionProvider><ProtectedNavigator /></AuthSessionProvider>
           <StatusBar style="auto" />
         </QueryClientProvider>
       </trpc.Provider>
@@ -118,4 +113,20 @@ export default function RootLayout() {
       <SafeAreaProvider initialMetrics={providerInitialMetrics}>{content}</SafeAreaProvider>
     </ThemeProvider>
   );
+}
+
+function ProtectedNavigator() {
+  const segments = useSegments();
+  const { loading, isAuthenticated, refresh } = useAuthSession();
+  const isCallback = segments[0] === "oauth";
+  const accessState = accessStateFor({ loading, isAuthenticated, isCallback });
+
+  useEffect(() => {
+    if (!isCallback && segments.join("/") !== "") void refresh();
+  }, [isCallback, refresh, segments]);
+
+  if (accessState === "callback") return <Stack screenOptions={{ headerShown: false }}><Stack.Screen name="oauth/callback" /></Stack>;
+  if (accessState === "loading") return <SecureAccessGate busy />;
+  if (accessState === "sign-in") return <SecureAccessGate />;
+  return <Stack screenOptions={{ headerShown: false }}><Stack.Screen name="(tabs)" /><Stack.Screen name="mock-exam" /><Stack.Screen name="bookmark-review" /><Stack.Screen name="oauth/callback" /></Stack>;
 }

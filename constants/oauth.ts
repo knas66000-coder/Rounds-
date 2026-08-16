@@ -50,7 +50,7 @@ export function getApiBaseUrl(): string {
 }
 
 export const SESSION_TOKEN_KEY = "app_session_token";
-export const USER_INFO_KEY = "manus-runtime-user-info";
+export const USER_INFO_KEY = "rounds-nclex-user-info";
 
 const encodeState = (value: string) => {
   if (typeof globalThis.btoa === "function") {
