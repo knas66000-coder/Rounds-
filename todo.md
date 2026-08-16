@@ -10,7 +10,7 @@
 - [x] Implement keyword-based answer evaluation with correct, partial, and incorrect verdicts
 - [x] Implement local session state and progress persistence with AsyncStorage
 - [x] Implement native text-to-speech question delivery
-- [ ] Implement native microphone recording and speech-to-text answer capture
+- [x] Implement native microphone recording and speech-to-text answer capture
 - [x] Implement a text-entry fallback when speech recognition is unavailable
 - [x] Implement manual practice mode
 - [x] Implement auto-advance practice mode with safe cancellation
@@ -23,4 +23,7 @@
 - [x] Add deterministic unit tests for grading and session logic
 - [x] Run type checking, linting, and tests
 - [x] Verify native-safe layouts and responsive web preview
-- [ ] Save the final project checkpoint for user delivery
+- [x] Save the final project checkpoint for user delivery
+- [x] Add microphone permission handling and a hands-free recording control
+- [x] Send captured audio to the built-in transcription service and submit the resulting transcript for grading
+- [x] Test native recording, transcription errors, and typed fallback behavior
