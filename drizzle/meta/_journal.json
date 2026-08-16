@@ -15,6 +15,13 @@
       "when": 1786891628574,
       "tag": "0001_thick_vermin",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1786892085675,
+      "tag": "0002_nosy_gamora",
+      "breakpoints": true
     }
   ]
 }

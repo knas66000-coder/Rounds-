@@ -5,12 +5,14 @@ import { HapticTab } from "@/components/haptic-tab";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Platform } from "react-native";
 import { useColors } from "@/hooks/use-colors";
+import { trpc } from "@/lib/trpc";
 
 export default function TabLayout() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
   const bottomPadding = Platform.OS === "web" ? 12 : Math.max(insets.bottom, 8);
   const tabBarHeight = 56 + bottomPadding;
+  const unreadNotifications = trpc.notifications.unreadCount.useQuery(undefined, { refetchInterval: 30000 });
 
   return (
     <Tabs
@@ -53,6 +55,7 @@ export default function TabLayout() {
         name="community"
         options={{
           title: "Community",
+          tabBarBadge: unreadNotifications.data ? unreadNotifications.data : undefined,
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.2.fill" color={color} />,
         }}
       />

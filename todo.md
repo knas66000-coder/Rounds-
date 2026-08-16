@@ -88,3 +88,10 @@
 - [x] Add reporting and own-content deletion flows with clear confirmation and feedback
 - [x] Add deterministic tests for community validation, permissions, and content safety utilities
 - [x] Validate and checkpoint the safe social-learning release
+- [x] Define notification event rules, privacy boundaries, and user preference behavior
+- [x] Add authenticated notification and notification-preference storage
+- [x] Create protected notification APIs for reaction and reply events, unread counts, read state, and preferences
+- [x] Add a notification inbox with unread badge, read controls, and post navigation
+- [x] Add notification preference controls to Settings
+- [x] Add deterministic tests for notification eligibility, privacy, and unread-state logic
+- [x] Validate and checkpoint the community notification release

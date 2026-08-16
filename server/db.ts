@@ -1,7 +1,8 @@
 import { and, desc, eq, inArray } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { communityPosts, communityReactions, communityReplies, communityReports, InsertUser, users } from "../drizzle/schema";
+import { communityNotificationPreferences, communityNotifications, communityPosts, communityReactions, communityReplies, communityReports, InsertUser, users } from "../drizzle/schema";
 import { ENV } from "./_core/env";
+import { shouldCreateCommunityNotification, type CommunityNotificationType, type NotificationPreference } from "../shared/notification-rules";
 
 let _db: ReturnType<typeof drizzle> | null = null;
 
@@ -180,4 +181,69 @@ export async function createCommunityReport(reporterId: number, targetType: "pos
   const db = await getDb();
   if (!db) throw new Error("Community storage is temporarily unavailable.");
   await db.insert(communityReports).values({ reporterId, targetType, targetId, reason });
+}
+
+const defaultNotificationPreferences: NotificationPreference = { reactionAlerts: true, replyAlerts: true };
+
+export async function getCommunityNotificationPreferences(userId: number): Promise<NotificationPreference> {
+  const db = await getDb();
+  if (!db) return defaultNotificationPreferences;
+  const existing = await db.select({ reactionAlerts: communityNotificationPreferences.reactionAlerts, replyAlerts: communityNotificationPreferences.replyAlerts }).from(communityNotificationPreferences).where(eq(communityNotificationPreferences.userId, userId)).limit(1);
+  if (existing.length) return existing[0];
+  await db.insert(communityNotificationPreferences).values({ userId });
+  return defaultNotificationPreferences;
+}
+
+export async function updateCommunityNotificationPreferences(userId: number, preferences: NotificationPreference): Promise<NotificationPreference> {
+  const db = await getDb();
+  if (!db) throw new Error("Notification preferences are temporarily unavailable.");
+  const existing = await db.select({ id: communityNotificationPreferences.id }).from(communityNotificationPreferences).where(eq(communityNotificationPreferences.userId, userId)).limit(1);
+  if (existing.length) await db.update(communityNotificationPreferences).set(preferences).where(eq(communityNotificationPreferences.id, existing[0].id));
+  else await db.insert(communityNotificationPreferences).values({ userId, ...preferences });
+  return preferences;
+}
+
+export async function createCommunityNotificationForPostOwner(actorUserId: number, postId: number, type: CommunityNotificationType): Promise<boolean> {
+  const db = await getDb();
+  if (!db) return false;
+  const post = await db.select({ userId: communityPosts.userId }).from(communityPosts).where(and(eq(communityPosts.id, postId), eq(communityPosts.status, "active"))).limit(1);
+  if (!post.length) return false;
+  const preferences = await getCommunityNotificationPreferences(post[0].userId);
+  if (!shouldCreateCommunityNotification({ recipientUserId: post[0].userId, actorUserId, type, preferences })) return false;
+  await db.insert(communityNotifications).values({ userId: post[0].userId, actorUserId, postId, type });
+  return true;
+}
+
+export async function listCommunityNotifications(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  const notifications = await db.select().from(communityNotifications).where(eq(communityNotifications.userId, userId)).orderBy(desc(communityNotifications.createdAt)).limit(50);
+  return notifications.map((notification) => ({
+    id: notification.id,
+    postId: notification.postId,
+    type: notification.type,
+    read: notification.readAt !== null,
+    createdAt: notification.createdAt,
+    title: notification.type === "reaction" ? "Your study update received encouragement" : "Your study update has a new reply",
+    detail: notification.type === "reaction" ? "A learner encouraged your progress." : "A learner shared a supportive response.",
+  }));
+}
+
+export async function communityNotificationUnreadCount(userId: number) {
+  const notifications = await listCommunityNotifications(userId);
+  return notifications.filter((notification) => !notification.read).length;
+}
+
+export async function markCommunityNotificationRead(userId: number, notificationId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Notifications are temporarily unavailable.");
+  await db.update(communityNotifications).set({ readAt: new Date() }).where(and(eq(communityNotifications.id, notificationId), eq(communityNotifications.userId, userId)));
+}
+
+export async function markAllCommunityNotificationsRead(userId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Notifications are temporarily unavailable.");
+  const notifications = await db.select({ id: communityNotifications.id, readAt: communityNotifications.readAt }).from(communityNotifications).where(eq(communityNotifications.userId, userId));
+  const unreadIds = notifications.filter((notification) => notification.readAt === null).map((notification) => notification.id);
+  if (unreadIds.length) await db.update(communityNotifications).set({ readAt: new Date() }).where(inArray(communityNotifications.id, unreadIds));
 }

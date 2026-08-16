@@ -85,6 +85,7 @@ export const appRouter = router({
     toggleReaction: protectedProcedure.input(z.object({ postId: z.number().int().positive() })).mutation(async ({ ctx, input }) => {
       const result = await db.toggleCommunityReaction(ctx.user.id, input.postId);
       if (result.missing) throw new TRPCError({ code: "NOT_FOUND", message: "This study update is no longer available." });
+      if (result.active) await db.createCommunityNotificationForPostOwner(ctx.user.id, input.postId, "reaction");
       return result;
     }),
     listReplies: protectedProcedure.input(z.object({ postId: z.number().int().positive() })).query(({ ctx, input }) => db.listCommunityReplies(input.postId, ctx.user.id)),
@@ -93,6 +94,7 @@ export const appRouter = router({
       if (!checked.valid) throw new TRPCError({ code: "BAD_REQUEST", message: checked.message });
       const created = await db.createCommunityReply(ctx.user.id, input.postId, checked.value);
       if (!created) throw new TRPCError({ code: "NOT_FOUND", message: "This study update is no longer available." });
+      await db.createCommunityNotificationForPostOwner(ctx.user.id, input.postId, "reply");
       return { success: true };
     }),
     deletePost: protectedProcedure.input(z.object({ postId: z.number().int().positive() })).mutation(async ({ ctx, input }) => {
@@ -109,6 +111,21 @@ export const appRouter = router({
       await db.createCommunityReport(ctx.user.id, input.targetType, input.targetId, input.reason);
       return { success: true };
     }),
+  }),
+
+  notifications: router({
+    list: protectedProcedure.query(({ ctx }) => db.listCommunityNotifications(ctx.user.id)),
+    unreadCount: protectedProcedure.query(({ ctx }) => db.communityNotificationUnreadCount(ctx.user.id)),
+    markRead: protectedProcedure.input(z.object({ notificationId: z.number().int().positive() })).mutation(async ({ ctx, input }) => {
+      await db.markCommunityNotificationRead(ctx.user.id, input.notificationId);
+      return { success: true };
+    }),
+    markAllRead: protectedProcedure.mutation(async ({ ctx }) => {
+      await db.markAllCommunityNotificationsRead(ctx.user.id);
+      return { success: true };
+    }),
+    preferences: protectedProcedure.query(({ ctx }) => db.getCommunityNotificationPreferences(ctx.user.id)),
+    updatePreferences: protectedProcedure.input(z.object({ reactionAlerts: z.boolean(), replyAlerts: z.boolean() })).mutation(({ ctx, input }) => db.updateCommunityNotificationPreferences(ctx.user.id, input)),
   }),
 
 });

@@ -1,4 +1,4 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, uniqueIndex, varchar } from "drizzle-orm/mysql-core";
+import { boolean, int, mysqlEnum, mysqlTable, text, timestamp, uniqueIndex, varchar } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
@@ -63,5 +63,24 @@ export const communityReports = mysqlTable("community_reports", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const communityNotificationPreferences = mysqlTable("community_notification_preferences", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  reactionAlerts: boolean("reactionAlerts").default(true).notNull(),
+  replyAlerts: boolean("replyAlerts").default(true).notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => [uniqueIndex("community_notification_preferences_user").on(table.userId)]);
+
+export const communityNotifications = mysqlTable("community_notifications", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  actorUserId: int("actorUserId").notNull(),
+  postId: int("postId").notNull(),
+  type: mysqlEnum("type", ["reaction", "reply"]).notNull(),
+  readAt: timestamp("readAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
 export type CommunityPost = typeof communityPosts.$inferSelect;
 export type CommunityReply = typeof communityReplies.$inferSelect;
+export type CommunityNotification = typeof communityNotifications.$inferSelect;
