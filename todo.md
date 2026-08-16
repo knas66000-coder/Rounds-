@@ -61,3 +61,17 @@
 - [x] Remove visible Manus-related names and references from the application interface
 - [x] Add deterministic tests for authentication gate states and sign-out behavior
 - [x] Validate and checkpoint the secure authentication release
+- [x] Review practice, bookmark, mock-exam, and local-result data flows for adaptive learning signals
+- [x] Define a transparent priority model for missed, partial, flagged, and bookmarked questions
+- [x] Persist per-question learning signals and build a non-repeating adaptive review queue
+- [x] Add an adaptive review entry point and learner-facing priority explanation
+- [ ] Add post-exam answer review by outcome, including flagged and unanswered filters
+- [ ] Add post-exam recommendations that launch targeted remediation practice
+- [x] Add deterministic tests for review prioritization, queue uniqueness, and remediation summaries
+- [x] Validate and checkpoint the adaptive-learning release
+- [ ] Add configurable mock-exam question counts, time limits, and topic blueprints
+- [ ] Add saved mock-exam history with longitudinal performance trends
+- [ ] Add a learner analytics dashboard for topic accuracy, weak concepts, and time spent
+- [ ] Add question reporting and clinical review metadata for content-quality governance
+- [ ] Add larger-text, screen-reader, reduced-motion, and keyboard-accessibility controls
+- [ ] Add authenticated account data export, retention, and deletion controls

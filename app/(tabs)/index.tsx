@@ -13,6 +13,7 @@ import { trpc } from "@/lib/trpc";
 import { ACTIVE_CATEGORY_KEY, hasAnotherQuestion, nextStepForVerdict, questionsForCategory } from "@/lib/session";
 import { haptic } from "@/lib/haptics";
 import { bookmarkIds, BOOKMARKS_KEY, parseBookmarks, toggleBookmark, type Bookmark } from "@/lib/bookmarks";
+import { recordLearningOutcome } from "@/lib/adaptive-store";
 
 const STORAGE_KEY = "rounds.session.v1";
 
@@ -156,6 +157,7 @@ export default function HomeScreen() {
     setVoiceNotice(null);
     setPhase("result");
     await saveResult(nextEvaluation.verdict);
+    await recordLearningOutcome(question.id, nextEvaluation.verdict);
     Speech.speak(nextEvaluation.feedback, { rate: 0.98, language: "en-US" });
     if (autoMode) {
       autoTimer.current = setTimeout(() => nextQuestion(), 4500);

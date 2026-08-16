@@ -128,5 +128,5 @@ function ProtectedNavigator() {
   if (accessState === "callback") return <Stack screenOptions={{ headerShown: false }}><Stack.Screen name="oauth/callback" /></Stack>;
   if (accessState === "loading") return <SecureAccessGate busy />;
   if (accessState === "sign-in") return <SecureAccessGate />;
-  return <Stack screenOptions={{ headerShown: false }}><Stack.Screen name="(tabs)" /><Stack.Screen name="mock-exam" /><Stack.Screen name="bookmark-review" /><Stack.Screen name="oauth/callback" /></Stack>;
+  return <Stack screenOptions={{ headerShown: false }}><Stack.Screen name="(tabs)" /><Stack.Screen name="mock-exam" /><Stack.Screen name="adaptive-review" /><Stack.Screen name="bookmark-review" /><Stack.Screen name="oauth/callback" /></Stack>;
 }

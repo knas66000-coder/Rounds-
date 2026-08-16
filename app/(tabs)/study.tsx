@@ -5,6 +5,7 @@ import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import { ScreenContainer } from "@/components/screen-container";
 import { questionBank } from "@/data/questionBank";
 import { bookmarkIds, BOOKMARKS_KEY, parseBookmarks, type Bookmark } from "@/lib/bookmarks";
+import { buildAdaptiveQueue, LEARNING_SIGNALS_KEY, parseLearningSignals, type LearningSignal } from "@/lib/adaptive";
 import { haptic } from "@/lib/haptics";
 import { useColors } from "@/hooks/use-colors";
 
@@ -15,13 +16,15 @@ export default function StudyScreen() {
   const router = useRouter();
   const [view, setView] = useState<StudyView>("home");
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
+  const [signals, setSignals] = useState<LearningSignal[]>([]);
   const savedIds = bookmarkIds(bookmarks);
   const savedQuestions = useMemo(() => questionBank.filter((question) => savedIds.includes(question.id)), [savedIds]);
+  const adaptiveItems = useMemo(() => buildAdaptiveQueue(questionBank, signals, savedIds), [savedIds, signals]);
 
   const loadBookmarks = useCallback(() => {
     let active = true;
-    AsyncStorage.getItem(BOOKMARKS_KEY).then((value) => {
-      if (active) setBookmarks(parseBookmarks(value));
+    Promise.all([AsyncStorage.getItem(BOOKMARKS_KEY), AsyncStorage.getItem(LEARNING_SIGNALS_KEY)]).then(([bookmarkValue, signalValue]) => {
+      if (active) { setBookmarks(parseBookmarks(bookmarkValue)); setSignals(parseLearningSignals(signalValue)); }
     });
     return () => { active = false; };
   }, []);
@@ -52,7 +55,7 @@ export default function StudyScreen() {
 
   return (
     <ScreenContainer className="px-5" edges={["top", "left", "right"]}>
-      <View style={styles.home}><View style={styles.header}><Text style={[styles.eyebrow, { color: colors.primary }]}>STUDY TOOLS</Text><Text style={[styles.title, { color: colors.foreground }]}>Prepare with purpose.</Text><Text style={[styles.sub, { color: colors.muted }]}>Simulate a timed exam or return to questions that deserve another pass.</Text></View><Pressable onPress={() => router.push("/mock-exam")} accessibilityRole="button" style={({ pressed }) => [styles.toolCard, { borderColor: colors.primary, backgroundColor: colors.primary }, pressed && styles.pressed]}><Text style={[styles.toolOverline, { color: colors.background }]}>TIMED SIMULATION</Text><Text style={[styles.toolTitle, { color: colors.background }]}>Mock Exam</Text><Text style={[styles.toolBody, { color: colors.background }]}>Take 25 randomized questions in a 60-minute NCLEX-style study session.</Text><Text style={[styles.toolAction, { color: colors.background }]}>Start exam ›</Text></Pressable><Pressable onPress={() => { haptic.light(); setView("bookmarks"); }} accessibilityRole="button" style={({ pressed }) => [styles.toolCard, { borderColor: colors.border, backgroundColor: colors.surface }, pressed && styles.pressed]}><Text style={[styles.toolOverline, { color: colors.primary }]}>REVISIT & REVIEW</Text><Text style={[styles.toolTitle, { color: colors.foreground }]}>Bookmarks</Text><Text style={[styles.toolBody, { color: colors.muted }]}>{savedQuestions.length ? `${savedQuestions.length} saved questions ready for focused review.` : "Save questions from Practice or Mock Exam to return to them later."}</Text><Text style={[styles.toolAction, { color: colors.primary }]}>Open bookmarks ›</Text></Pressable><Text style={[styles.note, { color: colors.muted }]}>Mock Exam is a timed study simulation and not an official NCLEX administration.</Text></View>
+      <View style={styles.home}><View style={styles.header}><Text style={[styles.eyebrow, { color: colors.primary }]}>STUDY TOOLS</Text><Text style={[styles.title, { color: colors.foreground }]}>Prepare with purpose.</Text><Text style={[styles.sub, { color: colors.muted }]}>Simulate a timed exam or return to questions that deserve another pass.</Text></View><Pressable onPress={() => router.push("/adaptive-review")} accessibilityRole="button" style={({ pressed }) => [styles.toolCard, { borderColor: colors.primary, backgroundColor: colors.surface }, pressed && styles.pressed]}><Text style={[styles.toolOverline, { color: colors.primary }]}>PERSONALIZED PRACTICE</Text><Text style={[styles.toolTitle, { color: colors.foreground }]}>Adaptive Review</Text><Text style={[styles.toolBody, { color: colors.muted }]}>{adaptiveItems.length ? `${adaptiveItems.length} unique questions prioritized from misses, partial answers, flags, and saved items.` : "Your adaptive queue will build from missed, partial, flagged, and saved questions."}</Text><Text style={[styles.toolAction, { color: colors.primary }]}>Review priorities ›</Text></Pressable><Pressable onPress={() => router.push("/mock-exam")} accessibilityRole="button" style={({ pressed }) => [styles.toolCard, { borderColor: colors.primary, backgroundColor: colors.primary }, pressed && styles.pressed]}><Text style={[styles.toolOverline, { color: colors.background }]}>TIMED SIMULATION</Text><Text style={[styles.toolTitle, { color: colors.background }]}>Mock Exam</Text><Text style={[styles.toolBody, { color: colors.background }]}>Take 25 randomized questions in a 60-minute NCLEX-style study session.</Text><Text style={[styles.toolAction, { color: colors.background }]}>Start exam ›</Text></Pressable><Pressable onPress={() => { haptic.light(); setView("bookmarks"); }} accessibilityRole="button" style={({ pressed }) => [styles.toolCard, { borderColor: colors.border, backgroundColor: colors.surface }, pressed && styles.pressed]}><Text style={[styles.toolOverline, { color: colors.primary }]}>REVISIT & REVIEW</Text><Text style={[styles.toolTitle, { color: colors.foreground }]}>Bookmarks</Text><Text style={[styles.toolBody, { color: colors.muted }]}>{savedQuestions.length ? `${savedQuestions.length} saved questions ready for focused review.` : "Save questions from Practice or Mock Exam to return to them later."}</Text><Text style={[styles.toolAction, { color: colors.primary }]}>Open bookmarks ›</Text></Pressable><Text style={[styles.note, { color: colors.muted }]}>Priority order: missed, partial, flagged, then saved. Mock Exam is a timed study simulation and not an official NCLEX administration.</Text></View>
     </ScreenContainer>
   );
 }
