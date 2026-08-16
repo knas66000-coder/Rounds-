@@ -47,3 +47,10 @@
 - [x] Transform and integrate the answered question bank into the mobile practice experience
 - [x] Detect and remove duplicate or near-duplicate questions while preserving a complete unique-source audit
 - [x] Ensure every practice queue serves each imported question only once before reshuffling
+- [x] Define a timed NCLEX-style mock-exam setup, question flow, pause policy, and results summary
+- [x] Implement local persistent bookmarking from practice and exam questions
+- [x] Add a Bookmarks screen for reviewing, removing, and starting a focused saved-question round
+- [x] Implement timed mock-exam selection, countdown, question navigation, and submit confirmation
+- [x] Add mock-exam results with score, unanswered count, time used, and focused next steps
+- [x] Add deterministic tests for bookmark persistence and mock-exam timing logic
+- [x] Validate and checkpoint the mock-exam and bookmark release

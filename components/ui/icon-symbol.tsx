@@ -21,6 +21,7 @@ const MAPPING = {
   "list.bullet": "format-list-bulleted",
   "chart.bar.fill": "bar-chart",
   "gearshape.fill": "settings",
+  "bookmark.fill": "bookmark",
 } as IconMapping;
 
 /**

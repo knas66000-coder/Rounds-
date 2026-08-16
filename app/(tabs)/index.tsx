@@ -12,6 +12,7 @@ import { encodeRecordedAudio } from "@/lib/audio-encoding";
 import { trpc } from "@/lib/trpc";
 import { ACTIVE_CATEGORY_KEY, hasAnotherQuestion, nextStepForVerdict, questionsForCategory } from "@/lib/session";
 import { haptic } from "@/lib/haptics";
+import { bookmarkIds, BOOKMARKS_KEY, parseBookmarks, toggleBookmark, type Bookmark } from "@/lib/bookmarks";
 
 const STORAGE_KEY = "rounds.session.v1";
 
@@ -30,6 +31,7 @@ export default function HomeScreen() {
   const [results, setResults] = useState<SavedResult[]>([]);
   const [answerDraft, setAnswerDraft] = useState("");
   const [voiceNotice, setVoiceNotice] = useState<string | null>(null);
+  const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
   const autoTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const recordingTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const recorder = useAudioRecorder(RecordingPresets.HIGH_QUALITY);
@@ -198,6 +200,14 @@ export default function HomeScreen() {
     return () => { mounted = false; };
   }, [category]));
 
+  useFocusEffect(useCallback(() => {
+    let mounted = true;
+    AsyncStorage.getItem(BOOKMARKS_KEY).then((value) => {
+      if (mounted) setBookmarks(parseBookmarks(value));
+    });
+    return () => { mounted = false; };
+  }, []));
+
   const toggleAutoMode = () => {
     const nextMode = !autoMode;
     haptic.medium();
@@ -241,6 +251,15 @@ export default function HomeScreen() {
     setPhase("idle");
   };
 
+  const toggleCurrentBookmark = () => {
+    const next = toggleBookmark(bookmarks, question.id);
+    setBookmarks(next);
+    void AsyncStorage.setItem(BOOKMARKS_KEY, JSON.stringify(next));
+    haptic.light();
+  };
+
+  const isCurrentQuestionSaved = bookmarkIds(bookmarks).includes(question.id);
+
   const phaseLabel = phase === "asking" ? "Speaking question" : phase === "listening" ? "Listening for your answer" : phase === "transcribing" ? "Transcribing your answer" : phase === "result" ? "Answer reviewed" : phase === "complete" ? "Unique question round completed" : "Ready when you are";
   const verdictColor = evaluation?.verdict === "correct" ? colors.success : evaluation?.verdict === "partial" ? colors.warning : colors.error;
 
@@ -279,6 +298,7 @@ export default function HomeScreen() {
           </View>
           <Text style={[styles.question, { color: colors.foreground }]}>{question.q}</Text>
           <Text style={[styles.phase, { color: phase === "listening" ? colors.primary : colors.muted }]}>{phaseLabel}</Text>
+          <Pressable onPress={toggleCurrentBookmark} accessibilityRole="button" accessibilityLabel={isCurrentQuestionSaved ? "Remove current question from bookmarks" : "Save current question to bookmarks"} style={[styles.bookmarkButton, { borderColor: isCurrentQuestionSaved ? colors.primary : colors.border, backgroundColor: isCurrentQuestionSaved ? colors.primary : colors.background }]}><Text style={[styles.bookmarkText, { color: isCurrentQuestionSaved ? colors.background : colors.primary }]}>{isCurrentQuestionSaved ? "★ Saved" : "☆ Save question"}</Text></Pressable>
         </View>
 
         {evaluation ? (
@@ -378,7 +398,7 @@ const styles = StyleSheet.create({
   filterRow: { gap: 8 }, sectionLabel: { fontSize: 11, letterSpacing: 1.4, fontWeight: "800" }, chips: { gap: 8 },
   chip: { borderWidth: 1, paddingHorizontal: 14, paddingVertical: 9, borderRadius: 999 },
   questionCard: { borderWidth: 1, borderRadius: 24, padding: 22, gap: 18 }, cardMeta: { flexDirection: "row", justifyContent: "space-between" }, category: { fontSize: 11, fontWeight: "800", letterSpacing: 1.2 }, progress: { fontSize: 11, fontWeight: "700", letterSpacing: 1 },
-  question: { fontFamily: "Georgia", fontSize: 25, lineHeight: 34, fontWeight: "700" }, phase: { fontSize: 13, fontWeight: "600" },
+  question: { fontFamily: "Georgia", fontSize: 25, lineHeight: 34, fontWeight: "700" }, phase: { fontSize: 13, fontWeight: "600" }, bookmarkButton: { alignSelf: "flex-start", borderWidth: 1, borderRadius: 999, paddingHorizontal: 12, paddingVertical: 8 }, bookmarkText: { fontSize: 12, fontWeight: "900" },
   actionArea: { gap: 12, alignItems: "stretch" }, micButton: { minHeight: 66, borderRadius: 22, alignItems: "center", justifyContent: "center", flexDirection: "row", gap: 10 }, micIcon: { color: "#F5F1E8", fontSize: 22 }, micText: { color: "#F5F1E8", fontSize: 17, fontWeight: "800" }, primaryButton: { minHeight: 58, borderRadius: 18, alignItems: "center", justifyContent: "center" }, primaryButtonText: { fontSize: 16, fontWeight: "800" }, pressed: { opacity: 0.82, transform: [{ scale: 0.98 }] },
   fallbackArea: { gap: 8 }, voiceNotice: { fontSize: 12, lineHeight: 17, paddingHorizontal: 2 }, input: { minHeight: 74, borderWidth: 1, borderRadius: 16, padding: 14, fontSize: 15, textAlignVertical: "top" }, textSubmit: { minHeight: 42, borderWidth: 1, borderRadius: 14, justifyContent: "center", alignItems: "center" }, textSubmitLabel: { fontSize: 13, fontWeight: "800" }, modeRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" }, modeLabel: { fontSize: 13, fontWeight: "600" }, modeToggle: { borderRadius: 999, padding: 5, paddingRight: 12, flexDirection: "row", alignItems: "center", gap: 7 }, toggleKnob: { width: 20, height: 20, borderRadius: 10, backgroundColor: "#F5F1E8" }, toggleKnobOn: { backgroundColor: "#F5F1E8" }, modeText: { fontSize: 10, fontWeight: "900", letterSpacing: 0.8 },
   reviewCard: { borderWidth: 1.5, borderRadius: 22, padding: 18, gap: 10 }, reviewHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" }, verdict: { fontSize: 13, fontWeight: "900", letterSpacing: 1.2 }, match: { fontSize: 12, fontWeight: "700" }, transcriptLabel: { fontSize: 10, fontWeight: "800", letterSpacing: 1.2, marginTop: 4 }, transcript: { fontSize: 15, lineHeight: 22 }, contextTitle: { fontSize: 15, fontWeight: "800", marginTop: 4 }, body: { fontSize: 14, lineHeight: 21 }, keyList: { flexDirection: "row", flexWrap: "wrap", gap: 7 }, keyPill: { flexDirection: "row", gap: 6, alignItems: "center", borderWidth: 1, paddingHorizontal: 10, paddingVertical: 7, borderRadius: 999 }, nextStepBox: { padding: 12, borderRadius: 14, gap: 4, marginTop: 3 }, answerBox: { padding: 12, borderRadius: 14, gap: 4, marginTop: 3 }, bodyStrong: { fontSize: 14, lineHeight: 20, fontWeight: "700" },
