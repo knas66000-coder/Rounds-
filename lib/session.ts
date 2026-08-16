@@ -12,3 +12,7 @@ export function nextStepForVerdict(verdict: Verdict): string {
   if (verdict === "partial") return "Review the unrecognized key terms, then try to include them in your next response.";
   return "Pause on the key answer, then say the full clinical reasoning aloud before moving on.";
 }
+
+export function hasAnotherQuestion(currentIndex: number, queueLength: number): boolean {
+  return currentIndex + 1 < queueLength;
+}

@@ -1,0 +1,2965 @@
+          Rounds — Nursing (NCLEX) Question Bank
+1,000 unique voice-revision questions · master template set
+
+nur-001
+What is the normal range for adult resting heart rate, in beats per minute?
+
+nur-002
+Name the five rights of medication administration.
+
+nur-003
+What is the normal adult respiratory rate range per minute?
+
+nur-004
+Which hand hygiene method is preferred when hands are visibly soiled, soap and water or alcohol-based
+rub?
+
+nur-005
+What position should a patient be in to reduce risk of aspiration during tube feeding?
+
+nur-006
+What is the normal adult body temperature range in Celsius?
+
+nur-007
+What is the correct sequence for donning personal protective equipment?
+
+nur-008
+What is the term for documentation that describes only significant findings and deviations from normal?
+
+nur-009
+What angle is used for a subcutaneous injection in an average-weight adult?
+
+nur-010
+What is the normal adult blood pressure range, using the AHA definition of normal?
+
+nur-011
+What is the antidote for warfarin overdose?
+
+nur-012
+What is the antidote for opioid overdose?
+
+nur-013
+What is the antidote for acetaminophen overdose?
+
+nur-014
+Which electrolyte imbalance is a major risk with loop diuretics like furosemide?
+
+nur-015
+What lab value must be monitored closely in a patient taking lithium?
+
+nur-016
+Digoxin toxicity can cause which classic visual disturbance?
+
+nur-017
+What is the antidote for benzodiazepine overdose?
+nur-018
+What is the antidote for heparin overdose?
+
+nur-019
+Which class of drugs carries a black box warning for increased suicidal ideation in adolescents?
+
+nur-020
+What should a nurse assess before administering an ACE inhibitor?
+
+nur-021
+What is the therapeutic serum range for phenytoin, in micrograms per milliliter?
+
+nur-022
+Which vitamin deficiency is associated with long-term isoniazid therapy?
+
+nur-023
+What is the first action for a patient experiencing chest pain?
+
+nur-024
+Which heart sound, S3 or S4, is commonly associated with heart failure?
+
+nur-025
+What does the P wave represent on an ECG?
+
+nur-026
+What is the priority nursing action for a patient in ventricular fibrillation?
+
+nur-027
+What position helps reduce venous return and ease breathing in acute heart failure?
+
+nur-028
+What is a hallmark sign of cardiac tamponade, part of Beck's triad?
+
+nur-029
+Which lab marker rises first after a myocardial infarction?
+
+nur-030
+What position best eases breathing for a patient with dyspnea?
+
+nur-031
+A patient with COPD should generally receive oxygen at what flow target to avoid suppressing the
+respiratory drive?
+
+nur-032
+What is the earliest sign of hypoxia in most patients?
+
+nur-033
+What is the priority intervention for a suspected tension pneumothorax?
+
+nur-034
+What is normal oxygen saturation range for a healthy adult on room air?
+
+nur-035
+What breath sound is described as high-pitched and heard on inspiration and expiration in asthma?
+
+nur-036
+What is the normal fasting blood glucose range in milligrams per deciliter?
+
+nur-037
+What are the classic signs of hypoglycemia?
+
+nur-038
+What is the priority intervention for a conscious patient with hypoglycemia?
+
+nur-039
+What are the classic signs of diabetic ketoacidosis?
+
+nur-040
+What hormone is deficient in type 1 diabetes mellitus?
+
+nur-041
+What is the priority assessment for a patient with suspected thyroid storm?
+
+nur-042
+What is the normal urine output considered adequate per hour for an adult?
+
+nur-043
+Which electrolyte is most dangerous when elevated in renal failure, risking cardiac arrest?
+
+nur-044
+What dietary restriction is typically recommended for a patient in chronic kidney disease?
+
+nur-045
+What is the term for a sudden decline in kidney function?
+
+nur-046
+What complication should be monitored for immediately after hemodialysis?
+
+nur-047
+What is the normal fetal heart rate range in beats per minute?
+
+nur-048
+What is the term for the first stool passed by a newborn?
+
+nur-049
+Magnesium sulfate toxicity is monitored by checking which reflex?
+
+nur-050
+What are the classic signs of preeclampsia?
+
+nur-051
+What is the priority action if umbilical cord prolapse occurs?
+
+nur-052
+What is the term for excessive vomiting during pregnancy leading to dehydration?
+
+nur-053
+What Apgar score components are assessed at 1 and 5 minutes after birth?
+
+nur-054
+At what age do most infants triple their birth weight?
+nur-055
+What illness causes a barking cough and is also called viral laryngotracheobronchitis?
+
+nur-056
+What is the normal respiratory rate range for a newborn?
+
+nur-057
+What childhood illness presents with a classic 'slapped cheek' rash?
+
+nur-058
+What is the priority concern with a child presenting with barking cough, stridor, and drooling?
+
+nur-059
+At what age can most infants sit without support?
+
+nur-060
+What is the priority assessment when caring for a patient with suicidal ideation?
+
+nur-061
+Which combination of medications carries a major risk of serotonin syndrome?
+
+nur-062
+What is the term for a fixed, false belief not shared by others in the patient's culture?
+
+nur-063
+What nursing approach is most therapeutic when a patient is experiencing hallucinations?
+
+nur-064
+What is the term for extreme, persistent worry that interferes with daily functioning?
+
+nur-065
+What symptom cluster distinguishes mania from normal high energy?
+
+nur-066
+What is the most common early sign of malignant hyperthermia under anesthesia?
+
+nur-067
+How soon after surgery should a patient typically be encouraged to ambulate to prevent complications?
+
+nur-068
+What preoperative teaching reduces the risk of postoperative atelectasis?
+
+nur-069
+What is the priority assessment immediately after a patient returns from surgery under general anesthesia?
+
+nur-070
+What informed consent element must the nurse verify before surgery, though the surgeon obtains it?
+
+nur-071
+What type of isolation precaution is required for tuberculosis?
+
+nur-072
+What type of precaution is used for C. difficile infection?
+
+nur-073
+What isolation type is used for influenza or pertussis?
+nur-074
+What are the four links in the chain of infection that can be broken to prevent spread?
+
+nur-075
+What is the priority nursing action for a patient showing early signs of sepsis?
+
+nur-076
+What is the normal serum sodium range in milliequivalents per liter?
+
+nur-077
+What are signs of fluid volume overload?
+
+nur-078
+What is the normal serum potassium range in milliequivalents per liter?
+
+nur-079
+What ECG change is classically associated with hyperkalemia?
+
+nur-080
+What are signs of hypocalcemia, including Chvostek's and Trousseau's signs?
+
+nur-081
+Using the ABC framework, which comes first: airway, breathing, or circulation?
+
+nur-082
+Using Maslow's hierarchy, which need takes priority: physiological needs or safety needs?
+
+nur-083
+When triaging multiple patients, which should be seen first: a stable patient with a laceration, or a patient
+with new-onset confusion?
+
+nur-084
+What principle guides delegation of tasks to unlicensed assistive personnel?
+
+nur-085
+What position should a patient be placed in after a liver biopsy to apply pressure?
+
+nur-086
+What is the priority assessment after abdominal surgery to detect ileus?
+
+nur-087
+What are the classic signs of appendicitis?
+
+nur-088
+What dietary modification is recommended for a patient with GERD?
+
+nur-089
+What complication of peptic ulcer disease presents with sudden, severe abdominal pain and a rigid,
+board-like abdomen?
+
+nur-090
+What scale is used to assess level of consciousness, ranging from 3 to 15?
+
+nur-091
+What is the early sign of increased intracranial pressure most often seen first?
+nur-092
+What are the signs of Cushing's triad, indicating late increased intracranial pressure?
+
+nur-093
+What is the priority action within the first hour of suspected ischemic stroke symptoms?
+
+nur-094
+What is the term for the inability to understand or produce language after brain injury?
+
+nur-095
+What position should be avoided in a patient with increased intracranial pressure?
+
+nur-096
+What ethical principle refers to a patient's right to make their own healthcare decisions?
+
+nur-097
+What is the legal term for touching a patient without consent?
+
+nur-098
+What ethical principle means 'do no harm'?
+
+nur-099
+What must a nurse do first upon discovering a medication error occurred?
+
+nur-100
+What federal law protects the privacy of patient health information in the United States?
+
+nur-101
+What is the normal duration of a full-term pregnancy?
+
+nur-102
+What is the recommended weight gain for a woman with a normal BMI during pregnancy?
+
+nur-103
+What is the most common cause of bleeding in the first trimester of pregnancy?
+
+nur-104
+What is the most common cause of bleeding in the third trimester of pregnancy?
+
+nur-105
+What is the difference between placenta previa and placental abruption?
+
+nur-106
+What is the normal fetal heart rate range during pregnancy?
+
+nur-107
+What is the best indicator of fetal well-being during labor?
+
+nur-108
+What are the signs of preeclampsia?
+
+nur-109
+What is the most common medication used to manage preeclampsia?
+
+nur-110
+What are the signs of magnesium sulfate toxicity?
+nur-111
+What is the antidote for magnesium sulfate toxicity?
+
+nur-112
+What is the recommended Apgar score for a healthy newborn at 5 minutes of life?
+
+nur-113
+What are the 5 components of the Apgar score?
+
+nur-114
+What is the most common complication of gestational diabetes?
+
+nur-115
+What is the normal blood glucose range for a woman with gestational diabetes during pregnancy?
+
+nur-116
+What is the normal heart rate for a newborn infant?
+
+nur-117
+What is the normal respiratory rate for a newborn infant?
+
+nur-118
+What is the normal heart rate for a 1-year-old child?
+
+nur-119
+What is the normal systolic blood pressure for a school-age child?
+
+nur-120
+What is the most common cause of fever in children under 3 years of age?
+
+nur-121
+What is the most common cause of bronchiolitis in infants?
+
+nur-122
+What is the most common cause of croup in children?
+
+nur-123
+What is the hallmark sign of croup?
+
+nur-124
+What is the most common bacterial cause of otitis media in children?
+
+nur-125
+What is the normal weight gain pattern for a breastfed infant in the first 6 months?
+
+nur-126
+What is the recommended age for the first dose of the MMR vaccine?
+
+nur-127
+What is the recommended age for the first dose of the hepatitis B vaccine?
+
+nur-128
+What is the most common cause of acute gastroenteritis in children?
+
+nur-129
+What is the most important treatment for acute gastroenteritis in children?
+nur-130
+What is the most common cause of seizures in children aged 6 months to 5 years?
+
+nur-131
+What is the first-line treatment for major depressive disorder?
+
+nur-132
+What is the first-line treatment for generalized anxiety disorder?
+
+nur-133
+What is the most common side effect of selective serotonin reuptake inhibitors in the first few weeks of
+treatment?
+
+nur-134
+What is the black box warning for antidepressants in children and adolescents?
+
+nur-135
+What are the positive symptoms of schizophrenia?
+
+nur-136
+What are the negative symptoms of schizophrenia?
+
+nur-137
+What is the first-line antipsychotic medication for schizophrenia?
+
+nur-138
+What is the most serious adverse effect of clozapine?
+
+nur-139
+What is the difference between bipolar I and bipolar II disorder?
+
+nur-140
+What is the first-line treatment for acute mania in bipolar disorder?
+
+nur-141
+What is the therapeutic serum level of lithium?
+
+nur-142
+What are the symptoms of lithium toxicity?
+
+nur-143
+What is the most common anxiety disorder in adults?
+
+nur-144
+What is the most effective treatment for post-traumatic stress disorder?
+
+nur-145
+What is the difference between delirium and dementia?
+
+nur-146
+What is the most important preoperative assessment for a patient undergoing surgery?
+
+nur-147
+What is the recommended fasting time for clear liquids before surgery?
+
+nur-148
+What is the recommended fasting time for solid food before surgery?
+
+nur-149
+What medication should be held before surgery to reduce bleeding risk?
+
+nur-150
+What is the most common postoperative complication?
+
+nur-151
+What is the most important method to prevent healthcare-associated infections?
+
+nur-152
+How long should healthcare workers perform hand hygiene with soap and water?
+
+nur-153
+What is the minimum alcohol concentration for an effective hand sanitizer?
+
+nur-154
+What are the standard precautions in infection control?
+
+nur-155
+What are transmission-based precautions?
+
+nur-156
+What type of precautions are required for a patient with methicillin-resistant Staphylococcus aureus, or
+MRSA?
+
+nur-157
+What type of precautions are required for a patient with tuberculosis?
+
+nur-158
+What type of precautions are required for a patient with influenza?
+
+nur-159
+What are the most common healthcare-associated infections?
+
+nur-160
+What is the most common cause of central line-associated bloodstream infections?
+
+nur-161
+What is the bundle approach for preventing central line-associated bloodstream infections?
+
+nur-162
+What is the most common cause of catheter-associated urinary tract infections?
+
+nur-163
+What is the best way to prevent catheter-associated urinary tract infections?
+
+nur-164
+What is Clostridioides difficile, or C. diff, infection and how is it transmitted?
+
+nur-165
+What is the most effective agent for hand hygiene against C. difficile spores?
+
+nur-166
+What is the most common cause of surgical site infections?
+nur-167
+What is the single most important factor in preventing surgical site infections?
+
+nur-168
+What is the recommended temperature for maintaining sterile supplies?
+
+nur-169
+What is the chain of infection?
+
+nur-170
+What is the most effective way to break the chain of infection?
+
+nur-171
+What is the total body water percentage for an average adult male?
+
+nur-172
+What is the intracellular fluid volume in an average adult?
+
+nur-173
+What is the extracellular fluid volume in an average adult?
+
+nur-174
+What is the normal serum osmolality range?
+
+nur-175
+What is the most abundant intracellular cation?
+
+nur-176
+What is the most abundant extracellular cation?
+
+nur-177
+What is the most abundant intracellular anion?
+
+nur-178
+What is the most abundant extracellular anion?
+
+nur-179
+What is the normal serum magnesium level?
+
+nur-180
+What is the normal serum calcium level?
+
+nur-181
+What is the difference between hyponatremia and hypernatremia?
+
+nur-182
+What are the symptoms of hyponatremia?
+
+nur-183
+What is the most common cause of hypernatremia?
+
+nur-184
+What is the most common cause of hypokalemia?
+
+nur-185
+What is the most serious complication of hypokalemia?
+nur-186
+What is the most common cause of hyperkalemia?
+
+nur-187
+What is the most common cause of hypocalcemia?
+
+nur-188
+What is the most common cause of hypercalcemia?
+
+nur-189
+What is the Chvostek sign and what does it indicate?
+
+nur-190
+What is the Trousseau sign and what does it indicate?
+
+nur-191
+What is the ABCDE framework in patient prioritization?
+
+nur-192
+What is Maslow's hierarchy of needs in nursing prioritization?
+
+nur-193
+What is the difference between urgent and emergent patient conditions?
+
+nur-194
+What is the first priority in the primary survey of a trauma patient?
+
+nur-195
+Which patient should the nurse see first: a patient with chest pain or a patient with a fever of 101 degrees
+Fahrenheit?
+
+nur-196
+Which patient should the nurse see first: a patient with shortness of breath or a patient with a post-operative
+wound infection?
+
+nur-197
+What is the triage category for a patient with anaphylaxis?
+
+nur-198
+What is the triage category for a patient with a fractured ankle?
+
+nur-199
+What is the most important factor in deciding which patient to see first?
+
+nur-200
+What is the SBAR communication tool and when is it used?
+
+nur-201
+What is the most common cause of gastrointestinal bleeding in adults?
+
+nur-202
+What is the most common symptom of gastroesophageal reflux disease, or GERD?
+
+nur-203
+What is the first-line treatment for GERD?
+nur-204
+What is the most common cause of peptic ulcer disease?
+
+nur-205
+What are the signs of a perforated peptic ulcer?
+
+nur-206
+What is the most common cause of acute pancreatitis?
+
+nur-207
+What are the signs and symptoms of acute pancreatitis?
+
+nur-208
+What is the most common cause of hepatitis in the United States?
+
+nur-209
+What is the mode of transmission for hepatitis A?
+
+nur-210
+What is the mode of transmission for hepatitis B?
+
+nur-211
+What is the most common cause of acute gastroenteritis in the United States?
+
+nur-212
+What is the most important treatment for acute gastroenteritis?
+
+nur-213
+What are the classic symptoms of inflammatory bowel disease, or IBD?
+
+nur-214
+What is the difference between Crohn's disease and ulcerative colitis?
+
+nur-215
+What is the most common location of diverticulitis?
+
+nur-216
+What are the signs of intestinal obstruction?
+
+nur-217
+What is the most common cause of small bowel obstruction?
+
+nur-218
+What is the most common cause of large bowel obstruction?
+
+nur-219
+What is the normal serum bilirubin level?
+
+nur-220
+What is the most common cause of jaundice in newborns?
+
+nur-221
+What is the most common type of stroke?
+
+nur-222
+What is the difference between an ischemic stroke and a hemorrhagic stroke?
+nur-223
+What is the most important modifiable risk factor for stroke?
+
+nur-224
+What is the treatment window for tissue plasminogen activator, or tPA, in acute ischemic stroke?
+
+nur-225
+What is the most common cause of hemorrhagic stroke?
+
+nur-226
+What is the Glasgow Coma Scale, or GCS, and what are its components?
+
+nur-227
+What is the minimum GCS score for a patient who is fully alert and oriented?
+
+nur-228
+What GCS score indicates the need for intubation to protect the airway?
+
+nur-229
+What is the most common cause of seizure in adults?
+
+nur-230
+What is the first-line treatment for status epilepticus?
+
+nur-231
+What is the most common neurodegenerative disorder in older adults?
+
+nur-232
+What are the classic signs of Parkinson's disease?
+
+nur-233
+What is the pharmacological treatment for Parkinson's disease?
+
+nur-234
+What is the most common type of headache disorder?
+
+nur-235
+What are the signs of increased intracranial pressure?
+
+nur-236
+What is the normal intracranial pressure for a resting adult?
+
+nur-237
+At what ICP level is treatment typically initiated for intracranial hypertension?
+
+nur-238
+What is the most common cause of meningitis in adults?
+
+nur-239
+What is the classic triad of symptoms for bacterial meningitis?
+
+nur-240
+What is the most common cause of peripheral neuropathy?
+
+nur-241
+What is the most important principle of ethical nursing practice?
+nur-242
+What is the difference between ethics and law in nursing practice?
+
+nur-243
+What is the ANA Code of Ethics for Nurses?
+
+nur-244
+What is the nurse's legal duty when a patient refuses a life-saving treatment?
+
+nur-245
+What is the most common cause of nursing malpractice claims?
+
+nur-246
+What is the statute of limitations for medical malpractice in most states?
+
+nur-247
+What is the difference between delegation and assignment in nursing?
+
+nur-248
+What are the five rights of delegation?
+
+nur-249
+What is the most important role of a nurse manager?
+
+nur-250
+What is the most effective leadership style in nursing?
+
+nur-251
+What is the difference between an RN and an LPN in terms of scope of practice?
+
+nur-252
+What are the components of informed consent?
+
+nur-253
+What is the role of the charge nurse on a hospital unit?
+
+nur-254
+What is the most important characteristic of effective interprofessional collaboration?
+
+nur-255
+What is the purpose of quality improvement initiatives in nursing?
+
+nur-256
+What is the Plan-Do-Study-Act or PDSA cycle in quality improvement?
+
+nur-257
+What is sentinel event reporting in healthcare?
+
+nur-258
+What is the nurse's role in patient advocacy?
+
+nur-259
+What is the difference between a living will and a durable power of attorney for healthcare?
+
+nur-260
+What is the ethical principle of veracity in nursing?
+nur-261
+What is the normal capillary refill time in a healthy adult?
+
+nur-262
+What is the correct technique for assessing a patient's pulse?
+
+nur-263
+What is the most common site for assessing a peripheral pulse?
+
+nur-264
+What is the difference between a sterile field and a clean field?
+
+nur-265
+What is the 1-inch border rule for a sterile field?
+
+nur-266
+What is the correct order for removing soiled gloves?
+
+nur-267
+What is the normal intake-to-output ratio for a healthy adult?
+
+nur-268
+What is the most important intervention for a patient with a new tracheostomy?
+
+nur-269
+What is the normal daily caloric requirement for a sedentary adult female?
+
+nur-270
+What is the Braden Scale used for in nursing assessment?
+
+nur-271
+What is the therapeutic range for theophylline?
+
+nur-272
+What class of medication is metoprolol and what does it treat?
+
+nur-273
+What is the most common side effect of beta-blockers that requires monitoring?
+
+nur-274
+What is the mechanism of action of calcium channel blockers?
+
+nur-275
+What are the first-line antihypertensive medications in black patients according to JNC 8 guidelines?
+
+nur-276
+What is the target dose of intravenous heparin for treating pulmonary embolism?
+
+nur-277
+What is the most serious adverse effect of amiodarone?
+
+nur-278
+What is the loading dose of digoxin for atrial fibrillation?
+
+nur-279
+What is the most important drug interaction with warfarin that increases bleeding risk?
+nur-280
+What is the antidote for heparin-induced thrombocytopenia, or HIT?
+
+nur-281
+What is the most common symptom of aortic stenosis?
+
+nur-282
+What is the most common cause of aortic stenosis in adults over 65?
+
+nur-283
+What is the treatment for a patient with unstable angina?
+
+nur-284
+What are the goals of treatment for a patient with acute coronary syndrome?
+
+nur-285
+What is the difference between primary and secondary prevention of cardiovascular disease?
+
+nur-286
+What is the Life's Simple 7 framework for cardiovascular health?
+
+nur-287
+What is the most common type of congenital heart defect?
+
+nur-288
+What is the normal oxygen saturation difference between the right and left heart?
+
+nur-289
+What is the Frank-Starling law of the heart?
+
+nur-290
+What is the most common cause of heart failure in the United States?
+
+nur-291
+What is the most common cause of respiratory failure?
+
+nur-292
+What is the difference between type 1 and type 2 respiratory failure?
+
+nur-293
+What is the normal dead space ventilation in a healthy adult?
+
+nur-294
+What is the most common cause of a spontaneous pneumothorax?
+
+nur-295
+What is the treatment for a tension pneumothorax?
+
+nur-296
+What are the signs of a tension pneumothorax?
+
+nur-297
+What is the most common cause of pleural effusion?
+
+nur-298
+What is the difference between transudative and exudative pleural effusions?
+nur-299
+What is Light's criteria used for in respiratory medicine?
+
+nur-300
+What is the most common organism causing pneumonia in immunocompromised patients?
+
+nur-301
+What is the Somogyi effect in diabetes management?
+
+nur-302
+What is the dawn phenomenon in diabetes?
+
+nur-303
+What is the difference between type 1 and type 2 diabetes?
+
+nur-304
+What is diabetic ketoacidosis and when does it occur?
+
+nur-305
+What is the diagnostic criteria for DKA?
+
+nur-306
+What are the signs of thyroid storm?
+
+nur-307
+What is the treatment for thyroid storm?
+
+nur-308
+What is the most common cause of hypopituitarism?
+
+nur-309
+What is acromegaly and what causes it?
+
+nur-310
+What is the most common cause of hypothyroidism worldwide?
+
+nur-311
+What is the most common cause of nephrotic syndrome in adults?
+
+nur-312
+What are the signs of nephrotic syndrome?
+
+nur-313
+What is the difference between hemodialysis and peritoneal dialysis?
+
+nur-314
+What is the most common complication of hemodialysis?
+
+nur-315
+What is the most common complication of peritoneal dialysis?
+
+nur-316
+What is the normal serum phosphorus level?
+
+nur-317
+What are the most common electrolyte disturbances in patients with chronic kidney disease requiring
+dialysis?
+
+nur-318
+What are the dietary restrictions for a patient with chronic kidney disease?
+
+nur-319
+What is the most common cause of urinary tract infection in women?
+
+nur-320
+What is the first-line antibiotic for uncomplicated urinary tract infection?
+
+nur-321
+What is the definition of preterm labor?
+
+nur-322
+What is the treatment for preterm labor?
+
+nur-323
+What is the most common cause of postpartum hemorrhage?
+
+nur-324
+What are the four T's of postpartum hemorrhage?
+
+nur-325
+What is the most common congenital anomaly affecting newborns?
+
+nur-326
+What is the purpose of folic acid supplementation during pregnancy?
+
+nur-327
+What is Rh incompatibility and when does it occur?
+
+nur-328
+What is the prevention for Rh incompatibility?
+
+nur-329
+What is the normal duration of active labor in a nulliparous woman?
+
+nur-330
+What is the most common position for childbirth in Western countries?
+
+nur-331
+What is the most common cause of death in children under 1 year of age?
+
+nur-332
+What is the back to sleep campaign for SIDS prevention?
+
+nur-333
+What is the most common cause of poisoning in children?
+
+nur-334
+What is the most common cause of pediatric emergency room visits?
+
+nur-335
+What is the most common cause of failure to thrive in infants?
+nur-336
+What is the most common cause of accidental injury in children?
+
+nur-337
+What are the most important developmental milestones for a 1-year-old infant?
+
+nur-338
+What is the most common cause of jaundice in the first 24 hours of life?
+
+nur-339
+What is the treatment for physiologic jaundice in newborns?
+
+nur-340
+What is the normal head circumference for a newborn infant?
+
+nur-341
+What is the most common psychiatric disorder in children?
+
+nur-342
+What are the symptoms of ADHD in children?
+
+nur-343
+What is the first-line medication for ADHD in children?
+
+nur-344
+What is the difference between a panic attack and a panic disorder?
+
+nur-345
+What is the most effective treatment for panic disorder?
+
+nur-346
+What is the most common personality disorder in the general population?
+
+nur-347
+What are the symptoms of borderline personality disorder?
+
+nur-348
+What is the treatment for borderline personality disorder?
+
+nur-349
+What is the most common cause of suicide in the United States?
+
+nur-350
+What is the most effective intervention for suicide prevention?
+
+nur-351
+What is the most common cause of postoperative fever in the first 24 hours?
+
+nur-352
+What is the most serious complication of deep vein thrombosis after surgery?
+
+nur-353
+What is the prevention for postoperative deep vein thrombosis?
+
+nur-354
+What is the most common cause of postoperative nausea and vomiting?
+nur-355
+What is the treatment for postoperative nausea and vomiting?
+
+nur-356
+What is the most common cause of wound dehiscence after surgery?
+
+nur-357
+What is the treatment for wound dehiscence?
+
+nur-358
+What is the most common sign of malignant hyperthermia during anesthesia?
+
+nur-359
+What is the treatment for malignant hyperthermia?
+
+nur-360
+What is the most important postoperative nursing intervention for pain management?
+
+nur-361
+What is the most common cause of healthcare-associated urinary tract infections?
+
+nur-362
+What is the most effective way to prevent catheter-associated urinary tract infections?
+
+nur-363
+What is the most common cause of ventilator-associated pneumonia?
+
+nur-364
+What is the ventilator-associated pneumonia prevention bundle?
+
+nur-365
+What are the most common bloodborne pathogens in healthcare settings?
+
+nur-366
+What is the risk of HIV transmission after a needlestick injury?
+
+nur-367
+What is post-exposure prophylaxis for HIV?
+
+nur-368
+What is the most common cause of healthcare-associated bloodstream infections?
+
+nur-369
+What is the recommended duration of contact precautions for MRSA?
+
+nur-370
+What is the recommended duration of droplet precautions for influenza?
+
+nur-371
+What is the normal urine specific gravity range?
+
+nur-372
+What does a urine specific gravity above 1.030 indicate?
+
+nur-373
+What does a urine specific gravity below 1.005 indicate?
+nur-374
+What is the normal anion gap value?
+
+nur-375
+What is an elevated anion gap most commonly caused by?
+
+nur-376
+What is the most common cause of metabolic acidosis?
+
+nur-377
+What is the most common cause of metabolic alkalosis?
+
+nur-378
+What is the most common cause of respiratory alkalosis?
+
+nur-379
+What is the most common cause of respiratory acidosis?
+
+nur-380
+What is the compensation mechanism for metabolic acidosis?
+
+nur-381
+What is the START triage system used for in mass casualty incidents?
+
+nur-382
+What is the most important factor in disaster triage?
+
+nur-383
+What is the difference between primary and secondary triage?
+
+nur-384
+What is the most important communication tool during a patient handoff?
+
+nur-385
+What is the nurse's priority when admitting a patient with sepsis?
+
+nur-386
+What is the first nursing action for a patient with a suspected opioid overdose?
+
+nur-387
+What is the most important intervention for a patient experiencing anaphylaxis?
+
+nur-388
+What is the priority when caring for a patient with a chest tube?
+
+nur-389
+What is the most important assessment for a patient with a new diagnosis of heart failure?
+
+nur-390
+What is the nurse's priority when a patient's blood glucose is 45 milligrams per deciliter?
+
+nur-391
+What is the most common cause of chronic hepatitis globally?
+
+nur-392
+What is the most common cause of cirrhosis in the United States?
+nur-393
+What are the signs of hepatic encephalopathy?
+
+nur-394
+What is the treatment for hepatic encephalopathy?
+
+nur-395
+What is the most common cause of acute mesenteric ischemia?
+
+nur-396
+What is the most common symptom of acute mesenteric ischemia?
+
+nur-397
+What is the most common cause of chronic pancreatitis?
+
+nur-398
+What are the signs of chronic pancreatitis?
+
+nur-399
+What is the most common complication of diverticulitis?
+
+nur-400
+What is the treatment for uncomplicated diverticulitis?
+
+nur-401
+What is the most common cause of Parkinson's disease?
+
+nur-402
+What is the difference between dementia and delirium in terms of onset?
+
+nur-403
+What is the most common cause of dementia in the elderly?
+
+nur-404
+What is the most common cause of Guillain-Barré syndrome?
+
+nur-405
+What are the early symptoms of Guillain-Barré syndrome?
+
+nur-406
+What is the treatment for Guillain-Barré syndrome?
+
+nur-407
+What is the most common cause of stroke in young adults?
+
+nur-408
+What is the most common cause of subarachnoid hemorrhage?
+
+nur-409
+What is the classic symptom of a subarachnoid hemorrhage?
+
+nur-410
+What is the most common complication of subarachnoid hemorrhage?
+
+nur-411
+What is the most important leadership quality in nursing?
+nur-412
+What is the difference between leadership and management in nursing?
+
+nur-413
+What is the most important aspect of conflict resolution in nursing?
+
+nur-414
+What is the best approach to giving constructive feedback to a colleague?
+
+nur-415
+What is the difference between a sentinel event and a near miss?
+
+nur-416
+What is the role of the Joint Commission in healthcare?
+
+nur-417
+What is the most common cause of medication errors in nursing?
+
+nur-418
+What is the best way to prevent medication errors?
+
+nur-419
+What is the purpose of incident reporting in healthcare?
+
+nur-420
+What is the most important component of a just culture in healthcare?
+
+nur-421
+What is the most common cause of falls in hospitalized patients?
+
+nur-422
+What is the best way to prevent patient falls?
+
+nur-423
+What is the most common cause of pressure ulcers?
+
+nur-424
+What is the Braden Scale score that indicates high risk for pressure ulcers?
+
+nur-425
+What is the recommended frequency for turning an immobile patient?
+
+nur-426
+What is the most important nutritional supplement for wound healing?
+
+nur-427
+What is the correct technique for applying a sterile dressing?
+
+nur-428
+What is the most common sign of a wound infection?
+
+nur-429
+What is the most important intervention for a patient with a fever?
+
+nur-430
+What is the normal range for axillary temperature in adults?
+nur-431
+What is the most common side effect of statin medications?
+
+nur-432
+What is the most serious adverse effect of statins?
+
+nur-433
+What medication should be avoided with statins due to increased risk of rhabdomyolysis?
+
+nur-434
+What is the mechanism of action of angiotensin II receptor blockers, or ARBs?
+
+nur-435
+What is the most common side effect of ARBs compared to ACE inhibitors?
+
+nur-436
+What is the most common opioid prescribed for chronic pain?
+
+nur-437
+What is the most serious adverse effect of opioid medications?
+
+nur-438
+What is the mechanism of action of proton pump inhibitors?
+
+nur-439
+What is the most common side effect of long-term PPI use?
+
+nur-440
+What is the most important drug interaction with digoxin?
+
+nur-441
+What is the most common cause of mitral valve stenosis?
+
+nur-442
+What are the symptoms of mitral valve stenosis?
+
+nur-443
+What is the most common cause of mitral valve regurgitation?
+
+nur-444
+What is the most common cause of aortic valve regurgitation?
+
+nur-445
+What is the most common cause of cardiac tamponade?
+
+nur-446
+What is Beck's triad in cardiac tamponade?
+
+nur-447
+What is the treatment for cardiac tamponade?
+
+nur-448
+What is the most common arrhythmia after cardiac surgery?
+
+nur-449
+What is the most common cause of sudden cardiac death in athletes?
+nur-450
+What is the most common cause of cardiomyopathy in the United States?
+
+nur-451
+What is the most common cause of bronchiectasis?
+
+nur-452
+What are the signs of bronchiectasis?
+
+nur-453
+What is the most common cause of acute bronchitis?
+
+nur-454
+What is the treatment for acute bronchitis?
+
+nur-455
+What is the most common cause of chronic bronchitis?
+
+nur-456
+What is the hallmark symptom of chronic bronchitis?
+
+nur-457
+What is the most common cause of lung cancer?
+
+nur-458
+What is the most common type of lung cancer?
+
+nur-459
+What is the most important prevention for lung cancer?
+
+nur-460
+What is the most common symptom of lung cancer?
+
+nur-461
+What is the most common cause of hyperaldosteronism?
+
+nur-462
+What are the signs of hyperaldosteronism?
+
+nur-463
+What is the treatment for hyperaldosteronism?
+
+nur-464
+What is the most common cause of diabetes insipidus?
+
+nur-465
+What are the signs of diabetes insipidus?
+
+nur-466
+What is the treatment for central diabetes insipidus?
+
+nur-467
+What is the most common cause of hyperprolactinemia?
+
+nur-468
+What are the signs of hyperprolactinemia in women?
+nur-469
+What is the most common complication of diabetes mellitus?
+
+nur-470
+What is the most common cause of death in patients with diabetes?
+
+nur-471
+What is the most common cause of acute interstitial nephritis?
+
+nur-472
+What are the signs of acute interstitial nephritis?
+
+nur-473
+What is the most common cause of chronic kidney disease in the United States?
+
+nur-474
+What is the most common symptom of chronic kidney disease?
+
+nur-475
+What is the most important intervention to slow progression of CKD?
+
+nur-476
+What is the most common type of kidney stone?
+
+nur-477
+What is the most effective prevention for calcium oxalate kidney stones?
+
+nur-478
+What is the most common symptom of a kidney stone?
+
+nur-479
+What is the most common complication of a kidney stone?
+
+nur-480
+What is the treatment for a small kidney stone that can pass spontaneously?
+
+nur-481
+What is the nurse's priority in caring for a patient with an acute myocardial infarction?
+
+nur-482
+What is the most important assessment for a patient receiving blood transfusion?
+
+nur-483
+What is the first nursing action for a suspected transfusion reaction?
+
+nur-484
+What is the most important assessment for a patient with a head injury?
+
+nur-485
+What is the priority when caring for a patient with a cervical spine injury?
+
+nur-486
+What is the most important intervention for a patient with severe burn injuries?
+
+nur-487
+What is the Parkland formula for fluid resuscitation in burn patients?
+nur-488
+What is the most important assessment for a patient with a suspected spinal cord injury?
+
+nur-489
+What is the priority when caring for a patient with neurogenic shock?
+
+nur-490
+What is the most important assessment for a patient with a suspected stroke?
+
+nur-491
+What is the most common cause of sepsis in hospitalized patients?
+
+nur-492
+What is the most important treatment for sepsis?
+
+nur-493
+What is the most common source of infection in neutropenic patients?
+
+nur-494
+What is the most important prevention for surgical site infections?
+
+nur-495
+What is the most common cause of post-operative wound infection?
+
+nur-496
+What is the most important measure to prevent the spread of infection in healthcare settings?
+
+nur-497
+What is the most common opportunistic infection in HIV patients?
+
+nur-498
+What is the CD4 count threshold for initiating prophylaxis in HIV patients?
+
+nur-499
+What is the most common complication of infectious mononucleosis?
+
+nur-500
+What is the most common cause of infectious mononucleosis?
+
+nur-501
+What is the most common cause of gastrointestinal obstruction in adults?
+
+nur-502
+What is the most common cause of gastrointestinal obstruction in children?
+
+nur-503
+What is the most common symptom of intussusception in children?
+
+nur-504
+What is the treatment for intussusception?
+
+nur-505
+What is the most common cause of acute appendicitis?
+
+nur-506
+What is the classic symptom of acute appendicitis?
+nur-507
+What is the most common complication of acute appendicitis?
+
+nur-508
+What is the treatment for acute appendicitis?
+
+nur-509
+What is the most common cause of cholecystitis?
+
+nur-510
+What is the classic symptom of acute cholecystitis?
+
+nur-511
+What is the Murphy's sign and what does it indicate?
+
+nur-512
+What is the treatment for acute cholecystitis?
+
+nur-513
+What is the most common cause of pancreatitis in children?
+
+nur-514
+What is the most common symptom of pancreatic cancer?
+
+nur-515
+What is the most common risk factor for pancreatic cancer?
+
+nur-516
+What is the most common cause of cirrhosis in children?
+
+nur-517
+What is the most common symptom of liver failure?
+
+nur-518
+What is the Model for End-Stage Liver Disease, or MELD, score used for?
+
+nur-519
+What is the most common cause of gastrointestinal bleeding in the elderly?
+
+nur-520
+What is the most common cause of gastrointestinal bleeding in children?
+
+nur-521
+What is the most common cause of cerebral palsy?
+
+nur-522
+What are the most common types of cerebral palsy?
+
+nur-523
+What is the most common cause of dementia in Parkinson's disease?
+
+nur-524
+What is the difference between dementia with Lewy bodies and Parkinson's disease dementia?
+
+nur-525
+What is the most common cause of Bell's palsy?
+nur-526
+What is the classic sign of Bell's palsy?
+
+nur-527
+What is the treatment for Bell's palsy?
+
+nur-528
+What is the most common cause of trigeminal neuralgia?
+
+nur-529
+What is the classic symptom of trigeminal neuralgia?
+
+nur-530
+What is the treatment for trigeminal neuralgia?
+
+nur-531
+What is the most common cause of infective endocarditis?
+
+nur-532
+What are the classic signs of infective endocarditis?
+
+nur-533
+What is the most common complication of infective endocarditis?
+
+nur-534
+What is the Duke criteria used for in infective endocarditis?
+
+nur-535
+What is the most common cause of pericarditis?
+
+nur-536
+What is the classic symptom of acute pericarditis?
+
+nur-537
+What is the treatment for acute pericarditis?
+
+nur-538
+What is the most common complication of pericarditis?
+
+nur-539
+What is the most common cause of myocarditis?
+
+nur-540
+What are the signs of myocarditis?
+
+nur-541
+What is the most common cause of acute respiratory distress syndrome, or ARDS?
+
+nur-542
+What are the Berlin criteria for ARDS?
+
+nur-543
+What is the treatment for ARDS?
+
+nur-544
+What is the most common cause of pulmonary embolism?
+nur-545
+What is the Wells criteria used for in pulmonary embolism?
+
+nur-546
+What are the classic signs of pulmonary embolism?
+
+nur-547
+What is the treatment for pulmonary embolism?
+
+nur-548
+What is the most common cause of chronic pulmonary hypertension?
+
+nur-549
+What is the most common symptom of pulmonary hypertension?
+
+nur-550
+What is the treatment for pulmonary arterial hypertension?
+
+nur-551
+What is the most common cause of hypomagnesemia?
+
+nur-552
+What are the signs of hypomagnesemia?
+
+nur-553
+What is the most common cause of hypermagnesemia?
+
+nur-554
+What are the signs of hypermagnesemia?
+
+nur-555
+What is the treatment for hypermagnesemia?
+
+nur-556
+What is the most common cause of hypophosphatemia?
+
+nur-557
+What are the signs of hypophosphatemia?
+
+nur-558
+What is the most common cause of hyperphosphatemia?
+
+nur-559
+What is the treatment for hyperphosphatemia?
+
+nur-560
+What is the most common cause of dehydration in elderly patients?
+
+nur-561
+What is the nurse's priority in caring for a patient with a chest tube?
+
+nur-562
+What is the most important assessment for a patient with a central line?
+
+nur-563
+What is the first intervention for a dislodged tracheostomy tube?
+nur-564
+What is the most important intervention for a patient with violent behavior?
+
+nur-565
+What is the first step in managing a patient with a hypoglycemic emergency?
+
+nur-566
+What is the most important assessment for a patient receiving chemotherapy?
+
+nur-567
+What is the first intervention for a patient with a nasogastric tube obstruction?
+
+nur-568
+What is the most important assessment for a patient with a urinary catheter?
+
+nur-569
+What is the priority when caring for a patient with an open wound?
+
+nur-570
+What is the most important intervention for a patient with a new colostomy?
+
+nur-571
+What is the most important assessment for a patient with a suspected myocardial infarction?
+
+nur-572
+What is the priority when caring for a patient with a new stoma?
+
+nur-573
+What is the most common side effect of metformin?
+
+nur-574
+What is the most serious adverse effect of metformin?
+
+nur-575
+What is the contraindication for metformin use?
+
+nur-576
+What is the most common side effect of sulfonylureas like glipizide?
+
+nur-577
+What is the most common side effect of SGLT-2 inhibitors like empagliflozin?
+
+nur-578
+What is the mechanism of action of SGLT-2 inhibitors?
+
+nur-579
+What is the most common side effect of GLP-1 receptor agonists like semaglutide?
+
+nur-580
+What is the mechanism of action of GLP-1 receptor agonists?
+
+nur-581
+What is the most common adverse effect of amiodarone?
+
+nur-582
+What is the most important monitoring for patients on amiodarone?
+nur-583
+What is the most common cause of valvular heart disease in developing countries?
+
+nur-584
+What is the most common cause of valvular heart disease in developed countries?
+
+nur-585
+What is the most common cause of heart failure with preserved ejection fraction?
+
+nur-586
+What is the most common cause of heart failure with reduced ejection fraction?
+
+nur-587
+What is the most common arrhythmia in the elderly?
+
+nur-588
+What is the most important risk factor for atrial fibrillation?
+
+nur-589
+What is the most important complication of atrial fibrillation?
+
+nur-590
+What is the most common treatment for rate control in atrial fibrillation?
+
+nur-591
+What is the most common cause of bradyarrhythmias requiring pacemaker placement?
+
+nur-592
+What is the most common cause of sudden cardiac death in the elderly?
+
+nur-593
+What is the most common cause of hypoxia in critically ill patients?
+
+nur-594
+What is the most common cause of hypercapnia in respiratory failure?
+
+nur-595
+What is the most important prevention for ventilator-associated pneumonia?
+
+nur-596
+What is the most common cause of restrictive lung disease?
+
+nur-597
+What is the most common symptom of interstitial lung disease?
+
+nur-598
+What is the most common cause of occupational lung disease?
+
+nur-599
+What is the most common cause of hemoptysis in non-smoking adults?
+
+nur-600
+What is the most common cause of chronic cough in adults?
+
+nur-601
+What is the most common cause of hypoparathyroidism?
+nur-602
+What are the signs of hypoparathyroidism?
+
+nur-603
+What is the treatment for hypoparathyroidism?
+
+nur-604
+What is the most common cause of hyperparathyroidism?
+
+nur-605
+What are the signs of hyperparathyroidism?
+
+nur-606
+What is the most common cause of delayed puberty in boys?
+
+nur-607
+What is the most common cause of precocious puberty in girls?
+
+nur-608
+What is the most common cause of infertility in women?
+
+nur-609
+What is the most common cause of infertility in men?
+
+nur-610
+What is the most common cause of gynecomastia?
+
+nur-611
+What is the most common cause of acute kidney injury in the community?
+
+nur-612
+What is the most common cause of acute kidney injury in the hospital?
+
+nur-613
+What is the most common symptom of acute kidney injury?
+
+nur-614
+What is the most important prevention for contrast-induced nephropathy?
+
+nur-615
+What is the most common cause of polycystic kidney disease?
+
+nur-616
+What are the most common signs of polycystic kidney disease?
+
+nur-617
+What is the most common cause of renal artery stenosis?
+
+nur-618
+What is the most common symptom of renal artery stenosis?
+
+nur-619
+What is the most common complication of renal artery stenosis?
+
+nur-620
+What is the treatment for renal artery stenosis?
+nur-621
+What is the most common cause of ischemic stroke in the elderly?
+
+nur-622
+What is the most important prevention for stroke in patients with atrial fibrillation?
+
+nur-623
+What is the most common cause of transient ischemic attack?
+
+nur-624
+What is the most important treatment for carotid artery stenosis?
+
+nur-625
+What is the most common cause of cognitive decline in the elderly?
+
+nur-626
+What is the most common cause of dementia in patients under 65?
+
+nur-627
+What is the most common symptom of frontotemporal dementia?
+
+nur-628
+What is the most common cause of vascular dementia?
+
+nur-629
+What is the most important prevention for vascular dementia?
+
+nur-630
+What is the most common cause of peripheral neuropathy in developed countries?
+
+nur-631
+What is the most common cause of HIV transmission worldwide?
+
+nur-632
+What is the most important prevention for HIV infection?
+
+nur-633
+What is the most common HIV-associated malignancy?
+
+nur-634
+What is the most common infection in transplant patients?
+
+nur-635
+What is the most common source of infection in febrile neutropenic patients?
+
+nur-636
+What is the most important principle of antibiotic de-escalation?
+
+nur-637
+What is the most common cause of surgical site infection in orthopedic surgery?
+
+nur-638
+What is the most important prevention for surgical site infection in orthopedic surgery?
+
+nur-639
+What is the most common cause of infection in burn patients?
+nur-640
+What is the most important prevention for infection in burn patients?
+
+nur-641
+What is the most common cause of hypernatremia in hospitalized patients?
+
+nur-642
+What is the treatment for hypernatremia?
+
+nur-643
+What is the most common cause of hyponatremia in hospitalized patients?
+
+nur-644
+What is the treatment for hyponatremia?
+
+nur-645
+What is the most common cause of hyperkalemia in the community?
+
+nur-646
+What is the treatment for hyperkalemia with ECG changes?
+
+nur-647
+What is the most common cause of hypokalemia in hospitalized patients?
+
+nur-648
+What is the treatment for hypokalemia?
+
+nur-649
+What is the most common cause of hypocalcemia in the hospital?
+
+nur-650
+What is the treatment for hypocalcemia?
+
+nur-651
+What is the most common cause of preterm rupture of membranes?
+
+nur-652
+What is the treatment for preterm premature rupture of membranes?
+
+nur-653
+What is the most common cause of postpartum infection?
+
+nur-654
+What is the most important prevention for postpartum infection?
+
+nur-655
+What is the most common cause of postpartum psychosis?
+
+nur-656
+What is the most important intervention for postpartum psychosis?
+
+nur-657
+What is the most common cause of infertility in women over 35?
+
+nur-658
+What is the most common cause of miscarriage?
+nur-659
+What is the most important prevention for recurrent miscarriage?
+
+nur-660
+What is the most common cause of ectopic pregnancy?
+
+nur-661
+What is the most common cause of pneumonia in children under 5?
+
+nur-662
+What is the most important prevention for pneumonia in children?
+
+nur-663
+What is the most common cause of urinary tract infection in children?
+
+nur-664
+What is the most important intervention for urinary tract infection in children?
+
+nur-665
+What is the most common cause of congenital heart disease?
+
+nur-666
+What is the most common cyanotic congenital heart defect?
+
+nur-667
+What is the most common acyanotic congenital heart defect?
+
+nur-668
+What is the most common symptom of congenital heart disease in infants?
+
+nur-669
+What is the most common cause of sudden infant death syndrome?
+
+nur-670
+What is the most important prevention for SIDS?
+
+nur-671
+What is the most common cause of ADHD in children?
+
+nur-672
+What is the most important treatment for ADHD in children?
+
+nur-673
+What is the most common cause of autism spectrum disorder?
+
+nur-674
+What is the most important intervention for autism spectrum disorder?
+
+nur-675
+What is the most common cause of hearing loss in children?
+
+nur-676
+What is the most important screening for hearing loss in newborns?
+
+nur-677
+What is the most common cause of visual impairment in children?
+nur-678
+What is the most important screening for visual impairment in children?
+
+nur-679
+What is the most common cause of dental caries in children?
+
+nur-680
+What is the most important prevention for dental caries in children?
+
+nur-681
+What is the most common anxiety disorder in children?
+
+nur-682
+What is the most common cause of school refusal in children?
+
+nur-683
+What is the most effective treatment for childhood anxiety?
+
+nur-684
+What is the most common eating disorder in adolescents?
+
+nur-685
+What is the most serious complication of eating disorders?
+
+nur-686
+What is the most important intervention for anorexia nervosa?
+
+nur-687
+What is the most common substance use disorder in adults?
+
+nur-688
+What is the most important treatment for substance use disorders?
+
+nur-689
+What is the most common psychiatric complication of chronic illness?
+
+nur-690
+What is the most important screening for depression in primary care?
+
+nur-691
+What is the most common cause of infectious diarrhea in the United States?
+
+nur-692
+What is the most important prevention for infectious diarrhea?
+
+nur-693
+What is the most common cause of eosinophilic esophagitis?
+
+nur-694
+What is the most common symptom of eosinophilic esophagitis?
+
+nur-695
+What is the treatment for eosinophilic esophagitis?
+
+nur-696
+What is the most common cause of gastric cancer?
+nur-697
+What is the most common symptom of gastric cancer?
+
+nur-698
+What is the most common cause of colorectal cancer?
+
+nur-699
+What is the most important prevention for colorectal cancer?
+
+nur-700
+What is the most common symptom of colorectal cancer?
+
+nur-701
+What is the most important factor in team performance in healthcare?
+
+nur-702
+What is the most important aspect of psychological safety in healthcare teams?
+
+nur-703
+What is the most common cause of burnout in nurses?
+
+nur-704
+What is the most important intervention to prevent nurse burnout?
+
+nur-705
+What is the most important aspect of patient safety culture?
+
+nur-706
+What is the most common barrier to patient safety?
+
+nur-707
+What is the most important aspect of informed consent?
+
+nur-708
+What is the most important aspect of advanced care planning?
+
+nur-709
+What is the most common ethical dilemma in critical care?
+
+nur-710
+What is the most important principle in end-of-life decision making?
+
+nur-711
+What is the most common cause of metabolic alkalosis in hospitalized patients?
+
+nur-712
+What is the most important treatment for metabolic alkalosis?
+
+nur-713
+What is the most common cause of metabolic acidosis in critically ill patients?
+
+nur-714
+What is the most important treatment for metabolic acidosis?
+
+nur-715
+What is the most common cause of respiratory alkalosis in the emergency department?
+nur-716
+What is the most important treatment for respiratory alkalosis?
+
+nur-717
+What is the most common cause of respiratory acidosis in the intensive care unit?
+
+nur-718
+What is the most important treatment for respiratory acidosis?
+
+nur-719
+What is the most common cause of hypercalcemia in the community?
+
+nur-720
+What are the signs of hypercalcemia?
+
+nur-721
+What is the treatment for hypercalcemia?
+
+nur-722
+What is the most common cause of cardiac arrest in adults?
+
+nur-723
+What is the most important treatment for cardiac arrest?
+
+nur-724
+What is the most common cause of bradycardia requiring treatment?
+
+nur-725
+What is the treatment for symptomatic bradycardia?
+
+nur-726
+What is the most common cause of syncope in the elderly?
+
+nur-727
+What is the most important evaluation for syncope?
+
+nur-728
+What is the most common cause of chest pain in the emergency department?
+
+nur-729
+What is the most important test for chest pain in the emergency department?
+
+nur-730
+What is the most common cause of palpitations?
+
+nur-731
+What is the most important evaluation for palpitations?
+
+nur-732
+What is the most common cause of respiratory distress in newborns?
+
+nur-733
+What is the most important treatment for respiratory distress syndrome in newborns?
+
+nur-734
+What is the most common cause of cough in children?
+nur-735
+What is the most important evaluation for chronic cough?
+
+nur-736
+What is the most common cause of pleural effusion in the elderly?
+
+nur-737
+What is the most important evaluation for a pleural effusion?
+
+nur-738
+What is the most common cause of hemoptysis requiring hospitalization?
+
+nur-739
+What is the most important evaluation for hemoptysis?
+
+nur-740
+What is the most common cause of pulmonary hypertension in the elderly?
+
+nur-741
+What is the most important evaluation for pulmonary hypertension?
+
+nur-742
+What is the most common cause of headache in the emergency department?
+
+nur-743
+What is the most important evaluation for headache in the emergency department?
+
+nur-744
+What is the most common cause of dizziness in the elderly?
+
+nur-745
+What is the most important evaluation for dizziness?
+
+nur-746
+What is the most common cause of facial numbness?
+
+nur-747
+What is the most important evaluation for facial numbness?
+
+nur-748
+What is the most common cause of speech difficulties in the elderly?
+
+nur-749
+What is the most important evaluation for speech difficulties?
+
+nur-750
+What is the most common cause of sleep disorders in the elderly?
+
+nur-751
+What is the most important evaluation for sleep disorders?
+
+nur-752
+What is the most common cause of vaginal bleeding in pregnancy?
+
+nur-753
+What is the most important evaluation for vaginal bleeding in pregnancy?
+nur-754
+What is the most common cause of postpartum hemorrhage requiring transfusion?
+
+nur-755
+What is the most important treatment for postpartum hemorrhage?
+
+nur-756
+What is the most common cause of neonatal hypoglycemia?
+
+nur-757
+What is the most important treatment for neonatal hypoglycemia?
+
+nur-758
+What is the most common cause of neonatal jaundice requiring phototherapy?
+
+nur-759
+What is the most important treatment for neonatal jaundice?
+
+nur-760
+What is the most common cause of maternal fever during labor?
+
+nur-761
+What is the most important treatment for maternal fever during labor?
+
+nur-762
+What is the most common cause of zoonotic infections?
+
+nur-763
+What is the most important prevention for zoonotic infections?
+
+nur-764
+What is the most common cause of infections in drug users?
+
+nur-765
+What is the most important prevention for infections in drug users?
+
+nur-766
+What is the most common cause of infection in patients with indwelling devices?
+
+nur-767
+What is the most important prevention for device-related infections?
+
+nur-768
+What is the most common cause of infection in patients with chemotherapy?
+
+nur-769
+What is the most important prevention for infections in chemotherapy patients?
+
+nur-770
+What is the most important assessment for a patient with a new pacemaker?
+
+nur-771
+What is the most important intervention for a patient with an implanted defibrillator?
+
+nur-772
+What is the most important assessment for a patient with an arterial line?
+nur-773
+What is the most important intervention for a patient with a pulmonary artery catheter?
+
+nur-774
+What is the most important assessment for a patient with an intra-aortic balloon pump?
+
+nur-775
+What is the most important intervention for a patient on a ventricular assist device?
+
+nur-776
+What is the most important assessment for a patient with a new vascular access port?
+
+nur-777
+What is the most important intervention for a patient with a new vascular access port?
+
+nur-778
+What is the most common side effect of antiarrhythmic medications?
+
+nur-779
+What is the most important monitoring for antiarrhythmic medications?
+
+nur-780
+What is the most common interaction with warfarin?
+
+nur-781
+What is the most important drug interaction with amiodarone?
+
+nur-782
+What is the most common cause of nephrolithiasis?
+
+nur-783
+What is the most important prevention for nephrolithiasis?
+
+nur-784
+What is the most common cause of urinary retention in men?
+
+nur-785
+What is the most important treatment for benign prostatic hyperplasia?
+
+nur-786
+What is the most common cause of urinary incontinence in the elderly?
+
+nur-787
+What is the most important evaluation for urinary incontinence?
+
+nur-788
+What is the most common cause of acute pyelonephritis?
+
+nur-789
+What is the most important treatment for acute pyelonephritis?
+
+nur-790
+What grading scale is used to assess the severity of a subarachnoid hemorrhage?
+
+nur-791
+What is the most important evaluation for subarachnoid hemorrhage?
+nur-792
+What is the most common cause of brain abscess?
+
+nur-793
+What is the most important treatment for brain abscess?
+
+nur-794
+What is the most common associated impairment seen alongside cerebral palsy?
+
+nur-795
+What is the most important treatment for cerebral palsy?
+
+nur-796
+What is the most common cause of muscular dystrophy?
+
+nur-797
+What is the most important treatment for muscular dystrophy?
+
+nur-798
+What is the most common cause of multiple sclerosis?
+
+nur-799
+What is the most important treatment for multiple sclerosis?
+
+nur-800
+What is the most common cause of hyperthyroidism in pregnancy?
+
+nur-801
+What is the most common cause of hyperthyroidism in children?
+
+nur-802
+What is the most common cause of hypothyroidism after thyroidectomy?
+
+nur-803
+What is the most important monitoring for thyroid hormone replacement?
+
+nur-804
+What is the most common cause of Cushing's syndrome in the community?
+
+nur-805
+What is the most important treatment for Cushing's syndrome?
+
+nur-806
+What is the most common cause of adrenal insufficiency in the United States?
+
+nur-807
+What is the most important treatment for adrenal insufficiency?
+
+nur-808
+What is the most common cause of adrenal crisis?
+
+nur-809
+What is the most common cause of hypoglycemia in patients with diabetes?
+
+nur-810
+What is the most common cause of hyperthyroidism in the elderly?
+nur-811
+What is the most common cause of subclinical hyperthyroidism?
+
+nur-812
+What is the most common cause of peripheral arterial disease?
+
+nur-813
+What is the most common symptom of peripheral arterial disease?
+
+nur-814
+What is the most important treatment for peripheral arterial disease?
+
+nur-815
+What is the most common cause of deep vein thrombosis?
+
+nur-816
+What is the most common symptom of deep vein thrombosis?
+
+nur-817
+What is the most important prevention for deep vein thrombosis?
+
+nur-818
+What is the most common cause of varicose veins?
+
+nur-819
+What is the most important treatment for varicose veins?
+
+nur-820
+What is the most common cause of upper respiratory infection?
+
+nur-821
+What is the most important treatment for upper respiratory infection?
+
+nur-822
+What is the most common cause of sinusitis?
+
+nur-823
+What is the most important treatment for sinusitis?
+
+nur-824
+What is the most common cause of tonsillitis?
+
+nur-825
+What is the most important treatment for tonsillitis?
+
+nur-826
+What is the most common cause of sleep apnea?
+
+nur-827
+What is the most important treatment for obstructive sleep apnea?
+
+nur-828
+What is the most common cause of periodontal disease?
+
+nur-829
+What is the most important treatment for periodontal disease?
+nur-830
+What is the most common cause of stomatitis?
+
+nur-831
+What is the most important treatment for stomatitis?
+
+nur-832
+What is the most common cause of oral candidiasis?
+
+nur-833
+What is the most important treatment for oral candidiasis?
+
+nur-834
+What is the most common cause of dysphagia in the elderly?
+
+nur-835
+What is the most important evaluation for dysphagia?
+
+nur-836
+What is the most important assessment for a patient with a chest tube?
+
+nur-837
+What is the most important intervention for a patient with a chest tube?
+
+nur-838
+What is the most important assessment for a patient with a colostomy?
+
+nur-839
+What is the most important intervention for a patient with a colostomy?
+
+nur-840
+What is the most important assessment for a patient with a feeding tube?
+
+nur-841
+What is the most important intervention for a patient with a feeding tube?
+
+nur-842
+What is the most important assessment for a patient with a nephrostomy tube?
+
+nur-843
+What is the most important intervention for a patient with a nephrostomy tube?
+
+nur-844
+What is the most common side effect of immunosuppressants?
+
+nur-845
+What is the most important monitoring for immunosuppressants?
+
+nur-846
+What is the most common side effect of bisphosphonates?
+
+nur-847
+What is the most important monitoring for bisphosphonates?
+
+nur-848
+What is the most common side effect of biologics in rheumatology?
+nur-849
+What is the most important monitoring for biologics?
+
+nur-850
+What is the most common cause of renal failure in multiple myeloma?
+
+nur-851
+What is the most important treatment for renal failure in multiple myeloma?
+
+nur-852
+What is the most common cause of renal artery thrombosis?
+
+nur-853
+What is the most important treatment for renal artery thrombosis?
+
+nur-854
+What is the most common cause of renal vein thrombosis?
+
+nur-855
+What is the most important treatment for renal vein thrombosis?
+
+nur-856
+What is the most common cause of metabolic acidosis in renal failure?
+
+nur-857
+What is the most important treatment for metabolic acidosis in renal failure?
+
+nur-858
+What is the most common cause of spinal cord compression?
+
+nur-859
+What is the most important treatment for spinal cord compression?
+
+nur-860
+What is the most common cause of peripheral neuropathy in patients with diabetes?
+
+nur-861
+What is the most important treatment for diabetic neuropathy?
+
+nur-862
+What autonomic complication is a life-threatening concern in Guillain-Barré syndrome?
+
+nur-863
+What is the most important treatment for Guillain-Barré syndrome?
+
+nur-864
+What is the classic gait abnormality seen in Parkinson's disease?
+
+nur-865
+What is the most important treatment for Parkinson's disease?
+
+nur-866
+What is the most common cause of thyroiditis?
+
+nur-867
+What is the most important treatment for thyroiditis?
+nur-868
+What is the most common cause of hypothyroidism in children?
+
+nur-869
+What is the most common cause of hypothyroidism in pregnancy?
+
+nur-870
+What is the most common cause of hyperthyroidism in patients with amiodarone therapy?
+
+nur-871
+What is the most common cause of hyperthyroidism in postpartum women?
+
+nur-872
+What is the most common cause of secondary hypertension in patients under 30?
+
+nur-873
+What is the most important treatment for hypopituitarism?
+
+nur-874
+What is the most common cause of heart block?
+
+nur-875
+What is the most important treatment for heart block?
+
+nur-876
+What is the most common cause of ventricular tachycardia?
+
+nur-877
+What is the most important treatment for ventricular tachycardia?
+
+nur-878
+What is the most common cause of atrial flutter?
+
+nur-879
+What is the most important treatment for atrial flutter?
+
+nur-880
+What is the most common cause of heart failure exacerbation?
+
+nur-881
+What is the most important treatment for heart failure exacerbation?
+
+nur-882
+What is the most common cause of interstitial lung disease?
+
+nur-883
+What is the most important treatment for interstitial lung disease?
+
+nur-884
+What is the most common cause of pulmonary fibrosis?
+
+nur-885
+What is the most important treatment for pulmonary fibrosis?
+
+nur-886
+What is the most common cause of sarcoidosis?
+nur-887
+What is the most important treatment for sarcoidosis?
+
+nur-888
+What is the most common cause of pulmonary hypertension in COPD?
+
+nur-889
+What is the most important treatment for pulmonary hypertension in COPD?
+
+nur-890
+What is the most common cause of dyspepsia?
+
+nur-891
+What is the most important treatment for dyspepsia?
+
+nur-892
+What is the most common cause of abdominal pain in the emergency department?
+
+nur-893
+What is the most important evaluation for abdominal pain?
+
+nur-894
+What is the most common cause of diarrhea in immunocompromised patients?
+
+nur-895
+What is the most important treatment for diarrhea in immunocompromised patients?
+
+nur-896
+What is the most important assessment for a patient with a wound drain?
+
+nur-897
+What is the most important intervention for a patient with a wound drain?
+
+nur-898
+What is the most important assessment for a patient with a biliary drain?
+
+nur-899
+What is the most important intervention for a patient with a biliary drain?
+
+nur-900
+What is the most important assessment for a patient with an intracranial pressure monitor?
+
+nur-901
+What is the most important intervention for a patient with an intracranial pressure monitor?
+
+nur-902
+What is the most common side effect of anticholinergic medications?
+
+nur-903
+What is the most important monitoring for anticholinergic medications?
+
+nur-904
+What is the most common side effect of selective serotonin reuptake inhibitors in the elderly?
+
+nur-905
+What is the most important monitoring for SSRIs in the elderly?
+nur-906
+What is the most common cause of electrolyte disturbances in the elderly?
+
+nur-907
+What is the most important monitoring for electrolyte disturbances in the elderly?
+
+nur-908
+What is the most common cause of acute kidney injury in the elderly?
+
+nur-909
+What is the most important prevention for acute kidney injury in the elderly?
+
+nur-910
+What is the most common cause of valvular heart disease in the elderly?
+
+nur-911
+What is the most important treatment for valvular heart disease in the elderly?
+
+nur-912
+What is the most common cause of congestive heart failure in the elderly?
+
+nur-913
+What is the most important treatment for congestive heart failure in the elderly?
+
+nur-914
+What is the most common cause of pneumonia in the elderly?
+
+nur-915
+What is the most important prevention for pneumonia in the elderly?
+
+nur-916
+What is the most common cause of COPD exacerbation in the elderly?
+
+nur-917
+What is the most important treatment for COPD exacerbation in the elderly?
+
+nur-918
+What early symptom often distinguishes normal pressure hydrocephalus from other dementias?
+
+nur-919
+What is the most important treatment for dementia in the elderly?
+
+nur-920
+What is the most common cause of stroke in the elderly?
+
+nur-921
+What is the most important prevention for stroke in the elderly?
+
+nur-922
+What is the most common cause of osteoporosis in the elderly?
+
+nur-923
+What is the most important treatment for osteoporosis in the elderly?
+
+nur-924
+What is the most common cause of diabetes in the elderly?
+nur-925
+What is the most important treatment for diabetes in the elderly?
+
+nur-926
+What is the most common cause of constipation in the elderly?
+
+nur-927
+What is the most important treatment for constipation in the elderly?
+
+nur-928
+What is the most common cause of fecal incontinence in the elderly?
+
+nur-929
+What is the most important treatment for fecal incontinence in the elderly?
+
+nur-930
+What is the most common psychiatric disorder in the elderly?
+
+nur-931
+What is the most important treatment for depression in the elderly?
+
+nur-932
+What is the most common cause of anxiety in the elderly?
+
+nur-933
+What is the most important treatment for anxiety in the elderly?
+
+nur-934
+What is the most common cause of infections in the elderly?
+
+nur-935
+What is the most important prevention for infections in the elderly?
+
+nur-936
+What is the most common cause of sepsis in the elderly?
+
+nur-937
+What is the most important treatment for sepsis in the elderly?
+
+nur-938
+What is the most important assessment for a patient with a gastrostomy tube?
+
+nur-939
+What is the most important intervention for a patient with a gastrostomy tube?
+
+nur-940
+What is the most important assessment for a patient with a jejunostomy tube?
+
+nur-941
+What is the most important intervention for a patient with a jejunostomy tube?
+
+nur-942
+What is the most common side effect of calcium channel blockers in the elderly?
+
+nur-943
+What is the most important monitoring for calcium channel blockers in the elderly?
+nur-944
+What is the most common side effect of beta-blockers in the elderly?
+
+nur-945
+What is the most important monitoring for beta-blockers in the elderly?
+
+nur-946
+What medication class is a common cause of drug-induced acute kidney injury in the elderly, aside from
+NSAIDs?
+
+nur-947
+What lab trend best indicates recovery from acute kidney injury in an elderly patient?
+
+nur-948
+What is the most common cause of chronic kidney disease in the elderly?
+
+nur-949
+What is the most important treatment for chronic kidney disease in the elderly?
+
+nur-950
+What ECG finding raises suspicion for a cardiac cause of syncope requiring urgent evaluation?
+
+nur-951
+What is the most important evaluation for syncope in the elderly?
+
+nur-952
+What is the most common cause of falls in the elderly?
+
+nur-953
+What is the most important prevention for falls in the elderly?
+
+nur-954
+What is the most common cause of hypoxemia in the elderly?
+
+nur-955
+What is the most important treatment for hypoxemia in the elderly?
+
+nur-956
+What is the most common cause of respiratory failure in the elderly?
+
+nur-957
+What is the most important treatment for respiratory failure in the elderly?
+
+nur-958
+What is the most common cause of peripheral neuropathy in the elderly?
+
+nur-959
+What is the most important treatment for peripheral neuropathy in the elderly?
+
+nur-960
+What bedside maneuver is used to diagnose benign paroxysmal positional vertigo?
+
+nur-961
+What is the most important treatment for dizziness in the elderly?
+
+nur-962
+What is the most common cause of hyperglycemia in the elderly?
+
+nur-963
+What is the most important treatment for hyperglycemia in the elderly?
+
+nur-964
+What is the most common cause of hypoglycemia in the elderly?
+
+nur-965
+What is the most important treatment for hypoglycemia in the elderly?
+
+nur-966
+What is the most common cause of malnutrition in the elderly?
+
+nur-967
+What is the most important treatment for malnutrition in the elderly?
+
+nur-968
+What bedside screening test should be performed before oral intake in a patient with suspected dysphagia
+after stroke?
+
+nur-969
+What is the most important treatment for dysphagia in the elderly?
+
+nur-970
+What is the most common cause of delirium in the elderly?
+
+nur-971
+What is the most important treatment for delirium in the elderly?
+
+nur-972
+What is the most common cause of sleep disturbance in the elderly?
+
+nur-973
+What is the most important treatment for sleep disturbance in the elderly?
+
+nur-974
+What is the most common cause of skin infection in the elderly?
+
+nur-975
+What is the most important treatment for skin infection in the elderly?
+
+nur-976
+What is the most common cause of urinary tract infection in the elderly?
+
+nur-977
+What is the most important treatment for urinary tract infection in the elderly?
+
+nur-978
+What is the most common cause of nosocomial infection in the elderly?
+
+nur-979
+What is the most important prevention for nosocomial infections in the elderly?
+
+nur-980
+What is the most common cause of infection in long-term care facilities?
+nur-981
+What is the most important prevention for infection in long-term care facilities?
+
+nur-982
+What is the most important assessment for a patient with a percutaneous endoscopic gastrostomy tube?
+
+nur-983
+What is the most important intervention for a patient with a percutaneous endoscopic gastrostomy tube?
+
+nur-984
+What is the most important assessment for a patient with a tracheostomy tube?
+
+nur-985
+What is the most important intervention for a patient with a tracheostomy tube?
+
+nur-986
+What is the most important assessment for a patient with a wound vacuum-assisted closure device?
+
+nur-987
+What is the most important intervention for a patient with a wound vacuum-assisted closure device?
+
+nur-988
+What is the most common side effect of medications in the elderly?
+
+nur-989
+What is the most important monitoring for medications in the elderly?
+
+nur-990
+What is the most common cause of adverse drug reactions in the elderly?
+
+nur-991
+What is the most important prevention for adverse drug reactions in the elderly?
+
+nur-992
+What is the most common cause of non-adherence in the elderly?
+
+nur-993
+What is the most important intervention to improve adherence in the elderly?
+
+nur-994
+What is the most common cause of fluid overload in the elderly?
+
+nur-995
+What is the most important treatment for fluid overload in the elderly?
+
+nur-996
+What is the most common cause of electrolyte imbalance in the elderly?
+
+nur-997
+What is the most important prevention for electrolyte imbalance in the elderly?
+
+nur-998
+What is the most common cause of hypertension in the elderly?
+
+nur-999
+What is the most important treatment for hypertension in the elderly?
+nur-1000
+What is the most common cause of hypotension in the elderly?
+

@@ -33,3 +33,17 @@
 - [x] Improve category selection so a selected domain immediately starts the intended focused session
 - [x] Add deterministic tests for the new practice-session interactions
 - [x] Validate and checkpoint the learning-experience improvement release
+- [x] Extract the unanswered nursing questions from the supplied 1,000-question PDF
+- [x] Normalize and de-duplicate the extracted questions into a structured source file
+- [x] Create answer keys, keyword criteria, categories, and NCLEX rationales for the extracted questions
+- [x] Apply clinical safety and quality checks to the generated question content
+- [x] Transform validated questions into the Rounds NCLEX question-bank format
+- [x] Integrate the expanded question bank and verify category navigation
+- [x] Test and checkpoint the question-bank enrichment release
+- [x] Extract all question-and-answer records from the supplied Rounds Nursing QA 1000 PDF
+- [x] Reconcile answered records against the already extracted 1,000-question source for full coverage
+- [x] Organize the answered bank into respectful NCLEX topic categories and derive spoken-answer keywords
+- [x] Quality-check answer pairing, record counts, duplicates, and category coverage
+- [x] Transform and integrate the answered question bank into the mobile practice experience
+- [x] Detect and remove duplicate or near-duplicate questions while preserving a complete unique-source audit
+- [x] Ensure every practice queue serves each imported question only once before reshuffling

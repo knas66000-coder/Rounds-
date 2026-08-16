@@ -3,7 +3,7 @@ import { evaluateAnswer } from "../lib/rounds";
 import { questionBank } from "../data/questionBank";
 
 describe("evaluateAnswer", () => {
-  const item = questionBank.find((question) => question.id === "fund-hr")!;
+  const item = questionBank.find((question) => question.id === "nur-001")!;
   it("marks an answer correct when at least 60 percent of keywords match", () => {
     expect(evaluateAnswer("The normal range is 60 to 100 beats per minute", item).verdict).toBe("correct");
   });

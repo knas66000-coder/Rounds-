@@ -10,12 +10,12 @@ import { evaluateAnswer, shuffle, type Evaluation, type Verdict } from "@/lib/ro
 import { useColors } from "@/hooks/use-colors";
 import { encodeRecordedAudio } from "@/lib/audio-encoding";
 import { trpc } from "@/lib/trpc";
-import { ACTIVE_CATEGORY_KEY, nextStepForVerdict, questionsForCategory } from "@/lib/session";
+import { ACTIVE_CATEGORY_KEY, hasAnotherQuestion, nextStepForVerdict, questionsForCategory } from "@/lib/session";
 import { haptic } from "@/lib/haptics";
 
 const STORAGE_KEY = "rounds.session.v1";
 
-type Phase = "idle" | "asking" | "listening" | "transcribing" | "result";
+type Phase = "idle" | "asking" | "listening" | "transcribing" | "result" | "complete";
 type SavedResult = { verdict: Verdict; category: Category; at: string };
 
 export default function HomeScreen() {
@@ -37,7 +37,7 @@ export default function HomeScreen() {
   const recorderRef = useRef(recorder);
   const isRecordingRef = useRef(false);
   const transcribeMutation = trpc.voice.transcribe.useMutation();
-  const question = queue[index % queue.length];
+  const question = queue[index];
   const answered = results.length;
   const correct = results.filter((item) => item.verdict === "correct").length;
   const accuracy = answered ? Math.round((correct / answered) * 100) : 0;
@@ -163,7 +163,13 @@ export default function HomeScreen() {
   const nextQuestion = () => {
     haptic.light();
     if (autoTimer.current) clearTimeout(autoTimer.current);
-    setIndex((value) => (value + 1) % Math.max(queue.length, 1));
+    if (!hasAnotherQuestion(index, queue.length)) {
+      setAutoMode(false);
+      setVoiceNotice(`You completed all ${queue.length} unique ${category === "All" ? "practice questions" : `${category} questions`} in this round. Start a fresh round only when you are ready to reshuffle.`);
+      setPhase("complete");
+      return;
+    }
+    setIndex((value) => value + 1);
     setEvaluation(null);
     setTranscript("");
     setAnswerDraft("");
@@ -224,7 +230,18 @@ export default function HomeScreen() {
     ]);
   };
 
-  const phaseLabel = phase === "asking" ? "Speaking question" : phase === "listening" ? "Listening for your answer" : phase === "transcribing" ? "Transcribing your answer" : phase === "result" ? "Answer reviewed" : "Ready when you are";
+  const startFreshRound = () => {
+    haptic.medium();
+    setQueue(shuffle(questionsForCategory(category)));
+    setIndex(0);
+    setEvaluation(null);
+    setTranscript("");
+    setAnswerDraft("");
+    setVoiceNotice(null);
+    setPhase("idle");
+  };
+
+  const phaseLabel = phase === "asking" ? "Speaking question" : phase === "listening" ? "Listening for your answer" : phase === "transcribing" ? "Transcribing your answer" : phase === "result" ? "Answer reviewed" : phase === "complete" ? "Unique question round completed" : "Ready when you are";
   const verdictColor = evaluation?.verdict === "correct" ? colors.success : evaluation?.verdict === "partial" ? colors.warning : colors.error;
 
   return (
@@ -258,7 +275,7 @@ export default function HomeScreen() {
         <View style={[styles.questionCard, { backgroundColor: colors.surface, borderColor: colors.border }]}>
           <View style={styles.cardMeta}>
             <Text style={[styles.category, { color: colors.primary }]}>{category === "All" ? question.cat.toUpperCase() : `${category} FOCUS`.toUpperCase()}</Text>
-            <Text style={[styles.progress, { color: colors.muted }]}>QUESTION {index + 1}</Text>
+            <Text style={[styles.progress, { color: colors.muted }]}>QUESTION {Math.min(index + 1, queue.length)} OF {queue.length}</Text>
           </View>
           <Text style={[styles.question, { color: colors.foreground }]}>{question.q}</Text>
           <Text style={[styles.phase, { color: phase === "listening" ? colors.primary : colors.muted }]}>{phaseLabel}</Text>
@@ -302,6 +319,10 @@ export default function HomeScreen() {
               <Text style={styles.micIcon}>…</Text>
               <Text style={styles.micText}>{phase === "asking" ? "Speaking…" : "Transcribing…"}</Text>
             </View>
+          ) : phase === "complete" ? (
+            <Pressable onPress={startFreshRound} style={({ pressed }) => [styles.primaryButton, { backgroundColor: colors.primary }, pressed && styles.pressed]} accessibilityRole="button" accessibilityLabel="Start a fresh shuffled question round">
+              <Text style={[styles.primaryButtonText, { color: colors.background }]}>Start fresh round</Text>
+            </Pressable>
           ) : evaluation ? (
             <Pressable onPress={nextQuestion} style={({ pressed }) => [styles.primaryButton, { backgroundColor: colors.primary }, pressed && styles.pressed]} accessibilityRole="button" accessibilityLabel="Next question">
               <Text style={[styles.primaryButtonText, { color: colors.background }]}>Next question</Text>

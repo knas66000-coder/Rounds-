@@ -1,0 +1,24 @@
+{
+  "sourceRecordCount": 1000,
+  "uniqueQuestionCount": 1000,
+  "duplicateQuestionCount": 0,
+  "duplicateQuestions": [],
+  "categoryCounts": {
+    "Cardiac": 104,
+    "Pharmacology": 126,
+    "Respiratory": 42,
+    "Infection Control": 118,
+    "Gastrointestinal": 46,
+    "Fundamentals": 157,
+    "Renal": 62,
+    "Pediatrics": 61,
+    "Mental Health": 94,
+    "Endocrine": 44,
+    "Maternity": 61,
+    "Prioritization": 12,
+    "Neurological": 60,
+    "Critical Care": 7,
+    "Emergency": 6
+  },
+  "answerlessRecords": []
+}

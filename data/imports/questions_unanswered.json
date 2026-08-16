@@ -1,0 +1,4005 @@
+{
+  "source": "Rounds Nursing Question Bank 1000",
+  "questions": [
+    {
+      "id": "nur-001",
+      "sourceQuestion": "What is the normal range for adult resting heart rate, in beats per minute?"
+    },
+    {
+      "id": "nur-002",
+      "sourceQuestion": "Name the five rights of medication administration."
+    },
+    {
+      "id": "nur-003",
+      "sourceQuestion": "What is the normal adult respiratory rate range per minute?"
+    },
+    {
+      "id": "nur-004",
+      "sourceQuestion": "Which hand hygiene method is preferred when hands are visibly soiled, soap and water or alcohol-based rub?"
+    },
+    {
+      "id": "nur-005",
+      "sourceQuestion": "What position should a patient be in to reduce risk of aspiration during tube feeding?"
+    },
+    {
+      "id": "nur-006",
+      "sourceQuestion": "What is the normal adult body temperature range in Celsius?"
+    },
+    {
+      "id": "nur-007",
+      "sourceQuestion": "What is the correct sequence for donning personal protective equipment?"
+    },
+    {
+      "id": "nur-008",
+      "sourceQuestion": "What is the term for documentation that describes only significant findings and deviations from normal?"
+    },
+    {
+      "id": "nur-009",
+      "sourceQuestion": "What angle is used for a subcutaneous injection in an average-weight adult?"
+    },
+    {
+      "id": "nur-010",
+      "sourceQuestion": "What is the normal adult blood pressure range, using the AHA definition of normal?"
+    },
+    {
+      "id": "nur-011",
+      "sourceQuestion": "What is the antidote for warfarin overdose?"
+    },
+    {
+      "id": "nur-012",
+      "sourceQuestion": "What is the antidote for opioid overdose?"
+    },
+    {
+      "id": "nur-013",
+      "sourceQuestion": "What is the antidote for acetaminophen overdose?"
+    },
+    {
+      "id": "nur-014",
+      "sourceQuestion": "Which electrolyte imbalance is a major risk with loop diuretics like furosemide?"
+    },
+    {
+      "id": "nur-015",
+      "sourceQuestion": "What lab value must be monitored closely in a patient taking lithium?"
+    },
+    {
+      "id": "nur-016",
+      "sourceQuestion": "Digoxin toxicity can cause which classic visual disturbance?"
+    },
+    {
+      "id": "nur-017",
+      "sourceQuestion": "What is the antidote for benzodiazepine overdose?"
+    },
+    {
+      "id": "nur-018",
+      "sourceQuestion": "What is the antidote for heparin overdose?"
+    },
+    {
+      "id": "nur-019",
+      "sourceQuestion": "Which class of drugs carries a black box warning for increased suicidal ideation in adolescents?"
+    },
+    {
+      "id": "nur-020",
+      "sourceQuestion": "What should a nurse assess before administering an ACE inhibitor?"
+    },
+    {
+      "id": "nur-021",
+      "sourceQuestion": "What is the therapeutic serum range for phenytoin, in micrograms per milliliter?"
+    },
+    {
+      "id": "nur-022",
+      "sourceQuestion": "Which vitamin deficiency is associated with long-term isoniazid therapy?"
+    },
+    {
+      "id": "nur-023",
+      "sourceQuestion": "What is the first action for a patient experiencing chest pain?"
+    },
+    {
+      "id": "nur-024",
+      "sourceQuestion": "Which heart sound, S3 or S4, is commonly associated with heart failure?"
+    },
+    {
+      "id": "nur-025",
+      "sourceQuestion": "What does the P wave represent on an ECG?"
+    },
+    {
+      "id": "nur-026",
+      "sourceQuestion": "What is the priority nursing action for a patient in ventricular fibrillation?"
+    },
+    {
+      "id": "nur-027",
+      "sourceQuestion": "What position helps reduce venous return and ease breathing in acute heart failure?"
+    },
+    {
+      "id": "nur-028",
+      "sourceQuestion": "What is a hallmark sign of cardiac tamponade, part of Beck's triad?"
+    },
+    {
+      "id": "nur-029",
+      "sourceQuestion": "Which lab marker rises first after a myocardial infarction?"
+    },
+    {
+      "id": "nur-030",
+      "sourceQuestion": "What position best eases breathing for a patient with dyspnea?"
+    },
+    {
+      "id": "nur-031",
+      "sourceQuestion": "A patient with COPD should generally receive oxygen at what flow target to avoid suppressing the respiratory drive?"
+    },
+    {
+      "id": "nur-032",
+      "sourceQuestion": "What is the earliest sign of hypoxia in most patients?"
+    },
+    {
+      "id": "nur-033",
+      "sourceQuestion": "What is the priority intervention for a suspected tension pneumothorax?"
+    },
+    {
+      "id": "nur-034",
+      "sourceQuestion": "What is normal oxygen saturation range for a healthy adult on room air?"
+    },
+    {
+      "id": "nur-035",
+      "sourceQuestion": "What breath sound is described as high-pitched and heard on inspiration and expiration in asthma?"
+    },
+    {
+      "id": "nur-036",
+      "sourceQuestion": "What is the normal fasting blood glucose range in milligrams per deciliter?"
+    },
+    {
+      "id": "nur-037",
+      "sourceQuestion": "What are the classic signs of hypoglycemia?"
+    },
+    {
+      "id": "nur-038",
+      "sourceQuestion": "What is the priority intervention for a conscious patient with hypoglycemia?"
+    },
+    {
+      "id": "nur-039",
+      "sourceQuestion": "What are the classic signs of diabetic ketoacidosis?"
+    },
+    {
+      "id": "nur-040",
+      "sourceQuestion": "What hormone is deficient in type 1 diabetes mellitus?"
+    },
+    {
+      "id": "nur-041",
+      "sourceQuestion": "What is the priority assessment for a patient with suspected thyroid storm?"
+    },
+    {
+      "id": "nur-042",
+      "sourceQuestion": "What is the normal urine output considered adequate per hour for an adult?"
+    },
+    {
+      "id": "nur-043",
+      "sourceQuestion": "Which electrolyte is most dangerous when elevated in renal failure, risking cardiac arrest?"
+    },
+    {
+      "id": "nur-044",
+      "sourceQuestion": "What dietary restriction is typically recommended for a patient in chronic kidney disease?"
+    },
+    {
+      "id": "nur-045",
+      "sourceQuestion": "What is the term for a sudden decline in kidney function?"
+    },
+    {
+      "id": "nur-046",
+      "sourceQuestion": "What complication should be monitored for immediately after hemodialysis?"
+    },
+    {
+      "id": "nur-047",
+      "sourceQuestion": "What is the normal fetal heart rate range in beats per minute?"
+    },
+    {
+      "id": "nur-048",
+      "sourceQuestion": "What is the term for the first stool passed by a newborn?"
+    },
+    {
+      "id": "nur-049",
+      "sourceQuestion": "Magnesium sulfate toxicity is monitored by checking which reflex?"
+    },
+    {
+      "id": "nur-050",
+      "sourceQuestion": "What are the classic signs of preeclampsia?"
+    },
+    {
+      "id": "nur-051",
+      "sourceQuestion": "What is the priority action if umbilical cord prolapse occurs?"
+    },
+    {
+      "id": "nur-052",
+      "sourceQuestion": "What is the term for excessive vomiting during pregnancy leading to dehydration?"
+    },
+    {
+      "id": "nur-053",
+      "sourceQuestion": "What Apgar score components are assessed at 1 and 5 minutes after birth?"
+    },
+    {
+      "id": "nur-054",
+      "sourceQuestion": "At what age do most infants triple their birth weight?"
+    },
+    {
+      "id": "nur-055",
+      "sourceQuestion": "What illness causes a barking cough and is also called viral laryngotracheobronchitis?"
+    },
+    {
+      "id": "nur-056",
+      "sourceQuestion": "What is the normal respiratory rate range for a newborn?"
+    },
+    {
+      "id": "nur-057",
+      "sourceQuestion": "What childhood illness presents with a classic 'slapped cheek' rash?"
+    },
+    {
+      "id": "nur-058",
+      "sourceQuestion": "What is the priority concern with a child presenting with barking cough, stridor, and drooling?"
+    },
+    {
+      "id": "nur-059",
+      "sourceQuestion": "At what age can most infants sit without support?"
+    },
+    {
+      "id": "nur-060",
+      "sourceQuestion": "What is the priority assessment when caring for a patient with suicidal ideation?"
+    },
+    {
+      "id": "nur-061",
+      "sourceQuestion": "Which combination of medications carries a major risk of serotonin syndrome?"
+    },
+    {
+      "id": "nur-062",
+      "sourceQuestion": "What is the term for a fixed, false belief not shared by others in the patient's culture?"
+    },
+    {
+      "id": "nur-063",
+      "sourceQuestion": "What nursing approach is most therapeutic when a patient is experiencing hallucinations?"
+    },
+    {
+      "id": "nur-064",
+      "sourceQuestion": "What is the term for extreme, persistent worry that interferes with daily functioning?"
+    },
+    {
+      "id": "nur-065",
+      "sourceQuestion": "What symptom cluster distinguishes mania from normal high energy?"
+    },
+    {
+      "id": "nur-066",
+      "sourceQuestion": "What is the most common early sign of malignant hyperthermia under anesthesia?"
+    },
+    {
+      "id": "nur-067",
+      "sourceQuestion": "How soon after surgery should a patient typically be encouraged to ambulate to prevent complications?"
+    },
+    {
+      "id": "nur-068",
+      "sourceQuestion": "What preoperative teaching reduces the risk of postoperative atelectasis?"
+    },
+    {
+      "id": "nur-069",
+      "sourceQuestion": "What is the priority assessment immediately after a patient returns from surgery under general anesthesia?"
+    },
+    {
+      "id": "nur-070",
+      "sourceQuestion": "What informed consent element must the nurse verify before surgery, though the surgeon obtains it?"
+    },
+    {
+      "id": "nur-071",
+      "sourceQuestion": "What type of isolation precaution is required for tuberculosis?"
+    },
+    {
+      "id": "nur-072",
+      "sourceQuestion": "What type of precaution is used for C. difficile infection?"
+    },
+    {
+      "id": "nur-073",
+      "sourceQuestion": "What isolation type is used for influenza or pertussis?"
+    },
+    {
+      "id": "nur-074",
+      "sourceQuestion": "What are the four links in the chain of infection that can be broken to prevent spread?"
+    },
+    {
+      "id": "nur-075",
+      "sourceQuestion": "What is the priority nursing action for a patient showing early signs of sepsis?"
+    },
+    {
+      "id": "nur-076",
+      "sourceQuestion": "What is the normal serum sodium range in milliequivalents per liter?"
+    },
+    {
+      "id": "nur-077",
+      "sourceQuestion": "What are signs of fluid volume overload?"
+    },
+    {
+      "id": "nur-078",
+      "sourceQuestion": "What is the normal serum potassium range in milliequivalents per liter?"
+    },
+    {
+      "id": "nur-079",
+      "sourceQuestion": "What ECG change is classically associated with hyperkalemia?"
+    },
+    {
+      "id": "nur-080",
+      "sourceQuestion": "What are signs of hypocalcemia, including Chvostek's and Trousseau's signs?"
+    },
+    {
+      "id": "nur-081",
+      "sourceQuestion": "Using the ABC framework, which comes first: airway, breathing, or circulation?"
+    },
+    {
+      "id": "nur-082",
+      "sourceQuestion": "Using Maslow's hierarchy, which need takes priority: physiological needs or safety needs?"
+    },
+    {
+      "id": "nur-083",
+      "sourceQuestion": "When triaging multiple patients, which should be seen first: a stable patient with a laceration, or a patient with new-onset confusion?"
+    },
+    {
+      "id": "nur-084",
+      "sourceQuestion": "What principle guides delegation of tasks to unlicensed assistive personnel?"
+    },
+    {
+      "id": "nur-085",
+      "sourceQuestion": "What position should a patient be placed in after a liver biopsy to apply pressure?"
+    },
+    {
+      "id": "nur-086",
+      "sourceQuestion": "What is the priority assessment after abdominal surgery to detect ileus?"
+    },
+    {
+      "id": "nur-087",
+      "sourceQuestion": "What are the classic signs of appendicitis?"
+    },
+    {
+      "id": "nur-088",
+      "sourceQuestion": "What dietary modification is recommended for a patient with GERD?"
+    },
+    {
+      "id": "nur-089",
+      "sourceQuestion": "What complication of peptic ulcer disease presents with sudden, severe abdominal pain and a rigid, board-like abdomen?"
+    },
+    {
+      "id": "nur-090",
+      "sourceQuestion": "What scale is used to assess level of consciousness, ranging from 3 to 15?"
+    },
+    {
+      "id": "nur-091",
+      "sourceQuestion": "What is the early sign of increased intracranial pressure most often seen first?"
+    },
+    {
+      "id": "nur-092",
+      "sourceQuestion": "What are the signs of Cushing's triad, indicating late increased intracranial pressure?"
+    },
+    {
+      "id": "nur-093",
+      "sourceQuestion": "What is the priority action within the first hour of suspected ischemic stroke symptoms?"
+    },
+    {
+      "id": "nur-094",
+      "sourceQuestion": "What is the term for the inability to understand or produce language after brain injury?"
+    },
+    {
+      "id": "nur-095",
+      "sourceQuestion": "What position should be avoided in a patient with increased intracranial pressure?"
+    },
+    {
+      "id": "nur-096",
+      "sourceQuestion": "What ethical principle refers to a patient's right to make their own healthcare decisions?"
+    },
+    {
+      "id": "nur-097",
+      "sourceQuestion": "What is the legal term for touching a patient without consent?"
+    },
+    {
+      "id": "nur-098",
+      "sourceQuestion": "What ethical principle means 'do no harm'?"
+    },
+    {
+      "id": "nur-099",
+      "sourceQuestion": "What must a nurse do first upon discovering a medication error occurred?"
+    },
+    {
+      "id": "nur-100",
+      "sourceQuestion": "What federal law protects the privacy of patient health information in the United States?"
+    },
+    {
+      "id": "nur-101",
+      "sourceQuestion": "What is the normal duration of a full-term pregnancy?"
+    },
+    {
+      "id": "nur-102",
+      "sourceQuestion": "What is the recommended weight gain for a woman with a normal BMI during pregnancy?"
+    },
+    {
+      "id": "nur-103",
+      "sourceQuestion": "What is the most common cause of bleeding in the first trimester of pregnancy?"
+    },
+    {
+      "id": "nur-104",
+      "sourceQuestion": "What is the most common cause of bleeding in the third trimester of pregnancy?"
+    },
+    {
+      "id": "nur-105",
+      "sourceQuestion": "What is the difference between placenta previa and placental abruption?"
+    },
+    {
+      "id": "nur-106",
+      "sourceQuestion": "What is the normal fetal heart rate range during pregnancy?"
+    },
+    {
+      "id": "nur-107",
+      "sourceQuestion": "What is the best indicator of fetal well-being during labor?"
+    },
+    {
+      "id": "nur-108",
+      "sourceQuestion": "What are the signs of preeclampsia?"
+    },
+    {
+      "id": "nur-109",
+      "sourceQuestion": "What is the most common medication used to manage preeclampsia?"
+    },
+    {
+      "id": "nur-110",
+      "sourceQuestion": "What are the signs of magnesium sulfate toxicity?"
+    },
+    {
+      "id": "nur-111",
+      "sourceQuestion": "What is the antidote for magnesium sulfate toxicity?"
+    },
+    {
+      "id": "nur-112",
+      "sourceQuestion": "What is the recommended Apgar score for a healthy newborn at 5 minutes of life?"
+    },
+    {
+      "id": "nur-113",
+      "sourceQuestion": "What are the 5 components of the Apgar score?"
+    },
+    {
+      "id": "nur-114",
+      "sourceQuestion": "What is the most common complication of gestational diabetes?"
+    },
+    {
+      "id": "nur-115",
+      "sourceQuestion": "What is the normal blood glucose range for a woman with gestational diabetes during pregnancy?"
+    },
+    {
+      "id": "nur-116",
+      "sourceQuestion": "What is the normal heart rate for a newborn infant?"
+    },
+    {
+      "id": "nur-117",
+      "sourceQuestion": "What is the normal respiratory rate for a newborn infant?"
+    },
+    {
+      "id": "nur-118",
+      "sourceQuestion": "What is the normal heart rate for a 1-year-old child?"
+    },
+    {
+      "id": "nur-119",
+      "sourceQuestion": "What is the normal systolic blood pressure for a school-age child?"
+    },
+    {
+      "id": "nur-120",
+      "sourceQuestion": "What is the most common cause of fever in children under 3 years of age?"
+    },
+    {
+      "id": "nur-121",
+      "sourceQuestion": "What is the most common cause of bronchiolitis in infants?"
+    },
+    {
+      "id": "nur-122",
+      "sourceQuestion": "What is the most common cause of croup in children?"
+    },
+    {
+      "id": "nur-123",
+      "sourceQuestion": "What is the hallmark sign of croup?"
+    },
+    {
+      "id": "nur-124",
+      "sourceQuestion": "What is the most common bacterial cause of otitis media in children?"
+    },
+    {
+      "id": "nur-125",
+      "sourceQuestion": "What is the normal weight gain pattern for a breastfed infant in the first 6 months?"
+    },
+    {
+      "id": "nur-126",
+      "sourceQuestion": "What is the recommended age for the first dose of the MMR vaccine?"
+    },
+    {
+      "id": "nur-127",
+      "sourceQuestion": "What is the recommended age for the first dose of the hepatitis B vaccine?"
+    },
+    {
+      "id": "nur-128",
+      "sourceQuestion": "What is the most common cause of acute gastroenteritis in children?"
+    },
+    {
+      "id": "nur-129",
+      "sourceQuestion": "What is the most important treatment for acute gastroenteritis in children?"
+    },
+    {
+      "id": "nur-130",
+      "sourceQuestion": "What is the most common cause of seizures in children aged 6 months to 5 years?"
+    },
+    {
+      "id": "nur-131",
+      "sourceQuestion": "What is the first-line treatment for major depressive disorder?"
+    },
+    {
+      "id": "nur-132",
+      "sourceQuestion": "What is the first-line treatment for generalized anxiety disorder?"
+    },
+    {
+      "id": "nur-133",
+      "sourceQuestion": "What is the most common side effect of selective serotonin reuptake inhibitors in the first few weeks of treatment?"
+    },
+    {
+      "id": "nur-134",
+      "sourceQuestion": "What is the black box warning for antidepressants in children and adolescents?"
+    },
+    {
+      "id": "nur-135",
+      "sourceQuestion": "What are the positive symptoms of schizophrenia?"
+    },
+    {
+      "id": "nur-136",
+      "sourceQuestion": "What are the negative symptoms of schizophrenia?"
+    },
+    {
+      "id": "nur-137",
+      "sourceQuestion": "What is the first-line antipsychotic medication for schizophrenia?"
+    },
+    {
+      "id": "nur-138",
+      "sourceQuestion": "What is the most serious adverse effect of clozapine?"
+    },
+    {
+      "id": "nur-139",
+      "sourceQuestion": "What is the difference between bipolar I and bipolar II disorder?"
+    },
+    {
+      "id": "nur-140",
+      "sourceQuestion": "What is the first-line treatment for acute mania in bipolar disorder?"
+    },
+    {
+      "id": "nur-141",
+      "sourceQuestion": "What is the therapeutic serum level of lithium?"
+    },
+    {
+      "id": "nur-142",
+      "sourceQuestion": "What are the symptoms of lithium toxicity?"
+    },
+    {
+      "id": "nur-143",
+      "sourceQuestion": "What is the most common anxiety disorder in adults?"
+    },
+    {
+      "id": "nur-144",
+      "sourceQuestion": "What is the most effective treatment for post-traumatic stress disorder?"
+    },
+    {
+      "id": "nur-145",
+      "sourceQuestion": "What is the difference between delirium and dementia?"
+    },
+    {
+      "id": "nur-146",
+      "sourceQuestion": "What is the most important preoperative assessment for a patient undergoing surgery?"
+    },
+    {
+      "id": "nur-147",
+      "sourceQuestion": "What is the recommended fasting time for clear liquids before surgery?"
+    },
+    {
+      "id": "nur-148",
+      "sourceQuestion": "What is the recommended fasting time for solid food before surgery?"
+    },
+    {
+      "id": "nur-149",
+      "sourceQuestion": "What medication should be held before surgery to reduce bleeding risk?"
+    },
+    {
+      "id": "nur-150",
+      "sourceQuestion": "What is the most common postoperative complication?"
+    },
+    {
+      "id": "nur-151",
+      "sourceQuestion": "What is the most important method to prevent healthcare-associated infections?"
+    },
+    {
+      "id": "nur-152",
+      "sourceQuestion": "How long should healthcare workers perform hand hygiene with soap and water?"
+    },
+    {
+      "id": "nur-153",
+      "sourceQuestion": "What is the minimum alcohol concentration for an effective hand sanitizer?"
+    },
+    {
+      "id": "nur-154",
+      "sourceQuestion": "What are the standard precautions in infection control?"
+    },
+    {
+      "id": "nur-155",
+      "sourceQuestion": "What are transmission-based precautions?"
+    },
+    {
+      "id": "nur-156",
+      "sourceQuestion": "What type of precautions are required for a patient with methicillin-resistant Staphylococcus aureus, or MRSA?"
+    },
+    {
+      "id": "nur-157",
+      "sourceQuestion": "What type of precautions are required for a patient with tuberculosis?"
+    },
+    {
+      "id": "nur-158",
+      "sourceQuestion": "What type of precautions are required for a patient with influenza?"
+    },
+    {
+      "id": "nur-159",
+      "sourceQuestion": "What are the most common healthcare-associated infections?"
+    },
+    {
+      "id": "nur-160",
+      "sourceQuestion": "What is the most common cause of central line-associated bloodstream infections?"
+    },
+    {
+      "id": "nur-161",
+      "sourceQuestion": "What is the bundle approach for preventing central line-associated bloodstream infections?"
+    },
+    {
+      "id": "nur-162",
+      "sourceQuestion": "What is the most common cause of catheter-associated urinary tract infections?"
+    },
+    {
+      "id": "nur-163",
+      "sourceQuestion": "What is the best way to prevent catheter-associated urinary tract infections?"
+    },
+    {
+      "id": "nur-164",
+      "sourceQuestion": "What is Clostridioides difficile, or C. diff, infection and how is it transmitted?"
+    },
+    {
+      "id": "nur-165",
+      "sourceQuestion": "What is the most effective agent for hand hygiene against C. difficile spores?"
+    },
+    {
+      "id": "nur-166",
+      "sourceQuestion": "What is the most common cause of surgical site infections?"
+    },
+    {
+      "id": "nur-167",
+      "sourceQuestion": "What is the single most important factor in preventing surgical site infections?"
+    },
+    {
+      "id": "nur-168",
+      "sourceQuestion": "What is the recommended temperature for maintaining sterile supplies?"
+    },
+    {
+      "id": "nur-169",
+      "sourceQuestion": "What is the chain of infection?"
+    },
+    {
+      "id": "nur-170",
+      "sourceQuestion": "What is the most effective way to break the chain of infection?"
+    },
+    {
+      "id": "nur-171",
+      "sourceQuestion": "What is the total body water percentage for an average adult male?"
+    },
+    {
+      "id": "nur-172",
+      "sourceQuestion": "What is the intracellular fluid volume in an average adult?"
+    },
+    {
+      "id": "nur-173",
+      "sourceQuestion": "What is the extracellular fluid volume in an average adult?"
+    },
+    {
+      "id": "nur-174",
+      "sourceQuestion": "What is the normal serum osmolality range?"
+    },
+    {
+      "id": "nur-175",
+      "sourceQuestion": "What is the most abundant intracellular cation?"
+    },
+    {
+      "id": "nur-176",
+      "sourceQuestion": "What is the most abundant extracellular cation?"
+    },
+    {
+      "id": "nur-177",
+      "sourceQuestion": "What is the most abundant intracellular anion?"
+    },
+    {
+      "id": "nur-178",
+      "sourceQuestion": "What is the most abundant extracellular anion?"
+    },
+    {
+      "id": "nur-179",
+      "sourceQuestion": "What is the normal serum magnesium level?"
+    },
+    {
+      "id": "nur-180",
+      "sourceQuestion": "What is the normal serum calcium level?"
+    },
+    {
+      "id": "nur-181",
+      "sourceQuestion": "What is the difference between hyponatremia and hypernatremia?"
+    },
+    {
+      "id": "nur-182",
+      "sourceQuestion": "What are the symptoms of hyponatremia?"
+    },
+    {
+      "id": "nur-183",
+      "sourceQuestion": "What is the most common cause of hypernatremia?"
+    },
+    {
+      "id": "nur-184",
+      "sourceQuestion": "What is the most common cause of hypokalemia?"
+    },
+    {
+      "id": "nur-185",
+      "sourceQuestion": "What is the most serious complication of hypokalemia?"
+    },
+    {
+      "id": "nur-186",
+      "sourceQuestion": "What is the most common cause of hyperkalemia?"
+    },
+    {
+      "id": "nur-187",
+      "sourceQuestion": "What is the most common cause of hypocalcemia?"
+    },
+    {
+      "id": "nur-188",
+      "sourceQuestion": "What is the most common cause of hypercalcemia?"
+    },
+    {
+      "id": "nur-189",
+      "sourceQuestion": "What is the Chvostek sign and what does it indicate?"
+    },
+    {
+      "id": "nur-190",
+      "sourceQuestion": "What is the Trousseau sign and what does it indicate?"
+    },
+    {
+      "id": "nur-191",
+      "sourceQuestion": "What is the ABCDE framework in patient prioritization?"
+    },
+    {
+      "id": "nur-192",
+      "sourceQuestion": "What is Maslow's hierarchy of needs in nursing prioritization?"
+    },
+    {
+      "id": "nur-193",
+      "sourceQuestion": "What is the difference between urgent and emergent patient conditions?"
+    },
+    {
+      "id": "nur-194",
+      "sourceQuestion": "What is the first priority in the primary survey of a trauma patient?"
+    },
+    {
+      "id": "nur-195",
+      "sourceQuestion": "Which patient should the nurse see first: a patient with chest pain or a patient with a fever of 101 degrees Fahrenheit?"
+    },
+    {
+      "id": "nur-196",
+      "sourceQuestion": "Which patient should the nurse see first: a patient with shortness of breath or a patient with a post-operative wound infection?"
+    },
+    {
+      "id": "nur-197",
+      "sourceQuestion": "What is the triage category for a patient with anaphylaxis?"
+    },
+    {
+      "id": "nur-198",
+      "sourceQuestion": "What is the triage category for a patient with a fractured ankle?"
+    },
+    {
+      "id": "nur-199",
+      "sourceQuestion": "What is the most important factor in deciding which patient to see first?"
+    },
+    {
+      "id": "nur-200",
+      "sourceQuestion": "What is the SBAR communication tool and when is it used?"
+    },
+    {
+      "id": "nur-201",
+      "sourceQuestion": "What is the most common cause of gastrointestinal bleeding in adults?"
+    },
+    {
+      "id": "nur-202",
+      "sourceQuestion": "What is the most common symptom of gastroesophageal reflux disease, or GERD?"
+    },
+    {
+      "id": "nur-203",
+      "sourceQuestion": "What is the first-line treatment for GERD?"
+    },
+    {
+      "id": "nur-204",
+      "sourceQuestion": "What is the most common cause of peptic ulcer disease?"
+    },
+    {
+      "id": "nur-205",
+      "sourceQuestion": "What are the signs of a perforated peptic ulcer?"
+    },
+    {
+      "id": "nur-206",
+      "sourceQuestion": "What is the most common cause of acute pancreatitis?"
+    },
+    {
+      "id": "nur-207",
+      "sourceQuestion": "What are the signs and symptoms of acute pancreatitis?"
+    },
+    {
+      "id": "nur-208",
+      "sourceQuestion": "What is the most common cause of hepatitis in the United States?"
+    },
+    {
+      "id": "nur-209",
+      "sourceQuestion": "What is the mode of transmission for hepatitis A?"
+    },
+    {
+      "id": "nur-210",
+      "sourceQuestion": "What is the mode of transmission for hepatitis B?"
+    },
+    {
+      "id": "nur-211",
+      "sourceQuestion": "What is the most common cause of acute gastroenteritis in the United States?"
+    },
+    {
+      "id": "nur-212",
+      "sourceQuestion": "What is the most important treatment for acute gastroenteritis?"
+    },
+    {
+      "id": "nur-213",
+      "sourceQuestion": "What are the classic symptoms of inflammatory bowel disease, or IBD?"
+    },
+    {
+      "id": "nur-214",
+      "sourceQuestion": "What is the difference between Crohn's disease and ulcerative colitis?"
+    },
+    {
+      "id": "nur-215",
+      "sourceQuestion": "What is the most common location of diverticulitis?"
+    },
+    {
+      "id": "nur-216",
+      "sourceQuestion": "What are the signs of intestinal obstruction?"
+    },
+    {
+      "id": "nur-217",
+      "sourceQuestion": "What is the most common cause of small bowel obstruction?"
+    },
+    {
+      "id": "nur-218",
+      "sourceQuestion": "What is the most common cause of large bowel obstruction?"
+    },
+    {
+      "id": "nur-219",
+      "sourceQuestion": "What is the normal serum bilirubin level?"
+    },
+    {
+      "id": "nur-220",
+      "sourceQuestion": "What is the most common cause of jaundice in newborns?"
+    },
+    {
+      "id": "nur-221",
+      "sourceQuestion": "What is the most common type of stroke?"
+    },
+    {
+      "id": "nur-222",
+      "sourceQuestion": "What is the difference between an ischemic stroke and a hemorrhagic stroke?"
+    },
+    {
+      "id": "nur-223",
+      "sourceQuestion": "What is the most important modifiable risk factor for stroke?"
+    },
+    {
+      "id": "nur-224",
+      "sourceQuestion": "What is the treatment window for tissue plasminogen activator, or tPA, in acute ischemic stroke?"
+    },
+    {
+      "id": "nur-225",
+      "sourceQuestion": "What is the most common cause of hemorrhagic stroke?"
+    },
+    {
+      "id": "nur-226",
+      "sourceQuestion": "What is the Glasgow Coma Scale, or GCS, and what are its components?"
+    },
+    {
+      "id": "nur-227",
+      "sourceQuestion": "What is the minimum GCS score for a patient who is fully alert and oriented?"
+    },
+    {
+      "id": "nur-228",
+      "sourceQuestion": "What GCS score indicates the need for intubation to protect the airway?"
+    },
+    {
+      "id": "nur-229",
+      "sourceQuestion": "What is the most common cause of seizure in adults?"
+    },
+    {
+      "id": "nur-230",
+      "sourceQuestion": "What is the first-line treatment for status epilepticus?"
+    },
+    {
+      "id": "nur-231",
+      "sourceQuestion": "What is the most common neurodegenerative disorder in older adults?"
+    },
+    {
+      "id": "nur-232",
+      "sourceQuestion": "What are the classic signs of Parkinson's disease?"
+    },
+    {
+      "id": "nur-233",
+      "sourceQuestion": "What is the pharmacological treatment for Parkinson's disease?"
+    },
+    {
+      "id": "nur-234",
+      "sourceQuestion": "What is the most common type of headache disorder?"
+    },
+    {
+      "id": "nur-235",
+      "sourceQuestion": "What are the signs of increased intracranial pressure?"
+    },
+    {
+      "id": "nur-236",
+      "sourceQuestion": "What is the normal intracranial pressure for a resting adult?"
+    },
+    {
+      "id": "nur-237",
+      "sourceQuestion": "At what ICP level is treatment typically initiated for intracranial hypertension?"
+    },
+    {
+      "id": "nur-238",
+      "sourceQuestion": "What is the most common cause of meningitis in adults?"
+    },
+    {
+      "id": "nur-239",
+      "sourceQuestion": "What is the classic triad of symptoms for bacterial meningitis?"
+    },
+    {
+      "id": "nur-240",
+      "sourceQuestion": "What is the most common cause of peripheral neuropathy?"
+    },
+    {
+      "id": "nur-241",
+      "sourceQuestion": "What is the most important principle of ethical nursing practice?"
+    },
+    {
+      "id": "nur-242",
+      "sourceQuestion": "What is the difference between ethics and law in nursing practice?"
+    },
+    {
+      "id": "nur-243",
+      "sourceQuestion": "What is the ANA Code of Ethics for Nurses?"
+    },
+    {
+      "id": "nur-244",
+      "sourceQuestion": "What is the nurse's legal duty when a patient refuses a life-saving treatment?"
+    },
+    {
+      "id": "nur-245",
+      "sourceQuestion": "What is the most common cause of nursing malpractice claims?"
+    },
+    {
+      "id": "nur-246",
+      "sourceQuestion": "What is the statute of limitations for medical malpractice in most states?"
+    },
+    {
+      "id": "nur-247",
+      "sourceQuestion": "What is the difference between delegation and assignment in nursing?"
+    },
+    {
+      "id": "nur-248",
+      "sourceQuestion": "What are the five rights of delegation?"
+    },
+    {
+      "id": "nur-249",
+      "sourceQuestion": "What is the most important role of a nurse manager?"
+    },
+    {
+      "id": "nur-250",
+      "sourceQuestion": "What is the most effective leadership style in nursing?"
+    },
+    {
+      "id": "nur-251",
+      "sourceQuestion": "What is the difference between an RN and an LPN in terms of scope of practice?"
+    },
+    {
+      "id": "nur-252",
+      "sourceQuestion": "What are the components of informed consent?"
+    },
+    {
+      "id": "nur-253",
+      "sourceQuestion": "What is the role of the charge nurse on a hospital unit?"
+    },
+    {
+      "id": "nur-254",
+      "sourceQuestion": "What is the most important characteristic of effective interprofessional collaboration?"
+    },
+    {
+      "id": "nur-255",
+      "sourceQuestion": "What is the purpose of quality improvement initiatives in nursing?"
+    },
+    {
+      "id": "nur-256",
+      "sourceQuestion": "What is the Plan-Do-Study-Act or PDSA cycle in quality improvement?"
+    },
+    {
+      "id": "nur-257",
+      "sourceQuestion": "What is sentinel event reporting in healthcare?"
+    },
+    {
+      "id": "nur-258",
+      "sourceQuestion": "What is the nurse's role in patient advocacy?"
+    },
+    {
+      "id": "nur-259",
+      "sourceQuestion": "What is the difference between a living will and a durable power of attorney for healthcare?"
+    },
+    {
+      "id": "nur-260",
+      "sourceQuestion": "What is the ethical principle of veracity in nursing?"
+    },
+    {
+      "id": "nur-261",
+      "sourceQuestion": "What is the normal capillary refill time in a healthy adult?"
+    },
+    {
+      "id": "nur-262",
+      "sourceQuestion": "What is the correct technique for assessing a patient's pulse?"
+    },
+    {
+      "id": "nur-263",
+      "sourceQuestion": "What is the most common site for assessing a peripheral pulse?"
+    },
+    {
+      "id": "nur-264",
+      "sourceQuestion": "What is the difference between a sterile field and a clean field?"
+    },
+    {
+      "id": "nur-265",
+      "sourceQuestion": "What is the 1-inch border rule for a sterile field?"
+    },
+    {
+      "id": "nur-266",
+      "sourceQuestion": "What is the correct order for removing soiled gloves?"
+    },
+    {
+      "id": "nur-267",
+      "sourceQuestion": "What is the normal intake-to-output ratio for a healthy adult?"
+    },
+    {
+      "id": "nur-268",
+      "sourceQuestion": "What is the most important intervention for a patient with a new tracheostomy?"
+    },
+    {
+      "id": "nur-269",
+      "sourceQuestion": "What is the normal daily caloric requirement for a sedentary adult female?"
+    },
+    {
+      "id": "nur-270",
+      "sourceQuestion": "What is the Braden Scale used for in nursing assessment?"
+    },
+    {
+      "id": "nur-271",
+      "sourceQuestion": "What is the therapeutic range for theophylline?"
+    },
+    {
+      "id": "nur-272",
+      "sourceQuestion": "What class of medication is metoprolol and what does it treat?"
+    },
+    {
+      "id": "nur-273",
+      "sourceQuestion": "What is the most common side effect of beta-blockers that requires monitoring?"
+    },
+    {
+      "id": "nur-274",
+      "sourceQuestion": "What is the mechanism of action of calcium channel blockers?"
+    },
+    {
+      "id": "nur-275",
+      "sourceQuestion": "What are the first-line antihypertensive medications in black patients according to JNC 8 guidelines?"
+    },
+    {
+      "id": "nur-276",
+      "sourceQuestion": "What is the target dose of intravenous heparin for treating pulmonary embolism?"
+    },
+    {
+      "id": "nur-277",
+      "sourceQuestion": "What is the most serious adverse effect of amiodarone?"
+    },
+    {
+      "id": "nur-278",
+      "sourceQuestion": "What is the loading dose of digoxin for atrial fibrillation?"
+    },
+    {
+      "id": "nur-279",
+      "sourceQuestion": "What is the most important drug interaction with warfarin that increases bleeding risk?"
+    },
+    {
+      "id": "nur-280",
+      "sourceQuestion": "What is the antidote for heparin-induced thrombocytopenia, or HIT?"
+    },
+    {
+      "id": "nur-281",
+      "sourceQuestion": "What is the most common symptom of aortic stenosis?"
+    },
+    {
+      "id": "nur-282",
+      "sourceQuestion": "What is the most common cause of aortic stenosis in adults over 65?"
+    },
+    {
+      "id": "nur-283",
+      "sourceQuestion": "What is the treatment for a patient with unstable angina?"
+    },
+    {
+      "id": "nur-284",
+      "sourceQuestion": "What are the goals of treatment for a patient with acute coronary syndrome?"
+    },
+    {
+      "id": "nur-285",
+      "sourceQuestion": "What is the difference between primary and secondary prevention of cardiovascular disease?"
+    },
+    {
+      "id": "nur-286",
+      "sourceQuestion": "What is the Life's Simple 7 framework for cardiovascular health?"
+    },
+    {
+      "id": "nur-287",
+      "sourceQuestion": "What is the most common type of congenital heart defect?"
+    },
+    {
+      "id": "nur-288",
+      "sourceQuestion": "What is the normal oxygen saturation difference between the right and left heart?"
+    },
+    {
+      "id": "nur-289",
+      "sourceQuestion": "What is the Frank-Starling law of the heart?"
+    },
+    {
+      "id": "nur-290",
+      "sourceQuestion": "What is the most common cause of heart failure in the United States?"
+    },
+    {
+      "id": "nur-291",
+      "sourceQuestion": "What is the most common cause of respiratory failure?"
+    },
+    {
+      "id": "nur-292",
+      "sourceQuestion": "What is the difference between type 1 and type 2 respiratory failure?"
+    },
+    {
+      "id": "nur-293",
+      "sourceQuestion": "What is the normal dead space ventilation in a healthy adult?"
+    },
+    {
+      "id": "nur-294",
+      "sourceQuestion": "What is the most common cause of a spontaneous pneumothorax?"
+    },
+    {
+      "id": "nur-295",
+      "sourceQuestion": "What is the treatment for a tension pneumothorax?"
+    },
+    {
+      "id": "nur-296",
+      "sourceQuestion": "What are the signs of a tension pneumothorax?"
+    },
+    {
+      "id": "nur-297",
+      "sourceQuestion": "What is the most common cause of pleural effusion?"
+    },
+    {
+      "id": "nur-298",
+      "sourceQuestion": "What is the difference between transudative and exudative pleural effusions?"
+    },
+    {
+      "id": "nur-299",
+      "sourceQuestion": "What is Light's criteria used for in respiratory medicine?"
+    },
+    {
+      "id": "nur-300",
+      "sourceQuestion": "What is the most common organism causing pneumonia in immunocompromised patients?"
+    },
+    {
+      "id": "nur-301",
+      "sourceQuestion": "What is the Somogyi effect in diabetes management?"
+    },
+    {
+      "id": "nur-302",
+      "sourceQuestion": "What is the dawn phenomenon in diabetes?"
+    },
+    {
+      "id": "nur-303",
+      "sourceQuestion": "What is the difference between type 1 and type 2 diabetes?"
+    },
+    {
+      "id": "nur-304",
+      "sourceQuestion": "What is diabetic ketoacidosis and when does it occur?"
+    },
+    {
+      "id": "nur-305",
+      "sourceQuestion": "What is the diagnostic criteria for DKA?"
+    },
+    {
+      "id": "nur-306",
+      "sourceQuestion": "What are the signs of thyroid storm?"
+    },
+    {
+      "id": "nur-307",
+      "sourceQuestion": "What is the treatment for thyroid storm?"
+    },
+    {
+      "id": "nur-308",
+      "sourceQuestion": "What is the most common cause of hypopituitarism?"
+    },
+    {
+      "id": "nur-309",
+      "sourceQuestion": "What is acromegaly and what causes it?"
+    },
+    {
+      "id": "nur-310",
+      "sourceQuestion": "What is the most common cause of hypothyroidism worldwide?"
+    },
+    {
+      "id": "nur-311",
+      "sourceQuestion": "What is the most common cause of nephrotic syndrome in adults?"
+    },
+    {
+      "id": "nur-312",
+      "sourceQuestion": "What are the signs of nephrotic syndrome?"
+    },
+    {
+      "id": "nur-313",
+      "sourceQuestion": "What is the difference between hemodialysis and peritoneal dialysis?"
+    },
+    {
+      "id": "nur-314",
+      "sourceQuestion": "What is the most common complication of hemodialysis?"
+    },
+    {
+      "id": "nur-315",
+      "sourceQuestion": "What is the most common complication of peritoneal dialysis?"
+    },
+    {
+      "id": "nur-316",
+      "sourceQuestion": "What is the normal serum phosphorus level?"
+    },
+    {
+      "id": "nur-317",
+      "sourceQuestion": "What are the most common electrolyte disturbances in patients with chronic kidney disease requiring dialysis?"
+    },
+    {
+      "id": "nur-318",
+      "sourceQuestion": "What are the dietary restrictions for a patient with chronic kidney disease?"
+    },
+    {
+      "id": "nur-319",
+      "sourceQuestion": "What is the most common cause of urinary tract infection in women?"
+    },
+    {
+      "id": "nur-320",
+      "sourceQuestion": "What is the first-line antibiotic for uncomplicated urinary tract infection?"
+    },
+    {
+      "id": "nur-321",
+      "sourceQuestion": "What is the definition of preterm labor?"
+    },
+    {
+      "id": "nur-322",
+      "sourceQuestion": "What is the treatment for preterm labor?"
+    },
+    {
+      "id": "nur-323",
+      "sourceQuestion": "What is the most common cause of postpartum hemorrhage?"
+    },
+    {
+      "id": "nur-324",
+      "sourceQuestion": "What are the four T's of postpartum hemorrhage?"
+    },
+    {
+      "id": "nur-325",
+      "sourceQuestion": "What is the most common congenital anomaly affecting newborns?"
+    },
+    {
+      "id": "nur-326",
+      "sourceQuestion": "What is the purpose of folic acid supplementation during pregnancy?"
+    },
+    {
+      "id": "nur-327",
+      "sourceQuestion": "What is Rh incompatibility and when does it occur?"
+    },
+    {
+      "id": "nur-328",
+      "sourceQuestion": "What is the prevention for Rh incompatibility?"
+    },
+    {
+      "id": "nur-329",
+      "sourceQuestion": "What is the normal duration of active labor in a nulliparous woman?"
+    },
+    {
+      "id": "nur-330",
+      "sourceQuestion": "What is the most common position for childbirth in Western countries?"
+    },
+    {
+      "id": "nur-331",
+      "sourceQuestion": "What is the most common cause of death in children under 1 year of age?"
+    },
+    {
+      "id": "nur-332",
+      "sourceQuestion": "What is the back to sleep campaign for SIDS prevention?"
+    },
+    {
+      "id": "nur-333",
+      "sourceQuestion": "What is the most common cause of poisoning in children?"
+    },
+    {
+      "id": "nur-334",
+      "sourceQuestion": "What is the most common cause of pediatric emergency room visits?"
+    },
+    {
+      "id": "nur-335",
+      "sourceQuestion": "What is the most common cause of failure to thrive in infants?"
+    },
+    {
+      "id": "nur-336",
+      "sourceQuestion": "What is the most common cause of accidental injury in children?"
+    },
+    {
+      "id": "nur-337",
+      "sourceQuestion": "What are the most important developmental milestones for a 1-year-old infant?"
+    },
+    {
+      "id": "nur-338",
+      "sourceQuestion": "What is the most common cause of jaundice in the first 24 hours of life?"
+    },
+    {
+      "id": "nur-339",
+      "sourceQuestion": "What is the treatment for physiologic jaundice in newborns?"
+    },
+    {
+      "id": "nur-340",
+      "sourceQuestion": "What is the normal head circumference for a newborn infant?"
+    },
+    {
+      "id": "nur-341",
+      "sourceQuestion": "What is the most common psychiatric disorder in children?"
+    },
+    {
+      "id": "nur-342",
+      "sourceQuestion": "What are the symptoms of ADHD in children?"
+    },
+    {
+      "id": "nur-343",
+      "sourceQuestion": "What is the first-line medication for ADHD in children?"
+    },
+    {
+      "id": "nur-344",
+      "sourceQuestion": "What is the difference between a panic attack and a panic disorder?"
+    },
+    {
+      "id": "nur-345",
+      "sourceQuestion": "What is the most effective treatment for panic disorder?"
+    },
+    {
+      "id": "nur-346",
+      "sourceQuestion": "What is the most common personality disorder in the general population?"
+    },
+    {
+      "id": "nur-347",
+      "sourceQuestion": "What are the symptoms of borderline personality disorder?"
+    },
+    {
+      "id": "nur-348",
+      "sourceQuestion": "What is the treatment for borderline personality disorder?"
+    },
+    {
+      "id": "nur-349",
+      "sourceQuestion": "What is the most common cause of suicide in the United States?"
+    },
+    {
+      "id": "nur-350",
+      "sourceQuestion": "What is the most effective intervention for suicide prevention?"
+    },
+    {
+      "id": "nur-351",
+      "sourceQuestion": "What is the most common cause of postoperative fever in the first 24 hours?"
+    },
+    {
+      "id": "nur-352",
+      "sourceQuestion": "What is the most serious complication of deep vein thrombosis after surgery?"
+    },
+    {
+      "id": "nur-353",
+      "sourceQuestion": "What is the prevention for postoperative deep vein thrombosis?"
+    },
+    {
+      "id": "nur-354",
+      "sourceQuestion": "What is the most common cause of postoperative nausea and vomiting?"
+    },
+    {
+      "id": "nur-355",
+      "sourceQuestion": "What is the treatment for postoperative nausea and vomiting?"
+    },
+    {
+      "id": "nur-356",
+      "sourceQuestion": "What is the most common cause of wound dehiscence after surgery?"
+    },
+    {
+      "id": "nur-357",
+      "sourceQuestion": "What is the treatment for wound dehiscence?"
+    },
+    {
+      "id": "nur-358",
+      "sourceQuestion": "What is the most common sign of malignant hyperthermia during anesthesia?"
+    },
+    {
+      "id": "nur-359",
+      "sourceQuestion": "What is the treatment for malignant hyperthermia?"
+    },
+    {
+      "id": "nur-360",
+      "sourceQuestion": "What is the most important postoperative nursing intervention for pain management?"
+    },
+    {
+      "id": "nur-361",
+      "sourceQuestion": "What is the most common cause of healthcare-associated urinary tract infections?"
+    },
+    {
+      "id": "nur-362",
+      "sourceQuestion": "What is the most effective way to prevent catheter-associated urinary tract infections?"
+    },
+    {
+      "id": "nur-363",
+      "sourceQuestion": "What is the most common cause of ventilator-associated pneumonia?"
+    },
+    {
+      "id": "nur-364",
+      "sourceQuestion": "What is the ventilator-associated pneumonia prevention bundle?"
+    },
+    {
+      "id": "nur-365",
+      "sourceQuestion": "What are the most common bloodborne pathogens in healthcare settings?"
+    },
+    {
+      "id": "nur-366",
+      "sourceQuestion": "What is the risk of HIV transmission after a needlestick injury?"
+    },
+    {
+      "id": "nur-367",
+      "sourceQuestion": "What is post-exposure prophylaxis for HIV?"
+    },
+    {
+      "id": "nur-368",
+      "sourceQuestion": "What is the most common cause of healthcare-associated bloodstream infections?"
+    },
+    {
+      "id": "nur-369",
+      "sourceQuestion": "What is the recommended duration of contact precautions for MRSA?"
+    },
+    {
+      "id": "nur-370",
+      "sourceQuestion": "What is the recommended duration of droplet precautions for influenza?"
+    },
+    {
+      "id": "nur-371",
+      "sourceQuestion": "What is the normal urine specific gravity range?"
+    },
+    {
+      "id": "nur-372",
+      "sourceQuestion": "What does a urine specific gravity above 1.030 indicate?"
+    },
+    {
+      "id": "nur-373",
+      "sourceQuestion": "What does a urine specific gravity below 1.005 indicate?"
+    },
+    {
+      "id": "nur-374",
+      "sourceQuestion": "What is the normal anion gap value?"
+    },
+    {
+      "id": "nur-375",
+      "sourceQuestion": "What is an elevated anion gap most commonly caused by?"
+    },
+    {
+      "id": "nur-376",
+      "sourceQuestion": "What is the most common cause of metabolic acidosis?"
+    },
+    {
+      "id": "nur-377",
+      "sourceQuestion": "What is the most common cause of metabolic alkalosis?"
+    },
+    {
+      "id": "nur-378",
+      "sourceQuestion": "What is the most common cause of respiratory alkalosis?"
+    },
+    {
+      "id": "nur-379",
+      "sourceQuestion": "What is the most common cause of respiratory acidosis?"
+    },
+    {
+      "id": "nur-380",
+      "sourceQuestion": "What is the compensation mechanism for metabolic acidosis?"
+    },
+    {
+      "id": "nur-381",
+      "sourceQuestion": "What is the START triage system used for in mass casualty incidents?"
+    },
+    {
+      "id": "nur-382",
+      "sourceQuestion": "What is the most important factor in disaster triage?"
+    },
+    {
+      "id": "nur-383",
+      "sourceQuestion": "What is the difference between primary and secondary triage?"
+    },
+    {
+      "id": "nur-384",
+      "sourceQuestion": "What is the most important communication tool during a patient handoff?"
+    },
+    {
+      "id": "nur-385",
+      "sourceQuestion": "What is the nurse's priority when admitting a patient with sepsis?"
+    },
+    {
+      "id": "nur-386",
+      "sourceQuestion": "What is the first nursing action for a patient with a suspected opioid overdose?"
+    },
+    {
+      "id": "nur-387",
+      "sourceQuestion": "What is the most important intervention for a patient experiencing anaphylaxis?"
+    },
+    {
+      "id": "nur-388",
+      "sourceQuestion": "What is the priority when caring for a patient with a chest tube?"
+    },
+    {
+      "id": "nur-389",
+      "sourceQuestion": "What is the most important assessment for a patient with a new diagnosis of heart failure?"
+    },
+    {
+      "id": "nur-390",
+      "sourceQuestion": "What is the nurse's priority when a patient's blood glucose is 45 milligrams per deciliter?"
+    },
+    {
+      "id": "nur-391",
+      "sourceQuestion": "What is the most common cause of chronic hepatitis globally?"
+    },
+    {
+      "id": "nur-392",
+      "sourceQuestion": "What is the most common cause of cirrhosis in the United States?"
+    },
+    {
+      "id": "nur-393",
+      "sourceQuestion": "What are the signs of hepatic encephalopathy?"
+    },
+    {
+      "id": "nur-394",
+      "sourceQuestion": "What is the treatment for hepatic encephalopathy?"
+    },
+    {
+      "id": "nur-395",
+      "sourceQuestion": "What is the most common cause of acute mesenteric ischemia?"
+    },
+    {
+      "id": "nur-396",
+      "sourceQuestion": "What is the most common symptom of acute mesenteric ischemia?"
+    },
+    {
+      "id": "nur-397",
+      "sourceQuestion": "What is the most common cause of chronic pancreatitis?"
+    },
+    {
+      "id": "nur-398",
+      "sourceQuestion": "What are the signs of chronic pancreatitis?"
+    },
+    {
+      "id": "nur-399",
+      "sourceQuestion": "What is the most common complication of diverticulitis?"
+    },
+    {
+      "id": "nur-400",
+      "sourceQuestion": "What is the treatment for uncomplicated diverticulitis?"
+    },
+    {
+      "id": "nur-401",
+      "sourceQuestion": "What is the most common cause of Parkinson's disease?"
+    },
+    {
+      "id": "nur-402",
+      "sourceQuestion": "What is the difference between dementia and delirium in terms of onset?"
+    },
+    {
+      "id": "nur-403",
+      "sourceQuestion": "What is the most common cause of dementia in the elderly?"
+    },
+    {
+      "id": "nur-404",
+      "sourceQuestion": "What is the most common cause of Guillain-Barré syndrome?"
+    },
+    {
+      "id": "nur-405",
+      "sourceQuestion": "What are the early symptoms of Guillain-Barré syndrome?"
+    },
+    {
+      "id": "nur-406",
+      "sourceQuestion": "What is the treatment for Guillain-Barré syndrome?"
+    },
+    {
+      "id": "nur-407",
+      "sourceQuestion": "What is the most common cause of stroke in young adults?"
+    },
+    {
+      "id": "nur-408",
+      "sourceQuestion": "What is the most common cause of subarachnoid hemorrhage?"
+    },
+    {
+      "id": "nur-409",
+      "sourceQuestion": "What is the classic symptom of a subarachnoid hemorrhage?"
+    },
+    {
+      "id": "nur-410",
+      "sourceQuestion": "What is the most common complication of subarachnoid hemorrhage?"
+    },
+    {
+      "id": "nur-411",
+      "sourceQuestion": "What is the most important leadership quality in nursing?"
+    },
+    {
+      "id": "nur-412",
+      "sourceQuestion": "What is the difference between leadership and management in nursing?"
+    },
+    {
+      "id": "nur-413",
+      "sourceQuestion": "What is the most important aspect of conflict resolution in nursing?"
+    },
+    {
+      "id": "nur-414",
+      "sourceQuestion": "What is the best approach to giving constructive feedback to a colleague?"
+    },
+    {
+      "id": "nur-415",
+      "sourceQuestion": "What is the difference between a sentinel event and a near miss?"
+    },
+    {
+      "id": "nur-416",
+      "sourceQuestion": "What is the role of the Joint Commission in healthcare?"
+    },
+    {
+      "id": "nur-417",
+      "sourceQuestion": "What is the most common cause of medication errors in nursing?"
+    },
+    {
+      "id": "nur-418",
+      "sourceQuestion": "What is the best way to prevent medication errors?"
+    },
+    {
+      "id": "nur-419",
+      "sourceQuestion": "What is the purpose of incident reporting in healthcare?"
+    },
+    {
+      "id": "nur-420",
+      "sourceQuestion": "What is the most important component of a just culture in healthcare?"
+    },
+    {
+      "id": "nur-421",
+      "sourceQuestion": "What is the most common cause of falls in hospitalized patients?"
+    },
+    {
+      "id": "nur-422",
+      "sourceQuestion": "What is the best way to prevent patient falls?"
+    },
+    {
+      "id": "nur-423",
+      "sourceQuestion": "What is the most common cause of pressure ulcers?"
+    },
+    {
+      "id": "nur-424",
+      "sourceQuestion": "What is the Braden Scale score that indicates high risk for pressure ulcers?"
+    },
+    {
+      "id": "nur-425",
+      "sourceQuestion": "What is the recommended frequency for turning an immobile patient?"
+    },
+    {
+      "id": "nur-426",
+      "sourceQuestion": "What is the most important nutritional supplement for wound healing?"
+    },
+    {
+      "id": "nur-427",
+      "sourceQuestion": "What is the correct technique for applying a sterile dressing?"
+    },
+    {
+      "id": "nur-428",
+      "sourceQuestion": "What is the most common sign of a wound infection?"
+    },
+    {
+      "id": "nur-429",
+      "sourceQuestion": "What is the most important intervention for a patient with a fever?"
+    },
+    {
+      "id": "nur-430",
+      "sourceQuestion": "What is the normal range for axillary temperature in adults?"
+    },
+    {
+      "id": "nur-431",
+      "sourceQuestion": "What is the most common side effect of statin medications?"
+    },
+    {
+      "id": "nur-432",
+      "sourceQuestion": "What is the most serious adverse effect of statins?"
+    },
+    {
+      "id": "nur-433",
+      "sourceQuestion": "What medication should be avoided with statins due to increased risk of rhabdomyolysis?"
+    },
+    {
+      "id": "nur-434",
+      "sourceQuestion": "What is the mechanism of action of angiotensin II receptor blockers, or ARBs?"
+    },
+    {
+      "id": "nur-435",
+      "sourceQuestion": "What is the most common side effect of ARBs compared to ACE inhibitors?"
+    },
+    {
+      "id": "nur-436",
+      "sourceQuestion": "What is the most common opioid prescribed for chronic pain?"
+    },
+    {
+      "id": "nur-437",
+      "sourceQuestion": "What is the most serious adverse effect of opioid medications?"
+    },
+    {
+      "id": "nur-438",
+      "sourceQuestion": "What is the mechanism of action of proton pump inhibitors?"
+    },
+    {
+      "id": "nur-439",
+      "sourceQuestion": "What is the most common side effect of long-term PPI use?"
+    },
+    {
+      "id": "nur-440",
+      "sourceQuestion": "What is the most important drug interaction with digoxin?"
+    },
+    {
+      "id": "nur-441",
+      "sourceQuestion": "What is the most common cause of mitral valve stenosis?"
+    },
+    {
+      "id": "nur-442",
+      "sourceQuestion": "What are the symptoms of mitral valve stenosis?"
+    },
+    {
+      "id": "nur-443",
+      "sourceQuestion": "What is the most common cause of mitral valve regurgitation?"
+    },
+    {
+      "id": "nur-444",
+      "sourceQuestion": "What is the most common cause of aortic valve regurgitation?"
+    },
+    {
+      "id": "nur-445",
+      "sourceQuestion": "What is the most common cause of cardiac tamponade?"
+    },
+    {
+      "id": "nur-446",
+      "sourceQuestion": "What is Beck's triad in cardiac tamponade?"
+    },
+    {
+      "id": "nur-447",
+      "sourceQuestion": "What is the treatment for cardiac tamponade?"
+    },
+    {
+      "id": "nur-448",
+      "sourceQuestion": "What is the most common arrhythmia after cardiac surgery?"
+    },
+    {
+      "id": "nur-449",
+      "sourceQuestion": "What is the most common cause of sudden cardiac death in athletes?"
+    },
+    {
+      "id": "nur-450",
+      "sourceQuestion": "What is the most common cause of cardiomyopathy in the United States?"
+    },
+    {
+      "id": "nur-451",
+      "sourceQuestion": "What is the most common cause of bronchiectasis?"
+    },
+    {
+      "id": "nur-452",
+      "sourceQuestion": "What are the signs of bronchiectasis?"
+    },
+    {
+      "id": "nur-453",
+      "sourceQuestion": "What is the most common cause of acute bronchitis?"
+    },
+    {
+      "id": "nur-454",
+      "sourceQuestion": "What is the treatment for acute bronchitis?"
+    },
+    {
+      "id": "nur-455",
+      "sourceQuestion": "What is the most common cause of chronic bronchitis?"
+    },
+    {
+      "id": "nur-456",
+      "sourceQuestion": "What is the hallmark symptom of chronic bronchitis?"
+    },
+    {
+      "id": "nur-457",
+      "sourceQuestion": "What is the most common cause of lung cancer?"
+    },
+    {
+      "id": "nur-458",
+      "sourceQuestion": "What is the most common type of lung cancer?"
+    },
+    {
+      "id": "nur-459",
+      "sourceQuestion": "What is the most important prevention for lung cancer?"
+    },
+    {
+      "id": "nur-460",
+      "sourceQuestion": "What is the most common symptom of lung cancer?"
+    },
+    {
+      "id": "nur-461",
+      "sourceQuestion": "What is the most common cause of hyperaldosteronism?"
+    },
+    {
+      "id": "nur-462",
+      "sourceQuestion": "What are the signs of hyperaldosteronism?"
+    },
+    {
+      "id": "nur-463",
+      "sourceQuestion": "What is the treatment for hyperaldosteronism?"
+    },
+    {
+      "id": "nur-464",
+      "sourceQuestion": "What is the most common cause of diabetes insipidus?"
+    },
+    {
+      "id": "nur-465",
+      "sourceQuestion": "What are the signs of diabetes insipidus?"
+    },
+    {
+      "id": "nur-466",
+      "sourceQuestion": "What is the treatment for central diabetes insipidus?"
+    },
+    {
+      "id": "nur-467",
+      "sourceQuestion": "What is the most common cause of hyperprolactinemia?"
+    },
+    {
+      "id": "nur-468",
+      "sourceQuestion": "What are the signs of hyperprolactinemia in women?"
+    },
+    {
+      "id": "nur-469",
+      "sourceQuestion": "What is the most common complication of diabetes mellitus?"
+    },
+    {
+      "id": "nur-470",
+      "sourceQuestion": "What is the most common cause of death in patients with diabetes?"
+    },
+    {
+      "id": "nur-471",
+      "sourceQuestion": "What is the most common cause of acute interstitial nephritis?"
+    },
+    {
+      "id": "nur-472",
+      "sourceQuestion": "What are the signs of acute interstitial nephritis?"
+    },
+    {
+      "id": "nur-473",
+      "sourceQuestion": "What is the most common cause of chronic kidney disease in the United States?"
+    },
+    {
+      "id": "nur-474",
+      "sourceQuestion": "What is the most common symptom of chronic kidney disease?"
+    },
+    {
+      "id": "nur-475",
+      "sourceQuestion": "What is the most important intervention to slow progression of CKD?"
+    },
+    {
+      "id": "nur-476",
+      "sourceQuestion": "What is the most common type of kidney stone?"
+    },
+    {
+      "id": "nur-477",
+      "sourceQuestion": "What is the most effective prevention for calcium oxalate kidney stones?"
+    },
+    {
+      "id": "nur-478",
+      "sourceQuestion": "What is the most common symptom of a kidney stone?"
+    },
+    {
+      "id": "nur-479",
+      "sourceQuestion": "What is the most common complication of a kidney stone?"
+    },
+    {
+      "id": "nur-480",
+      "sourceQuestion": "What is the treatment for a small kidney stone that can pass spontaneously?"
+    },
+    {
+      "id": "nur-481",
+      "sourceQuestion": "What is the nurse's priority in caring for a patient with an acute myocardial infarction?"
+    },
+    {
+      "id": "nur-482",
+      "sourceQuestion": "What is the most important assessment for a patient receiving blood transfusion?"
+    },
+    {
+      "id": "nur-483",
+      "sourceQuestion": "What is the first nursing action for a suspected transfusion reaction?"
+    },
+    {
+      "id": "nur-484",
+      "sourceQuestion": "What is the most important assessment for a patient with a head injury?"
+    },
+    {
+      "id": "nur-485",
+      "sourceQuestion": "What is the priority when caring for a patient with a cervical spine injury?"
+    },
+    {
+      "id": "nur-486",
+      "sourceQuestion": "What is the most important intervention for a patient with severe burn injuries?"
+    },
+    {
+      "id": "nur-487",
+      "sourceQuestion": "What is the Parkland formula for fluid resuscitation in burn patients?"
+    },
+    {
+      "id": "nur-488",
+      "sourceQuestion": "What is the most important assessment for a patient with a suspected spinal cord injury?"
+    },
+    {
+      "id": "nur-489",
+      "sourceQuestion": "What is the priority when caring for a patient with neurogenic shock?"
+    },
+    {
+      "id": "nur-490",
+      "sourceQuestion": "What is the most important assessment for a patient with a suspected stroke?"
+    },
+    {
+      "id": "nur-491",
+      "sourceQuestion": "What is the most common cause of sepsis in hospitalized patients?"
+    },
+    {
+      "id": "nur-492",
+      "sourceQuestion": "What is the most important treatment for sepsis?"
+    },
+    {
+      "id": "nur-493",
+      "sourceQuestion": "What is the most common source of infection in neutropenic patients?"
+    },
+    {
+      "id": "nur-494",
+      "sourceQuestion": "What is the most important prevention for surgical site infections?"
+    },
+    {
+      "id": "nur-495",
+      "sourceQuestion": "What is the most common cause of post-operative wound infection?"
+    },
+    {
+      "id": "nur-496",
+      "sourceQuestion": "What is the most important measure to prevent the spread of infection in healthcare settings?"
+    },
+    {
+      "id": "nur-497",
+      "sourceQuestion": "What is the most common opportunistic infection in HIV patients?"
+    },
+    {
+      "id": "nur-498",
+      "sourceQuestion": "What is the CD4 count threshold for initiating prophylaxis in HIV patients?"
+    },
+    {
+      "id": "nur-499",
+      "sourceQuestion": "What is the most common complication of infectious mononucleosis?"
+    },
+    {
+      "id": "nur-500",
+      "sourceQuestion": "What is the most common cause of infectious mononucleosis?"
+    },
+    {
+      "id": "nur-501",
+      "sourceQuestion": "What is the most common cause of gastrointestinal obstruction in adults?"
+    },
+    {
+      "id": "nur-502",
+      "sourceQuestion": "What is the most common cause of gastrointestinal obstruction in children?"
+    },
+    {
+      "id": "nur-503",
+      "sourceQuestion": "What is the most common symptom of intussusception in children?"
+    },
+    {
+      "id": "nur-504",
+      "sourceQuestion": "What is the treatment for intussusception?"
+    },
+    {
+      "id": "nur-505",
+      "sourceQuestion": "What is the most common cause of acute appendicitis?"
+    },
+    {
+      "id": "nur-506",
+      "sourceQuestion": "What is the classic symptom of acute appendicitis?"
+    },
+    {
+      "id": "nur-507",
+      "sourceQuestion": "What is the most common complication of acute appendicitis?"
+    },
+    {
+      "id": "nur-508",
+      "sourceQuestion": "What is the treatment for acute appendicitis?"
+    },
+    {
+      "id": "nur-509",
+      "sourceQuestion": "What is the most common cause of cholecystitis?"
+    },
+    {
+      "id": "nur-510",
+      "sourceQuestion": "What is the classic symptom of acute cholecystitis?"
+    },
+    {
+      "id": "nur-511",
+      "sourceQuestion": "What is the Murphy's sign and what does it indicate?"
+    },
+    {
+      "id": "nur-512",
+      "sourceQuestion": "What is the treatment for acute cholecystitis?"
+    },
+    {
+      "id": "nur-513",
+      "sourceQuestion": "What is the most common cause of pancreatitis in children?"
+    },
+    {
+      "id": "nur-514",
+      "sourceQuestion": "What is the most common symptom of pancreatic cancer?"
+    },
+    {
+      "id": "nur-515",
+      "sourceQuestion": "What is the most common risk factor for pancreatic cancer?"
+    },
+    {
+      "id": "nur-516",
+      "sourceQuestion": "What is the most common cause of cirrhosis in children?"
+    },
+    {
+      "id": "nur-517",
+      "sourceQuestion": "What is the most common symptom of liver failure?"
+    },
+    {
+      "id": "nur-518",
+      "sourceQuestion": "What is the Model for End-Stage Liver Disease, or MELD, score used for?"
+    },
+    {
+      "id": "nur-519",
+      "sourceQuestion": "What is the most common cause of gastrointestinal bleeding in the elderly?"
+    },
+    {
+      "id": "nur-520",
+      "sourceQuestion": "What is the most common cause of gastrointestinal bleeding in children?"
+    },
+    {
+      "id": "nur-521",
+      "sourceQuestion": "What is the most common cause of cerebral palsy?"
+    },
+    {
+      "id": "nur-522",
+      "sourceQuestion": "What are the most common types of cerebral palsy?"
+    },
+    {
+      "id": "nur-523",
+      "sourceQuestion": "What is the most common cause of dementia in Parkinson's disease?"
+    },
+    {
+      "id": "nur-524",
+      "sourceQuestion": "What is the difference between dementia with Lewy bodies and Parkinson's disease dementia?"
+    },
+    {
+      "id": "nur-525",
+      "sourceQuestion": "What is the most common cause of Bell's palsy?"
+    },
+    {
+      "id": "nur-526",
+      "sourceQuestion": "What is the classic sign of Bell's palsy?"
+    },
+    {
+      "id": "nur-527",
+      "sourceQuestion": "What is the treatment for Bell's palsy?"
+    },
+    {
+      "id": "nur-528",
+      "sourceQuestion": "What is the most common cause of trigeminal neuralgia?"
+    },
+    {
+      "id": "nur-529",
+      "sourceQuestion": "What is the classic symptom of trigeminal neuralgia?"
+    },
+    {
+      "id": "nur-530",
+      "sourceQuestion": "What is the treatment for trigeminal neuralgia?"
+    },
+    {
+      "id": "nur-531",
+      "sourceQuestion": "What is the most common cause of infective endocarditis?"
+    },
+    {
+      "id": "nur-532",
+      "sourceQuestion": "What are the classic signs of infective endocarditis?"
+    },
+    {
+      "id": "nur-533",
+      "sourceQuestion": "What is the most common complication of infective endocarditis?"
+    },
+    {
+      "id": "nur-534",
+      "sourceQuestion": "What is the Duke criteria used for in infective endocarditis?"
+    },
+    {
+      "id": "nur-535",
+      "sourceQuestion": "What is the most common cause of pericarditis?"
+    },
+    {
+      "id": "nur-536",
+      "sourceQuestion": "What is the classic symptom of acute pericarditis?"
+    },
+    {
+      "id": "nur-537",
+      "sourceQuestion": "What is the treatment for acute pericarditis?"
+    },
+    {
+      "id": "nur-538",
+      "sourceQuestion": "What is the most common complication of pericarditis?"
+    },
+    {
+      "id": "nur-539",
+      "sourceQuestion": "What is the most common cause of myocarditis?"
+    },
+    {
+      "id": "nur-540",
+      "sourceQuestion": "What are the signs of myocarditis?"
+    },
+    {
+      "id": "nur-541",
+      "sourceQuestion": "What is the most common cause of acute respiratory distress syndrome, or ARDS?"
+    },
+    {
+      "id": "nur-542",
+      "sourceQuestion": "What are the Berlin criteria for ARDS?"
+    },
+    {
+      "id": "nur-543",
+      "sourceQuestion": "What is the treatment for ARDS?"
+    },
+    {
+      "id": "nur-544",
+      "sourceQuestion": "What is the most common cause of pulmonary embolism?"
+    },
+    {
+      "id": "nur-545",
+      "sourceQuestion": "What is the Wells criteria used for in pulmonary embolism?"
+    },
+    {
+      "id": "nur-546",
+      "sourceQuestion": "What are the classic signs of pulmonary embolism?"
+    },
+    {
+      "id": "nur-547",
+      "sourceQuestion": "What is the treatment for pulmonary embolism?"
+    },
+    {
+      "id": "nur-548",
+      "sourceQuestion": "What is the most common cause of chronic pulmonary hypertension?"
+    },
+    {
+      "id": "nur-549",
+      "sourceQuestion": "What is the most common symptom of pulmonary hypertension?"
+    },
+    {
+      "id": "nur-550",
+      "sourceQuestion": "What is the treatment for pulmonary arterial hypertension?"
+    },
+    {
+      "id": "nur-551",
+      "sourceQuestion": "What is the most common cause of hypomagnesemia?"
+    },
+    {
+      "id": "nur-552",
+      "sourceQuestion": "What are the signs of hypomagnesemia?"
+    },
+    {
+      "id": "nur-553",
+      "sourceQuestion": "What is the most common cause of hypermagnesemia?"
+    },
+    {
+      "id": "nur-554",
+      "sourceQuestion": "What are the signs of hypermagnesemia?"
+    },
+    {
+      "id": "nur-555",
+      "sourceQuestion": "What is the treatment for hypermagnesemia?"
+    },
+    {
+      "id": "nur-556",
+      "sourceQuestion": "What is the most common cause of hypophosphatemia?"
+    },
+    {
+      "id": "nur-557",
+      "sourceQuestion": "What are the signs of hypophosphatemia?"
+    },
+    {
+      "id": "nur-558",
+      "sourceQuestion": "What is the most common cause of hyperphosphatemia?"
+    },
+    {
+      "id": "nur-559",
+      "sourceQuestion": "What is the treatment for hyperphosphatemia?"
+    },
+    {
+      "id": "nur-560",
+      "sourceQuestion": "What is the most common cause of dehydration in elderly patients?"
+    },
+    {
+      "id": "nur-561",
+      "sourceQuestion": "What is the nurse's priority in caring for a patient with a chest tube?"
+    },
+    {
+      "id": "nur-562",
+      "sourceQuestion": "What is the most important assessment for a patient with a central line?"
+    },
+    {
+      "id": "nur-563",
+      "sourceQuestion": "What is the first intervention for a dislodged tracheostomy tube?"
+    },
+    {
+      "id": "nur-564",
+      "sourceQuestion": "What is the most important intervention for a patient with violent behavior?"
+    },
+    {
+      "id": "nur-565",
+      "sourceQuestion": "What is the first step in managing a patient with a hypoglycemic emergency?"
+    },
+    {
+      "id": "nur-566",
+      "sourceQuestion": "What is the most important assessment for a patient receiving chemotherapy?"
+    },
+    {
+      "id": "nur-567",
+      "sourceQuestion": "What is the first intervention for a patient with a nasogastric tube obstruction?"
+    },
+    {
+      "id": "nur-568",
+      "sourceQuestion": "What is the most important assessment for a patient with a urinary catheter?"
+    },
+    {
+      "id": "nur-569",
+      "sourceQuestion": "What is the priority when caring for a patient with an open wound?"
+    },
+    {
+      "id": "nur-570",
+      "sourceQuestion": "What is the most important intervention for a patient with a new colostomy?"
+    },
+    {
+      "id": "nur-571",
+      "sourceQuestion": "What is the most important assessment for a patient with a suspected myocardial infarction?"
+    },
+    {
+      "id": "nur-572",
+      "sourceQuestion": "What is the priority when caring for a patient with a new stoma?"
+    },
+    {
+      "id": "nur-573",
+      "sourceQuestion": "What is the most common side effect of metformin?"
+    },
+    {
+      "id": "nur-574",
+      "sourceQuestion": "What is the most serious adverse effect of metformin?"
+    },
+    {
+      "id": "nur-575",
+      "sourceQuestion": "What is the contraindication for metformin use?"
+    },
+    {
+      "id": "nur-576",
+      "sourceQuestion": "What is the most common side effect of sulfonylureas like glipizide?"
+    },
+    {
+      "id": "nur-577",
+      "sourceQuestion": "What is the most common side effect of SGLT-2 inhibitors like empagliflozin?"
+    },
+    {
+      "id": "nur-578",
+      "sourceQuestion": "What is the mechanism of action of SGLT-2 inhibitors?"
+    },
+    {
+      "id": "nur-579",
+      "sourceQuestion": "What is the most common side effect of GLP-1 receptor agonists like semaglutide?"
+    },
+    {
+      "id": "nur-580",
+      "sourceQuestion": "What is the mechanism of action of GLP-1 receptor agonists?"
+    },
+    {
+      "id": "nur-581",
+      "sourceQuestion": "What is the most common adverse effect of amiodarone?"
+    },
+    {
+      "id": "nur-582",
+      "sourceQuestion": "What is the most important monitoring for patients on amiodarone?"
+    },
+    {
+      "id": "nur-583",
+      "sourceQuestion": "What is the most common cause of valvular heart disease in developing countries?"
+    },
+    {
+      "id": "nur-584",
+      "sourceQuestion": "What is the most common cause of valvular heart disease in developed countries?"
+    },
+    {
+      "id": "nur-585",
+      "sourceQuestion": "What is the most common cause of heart failure with preserved ejection fraction?"
+    },
+    {
+      "id": "nur-586",
+      "sourceQuestion": "What is the most common cause of heart failure with reduced ejection fraction?"
+    },
+    {
+      "id": "nur-587",
+      "sourceQuestion": "What is the most common arrhythmia in the elderly?"
+    },
+    {
+      "id": "nur-588",
+      "sourceQuestion": "What is the most important risk factor for atrial fibrillation?"
+    },
+    {
+      "id": "nur-589",
+      "sourceQuestion": "What is the most important complication of atrial fibrillation?"
+    },
+    {
+      "id": "nur-590",
+      "sourceQuestion": "What is the most common treatment for rate control in atrial fibrillation?"
+    },
+    {
+      "id": "nur-591",
+      "sourceQuestion": "What is the most common cause of bradyarrhythmias requiring pacemaker placement?"
+    },
+    {
+      "id": "nur-592",
+      "sourceQuestion": "What is the most common cause of sudden cardiac death in the elderly?"
+    },
+    {
+      "id": "nur-593",
+      "sourceQuestion": "What is the most common cause of hypoxia in critically ill patients?"
+    },
+    {
+      "id": "nur-594",
+      "sourceQuestion": "What is the most common cause of hypercapnia in respiratory failure?"
+    },
+    {
+      "id": "nur-595",
+      "sourceQuestion": "What is the most important prevention for ventilator-associated pneumonia?"
+    },
+    {
+      "id": "nur-596",
+      "sourceQuestion": "What is the most common cause of restrictive lung disease?"
+    },
+    {
+      "id": "nur-597",
+      "sourceQuestion": "What is the most common symptom of interstitial lung disease?"
+    },
+    {
+      "id": "nur-598",
+      "sourceQuestion": "What is the most common cause of occupational lung disease?"
+    },
+    {
+      "id": "nur-599",
+      "sourceQuestion": "What is the most common cause of hemoptysis in non-smoking adults?"
+    },
+    {
+      "id": "nur-600",
+      "sourceQuestion": "What is the most common cause of chronic cough in adults?"
+    },
+    {
+      "id": "nur-601",
+      "sourceQuestion": "What is the most common cause of hypoparathyroidism?"
+    },
+    {
+      "id": "nur-602",
+      "sourceQuestion": "What are the signs of hypoparathyroidism?"
+    },
+    {
+      "id": "nur-603",
+      "sourceQuestion": "What is the treatment for hypoparathyroidism?"
+    },
+    {
+      "id": "nur-604",
+      "sourceQuestion": "What is the most common cause of hyperparathyroidism?"
+    },
+    {
+      "id": "nur-605",
+      "sourceQuestion": "What are the signs of hyperparathyroidism?"
+    },
+    {
+      "id": "nur-606",
+      "sourceQuestion": "What is the most common cause of delayed puberty in boys?"
+    },
+    {
+      "id": "nur-607",
+      "sourceQuestion": "What is the most common cause of precocious puberty in girls?"
+    },
+    {
+      "id": "nur-608",
+      "sourceQuestion": "What is the most common cause of infertility in women?"
+    },
+    {
+      "id": "nur-609",
+      "sourceQuestion": "What is the most common cause of infertility in men?"
+    },
+    {
+      "id": "nur-610",
+      "sourceQuestion": "What is the most common cause of gynecomastia?"
+    },
+    {
+      "id": "nur-611",
+      "sourceQuestion": "What is the most common cause of acute kidney injury in the community?"
+    },
+    {
+      "id": "nur-612",
+      "sourceQuestion": "What is the most common cause of acute kidney injury in the hospital?"
+    },
+    {
+      "id": "nur-613",
+      "sourceQuestion": "What is the most common symptom of acute kidney injury?"
+    },
+    {
+      "id": "nur-614",
+      "sourceQuestion": "What is the most important prevention for contrast-induced nephropathy?"
+    },
+    {
+      "id": "nur-615",
+      "sourceQuestion": "What is the most common cause of polycystic kidney disease?"
+    },
+    {
+      "id": "nur-616",
+      "sourceQuestion": "What are the most common signs of polycystic kidney disease?"
+    },
+    {
+      "id": "nur-617",
+      "sourceQuestion": "What is the most common cause of renal artery stenosis?"
+    },
+    {
+      "id": "nur-618",
+      "sourceQuestion": "What is the most common symptom of renal artery stenosis?"
+    },
+    {
+      "id": "nur-619",
+      "sourceQuestion": "What is the most common complication of renal artery stenosis?"
+    },
+    {
+      "id": "nur-620",
+      "sourceQuestion": "What is the treatment for renal artery stenosis?"
+    },
+    {
+      "id": "nur-621",
+      "sourceQuestion": "What is the most common cause of ischemic stroke in the elderly?"
+    },
+    {
+      "id": "nur-622",
+      "sourceQuestion": "What is the most important prevention for stroke in patients with atrial fibrillation?"
+    },
+    {
+      "id": "nur-623",
+      "sourceQuestion": "What is the most common cause of transient ischemic attack?"
+    },
+    {
+      "id": "nur-624",
+      "sourceQuestion": "What is the most important treatment for carotid artery stenosis?"
+    },
+    {
+      "id": "nur-625",
+      "sourceQuestion": "What is the most common cause of cognitive decline in the elderly?"
+    },
+    {
+      "id": "nur-626",
+      "sourceQuestion": "What is the most common cause of dementia in patients under 65?"
+    },
+    {
+      "id": "nur-627",
+      "sourceQuestion": "What is the most common symptom of frontotemporal dementia?"
+    },
+    {
+      "id": "nur-628",
+      "sourceQuestion": "What is the most common cause of vascular dementia?"
+    },
+    {
+      "id": "nur-629",
+      "sourceQuestion": "What is the most important prevention for vascular dementia?"
+    },
+    {
+      "id": "nur-630",
+      "sourceQuestion": "What is the most common cause of peripheral neuropathy in developed countries?"
+    },
+    {
+      "id": "nur-631",
+      "sourceQuestion": "What is the most common cause of HIV transmission worldwide?"
+    },
+    {
+      "id": "nur-632",
+      "sourceQuestion": "What is the most important prevention for HIV infection?"
+    },
+    {
+      "id": "nur-633",
+      "sourceQuestion": "What is the most common HIV-associated malignancy?"
+    },
+    {
+      "id": "nur-634",
+      "sourceQuestion": "What is the most common infection in transplant patients?"
+    },
+    {
+      "id": "nur-635",
+      "sourceQuestion": "What is the most common source of infection in febrile neutropenic patients?"
+    },
+    {
+      "id": "nur-636",
+      "sourceQuestion": "What is the most important principle of antibiotic de-escalation?"
+    },
+    {
+      "id": "nur-637",
+      "sourceQuestion": "What is the most common cause of surgical site infection in orthopedic surgery?"
+    },
+    {
+      "id": "nur-638",
+      "sourceQuestion": "What is the most important prevention for surgical site infection in orthopedic surgery?"
+    },
+    {
+      "id": "nur-639",
+      "sourceQuestion": "What is the most common cause of infection in burn patients?"
+    },
+    {
+      "id": "nur-640",
+      "sourceQuestion": "What is the most important prevention for infection in burn patients?"
+    },
+    {
+      "id": "nur-641",
+      "sourceQuestion": "What is the most common cause of hypernatremia in hospitalized patients?"
+    },
+    {
+      "id": "nur-642",
+      "sourceQuestion": "What is the treatment for hypernatremia?"
+    },
+    {
+      "id": "nur-643",
+      "sourceQuestion": "What is the most common cause of hyponatremia in hospitalized patients?"
+    },
+    {
+      "id": "nur-644",
+      "sourceQuestion": "What is the treatment for hyponatremia?"
+    },
+    {
+      "id": "nur-645",
+      "sourceQuestion": "What is the most common cause of hyperkalemia in the community?"
+    },
+    {
+      "id": "nur-646",
+      "sourceQuestion": "What is the treatment for hyperkalemia with ECG changes?"
+    },
+    {
+      "id": "nur-647",
+      "sourceQuestion": "What is the most common cause of hypokalemia in hospitalized patients?"
+    },
+    {
+      "id": "nur-648",
+      "sourceQuestion": "What is the treatment for hypokalemia?"
+    },
+    {
+      "id": "nur-649",
+      "sourceQuestion": "What is the most common cause of hypocalcemia in the hospital?"
+    },
+    {
+      "id": "nur-650",
+      "sourceQuestion": "What is the treatment for hypocalcemia?"
+    },
+    {
+      "id": "nur-651",
+      "sourceQuestion": "What is the most common cause of preterm rupture of membranes?"
+    },
+    {
+      "id": "nur-652",
+      "sourceQuestion": "What is the treatment for preterm premature rupture of membranes?"
+    },
+    {
+      "id": "nur-653",
+      "sourceQuestion": "What is the most common cause of postpartum infection?"
+    },
+    {
+      "id": "nur-654",
+      "sourceQuestion": "What is the most important prevention for postpartum infection?"
+    },
+    {
+      "id": "nur-655",
+      "sourceQuestion": "What is the most common cause of postpartum psychosis?"
+    },
+    {
+      "id": "nur-656",
+      "sourceQuestion": "What is the most important intervention for postpartum psychosis?"
+    },
+    {
+      "id": "nur-657",
+      "sourceQuestion": "What is the most common cause of infertility in women over 35?"
+    },
+    {
+      "id": "nur-658",
+      "sourceQuestion": "What is the most common cause of miscarriage?"
+    },
+    {
+      "id": "nur-659",
+      "sourceQuestion": "What is the most important prevention for recurrent miscarriage?"
+    },
+    {
+      "id": "nur-660",
+      "sourceQuestion": "What is the most common cause of ectopic pregnancy?"
+    },
+    {
+      "id": "nur-661",
+      "sourceQuestion": "What is the most common cause of pneumonia in children under 5?"
+    },
+    {
+      "id": "nur-662",
+      "sourceQuestion": "What is the most important prevention for pneumonia in children?"
+    },
+    {
+      "id": "nur-663",
+      "sourceQuestion": "What is the most common cause of urinary tract infection in children?"
+    },
+    {
+      "id": "nur-664",
+      "sourceQuestion": "What is the most important intervention for urinary tract infection in children?"
+    },
+    {
+      "id": "nur-665",
+      "sourceQuestion": "What is the most common cause of congenital heart disease?"
+    },
+    {
+      "id": "nur-666",
+      "sourceQuestion": "What is the most common cyanotic congenital heart defect?"
+    },
+    {
+      "id": "nur-667",
+      "sourceQuestion": "What is the most common acyanotic congenital heart defect?"
+    },
+    {
+      "id": "nur-668",
+      "sourceQuestion": "What is the most common symptom of congenital heart disease in infants?"
+    },
+    {
+      "id": "nur-669",
+      "sourceQuestion": "What is the most common cause of sudden infant death syndrome?"
+    },
+    {
+      "id": "nur-670",
+      "sourceQuestion": "What is the most important prevention for SIDS?"
+    },
+    {
+      "id": "nur-671",
+      "sourceQuestion": "What is the most common cause of ADHD in children?"
+    },
+    {
+      "id": "nur-672",
+      "sourceQuestion": "What is the most important treatment for ADHD in children?"
+    },
+    {
+      "id": "nur-673",
+      "sourceQuestion": "What is the most common cause of autism spectrum disorder?"
+    },
+    {
+      "id": "nur-674",
+      "sourceQuestion": "What is the most important intervention for autism spectrum disorder?"
+    },
+    {
+      "id": "nur-675",
+      "sourceQuestion": "What is the most common cause of hearing loss in children?"
+    },
+    {
+      "id": "nur-676",
+      "sourceQuestion": "What is the most important screening for hearing loss in newborns?"
+    },
+    {
+      "id": "nur-677",
+      "sourceQuestion": "What is the most common cause of visual impairment in children?"
+    },
+    {
+      "id": "nur-678",
+      "sourceQuestion": "What is the most important screening for visual impairment in children?"
+    },
+    {
+      "id": "nur-679",
+      "sourceQuestion": "What is the most common cause of dental caries in children?"
+    },
+    {
+      "id": "nur-680",
+      "sourceQuestion": "What is the most important prevention for dental caries in children?"
+    },
+    {
+      "id": "nur-681",
+      "sourceQuestion": "What is the most common anxiety disorder in children?"
+    },
+    {
+      "id": "nur-682",
+      "sourceQuestion": "What is the most common cause of school refusal in children?"
+    },
+    {
+      "id": "nur-683",
+      "sourceQuestion": "What is the most effective treatment for childhood anxiety?"
+    },
+    {
+      "id": "nur-684",
+      "sourceQuestion": "What is the most common eating disorder in adolescents?"
+    },
+    {
+      "id": "nur-685",
+      "sourceQuestion": "What is the most serious complication of eating disorders?"
+    },
+    {
+      "id": "nur-686",
+      "sourceQuestion": "What is the most important intervention for anorexia nervosa?"
+    },
+    {
+      "id": "nur-687",
+      "sourceQuestion": "What is the most common substance use disorder in adults?"
+    },
+    {
+      "id": "nur-688",
+      "sourceQuestion": "What is the most important treatment for substance use disorders?"
+    },
+    {
+      "id": "nur-689",
+      "sourceQuestion": "What is the most common psychiatric complication of chronic illness?"
+    },
+    {
+      "id": "nur-690",
+      "sourceQuestion": "What is the most important screening for depression in primary care?"
+    },
+    {
+      "id": "nur-691",
+      "sourceQuestion": "What is the most common cause of infectious diarrhea in the United States?"
+    },
+    {
+      "id": "nur-692",
+      "sourceQuestion": "What is the most important prevention for infectious diarrhea?"
+    },
+    {
+      "id": "nur-693",
+      "sourceQuestion": "What is the most common cause of eosinophilic esophagitis?"
+    },
+    {
+      "id": "nur-694",
+      "sourceQuestion": "What is the most common symptom of eosinophilic esophagitis?"
+    },
+    {
+      "id": "nur-695",
+      "sourceQuestion": "What is the treatment for eosinophilic esophagitis?"
+    },
+    {
+      "id": "nur-696",
+      "sourceQuestion": "What is the most common cause of gastric cancer?"
+    },
+    {
+      "id": "nur-697",
+      "sourceQuestion": "What is the most common symptom of gastric cancer?"
+    },
+    {
+      "id": "nur-698",
+      "sourceQuestion": "What is the most common cause of colorectal cancer?"
+    },
+    {
+      "id": "nur-699",
+      "sourceQuestion": "What is the most important prevention for colorectal cancer?"
+    },
+    {
+      "id": "nur-700",
+      "sourceQuestion": "What is the most common symptom of colorectal cancer?"
+    },
+    {
+      "id": "nur-701",
+      "sourceQuestion": "What is the most important factor in team performance in healthcare?"
+    },
+    {
+      "id": "nur-702",
+      "sourceQuestion": "What is the most important aspect of psychological safety in healthcare teams?"
+    },
+    {
+      "id": "nur-703",
+      "sourceQuestion": "What is the most common cause of burnout in nurses?"
+    },
+    {
+      "id": "nur-704",
+      "sourceQuestion": "What is the most important intervention to prevent nurse burnout?"
+    },
+    {
+      "id": "nur-705",
+      "sourceQuestion": "What is the most important aspect of patient safety culture?"
+    },
+    {
+      "id": "nur-706",
+      "sourceQuestion": "What is the most common barrier to patient safety?"
+    },
+    {
+      "id": "nur-707",
+      "sourceQuestion": "What is the most important aspect of informed consent?"
+    },
+    {
+      "id": "nur-708",
+      "sourceQuestion": "What is the most important aspect of advanced care planning?"
+    },
+    {
+      "id": "nur-709",
+      "sourceQuestion": "What is the most common ethical dilemma in critical care?"
+    },
+    {
+      "id": "nur-710",
+      "sourceQuestion": "What is the most important principle in end-of-life decision making?"
+    },
+    {
+      "id": "nur-711",
+      "sourceQuestion": "What is the most common cause of metabolic alkalosis in hospitalized patients?"
+    },
+    {
+      "id": "nur-712",
+      "sourceQuestion": "What is the most important treatment for metabolic alkalosis?"
+    },
+    {
+      "id": "nur-713",
+      "sourceQuestion": "What is the most common cause of metabolic acidosis in critically ill patients?"
+    },
+    {
+      "id": "nur-714",
+      "sourceQuestion": "What is the most important treatment for metabolic acidosis?"
+    },
+    {
+      "id": "nur-715",
+      "sourceQuestion": "What is the most common cause of respiratory alkalosis in the emergency department?"
+    },
+    {
+      "id": "nur-716",
+      "sourceQuestion": "What is the most important treatment for respiratory alkalosis?"
+    },
+    {
+      "id": "nur-717",
+      "sourceQuestion": "What is the most common cause of respiratory acidosis in the intensive care unit?"
+    },
+    {
+      "id": "nur-718",
+      "sourceQuestion": "What is the most important treatment for respiratory acidosis?"
+    },
+    {
+      "id": "nur-719",
+      "sourceQuestion": "What is the most common cause of hypercalcemia in the community?"
+    },
+    {
+      "id": "nur-720",
+      "sourceQuestion": "What are the signs of hypercalcemia?"
+    },
+    {
+      "id": "nur-721",
+      "sourceQuestion": "What is the treatment for hypercalcemia?"
+    },
+    {
+      "id": "nur-722",
+      "sourceQuestion": "What is the most common cause of cardiac arrest in adults?"
+    },
+    {
+      "id": "nur-723",
+      "sourceQuestion": "What is the most important treatment for cardiac arrest?"
+    },
+    {
+      "id": "nur-724",
+      "sourceQuestion": "What is the most common cause of bradycardia requiring treatment?"
+    },
+    {
+      "id": "nur-725",
+      "sourceQuestion": "What is the treatment for symptomatic bradycardia?"
+    },
+    {
+      "id": "nur-726",
+      "sourceQuestion": "What is the most common cause of syncope in the elderly?"
+    },
+    {
+      "id": "nur-727",
+      "sourceQuestion": "What is the most important evaluation for syncope?"
+    },
+    {
+      "id": "nur-728",
+      "sourceQuestion": "What is the most common cause of chest pain in the emergency department?"
+    },
+    {
+      "id": "nur-729",
+      "sourceQuestion": "What is the most important test for chest pain in the emergency department?"
+    },
+    {
+      "id": "nur-730",
+      "sourceQuestion": "What is the most common cause of palpitations?"
+    },
+    {
+      "id": "nur-731",
+      "sourceQuestion": "What is the most important evaluation for palpitations?"
+    },
+    {
+      "id": "nur-732",
+      "sourceQuestion": "What is the most common cause of respiratory distress in newborns?"
+    },
+    {
+      "id": "nur-733",
+      "sourceQuestion": "What is the most important treatment for respiratory distress syndrome in newborns?"
+    },
+    {
+      "id": "nur-734",
+      "sourceQuestion": "What is the most common cause of cough in children?"
+    },
+    {
+      "id": "nur-735",
+      "sourceQuestion": "What is the most important evaluation for chronic cough?"
+    },
+    {
+      "id": "nur-736",
+      "sourceQuestion": "What is the most common cause of pleural effusion in the elderly?"
+    },
+    {
+      "id": "nur-737",
+      "sourceQuestion": "What is the most important evaluation for a pleural effusion?"
+    },
+    {
+      "id": "nur-738",
+      "sourceQuestion": "What is the most common cause of hemoptysis requiring hospitalization?"
+    },
+    {
+      "id": "nur-739",
+      "sourceQuestion": "What is the most important evaluation for hemoptysis?"
+    },
+    {
+      "id": "nur-740",
+      "sourceQuestion": "What is the most common cause of pulmonary hypertension in the elderly?"
+    },
+    {
+      "id": "nur-741",
+      "sourceQuestion": "What is the most important evaluation for pulmonary hypertension?"
+    },
+    {
+      "id": "nur-742",
+      "sourceQuestion": "What is the most common cause of headache in the emergency department?"
+    },
+    {
+      "id": "nur-743",
+      "sourceQuestion": "What is the most important evaluation for headache in the emergency department?"
+    },
+    {
+      "id": "nur-744",
+      "sourceQuestion": "What is the most common cause of dizziness in the elderly?"
+    },
+    {
+      "id": "nur-745",
+      "sourceQuestion": "What is the most important evaluation for dizziness?"
+    },
+    {
+      "id": "nur-746",
+      "sourceQuestion": "What is the most common cause of facial numbness?"
+    },
+    {
+      "id": "nur-747",
+      "sourceQuestion": "What is the most important evaluation for facial numbness?"
+    },
+    {
+      "id": "nur-748",
+      "sourceQuestion": "What is the most common cause of speech difficulties in the elderly?"
+    },
+    {
+      "id": "nur-749",
+      "sourceQuestion": "What is the most important evaluation for speech difficulties?"
+    },
+    {
+      "id": "nur-750",
+      "sourceQuestion": "What is the most common cause of sleep disorders in the elderly?"
+    },
+    {
+      "id": "nur-751",
+      "sourceQuestion": "What is the most important evaluation for sleep disorders?"
+    },
+    {
+      "id": "nur-752",
+      "sourceQuestion": "What is the most common cause of vaginal bleeding in pregnancy?"
+    },
+    {
+      "id": "nur-753",
+      "sourceQuestion": "What is the most important evaluation for vaginal bleeding in pregnancy?"
+    },
+    {
+      "id": "nur-754",
+      "sourceQuestion": "What is the most common cause of postpartum hemorrhage requiring transfusion?"
+    },
+    {
+      "id": "nur-755",
+      "sourceQuestion": "What is the most important treatment for postpartum hemorrhage?"
+    },
+    {
+      "id": "nur-756",
+      "sourceQuestion": "What is the most common cause of neonatal hypoglycemia?"
+    },
+    {
+      "id": "nur-757",
+      "sourceQuestion": "What is the most important treatment for neonatal hypoglycemia?"
+    },
+    {
+      "id": "nur-758",
+      "sourceQuestion": "What is the most common cause of neonatal jaundice requiring phototherapy?"
+    },
+    {
+      "id": "nur-759",
+      "sourceQuestion": "What is the most important treatment for neonatal jaundice?"
+    },
+    {
+      "id": "nur-760",
+      "sourceQuestion": "What is the most common cause of maternal fever during labor?"
+    },
+    {
+      "id": "nur-761",
+      "sourceQuestion": "What is the most important treatment for maternal fever during labor?"
+    },
+    {
+      "id": "nur-762",
+      "sourceQuestion": "What is the most common cause of zoonotic infections?"
+    },
+    {
+      "id": "nur-763",
+      "sourceQuestion": "What is the most important prevention for zoonotic infections?"
+    },
+    {
+      "id": "nur-764",
+      "sourceQuestion": "What is the most common cause of infections in drug users?"
+    },
+    {
+      "id": "nur-765",
+      "sourceQuestion": "What is the most important prevention for infections in drug users?"
+    },
+    {
+      "id": "nur-766",
+      "sourceQuestion": "What is the most common cause of infection in patients with indwelling devices?"
+    },
+    {
+      "id": "nur-767",
+      "sourceQuestion": "What is the most important prevention for device-related infections?"
+    },
+    {
+      "id": "nur-768",
+      "sourceQuestion": "What is the most common cause of infection in patients with chemotherapy?"
+    },
+    {
+      "id": "nur-769",
+      "sourceQuestion": "What is the most important prevention for infections in chemotherapy patients?"
+    },
+    {
+      "id": "nur-770",
+      "sourceQuestion": "What is the most important assessment for a patient with a new pacemaker?"
+    },
+    {
+      "id": "nur-771",
+      "sourceQuestion": "What is the most important intervention for a patient with an implanted defibrillator?"
+    },
+    {
+      "id": "nur-772",
+      "sourceQuestion": "What is the most important assessment for a patient with an arterial line?"
+    },
+    {
+      "id": "nur-773",
+      "sourceQuestion": "What is the most important intervention for a patient with a pulmonary artery catheter?"
+    },
+    {
+      "id": "nur-774",
+      "sourceQuestion": "What is the most important assessment for a patient with an intra-aortic balloon pump?"
+    },
+    {
+      "id": "nur-775",
+      "sourceQuestion": "What is the most important intervention for a patient on a ventricular assist device?"
+    },
+    {
+      "id": "nur-776",
+      "sourceQuestion": "What is the most important assessment for a patient with a new vascular access port?"
+    },
+    {
+      "id": "nur-777",
+      "sourceQuestion": "What is the most important intervention for a patient with a new vascular access port?"
+    },
+    {
+      "id": "nur-778",
+      "sourceQuestion": "What is the most common side effect of antiarrhythmic medications?"
+    },
+    {
+      "id": "nur-779",
+      "sourceQuestion": "What is the most important monitoring for antiarrhythmic medications?"
+    },
+    {
+      "id": "nur-780",
+      "sourceQuestion": "What is the most common interaction with warfarin?"
+    },
+    {
+      "id": "nur-781",
+      "sourceQuestion": "What is the most important drug interaction with amiodarone?"
+    },
+    {
+      "id": "nur-782",
+      "sourceQuestion": "What is the most common cause of nephrolithiasis?"
+    },
+    {
+      "id": "nur-783",
+      "sourceQuestion": "What is the most important prevention for nephrolithiasis?"
+    },
+    {
+      "id": "nur-784",
+      "sourceQuestion": "What is the most common cause of urinary retention in men?"
+    },
+    {
+      "id": "nur-785",
+      "sourceQuestion": "What is the most important treatment for benign prostatic hyperplasia?"
+    },
+    {
+      "id": "nur-786",
+      "sourceQuestion": "What is the most common cause of urinary incontinence in the elderly?"
+    },
+    {
+      "id": "nur-787",
+      "sourceQuestion": "What is the most important evaluation for urinary incontinence?"
+    },
+    {
+      "id": "nur-788",
+      "sourceQuestion": "What is the most common cause of acute pyelonephritis?"
+    },
+    {
+      "id": "nur-789",
+      "sourceQuestion": "What is the most important treatment for acute pyelonephritis?"
+    },
+    {
+      "id": "nur-790",
+      "sourceQuestion": "What grading scale is used to assess the severity of a subarachnoid hemorrhage?"
+    },
+    {
+      "id": "nur-791",
+      "sourceQuestion": "What is the most important evaluation for subarachnoid hemorrhage?"
+    },
+    {
+      "id": "nur-792",
+      "sourceQuestion": "What is the most common cause of brain abscess?"
+    },
+    {
+      "id": "nur-793",
+      "sourceQuestion": "What is the most important treatment for brain abscess?"
+    },
+    {
+      "id": "nur-794",
+      "sourceQuestion": "What is the most common associated impairment seen alongside cerebral palsy?"
+    },
+    {
+      "id": "nur-795",
+      "sourceQuestion": "What is the most important treatment for cerebral palsy?"
+    },
+    {
+      "id": "nur-796",
+      "sourceQuestion": "What is the most common cause of muscular dystrophy?"
+    },
+    {
+      "id": "nur-797",
+      "sourceQuestion": "What is the most important treatment for muscular dystrophy?"
+    },
+    {
+      "id": "nur-798",
+      "sourceQuestion": "What is the most common cause of multiple sclerosis?"
+    },
+    {
+      "id": "nur-799",
+      "sourceQuestion": "What is the most important treatment for multiple sclerosis?"
+    },
+    {
+      "id": "nur-800",
+      "sourceQuestion": "What is the most common cause of hyperthyroidism in pregnancy?"
+    },
+    {
+      "id": "nur-801",
+      "sourceQuestion": "What is the most common cause of hyperthyroidism in children?"
+    },
+    {
+      "id": "nur-802",
+      "sourceQuestion": "What is the most common cause of hypothyroidism after thyroidectomy?"
+    },
+    {
+      "id": "nur-803",
+      "sourceQuestion": "What is the most important monitoring for thyroid hormone replacement?"
+    },
+    {
+      "id": "nur-804",
+      "sourceQuestion": "What is the most common cause of Cushing's syndrome in the community?"
+    },
+    {
+      "id": "nur-805",
+      "sourceQuestion": "What is the most important treatment for Cushing's syndrome?"
+    },
+    {
+      "id": "nur-806",
+      "sourceQuestion": "What is the most common cause of adrenal insufficiency in the United States?"
+    },
+    {
+      "id": "nur-807",
+      "sourceQuestion": "What is the most important treatment for adrenal insufficiency?"
+    },
+    {
+      "id": "nur-808",
+      "sourceQuestion": "What is the most common cause of adrenal crisis?"
+    },
+    {
+      "id": "nur-809",
+      "sourceQuestion": "What is the most common cause of hypoglycemia in patients with diabetes?"
+    },
+    {
+      "id": "nur-810",
+      "sourceQuestion": "What is the most common cause of hyperthyroidism in the elderly?"
+    },
+    {
+      "id": "nur-811",
+      "sourceQuestion": "What is the most common cause of subclinical hyperthyroidism?"
+    },
+    {
+      "id": "nur-812",
+      "sourceQuestion": "What is the most common cause of peripheral arterial disease?"
+    },
+    {
+      "id": "nur-813",
+      "sourceQuestion": "What is the most common symptom of peripheral arterial disease?"
+    },
+    {
+      "id": "nur-814",
+      "sourceQuestion": "What is the most important treatment for peripheral arterial disease?"
+    },
+    {
+      "id": "nur-815",
+      "sourceQuestion": "What is the most common cause of deep vein thrombosis?"
+    },
+    {
+      "id": "nur-816",
+      "sourceQuestion": "What is the most common symptom of deep vein thrombosis?"
+    },
+    {
+      "id": "nur-817",
+      "sourceQuestion": "What is the most important prevention for deep vein thrombosis?"
+    },
+    {
+      "id": "nur-818",
+      "sourceQuestion": "What is the most common cause of varicose veins?"
+    },
+    {
+      "id": "nur-819",
+      "sourceQuestion": "What is the most important treatment for varicose veins?"
+    },
+    {
+      "id": "nur-820",
+      "sourceQuestion": "What is the most common cause of upper respiratory infection?"
+    },
+    {
+      "id": "nur-821",
+      "sourceQuestion": "What is the most important treatment for upper respiratory infection?"
+    },
+    {
+      "id": "nur-822",
+      "sourceQuestion": "What is the most common cause of sinusitis?"
+    },
+    {
+      "id": "nur-823",
+      "sourceQuestion": "What is the most important treatment for sinusitis?"
+    },
+    {
+      "id": "nur-824",
+      "sourceQuestion": "What is the most common cause of tonsillitis?"
+    },
+    {
+      "id": "nur-825",
+      "sourceQuestion": "What is the most important treatment for tonsillitis?"
+    },
+    {
+      "id": "nur-826",
+      "sourceQuestion": "What is the most common cause of sleep apnea?"
+    },
+    {
+      "id": "nur-827",
+      "sourceQuestion": "What is the most important treatment for obstructive sleep apnea?"
+    },
+    {
+      "id": "nur-828",
+      "sourceQuestion": "What is the most common cause of periodontal disease?"
+    },
+    {
+      "id": "nur-829",
+      "sourceQuestion": "What is the most important treatment for periodontal disease?"
+    },
+    {
+      "id": "nur-830",
+      "sourceQuestion": "What is the most common cause of stomatitis?"
+    },
+    {
+      "id": "nur-831",
+      "sourceQuestion": "What is the most important treatment for stomatitis?"
+    },
+    {
+      "id": "nur-832",
+      "sourceQuestion": "What is the most common cause of oral candidiasis?"
+    },
+    {
+      "id": "nur-833",
+      "sourceQuestion": "What is the most important treatment for oral candidiasis?"
+    },
+    {
+      "id": "nur-834",
+      "sourceQuestion": "What is the most common cause of dysphagia in the elderly?"
+    },
+    {
+      "id": "nur-835",
+      "sourceQuestion": "What is the most important evaluation for dysphagia?"
+    },
+    {
+      "id": "nur-836",
+      "sourceQuestion": "What is the most important assessment for a patient with a chest tube?"
+    },
+    {
+      "id": "nur-837",
+      "sourceQuestion": "What is the most important intervention for a patient with a chest tube?"
+    },
+    {
+      "id": "nur-838",
+      "sourceQuestion": "What is the most important assessment for a patient with a colostomy?"
+    },
+    {
+      "id": "nur-839",
+      "sourceQuestion": "What is the most important intervention for a patient with a colostomy?"
+    },
+    {
+      "id": "nur-840",
+      "sourceQuestion": "What is the most important assessment for a patient with a feeding tube?"
+    },
+    {
+      "id": "nur-841",
+      "sourceQuestion": "What is the most important intervention for a patient with a feeding tube?"
+    },
+    {
+      "id": "nur-842",
+      "sourceQuestion": "What is the most important assessment for a patient with a nephrostomy tube?"
+    },
+    {
+      "id": "nur-843",
+      "sourceQuestion": "What is the most important intervention for a patient with a nephrostomy tube?"
+    },
+    {
+      "id": "nur-844",
+      "sourceQuestion": "What is the most common side effect of immunosuppressants?"
+    },
+    {
+      "id": "nur-845",
+      "sourceQuestion": "What is the most important monitoring for immunosuppressants?"
+    },
+    {
+      "id": "nur-846",
+      "sourceQuestion": "What is the most common side effect of bisphosphonates?"
+    },
+    {
+      "id": "nur-847",
+      "sourceQuestion": "What is the most important monitoring for bisphosphonates?"
+    },
+    {
+      "id": "nur-848",
+      "sourceQuestion": "What is the most common side effect of biologics in rheumatology?"
+    },
+    {
+      "id": "nur-849",
+      "sourceQuestion": "What is the most important monitoring for biologics?"
+    },
+    {
+      "id": "nur-850",
+      "sourceQuestion": "What is the most common cause of renal failure in multiple myeloma?"
+    },
+    {
+      "id": "nur-851",
+      "sourceQuestion": "What is the most important treatment for renal failure in multiple myeloma?"
+    },
+    {
+      "id": "nur-852",
+      "sourceQuestion": "What is the most common cause of renal artery thrombosis?"
+    },
+    {
+      "id": "nur-853",
+      "sourceQuestion": "What is the most important treatment for renal artery thrombosis?"
+    },
+    {
+      "id": "nur-854",
+      "sourceQuestion": "What is the most common cause of renal vein thrombosis?"
+    },
+    {
+      "id": "nur-855",
+      "sourceQuestion": "What is the most important treatment for renal vein thrombosis?"
+    },
+    {
+      "id": "nur-856",
+      "sourceQuestion": "What is the most common cause of metabolic acidosis in renal failure?"
+    },
+    {
+      "id": "nur-857",
+      "sourceQuestion": "What is the most important treatment for metabolic acidosis in renal failure?"
+    },
+    {
+      "id": "nur-858",
+      "sourceQuestion": "What is the most common cause of spinal cord compression?"
+    },
+    {
+      "id": "nur-859",
+      "sourceQuestion": "What is the most important treatment for spinal cord compression?"
+    },
+    {
+      "id": "nur-860",
+      "sourceQuestion": "What is the most common cause of peripheral neuropathy in patients with diabetes?"
+    },
+    {
+      "id": "nur-861",
+      "sourceQuestion": "What is the most important treatment for diabetic neuropathy?"
+    },
+    {
+      "id": "nur-862",
+      "sourceQuestion": "What autonomic complication is a life-threatening concern in Guillain-Barré syndrome?"
+    },
+    {
+      "id": "nur-863",
+      "sourceQuestion": "What is the most important treatment for Guillain-Barré syndrome?"
+    },
+    {
+      "id": "nur-864",
+      "sourceQuestion": "What is the classic gait abnormality seen in Parkinson's disease?"
+    },
+    {
+      "id": "nur-865",
+      "sourceQuestion": "What is the most important treatment for Parkinson's disease?"
+    },
+    {
+      "id": "nur-866",
+      "sourceQuestion": "What is the most common cause of thyroiditis?"
+    },
+    {
+      "id": "nur-867",
+      "sourceQuestion": "What is the most important treatment for thyroiditis?"
+    },
+    {
+      "id": "nur-868",
+      "sourceQuestion": "What is the most common cause of hypothyroidism in children?"
+    },
+    {
+      "id": "nur-869",
+      "sourceQuestion": "What is the most common cause of hypothyroidism in pregnancy?"
+    },
+    {
+      "id": "nur-870",
+      "sourceQuestion": "What is the most common cause of hyperthyroidism in patients with amiodarone therapy?"
+    },
+    {
+      "id": "nur-871",
+      "sourceQuestion": "What is the most common cause of hyperthyroidism in postpartum women?"
+    },
+    {
+      "id": "nur-872",
+      "sourceQuestion": "What is the most common cause of secondary hypertension in patients under 30?"
+    },
+    {
+      "id": "nur-873",
+      "sourceQuestion": "What is the most important treatment for hypopituitarism?"
+    },
+    {
+      "id": "nur-874",
+      "sourceQuestion": "What is the most common cause of heart block?"
+    },
+    {
+      "id": "nur-875",
+      "sourceQuestion": "What is the most important treatment for heart block?"
+    },
+    {
+      "id": "nur-876",
+      "sourceQuestion": "What is the most common cause of ventricular tachycardia?"
+    },
+    {
+      "id": "nur-877",
+      "sourceQuestion": "What is the most important treatment for ventricular tachycardia?"
+    },
+    {
+      "id": "nur-878",
+      "sourceQuestion": "What is the most common cause of atrial flutter?"
+    },
+    {
+      "id": "nur-879",
+      "sourceQuestion": "What is the most important treatment for atrial flutter?"
+    },
+    {
+      "id": "nur-880",
+      "sourceQuestion": "What is the most common cause of heart failure exacerbation?"
+    },
+    {
+      "id": "nur-881",
+      "sourceQuestion": "What is the most important treatment for heart failure exacerbation?"
+    },
+    {
+      "id": "nur-882",
+      "sourceQuestion": "What is the most common cause of interstitial lung disease?"
+    },
+    {
+      "id": "nur-883",
+      "sourceQuestion": "What is the most important treatment for interstitial lung disease?"
+    },
+    {
+      "id": "nur-884",
+      "sourceQuestion": "What is the most common cause of pulmonary fibrosis?"
+    },
+    {
+      "id": "nur-885",
+      "sourceQuestion": "What is the most important treatment for pulmonary fibrosis?"
+    },
+    {
+      "id": "nur-886",
+      "sourceQuestion": "What is the most common cause of sarcoidosis?"
+    },
+    {
+      "id": "nur-887",
+      "sourceQuestion": "What is the most important treatment for sarcoidosis?"
+    },
+    {
+      "id": "nur-888",
+      "sourceQuestion": "What is the most common cause of pulmonary hypertension in COPD?"
+    },
+    {
+      "id": "nur-889",
+      "sourceQuestion": "What is the most important treatment for pulmonary hypertension in COPD?"
+    },
+    {
+      "id": "nur-890",
+      "sourceQuestion": "What is the most common cause of dyspepsia?"
+    },
+    {
+      "id": "nur-891",
+      "sourceQuestion": "What is the most important treatment for dyspepsia?"
+    },
+    {
+      "id": "nur-892",
+      "sourceQuestion": "What is the most common cause of abdominal pain in the emergency department?"
+    },
+    {
+      "id": "nur-893",
+      "sourceQuestion": "What is the most important evaluation for abdominal pain?"
+    },
+    {
+      "id": "nur-894",
+      "sourceQuestion": "What is the most common cause of diarrhea in immunocompromised patients?"
+    },
+    {
+      "id": "nur-895",
+      "sourceQuestion": "What is the most important treatment for diarrhea in immunocompromised patients?"
+    },
+    {
+      "id": "nur-896",
+      "sourceQuestion": "What is the most important assessment for a patient with a wound drain?"
+    },
+    {
+      "id": "nur-897",
+      "sourceQuestion": "What is the most important intervention for a patient with a wound drain?"
+    },
+    {
+      "id": "nur-898",
+      "sourceQuestion": "What is the most important assessment for a patient with a biliary drain?"
+    },
+    {
+      "id": "nur-899",
+      "sourceQuestion": "What is the most important intervention for a patient with a biliary drain?"
+    },
+    {
+      "id": "nur-900",
+      "sourceQuestion": "What is the most important assessment for a patient with an intracranial pressure monitor?"
+    },
+    {
+      "id": "nur-901",
+      "sourceQuestion": "What is the most important intervention for a patient with an intracranial pressure monitor?"
+    },
+    {
+      "id": "nur-902",
+      "sourceQuestion": "What is the most common side effect of anticholinergic medications?"
+    },
+    {
+      "id": "nur-903",
+      "sourceQuestion": "What is the most important monitoring for anticholinergic medications?"
+    },
+    {
+      "id": "nur-904",
+      "sourceQuestion": "What is the most common side effect of selective serotonin reuptake inhibitors in the elderly?"
+    },
+    {
+      "id": "nur-905",
+      "sourceQuestion": "What is the most important monitoring for SSRIs in the elderly?"
+    },
+    {
+      "id": "nur-906",
+      "sourceQuestion": "What is the most common cause of electrolyte disturbances in the elderly?"
+    },
+    {
+      "id": "nur-907",
+      "sourceQuestion": "What is the most important monitoring for electrolyte disturbances in the elderly?"
+    },
+    {
+      "id": "nur-908",
+      "sourceQuestion": "What is the most common cause of acute kidney injury in the elderly?"
+    },
+    {
+      "id": "nur-909",
+      "sourceQuestion": "What is the most important prevention for acute kidney injury in the elderly?"
+    },
+    {
+      "id": "nur-910",
+      "sourceQuestion": "What is the most common cause of valvular heart disease in the elderly?"
+    },
+    {
+      "id": "nur-911",
+      "sourceQuestion": "What is the most important treatment for valvular heart disease in the elderly?"
+    },
+    {
+      "id": "nur-912",
+      "sourceQuestion": "What is the most common cause of congestive heart failure in the elderly?"
+    },
+    {
+      "id": "nur-913",
+      "sourceQuestion": "What is the most important treatment for congestive heart failure in the elderly?"
+    },
+    {
+      "id": "nur-914",
+      "sourceQuestion": "What is the most common cause of pneumonia in the elderly?"
+    },
+    {
+      "id": "nur-915",
+      "sourceQuestion": "What is the most important prevention for pneumonia in the elderly?"
+    },
+    {
+      "id": "nur-916",
+      "sourceQuestion": "What is the most common cause of COPD exacerbation in the elderly?"
+    },
+    {
+      "id": "nur-917",
+      "sourceQuestion": "What is the most important treatment for COPD exacerbation in the elderly?"
+    },
+    {
+      "id": "nur-918",
+      "sourceQuestion": "What early symptom often distinguishes normal pressure hydrocephalus from other dementias?"
+    },
+    {
+      "id": "nur-919",
+      "sourceQuestion": "What is the most important treatment for dementia in the elderly?"
+    },
+    {
+      "id": "nur-920",
+      "sourceQuestion": "What is the most common cause of stroke in the elderly?"
+    },
+    {
+      "id": "nur-921",
+      "sourceQuestion": "What is the most important prevention for stroke in the elderly?"
+    },
+    {
+      "id": "nur-922",
+      "sourceQuestion": "What is the most common cause of osteoporosis in the elderly?"
+    },
+    {
+      "id": "nur-923",
+      "sourceQuestion": "What is the most important treatment for osteoporosis in the elderly?"
+    },
+    {
+      "id": "nur-924",
+      "sourceQuestion": "What is the most common cause of diabetes in the elderly?"
+    },
+    {
+      "id": "nur-925",
+      "sourceQuestion": "What is the most important treatment for diabetes in the elderly?"
+    },
+    {
+      "id": "nur-926",
+      "sourceQuestion": "What is the most common cause of constipation in the elderly?"
+    },
+    {
+      "id": "nur-927",
+      "sourceQuestion": "What is the most important treatment for constipation in the elderly?"
+    },
+    {
+      "id": "nur-928",
+      "sourceQuestion": "What is the most common cause of fecal incontinence in the elderly?"
+    },
+    {
+      "id": "nur-929",
+      "sourceQuestion": "What is the most important treatment for fecal incontinence in the elderly?"
+    },
+    {
+      "id": "nur-930",
+      "sourceQuestion": "What is the most common psychiatric disorder in the elderly?"
+    },
+    {
+      "id": "nur-931",
+      "sourceQuestion": "What is the most important treatment for depression in the elderly?"
+    },
+    {
+      "id": "nur-932",
+      "sourceQuestion": "What is the most common cause of anxiety in the elderly?"
+    },
+    {
+      "id": "nur-933",
+      "sourceQuestion": "What is the most important treatment for anxiety in the elderly?"
+    },
+    {
+      "id": "nur-934",
+      "sourceQuestion": "What is the most common cause of infections in the elderly?"
+    },
+    {
+      "id": "nur-935",
+      "sourceQuestion": "What is the most important prevention for infections in the elderly?"
+    },
+    {
+      "id": "nur-936",
+      "sourceQuestion": "What is the most common cause of sepsis in the elderly?"
+    },
+    {
+      "id": "nur-937",
+      "sourceQuestion": "What is the most important treatment for sepsis in the elderly?"
+    },
+    {
+      "id": "nur-938",
+      "sourceQuestion": "What is the most important assessment for a patient with a gastrostomy tube?"
+    },
+    {
+      "id": "nur-939",
+      "sourceQuestion": "What is the most important intervention for a patient with a gastrostomy tube?"
+    },
+    {
+      "id": "nur-940",
+      "sourceQuestion": "What is the most important assessment for a patient with a jejunostomy tube?"
+    },
+    {
+      "id": "nur-941",
+      "sourceQuestion": "What is the most important intervention for a patient with a jejunostomy tube?"
+    },
+    {
+      "id": "nur-942",
+      "sourceQuestion": "What is the most common side effect of calcium channel blockers in the elderly?"
+    },
+    {
+      "id": "nur-943",
+      "sourceQuestion": "What is the most important monitoring for calcium channel blockers in the elderly?"
+    },
+    {
+      "id": "nur-944",
+      "sourceQuestion": "What is the most common side effect of beta-blockers in the elderly?"
+    },
+    {
+      "id": "nur-945",
+      "sourceQuestion": "What is the most important monitoring for beta-blockers in the elderly?"
+    },
+    {
+      "id": "nur-946",
+      "sourceQuestion": "What medication class is a common cause of drug-induced acute kidney injury in the elderly, aside from NSAIDs?"
+    },
+    {
+      "id": "nur-947",
+      "sourceQuestion": "What lab trend best indicates recovery from acute kidney injury in an elderly patient?"
+    },
+    {
+      "id": "nur-948",
+      "sourceQuestion": "What is the most common cause of chronic kidney disease in the elderly?"
+    },
+    {
+      "id": "nur-949",
+      "sourceQuestion": "What is the most important treatment for chronic kidney disease in the elderly?"
+    },
+    {
+      "id": "nur-950",
+      "sourceQuestion": "What ECG finding raises suspicion for a cardiac cause of syncope requiring urgent evaluation?"
+    },
+    {
+      "id": "nur-951",
+      "sourceQuestion": "What is the most important evaluation for syncope in the elderly?"
+    },
+    {
+      "id": "nur-952",
+      "sourceQuestion": "What is the most common cause of falls in the elderly?"
+    },
+    {
+      "id": "nur-953",
+      "sourceQuestion": "What is the most important prevention for falls in the elderly?"
+    },
+    {
+      "id": "nur-954",
+      "sourceQuestion": "What is the most common cause of hypoxemia in the elderly?"
+    },
+    {
+      "id": "nur-955",
+      "sourceQuestion": "What is the most important treatment for hypoxemia in the elderly?"
+    },
+    {
+      "id": "nur-956",
+      "sourceQuestion": "What is the most common cause of respiratory failure in the elderly?"
+    },
+    {
+      "id": "nur-957",
+      "sourceQuestion": "What is the most important treatment for respiratory failure in the elderly?"
+    },
+    {
+      "id": "nur-958",
+      "sourceQuestion": "What is the most common cause of peripheral neuropathy in the elderly?"
+    },
+    {
+      "id": "nur-959",
+      "sourceQuestion": "What is the most important treatment for peripheral neuropathy in the elderly?"
+    },
+    {
+      "id": "nur-960",
+      "sourceQuestion": "What bedside maneuver is used to diagnose benign paroxysmal positional vertigo?"
+    },
+    {
+      "id": "nur-961",
+      "sourceQuestion": "What is the most important treatment for dizziness in the elderly?"
+    },
+    {
+      "id": "nur-962",
+      "sourceQuestion": "What is the most common cause of hyperglycemia in the elderly?"
+    },
+    {
+      "id": "nur-963",
+      "sourceQuestion": "What is the most important treatment for hyperglycemia in the elderly?"
+    },
+    {
+      "id": "nur-964",
+      "sourceQuestion": "What is the most common cause of hypoglycemia in the elderly?"
+    },
+    {
+      "id": "nur-965",
+      "sourceQuestion": "What is the most important treatment for hypoglycemia in the elderly?"
+    },
+    {
+      "id": "nur-966",
+      "sourceQuestion": "What is the most common cause of malnutrition in the elderly?"
+    },
+    {
+      "id": "nur-967",
+      "sourceQuestion": "What is the most important treatment for malnutrition in the elderly?"
+    },
+    {
+      "id": "nur-968",
+      "sourceQuestion": "What bedside screening test should be performed before oral intake in a patient with suspected dysphagia after stroke?"
+    },
+    {
+      "id": "nur-969",
+      "sourceQuestion": "What is the most important treatment for dysphagia in the elderly?"
+    },
+    {
+      "id": "nur-970",
+      "sourceQuestion": "What is the most common cause of delirium in the elderly?"
+    },
+    {
+      "id": "nur-971",
+      "sourceQuestion": "What is the most important treatment for delirium in the elderly?"
+    },
+    {
+      "id": "nur-972",
+      "sourceQuestion": "What is the most common cause of sleep disturbance in the elderly?"
+    },
+    {
+      "id": "nur-973",
+      "sourceQuestion": "What is the most important treatment for sleep disturbance in the elderly?"
+    },
+    {
+      "id": "nur-974",
+      "sourceQuestion": "What is the most common cause of skin infection in the elderly?"
+    },
+    {
+      "id": "nur-975",
+      "sourceQuestion": "What is the most important treatment for skin infection in the elderly?"
+    },
+    {
+      "id": "nur-976",
+      "sourceQuestion": "What is the most common cause of urinary tract infection in the elderly?"
+    },
+    {
+      "id": "nur-977",
+      "sourceQuestion": "What is the most important treatment for urinary tract infection in the elderly?"
+    },
+    {
+      "id": "nur-978",
+      "sourceQuestion": "What is the most common cause of nosocomial infection in the elderly?"
+    },
+    {
+      "id": "nur-979",
+      "sourceQuestion": "What is the most important prevention for nosocomial infections in the elderly?"
+    },
+    {
+      "id": "nur-980",
+      "sourceQuestion": "What is the most common cause of infection in long-term care facilities?"
+    },
+    {
+      "id": "nur-981",
+      "sourceQuestion": "What is the most important prevention for infection in long-term care facilities?"
+    },
+    {
+      "id": "nur-982",
+      "sourceQuestion": "What is the most important assessment for a patient with a percutaneous endoscopic gastrostomy tube?"
+    },
+    {
+      "id": "nur-983",
+      "sourceQuestion": "What is the most important intervention for a patient with a percutaneous endoscopic gastrostomy tube?"
+    },
+    {
+      "id": "nur-984",
+      "sourceQuestion": "What is the most important assessment for a patient with a tracheostomy tube?"
+    },
+    {
+      "id": "nur-985",
+      "sourceQuestion": "What is the most important intervention for a patient with a tracheostomy tube?"
+    },
+    {
+      "id": "nur-986",
+      "sourceQuestion": "What is the most important assessment for a patient with a wound vacuum-assisted closure device?"
+    },
+    {
+      "id": "nur-987",
+      "sourceQuestion": "What is the most important intervention for a patient with a wound vacuum-assisted closure device?"
+    },
+    {
+      "id": "nur-988",
+      "sourceQuestion": "What is the most common side effect of medications in the elderly?"
+    },
+    {
+      "id": "nur-989",
+      "sourceQuestion": "What is the most important monitoring for medications in the elderly?"
+    },
+    {
+      "id": "nur-990",
+      "sourceQuestion": "What is the most common cause of adverse drug reactions in the elderly?"
+    },
+    {
+      "id": "nur-991",
+      "sourceQuestion": "What is the most important prevention for adverse drug reactions in the elderly?"
+    },
+    {
+      "id": "nur-992",
+      "sourceQuestion": "What is the most common cause of non-adherence in the elderly?"
+    },
+    {
+      "id": "nur-993",
+      "sourceQuestion": "What is the most important intervention to improve adherence in the elderly?"
+    },
+    {
+      "id": "nur-994",
+      "sourceQuestion": "What is the most common cause of fluid overload in the elderly?"
+    },
+    {
+      "id": "nur-995",
+      "sourceQuestion": "What is the most important treatment for fluid overload in the elderly?"
+    },
+    {
+      "id": "nur-996",
+      "sourceQuestion": "What is the most common cause of electrolyte imbalance in the elderly?"
+    },
+    {
+      "id": "nur-997",
+      "sourceQuestion": "What is the most important prevention for electrolyte imbalance in the elderly?"
+    },
+    {
+      "id": "nur-998",
+      "sourceQuestion": "What is the most common cause of hypertension in the elderly?"
+    },
+    {
+      "id": "nur-999",
+      "sourceQuestion": "What is the most important treatment for hypertension in the elderly?"
+    },
+    {
+      "id": "nur-1000",
+      "sourceQuestion": "What is the most common cause of hypotension in the elderly?"
+    }
+  ]
+}
