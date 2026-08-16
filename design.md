@@ -62,3 +62,11 @@ Primary controls use press feedback and light haptics, with no critical action r
 ## Local data model
 
 The first release stores the question bank, current session state, preferences, and practice results locally with AsyncStorage. No account, cloud sync, or backend dependency is introduced unless requested later.
+
+## Improvement pass: learning clarity and control
+
+The Practice screen should make the educational next step immediately clear after each answer. The verdict card will include a **keyword checklist** that distinguishes matched clinical terms from terms still to review. A short next-step message will guide the learner to either continue, repeat the answer, or review the explanation without relying only on the verdict color.
+
+The selected category should be maintained across the Topics and Practice tabs, with a visible focused-practice indicator and a category-specific queue. Selecting a category will land the learner directly in that domain, rather than merely returning them to the general practice screen.
+
+Primary actions will be accessible by label and state. The app will provide restrained haptic confirmation for asking a question, toggling auto mode, stopping a recording, and receiving a graded result. Each status state will retain a visible text equivalent, ensuring that a learner can understand speaking, listening, transcribing, and review states without sound or haptics.

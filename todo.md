@@ -19,7 +19,7 @@
 - [x] Implement Categories screen and category filtering
 - [x] Implement Progress screen with session metrics
 - [x] Implement Settings screen with voice and session preferences
-- [ ] Add haptic feedback, accessibility labels, and permission guidance
+- [x] Add haptic feedback, accessibility labels, and permission guidance
 - [x] Add deterministic unit tests for grading and session logic
 - [x] Run type checking, linting, and tests
 - [x] Verify native-safe layouts and responsive web preview
@@ -27,3 +27,9 @@
 - [x] Add microphone permission handling and a hands-free recording control
 - [x] Send captured audio to the built-in transcription service and submit the resulting transcript for grading
 - [x] Test native recording, transcription errors, and typed fallback behavior
+- [x] Improve learning feedback with a visible keyword checklist and next-step guidance
+- [x] Improve Practice controls with clearer mode feedback, reset behavior, and an in-session category indicator
+- [x] Add haptic feedback and enhanced accessibility labels for major practice actions
+- [x] Improve category selection so a selected domain immediately starts the intended focused session
+- [x] Add deterministic tests for the new practice-session interactions
+- [x] Validate and checkpoint the learning-experience improvement release

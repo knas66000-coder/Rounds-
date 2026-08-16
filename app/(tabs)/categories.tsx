@@ -1,8 +1,11 @@
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ScreenContainer } from "@/components/screen-container";
 import { categories } from "@/data/questionBank";
 import { useColors } from "@/hooks/use-colors";
+import { ACTIVE_CATEGORY_KEY } from "@/lib/session";
+import { haptic } from "@/lib/haptics";
 
 export default function CategoriesScreen() {
   const colors = useColors();
@@ -11,7 +14,7 @@ export default function CategoriesScreen() {
     <ScreenContainer className="px-5" edges={["top", "left", "right"]}>
       <View style={styles.header}><Text style={[styles.eyebrow, { color: colors.primary }]}>QUESTION BANK</Text><Text style={[styles.title, { color: colors.foreground }]}>Choose a domain.</Text><Text style={[styles.sub, { color: colors.muted }]}>Build confidence one clinical area at a time.</Text></View>
       <FlatList data={categories} keyExtractor={(item) => item.name} contentContainerStyle={styles.list} renderItem={({ item, index }) => (
-        <Pressable onPress={() => router.replace("/(tabs)")} style={({ pressed }) => [styles.card, { borderColor: colors.border, backgroundColor: colors.surface }, pressed && { opacity: 0.78 }]}>
+        <Pressable onPress={async () => { await AsyncStorage.setItem(ACTIVE_CATEGORY_KEY, item.name); haptic.light(); router.replace("/(tabs)"); }} accessibilityRole="button" accessibilityLabel={`Practice ${item.name} questions`} style={({ pressed }) => [styles.card, { borderColor: colors.border, backgroundColor: colors.surface }, pressed && { opacity: 0.78 }]}>
           <View style={[styles.number, { backgroundColor: colors.background }]}><Text style={{ color: colors.primary, fontWeight: "800" }}>{String(index + 1).padStart(2, "0")}</Text></View>
           <View style={styles.copy}><Text style={[styles.name, { color: colors.foreground }]}>{item.name}</Text><Text style={[styles.topics, { color: colors.muted }]}>{item.topics}</Text></View><Text style={[styles.chevron, { color: colors.primary }]}>›</Text>
         </Pressable>
