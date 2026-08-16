@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { questionBank } from "../data/questionBank";
-import { buildAdaptiveQueue, buildExamReview, priorityFor, remediationItems, upsertLearningSignal } from "../lib/adaptive";
+import { buildAdaptiveQueue, buildExamReview, filterExamReview, priorityFor, remediationItems, upsertLearningSignal } from "../lib/adaptive";
 
 describe("adaptive review", () => {
   it("prioritizes missed responses above partial, flagged, and saved questions", () => {
@@ -21,5 +21,12 @@ describe("adaptive review", () => {
     const remediation = remediationItems(items);
     expect(remediation[0].outcome).toBe("unanswered");
     expect(remediation.some((item) => item.flagged)).toBe(true);
+  });
+
+  it("filters post-exam review items without changing the original unique question set", () => {
+    const items = buildExamReview(questionBank.slice(0, 3), { "nur-001": "wrong answer", "nur-002": questionBank[1].keys.join(" ") }, ["nur-002"]);
+    expect(filterExamReview(items, "unanswered")).toHaveLength(1);
+    expect(filterExamReview(items, "flagged").map((item) => item.question.id)).toEqual(["nur-002"]);
+    expect(new Set(remediationItems(filterExamReview(items, "all")).map((item) => item.question.id)).size).toBe(remediationItems(filterExamReview(items, "all")).length);
   });
 });

@@ -6,10 +6,13 @@ import { ScreenContainer } from "@/components/screen-container";
 import { questionBank, type Question } from "@/data/questionBank";
 import { bookmarkIds, BOOKMARKS_KEY, parseBookmarks, toggleBookmark, type Bookmark } from "@/lib/bookmarks";
 import { createMockExamQueue, MOCK_EXAM_DURATION_SECONDS, MOCK_EXAM_QUESTION_COUNT, remainingSeconds, summarizeMockExam } from "@/lib/mock-exam";
+import { buildExamReview, filterExamReview, remediationItems, type ExamReviewFilter } from "@/lib/adaptive";
+import { recordExamOutcomes, saveExamRemediationQuestionIds } from "@/lib/adaptive-store";
 import { haptic } from "@/lib/haptics";
 import { useColors } from "@/hooks/use-colors";
 
 type ExamState = "setup" | "exam" | "results";
+type ResultsView = "summary" | "review";
 
 function formatTime(total: number) {
   const minutes = Math.floor(total / 60).toString().padStart(2, "0");
@@ -28,20 +31,24 @@ export default function MockExamScreen() {
   const [deadline, setDeadline] = useState(0);
   const [now, setNow] = useState(Date.now());
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
+  const [resultsView, setResultsView] = useState<ResultsView>("summary");
+  const [reviewFilter, setReviewFilter] = useState<ExamReviewFilter>("all");
   const remaining = deadline ? remainingSeconds(deadline, now) : MOCK_EXAM_DURATION_SECONDS;
   const question = queue[index];
   const summary = useMemo(() => state === "results" ? summarizeMockExam(queue, answers) : null, [answers, queue, state]);
+  const reviewItems = useMemo(() => buildExamReview(queue, answers, flaggedIds), [answers, flaggedIds, queue]);
 
   useEffect(() => {
     AsyncStorage.getItem(BOOKMARKS_KEY).then((value) => setBookmarks(parseBookmarks(value)));
   }, []);
 
-  const finishExam = useCallback((timeExpired = false) => {
+  const finishExam = useCallback(async (timeExpired = false) => {
     if (state !== "exam") return;
+    await recordExamOutcomes(buildExamReview(queue, answers, flaggedIds));
     haptic.medium();
     setState("results");
     if (timeExpired) Alert.alert("Time is up", "Your mock-exam responses have been submitted for scoring.");
-  }, [state]);
+  }, [answers, flaggedIds, queue, state]);
 
   useEffect(() => {
     if (state !== "exam") return;
@@ -50,7 +57,7 @@ export default function MockExamScreen() {
   }, [state]);
 
   useEffect(() => {
-    if (state === "exam" && remaining === 0) finishExam(true);
+    if (state === "exam" && remaining === 0) void finishExam(true);
   }, [finishExam, remaining, state]);
 
   const startExam = () => {
@@ -60,6 +67,8 @@ export default function MockExamScreen() {
     setIndex(0);
     setAnswers({});
     setFlaggedIds([]);
+    setResultsView("summary");
+    setReviewFilter("all");
     setDeadline(Date.now() + MOCK_EXAM_DURATION_SECONDS * 1000);
     setNow(Date.now());
     setState("exam");
@@ -68,7 +77,7 @@ export default function MockExamScreen() {
   const requestFinish = () => {
     Alert.alert("Submit mock exam?", "You cannot change responses after submission. Unanswered questions will be counted separately.", [
       { text: "Keep reviewing", style: "cancel" },
-      { text: "Submit exam", style: "destructive", onPress: () => finishExam() },
+      { text: "Submit exam", style: "destructive", onPress: () => void finishExam() },
     ]);
   };
 
@@ -88,13 +97,26 @@ export default function MockExamScreen() {
     haptic.light();
   };
 
+  const startRemediation = async () => {
+    const selected = remediationItems(filterExamReview(reviewItems, reviewFilter));
+    if (!selected.length) {
+      Alert.alert("No remediation questions", "Choose missed, partial, unanswered, or flagged questions to create a focused review round.");
+      return;
+    }
+    await saveExamRemediationQuestionIds(selected.map((item) => item.question.id));
+    router.push("/exam-remediation");
+  };
+
   if (state === "setup") {
     return <ScreenContainer className="px-5" edges={["top", "left", "right"]}><ScrollView contentContainerStyle={styles.setup}><Pressable onPress={() => router.back()} accessibilityRole="button"><Text style={[styles.back, { color: colors.primary }]}>‹ Study tools</Text></Pressable><Text style={[styles.eyebrow, { color: colors.primary }]}>TIMED STUDY SIMULATION</Text><Text style={[styles.title, { color: colors.foreground }]}>Mock Exam</Text><Text style={[styles.sub, { color: colors.muted }]}>A focused, timed NCLEX-style study session built from unique questions in your bank.</Text><View style={[styles.setupCard, { borderColor: colors.border, backgroundColor: colors.surface }]}><Metric label="Questions" value={String(MOCK_EXAM_QUESTION_COUNT)} color={colors.foreground} /><Metric label="Time limit" value="60 min" color={colors.primary} /><Metric label="Feedback" value="After submit" color={colors.foreground} /></View><View style={[styles.noteCard, { borderColor: colors.border }]}><Text style={[styles.noteTitle, { color: colors.foreground }]}>Exam rules</Text><Text style={[styles.sub, { color: colors.muted }]}>Questions are randomized without repetition. Teaching feedback stays hidden until you submit. You can flag items, edit answers, and finish early. This is a study simulation, not an official NCLEX administration.</Text></View><Pressable onPress={startExam} accessibilityRole="button" style={({ pressed }) => [styles.primaryButton, { backgroundColor: colors.primary }, pressed && styles.pressed]}><Text style={[styles.primaryButtonText, { color: colors.background }]}>Begin timed exam</Text></Pressable></ScrollView></ScreenContainer>;
   }
 
   if (state === "results" && summary) {
     const timeUsed = MOCK_EXAM_DURATION_SECONDS - remaining;
-    return <ScreenContainer className="px-5" edges={["top", "left", "right"]}><ScrollView contentContainerStyle={styles.setup}><Text style={[styles.eyebrow, { color: colors.primary }]}>MOCK EXAM COMPLETE</Text><Text style={[styles.title, { color: colors.foreground }]}>Your results</Text><View style={[styles.scoreCard, { backgroundColor: colors.primary }]}><Text style={[styles.scoreValue, { color: colors.background }]}>{summary.score}%</Text><Text style={[styles.scoreLabel, { color: colors.background }]}>keyword-based score</Text><Text style={[styles.scoreMeta, { color: colors.background }]}>{formatTime(timeUsed)} used · {flaggedIds.length} flagged</Text></View><View style={[styles.setupCard, { borderColor: colors.border, backgroundColor: colors.surface }]}><Metric label="Correct" value={String(summary.correct)} color={colors.success} /><Metric label="Partial" value={String(summary.partial)} color={colors.warning} /><Metric label="Missed" value={String(summary.incorrect)} color={colors.error} /><Metric label="Unanswered" value={String(summary.unanswered)} color={colors.muted} /></View><View style={[styles.noteCard, { borderColor: colors.border }]}><Text style={[styles.noteTitle, { color: colors.foreground }]}>Next step</Text><Text style={[styles.sub, { color: colors.muted }]}>{summary.unanswered ? "Review unanswered and flagged questions first, then use Bookmarks to build a focused revision list." : summary.score >= 70 ? "Review flagged concepts and continue with another targeted category round." : "Use the result to identify weak concepts, bookmark difficult questions, and return to focused practice."}</Text></View><Pressable onPress={() => router.replace("/(tabs)/study")} accessibilityRole="button" style={({ pressed }) => [styles.primaryButton, { backgroundColor: colors.primary }, pressed && styles.pressed]}><Text style={[styles.primaryButtonText, { color: colors.background }]}>Return to study tools</Text></Pressable><Pressable onPress={startExam} accessibilityRole="button" style={[styles.secondaryButton, { borderColor: colors.border }]}><Text style={[styles.secondaryText, { color: colors.primary }]}>Start another mock exam</Text></Pressable></ScrollView></ScreenContainer>;
+    const filtered = filterExamReview(reviewItems, reviewFilter);
+    const remediationCount = remediationItems(filtered).length;
+    if (resultsView === "review") return <ScreenContainer className="px-5" edges={["top", "left", "right"]}><ScrollView contentContainerStyle={styles.setup}><Pressable onPress={() => setResultsView("summary")} accessibilityRole="button"><Text style={[styles.back, { color: colors.primary }]}>‹ Exam summary</Text></Pressable><Text style={[styles.eyebrow, { color: colors.primary }]}>POST-EXAM REVIEW</Text><Text style={[styles.title, { color: colors.foreground }]}>See what needs attention.</Text><View style={styles.filterRow}>{(["all", "missed", "partial", "unanswered", "flagged"] as ExamReviewFilter[]).map((filter) => { const selected = reviewFilter === filter; const count = filterExamReview(reviewItems, filter).length; return <Pressable key={filter} onPress={() => { haptic.light(); setReviewFilter(filter); }} accessibilityRole="button" accessibilityState={{ selected }} style={[styles.filterChip, { borderColor: selected ? colors.primary : colors.border, backgroundColor: selected ? colors.primary : colors.surface }]}><Text style={{ color: selected ? colors.background : colors.foreground, fontWeight: "800" }}>{filter === "all" ? "All" : filter === "missed" ? "Missed" : filter[0].toUpperCase() + filter.slice(1)} · {count}</Text></Pressable>; })}</View><Text style={[styles.reviewCount, { color: colors.muted }]}>{filtered.length} response{filtered.length === 1 ? "" : "s"} shown</Text>{filtered.map((item) => <View key={item.question.id} style={[styles.reviewCard, { borderColor: colors.border, backgroundColor: colors.surface }]}><View style={styles.reviewTop}><Text style={[styles.category, { color: colors.primary }]}>{item.question.cat.toUpperCase()}</Text><Text style={[styles.outcome, { color: item.outcome === "correct" ? colors.success : item.outcome === "partial" ? colors.warning : item.outcome === "incorrect" ? colors.error : colors.muted }]}>{item.outcome === "incorrect" ? "MISSED" : item.outcome.toUpperCase()}{item.flagged ? " · FLAGGED" : ""}</Text></View><Text style={[styles.reviewQuestion, { color: colors.foreground }]}>{item.question.q}</Text><Text style={[styles.reviewLabel, { color: colors.muted }]}>YOUR RESPONSE</Text><Text style={[styles.reviewBody, { color: colors.foreground }]}>{item.answer || "No response recorded"}</Text><Text style={[styles.reviewLabel, { color: colors.primary }]}>KEY ANSWER</Text><Text style={[styles.reviewBody, { color: colors.foreground }]}>{item.question.a}</Text></View>)}<Pressable onPress={() => void startRemediation()} disabled={!remediationCount} accessibilityRole="button" style={[styles.primaryButton, { backgroundColor: colors.primary, opacity: remediationCount ? 1 : 0.45 }]}><Text style={[styles.primaryButtonText, { color: colors.background }]}>Practice {remediationCount} selected question{remediationCount === 1 ? "" : "s"}</Text></Pressable></ScrollView></ScreenContainer>;
+    return <ScreenContainer className="px-5" edges={["top", "left", "right"]}><ScrollView contentContainerStyle={styles.setup}><Text style={[styles.eyebrow, { color: colors.primary }]}>MOCK EXAM COMPLETE</Text><Text style={[styles.title, { color: colors.foreground }]}>Your results</Text><View style={[styles.scoreCard, { backgroundColor: colors.primary }]}><Text style={[styles.scoreValue, { color: colors.background }]}>{summary.score}%</Text><Text style={[styles.scoreLabel, { color: colors.background }]}>keyword-based score</Text><Text style={[styles.scoreMeta, { color: colors.background }]}>{formatTime(timeUsed)} used · {flaggedIds.length} flagged</Text></View><View style={[styles.setupCard, { borderColor: colors.border, backgroundColor: colors.surface }]}><Metric label="Correct" value={String(summary.correct)} color={colors.success} /><Metric label="Partial" value={String(summary.partial)} color={colors.warning} /><Metric label="Missed" value={String(summary.incorrect)} color={colors.error} /><Metric label="Unanswered" value={String(summary.unanswered)} color={colors.muted} /></View><View style={[styles.noteCard, { borderColor: colors.border }]}><Text style={[styles.noteTitle, { color: colors.foreground }]}>Next step</Text><Text style={[styles.sub, { color: colors.muted }]}>{summary.unanswered ? "Review unanswered and flagged questions first, then launch a focused remediation round." : summary.score >= 70 ? "Review flagged concepts and use remediation to strengthen any partial or missed items." : "Review your outcomes, then practice the selected weak questions before returning to a new exam."}</Text></View><Pressable onPress={() => setResultsView("review")} accessibilityRole="button" style={({ pressed }) => [styles.primaryButton, { backgroundColor: colors.primary }, pressed && styles.pressed]}><Text style={[styles.primaryButtonText, { color: colors.background }]}>Review responses & remediate</Text></Pressable><Pressable onPress={() => router.replace("/(tabs)/study")} accessibilityRole="button" style={[styles.secondaryButton, { borderColor: colors.border }]}><Text style={[styles.secondaryText, { color: colors.primary }]}>Return to study tools</Text></Pressable><Pressable onPress={startExam} accessibilityRole="button" style={[styles.secondaryButton, { borderColor: colors.border }]}><Text style={[styles.secondaryText, { color: colors.primary }]}>Start another mock exam</Text></Pressable></ScrollView></ScreenContainer>;
   }
 
   const saved = bookmarkIds(bookmarks).includes(question.id);
@@ -105,4 +127,4 @@ export default function MockExamScreen() {
 
 function Metric({ label, value, color }: { label: string; value: string; color: string }) { return <View style={styles.metric}><Text style={[styles.metricValue, { color }]}>{value}</Text><Text style={styles.metricLabel}>{label}</Text></View>; }
 
-const styles = StyleSheet.create({ setup: { paddingTop: 18, paddingBottom: 36, gap: 16 }, back: { fontSize: 14, fontWeight: "800" }, eyebrow: { fontSize: 11, letterSpacing: 1.7, fontWeight: "900" }, title: { fontFamily: "Georgia", fontSize: 31, lineHeight: 39, fontWeight: "700" }, sub: { fontSize: 14, lineHeight: 21 }, setupCard: { borderWidth: 1, borderRadius: 22, padding: 18, flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", gap: 16 }, metric: { minWidth: 74, gap: 3 }, metricValue: { fontSize: 21, fontWeight: "900" }, metricLabel: { fontSize: 11, color: "#687076", fontWeight: "700" }, noteCard: { borderWidth: 1, borderRadius: 20, padding: 16, gap: 6 }, noteTitle: { fontSize: 16, fontWeight: "900" }, primaryButton: { minHeight: 58, borderRadius: 18, justifyContent: "center", alignItems: "center" }, primaryButtonText: { fontSize: 16, fontWeight: "900" }, secondaryButton: { minHeight: 48, borderRadius: 16, borderWidth: 1, justifyContent: "center", alignItems: "center" }, secondaryText: { fontSize: 14, fontWeight: "900" }, pressed: { opacity: 0.82, transform: [{ scale: 0.98 }] }, scoreCard: { borderRadius: 24, padding: 24, alignItems: "center", gap: 3 }, scoreValue: { fontSize: 52, fontWeight: "900" }, scoreLabel: { fontSize: 13, fontWeight: "800" }, scoreMeta: { fontSize: 12, marginTop: 4 }, exam: { flex: 1, paddingTop: 18, paddingBottom: 16, gap: 14 }, examHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" }, end: { fontSize: 14, fontWeight: "900" }, timer: { borderWidth: 1, borderRadius: 14, paddingHorizontal: 12, paddingVertical: 8 }, timerText: { fontSize: 18, fontWeight: "900", fontVariant: ["tabular-nums"] }, progressRow: { flexDirection: "row", justifyContent: "space-between" }, progress: { fontSize: 11, fontWeight: "900", letterSpacing: 0.8 }, questionCard: { borderWidth: 1, borderRadius: 22, padding: 18, gap: 14 }, category: { fontSize: 10, letterSpacing: 1.3, fontWeight: "900" }, examQuestion: { fontFamily: "Georgia", fontSize: 24, lineHeight: 33, fontWeight: "700" }, examActions: { flexDirection: "row", gap: 8 }, chip: { borderWidth: 1, borderRadius: 999, paddingHorizontal: 12, paddingVertical: 8 }, input: { flex: 1, minHeight: 130, borderWidth: 1, borderRadius: 18, padding: 14, fontSize: 16 }, navigation: { flexDirection: "row", justifyContent: "space-between", gap: 12 }, navButton: { flex: 1, minHeight: 52, borderWidth: 1, borderRadius: 16, alignItems: "center", justifyContent: "center" }, navText: { fontSize: 14, fontWeight: "900" } });
+const styles = StyleSheet.create({ setup: { paddingTop: 18, paddingBottom: 36, gap: 16 }, back: { fontSize: 14, fontWeight: "800" }, eyebrow: { fontSize: 11, letterSpacing: 1.7, fontWeight: "900" }, title: { fontFamily: "Georgia", fontSize: 31, lineHeight: 39, fontWeight: "700" }, sub: { fontSize: 14, lineHeight: 21 }, setupCard: { borderWidth: 1, borderRadius: 22, padding: 18, flexDirection: "row", flexWrap: "wrap", justifyContent: "space-between", gap: 16 }, metric: { minWidth: 74, gap: 3 }, metricValue: { fontSize: 21, fontWeight: "900" }, metricLabel: { fontSize: 11, color: "#687076", fontWeight: "700" }, noteCard: { borderWidth: 1, borderRadius: 20, padding: 16, gap: 6 }, noteTitle: { fontSize: 16, fontWeight: "900" }, primaryButton: { minHeight: 58, borderRadius: 18, justifyContent: "center", alignItems: "center" }, primaryButtonText: { fontSize: 16, fontWeight: "900" }, secondaryButton: { minHeight: 48, borderRadius: 16, borderWidth: 1, justifyContent: "center", alignItems: "center" }, secondaryText: { fontSize: 14, fontWeight: "900" }, pressed: { opacity: 0.82, transform: [{ scale: 0.98 }] }, scoreCard: { borderRadius: 24, padding: 24, alignItems: "center", gap: 3 }, scoreValue: { fontSize: 52, fontWeight: "900" }, scoreLabel: { fontSize: 13, fontWeight: "800" }, scoreMeta: { fontSize: 12, marginTop: 4 }, filterRow: { flexDirection: "row", flexWrap: "wrap", gap: 7 }, filterChip: { borderWidth: 1, borderRadius: 999, paddingHorizontal: 10, paddingVertical: 8 }, reviewCount: { fontSize: 12, fontWeight: "800" }, reviewCard: { borderWidth: 1, borderRadius: 18, padding: 15, gap: 7 }, reviewTop: { flexDirection: "row", justifyContent: "space-between", gap: 8 }, outcome: { fontSize: 10, fontWeight: "900", letterSpacing: 1.1 }, reviewQuestion: { fontSize: 16, lineHeight: 22, fontWeight: "800" }, reviewLabel: { fontSize: 10, fontWeight: "900", letterSpacing: 1.1, marginTop: 2 }, reviewBody: { fontSize: 14, lineHeight: 20 }, exam: { flex: 1, paddingTop: 18, paddingBottom: 16, gap: 14 }, examHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" }, end: { fontSize: 14, fontWeight: "900" }, timer: { borderWidth: 1, borderRadius: 14, paddingHorizontal: 12, paddingVertical: 8 }, timerText: { fontSize: 18, fontWeight: "900", fontVariant: ["tabular-nums"] }, progressRow: { flexDirection: "row", justifyContent: "space-between" }, progress: { fontSize: 11, fontWeight: "900", letterSpacing: 0.8 }, questionCard: { borderWidth: 1, borderRadius: 22, padding: 18, gap: 14 }, category: { fontSize: 10, letterSpacing: 1.3, fontWeight: "900" }, examQuestion: { fontFamily: "Georgia", fontSize: 24, lineHeight: 33, fontWeight: "700" }, examActions: { flexDirection: "row", gap: 8 }, chip: { borderWidth: 1, borderRadius: 999, paddingHorizontal: 12, paddingVertical: 8 }, input: { flex: 1, minHeight: 130, borderWidth: 1, borderRadius: 18, padding: 14, fontSize: 16 }, navigation: { flexDirection: "row", justifyContent: "space-between", gap: 12 }, navButton: { flex: 1, minHeight: 52, borderWidth: 1, borderRadius: 16, alignItems: "center", justifyContent: "center" }, navText: { fontSize: 14, fontWeight: "900" } });

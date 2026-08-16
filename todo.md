@@ -65,8 +65,8 @@
 - [x] Define a transparent priority model for missed, partial, flagged, and bookmarked questions
 - [x] Persist per-question learning signals and build a non-repeating adaptive review queue
 - [x] Add an adaptive review entry point and learner-facing priority explanation
-- [ ] Add post-exam answer review by outcome, including flagged and unanswered filters
-- [ ] Add post-exam recommendations that launch targeted remediation practice
+- [x] Add post-exam answer review by outcome, including flagged and unanswered filters
+- [x] Add post-exam recommendations that launch targeted remediation practice
 - [x] Add deterministic tests for review prioritization, queue uniqueness, and remediation summaries
 - [x] Validate and checkpoint the adaptive-learning release
 - [ ] Add configurable mock-exam question counts, time limits, and topic blueprints
@@ -75,3 +75,9 @@
 - [ ] Add question reporting and clinical review metadata for content-quality governance
 - [ ] Add larger-text, screen-reader, reduced-motion, and keyboard-accessibility controls
 - [ ] Add authenticated account data export, retention, and deletion controls
+- [x] Review the existing mock-exam results state and remediation data for this release
+- [x] Add filtered post-exam response review for all, missed, partial, unanswered, and flagged items
+- [x] Add one-tap remediation rounds that practice the selected post-exam weak-question set without repetition
+- [x] Record post-exam outcomes into the adaptive-learning signal model
+- [x] Add deterministic tests for post-exam filters and remediation-queue uniqueness
+- [x] Validate and checkpoint the post-exam remediation release

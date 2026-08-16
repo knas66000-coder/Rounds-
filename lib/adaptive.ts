@@ -16,6 +16,7 @@ export type ReviewReason = "missed" | "partial" | "flagged" | "saved";
 export type AdaptiveItem = { question: Question; priority: number; reasons: ReviewReason[] };
 export type ExamOutcome = Verdict | "unanswered";
 export type ExamReviewItem = { question: Question; answer: string; outcome: ExamOutcome; flagged: boolean };
+export type ExamReviewFilter = "all" | "missed" | "partial" | "unanswered" | "flagged";
 
 export function parseLearningSignals(value: string | null): LearningSignal[] {
   if (!value) return [];
@@ -71,4 +72,12 @@ export function buildExamReview(questions: Question[], answers: Record<string, s
 export function remediationItems(items: ExamReviewItem[]): ExamReviewItem[] {
   const priority = { unanswered: 4, incorrect: 3, partial: 2, correct: 1 } as const;
   return [...items].filter((item) => item.outcome !== "correct" || item.flagged).sort((a, b) => (priority[b.outcome] + (b.flagged ? 1 : 0)) - (priority[a.outcome] + (a.flagged ? 1 : 0)));
+}
+
+export function filterExamReview(items: ExamReviewItem[], filter: ExamReviewFilter): ExamReviewItem[] {
+  if (filter === "all") return items;
+  if (filter === "missed") return items.filter((item) => item.outcome === "incorrect");
+  if (filter === "partial") return items.filter((item) => item.outcome === "partial");
+  if (filter === "unanswered") return items.filter((item) => item.outcome === "unanswered");
+  return items.filter((item) => item.flagged);
 }
