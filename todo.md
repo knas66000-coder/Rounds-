@@ -81,3 +81,10 @@
 - [x] Record post-exam outcomes into the adaptive-learning signal model
 - [x] Add deterministic tests for post-exam filters and remediation-queue uniqueness
 - [x] Validate and checkpoint the post-exam remediation release
+- [x] Define community content boundaries that prohibit personal health information, patient details, exam recall, harassment, and solicitation
+- [x] Add authenticated community tables for study updates, encouragement reactions, replies, and user reports
+- [x] Add protected API procedures with input validation, ownership checks, rate-friendly limits, and report handling
+- [x] Build a Community tab with compose, feed, reactions, replies, and safe-content guidance
+- [x] Add reporting and own-content deletion flows with clear confirmation and feedback
+- [x] Add deterministic tests for community validation, permissions, and content safety utilities
+- [x] Validate and checkpoint the safe social-learning release

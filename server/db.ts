@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm";
+import { and, desc, eq, inArray } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { communityPosts, communityReactions, communityReplies, communityReports, InsertUser, users } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -89,4 +89,95 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+export type CommunityFeedItem = {
+  id: number;
+  userId: number;
+  kind: "study_win" | "study_tip" | "encouragement";
+  content: string;
+  authorName: string;
+  createdAt: Date;
+  reactionCount: number;
+  replyCount: number;
+  viewerReacted: boolean;
+  canManage: boolean;
+};
+
+export async function listCommunityPosts(viewerId: number): Promise<CommunityFeedItem[]> {
+  const db = await getDb();
+  if (!db) return [];
+  const posts = await db.select({ id: communityPosts.id, userId: communityPosts.userId, kind: communityPosts.kind, content: communityPosts.content, createdAt: communityPosts.createdAt, authorName: users.name }).from(communityPosts).innerJoin(users, eq(communityPosts.userId, users.id)).where(eq(communityPosts.status, "active")).orderBy(desc(communityPosts.createdAt)).limit(50);
+  const ids = posts.map((post) => post.id);
+  if (!ids.length) return [];
+  const [reactions, replies] = await Promise.all([
+    db.select({ postId: communityReactions.postId, userId: communityReactions.userId }).from(communityReactions).where(inArray(communityReactions.postId, ids)),
+    db.select({ postId: communityReplies.postId }).from(communityReplies).where(and(inArray(communityReplies.postId, ids), eq(communityReplies.status, "active"))),
+  ]);
+  return posts.map((post) => ({
+    id: post.id,
+    userId: post.userId,
+    kind: post.kind,
+    content: post.content,
+    authorName: post.authorName?.trim() || "Learner",
+    createdAt: post.createdAt,
+    reactionCount: reactions.filter((reaction) => reaction.postId === post.id).length,
+    replyCount: replies.filter((reply) => reply.postId === post.id).length,
+    viewerReacted: reactions.some((reaction) => reaction.postId === post.id && reaction.userId === viewerId),
+    canManage: post.userId === viewerId,
+  }));
+}
+
+export async function createCommunityPost(userId: number, kind: "study_win" | "study_tip" | "encouragement", content: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Community storage is temporarily unavailable.");
+  await db.insert(communityPosts).values({ userId, kind, content });
+}
+
+export async function toggleCommunityReaction(userId: number, postId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Community storage is temporarily unavailable.");
+  const post = await db.select({ id: communityPosts.id }).from(communityPosts).where(and(eq(communityPosts.id, postId), eq(communityPosts.status, "active"))).limit(1);
+  if (!post.length) return { active: false, missing: true };
+  const existing = await db.select({ id: communityReactions.id }).from(communityReactions).where(and(eq(communityReactions.postId, postId), eq(communityReactions.userId, userId))).limit(1);
+  if (existing.length) {
+    await db.delete(communityReactions).where(eq(communityReactions.id, existing[0].id));
+    return { active: false, missing: false };
+  }
+  await db.insert(communityReactions).values({ postId, userId });
+  return { active: true, missing: false };
+}
+
+export async function listCommunityReplies(postId: number, viewerId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  const replies = await db.select({ id: communityReplies.id, userId: communityReplies.userId, content: communityReplies.content, createdAt: communityReplies.createdAt, authorName: users.name }).from(communityReplies).innerJoin(users, eq(communityReplies.userId, users.id)).where(and(eq(communityReplies.postId, postId), eq(communityReplies.status, "active"))).orderBy(desc(communityReplies.createdAt));
+  return replies.map((reply) => ({ ...reply, authorName: reply.authorName?.trim() || "Learner", canManage: reply.userId === viewerId }));
+}
+
+export async function createCommunityReply(userId: number, postId: number, content: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Community storage is temporarily unavailable.");
+  const post = await db.select({ id: communityPosts.id }).from(communityPosts).where(and(eq(communityPosts.id, postId), eq(communityPosts.status, "active"))).limit(1);
+  if (!post.length) return false;
+  await db.insert(communityReplies).values({ userId, postId, content });
+  return true;
+}
+
+export async function deleteCommunityPost(userId: number, postId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Community storage is temporarily unavailable.");
+  const result = await db.update(communityPosts).set({ status: "deleted" }).where(and(eq(communityPosts.id, postId), eq(communityPosts.userId, userId), eq(communityPosts.status, "active")));
+  return result[0].affectedRows > 0;
+}
+
+export async function deleteCommunityReply(userId: number, replyId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Community storage is temporarily unavailable.");
+  const result = await db.update(communityReplies).set({ status: "deleted" }).where(and(eq(communityReplies.id, replyId), eq(communityReplies.userId, userId), eq(communityReplies.status, "active")));
+  return result[0].affectedRows > 0;
+}
+
+export async function createCommunityReport(reporterId: number, targetType: "post" | "reply", targetId: number, reason: "privacy" | "harassment" | "exam_content" | "solicitation" | "other") {
+  const db = await getDb();
+  if (!db) throw new Error("Community storage is temporarily unavailable.");
+  await db.insert(communityReports).values({ reporterId, targetType, targetId, reason });
+}

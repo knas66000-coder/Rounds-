@@ -1,11 +1,13 @@
 import { COOKIE_NAME } from "../shared/const.js";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
-import { publicProcedure, router } from "./_core/trpc";
+import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { transcribeAudio } from "./_core/voiceTranscription";
 import { storageGetSignedUrl, storagePut } from "./storage";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+import * as db from "./db";
+import { validateCommunityText } from "../shared/community-safety";
 
 const MAX_AUDIO_BYTES = 16 * 1024 * 1024;
 const supportedAudioTypes = ["audio/m4a", "audio/mp4", "audio/webm", "audio/wav", "audio/mpeg", "audio/ogg"] as const;
@@ -72,12 +74,43 @@ export const appRouter = router({
       }),
   }),
 
-  // TODO: add feature routers here, e.g.
-  // todo: router({
-  //   list: protectedProcedure.query(({ ctx }) =>
-  //     db.getUserTodos(ctx.user.id)
-  //   ),
-  // }),
+  community: router({
+    list: protectedProcedure.query(({ ctx }) => db.listCommunityPosts(ctx.user.id)),
+    createPost: protectedProcedure.input(z.object({ kind: z.enum(["study_win", "study_tip", "encouragement"]), content: z.string().min(2).max(600) })).mutation(async ({ ctx, input }) => {
+      const checked = validateCommunityText(input.content, 600);
+      if (!checked.valid) throw new TRPCError({ code: "BAD_REQUEST", message: checked.message });
+      await db.createCommunityPost(ctx.user.id, input.kind, checked.value);
+      return { success: true };
+    }),
+    toggleReaction: protectedProcedure.input(z.object({ postId: z.number().int().positive() })).mutation(async ({ ctx, input }) => {
+      const result = await db.toggleCommunityReaction(ctx.user.id, input.postId);
+      if (result.missing) throw new TRPCError({ code: "NOT_FOUND", message: "This study update is no longer available." });
+      return result;
+    }),
+    listReplies: protectedProcedure.input(z.object({ postId: z.number().int().positive() })).query(({ ctx, input }) => db.listCommunityReplies(input.postId, ctx.user.id)),
+    createReply: protectedProcedure.input(z.object({ postId: z.number().int().positive(), content: z.string().min(2).max(400) })).mutation(async ({ ctx, input }) => {
+      const checked = validateCommunityText(input.content, 400);
+      if (!checked.valid) throw new TRPCError({ code: "BAD_REQUEST", message: checked.message });
+      const created = await db.createCommunityReply(ctx.user.id, input.postId, checked.value);
+      if (!created) throw new TRPCError({ code: "NOT_FOUND", message: "This study update is no longer available." });
+      return { success: true };
+    }),
+    deletePost: protectedProcedure.input(z.object({ postId: z.number().int().positive() })).mutation(async ({ ctx, input }) => {
+      const deleted = await db.deleteCommunityPost(ctx.user.id, input.postId);
+      if (!deleted) throw new TRPCError({ code: "FORBIDDEN", message: "Only your own active study update can be deleted." });
+      return { success: true };
+    }),
+    deleteReply: protectedProcedure.input(z.object({ replyId: z.number().int().positive() })).mutation(async ({ ctx, input }) => {
+      const deleted = await db.deleteCommunityReply(ctx.user.id, input.replyId);
+      if (!deleted) throw new TRPCError({ code: "FORBIDDEN", message: "Only your own active reply can be deleted." });
+      return { success: true };
+    }),
+    report: protectedProcedure.input(z.object({ targetType: z.enum(["post", "reply"]), targetId: z.number().int().positive(), reason: z.enum(["privacy", "harassment", "exam_content", "solicitation", "other"]) })).mutation(async ({ ctx, input }) => {
+      await db.createCommunityReport(ctx.user.id, input.targetType, input.targetId, input.reason);
+      return { success: true };
+    }),
+  }),
+
 });
 
 export type AppRouter = typeof appRouter;
