@@ -129,3 +129,17 @@ The first specialist program families should be **Health Sciences** and **Comput
 | Later | Social Sciences, Humanities, and Education | Psychology, Sociology, Academic Communication, Child Development, Foundations of Education | Evidence interpretation, reflection prompts, short written answers, teaching scenarios |
 
 Every unit uses a subject-specific assessment profile while preserving one familiar Rounds workflow. A learner may hear a nursing scenario, complete a statistics calculation, review a programming trace, or plan an academic paragraph, but each flow still offers clear objectives, concise instruction, offline practice, answer checking, rationale, review queues, saved items, and progress. The Rounds brand and existing Nursing experience remain intact; new programs appear as additional course packs inside the same application.
+
+## Voice-first oral examination mode
+
+The **Oral Exam** is an additional Rounds study mode, not a separate application or a replacement for the existing Practice screen. It begins with a topic chooser that offers the learner’s available downloaded Nursing topics and a clear voice prompt: “What would you like to practise?” The initial release recognizes the learner’s selected topic from the existing category list and immediately starts a unique, focused question queue. It does not claim to understand unrestricted clinical requests or create clinical advice.
+
+The oral-exam flow is **Choose topic → Hear question → Speak or type answer → See transcript → Review feedback → Follow-up or next question → Round summary**. A correct answer advances normally. A partial or incorrect answer receives the existing keyword feedback and concise rationale, then offers one adaptive follow-up drawn from a different, unserved question in the same downloaded topic. The follow-up explicitly addresses the missing concept instead of repeating the same prompt. Learners can stop voice playback, skip a follow-up, review the rationale, or move on at all times.
+
+The default oral exam works offline using the installed question bank, local keyword evaluation, and device text-to-speech. Server transcription is used when connected; typed answers remain available offline. If the learner is offline and voice transcription is unavailable, Rounds explains this plainly and presents a large typed-answer action without discarding the active oral-exam state.
+
+### Learner-material grounding
+
+Learners may add private study materials to support explanation during a connected study session. Materials are never used as a source for new official answers, never shared in Community, and never mixed with another learner’s content. Rounds labels all learner-provided evidence as **Your study material**, shows a short source title and location with every grounded explanation, and falls back to the verified Rounds rationale whenever the material does not support a claim.
+
+The first version accepts a learner-selected document only after authenticated upload, validates type and size before storage, links it to that learner alone, and records a source identifier, page or section marker when available, and extract status. Grounded feedback must distinguish **Rounds clinical rationale** from **Your study material reference**. If a source cannot be read, is unavailable offline, or does not contain relevant support, the app says so rather than inventing a citation. The learner can remove a material and its references from future sessions at any time.

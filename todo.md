@@ -114,3 +114,9 @@
 - [x] Design the university program catalog and initial pilot course-unit maps
 - [x] Define content, assessment, safety, and high-school compatibility requirements
 - [x] Document the university-program rollout blueprint and implementation sequence
+- [x] Define the Rounds oral-examination experience, offline boundaries, and source-grounding safeguards
+- [x] Build a topic-first adaptive oral-practice entry point using the existing Nursing question bank
+- [x] Add learner study-material support with transparent grounded source references
+- [x] Add adaptive follow-up questions for incomplete Nursing responses
+- [x] Add deterministic tests for oral-exam selection, follow-up logic, privacy, and source-citation behavior
+- [x] Validate and checkpoint the Rounds voice-first oral-examination release

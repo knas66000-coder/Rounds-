@@ -81,6 +81,17 @@ export const communityNotifications = mysqlTable("community_notifications", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const studyMaterials = mysqlTable("study_materials", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  title: varchar("title", { length: 180 }).notNull(),
+  storageKey: varchar("storageKey", { length: 512 }).notNull(),
+  mimeType: varchar("mimeType", { length: 120 }).notNull(),
+  byteSize: int("byteSize").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
 export type CommunityPost = typeof communityPosts.$inferSelect;
 export type CommunityReply = typeof communityReplies.$inferSelect;
 export type CommunityNotification = typeof communityNotifications.$inferSelect;
+export type StudyMaterial = typeof studyMaterials.$inferSelect;
