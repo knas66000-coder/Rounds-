@@ -126,3 +126,8 @@
 - [x] Add personalized program-pack routing and a Nursing-specific study home
 - [x] Add deterministic tests for academic-profile validation, privacy, and routing rules
 - [x] Validate and checkpoint the personalized academic-home release
+- [x] Define trusted-source boundaries and online-versus-offline behavior for Research Updates
+- [x] Add protected on-demand Nursing research retrieval with citation validation
+- [x] Build the Nursing Research Updates screen and entry point inside Rounds
+- [x] Add deterministic tests for trusted-source, citation, and offline-fallback rules
+- [x] Validate and checkpoint the Research Updates release

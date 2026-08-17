@@ -133,5 +133,5 @@ function ProtectedNavigator() {
   if (accessState === "sign-in") return <SecureAccessGate />;
   if (academicProfile.isLoading) return <SecureAccessGate busy />;
   if (requiresAcademicOnboarding(academicProfile.data) && !isAcademicOnboarding) return <Redirect href={"/academic-onboarding" as never} />;
-  return <Stack screenOptions={{ headerShown: false }}><Stack.Screen name="(tabs)" /><Stack.Screen name="academic-onboarding" /><Stack.Screen name="academic-home" /><Stack.Screen name="mock-exam" /><Stack.Screen name="oral-exam" /><Stack.Screen name="study-materials" /><Stack.Screen name="adaptive-review" /><Stack.Screen name="exam-remediation" /><Stack.Screen name="bookmark-review" /><Stack.Screen name="notifications" /><Stack.Screen name="oauth/callback" /></Stack>;
+  return <Stack screenOptions={{ headerShown: false }}><Stack.Screen name="(tabs)" /><Stack.Screen name="academic-onboarding" /><Stack.Screen name="academic-home" /><Stack.Screen name="research-updates" /><Stack.Screen name="mock-exam" /><Stack.Screen name="oral-exam" /><Stack.Screen name="study-materials" /><Stack.Screen name="adaptive-review" /><Stack.Screen name="exam-remediation" /><Stack.Screen name="bookmark-review" /><Stack.Screen name="notifications" /><Stack.Screen name="oauth/callback" /></Stack>;
 }

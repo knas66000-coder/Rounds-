@@ -32,7 +32,7 @@ export type Message = {
   tool_call_id?: string;
 };
 
-export type Tool = {
+export type FunctionTool = {
   type: "function";
   function: {
     name: string;
@@ -40,6 +40,17 @@ export type Tool = {
     parameters?: Record<string, unknown>;
   };
 };
+
+export type WebSearchTool = {
+  type: "web_search";
+  web_search: {
+    allowed_domains?: string[];
+    blocked_domains?: string[];
+    search_context_size?: "low" | "medium" | "high";
+  };
+};
+
+export type Tool = FunctionTool | WebSearchTool;
 
 export type ToolChoicePrimitive = "none" | "auto" | "required";
 export type ToolChoiceByName = { name: string };
@@ -59,6 +70,8 @@ export type InvokeParams = {
   tool_choice?: ToolChoice;
   maxTokens?: number;
   max_tokens?: number;
+  maxCompletionTokens?: number;
+  max_completion_tokens?: number;
   outputSchema?: OutputSchema;
   output_schema?: OutputSchema;
   responseFormat?: ResponseFormat;
@@ -177,12 +190,14 @@ const normalizeToolChoice = (
     return toolChoice;
   }
 
+  const functionTools = tools?.filter((tool): tool is FunctionTool => tool.type === "function");
+
   if (toolChoice === "required") {
-    if (!tools || tools.length === 0) {
+    if (!functionTools || functionTools.length === 0) {
       throw new Error("tool_choice 'required' was provided but no tools were configured");
     }
 
-    if (tools.length > 1) {
+    if (functionTools.length > 1) {
       throw new Error(
         "tool_choice 'required' needs a single tool or specify the tool name explicitly",
       );
@@ -190,7 +205,7 @@ const normalizeToolChoice = (
 
     return {
       type: "function",
-      function: { name: tools[0].function.name },
+      function: { name: functionTools[0].function.name },
     };
   }
 
@@ -334,6 +349,8 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
     reasoning,
     maxTokens,
     max_tokens,
+    maxCompletionTokens,
+    max_completion_tokens,
   } = params;
 
   const payload: Record<string, unknown> = {
@@ -356,6 +373,11 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
   const resolvedMaxTokens = max_tokens ?? maxTokens;
   if (typeof resolvedMaxTokens === "number") {
     payload.max_tokens = resolvedMaxTokens;
+  }
+
+  const resolvedMaxCompletionTokens = max_completion_tokens ?? maxCompletionTokens;
+  if (typeof resolvedMaxCompletionTokens === "number") {
+    payload.max_completion_tokens = resolvedMaxCompletionTokens;
   }
 
   if (thinking) {
