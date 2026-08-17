@@ -14,7 +14,7 @@ import { ACTIVE_CATEGORY_KEY, hasAnotherQuestion, nextStepForVerdict, questionsF
 import { haptic } from "@/lib/haptics";
 import { bookmarkIds, BOOKMARKS_KEY, parseBookmarks, toggleBookmark, type Bookmark } from "@/lib/bookmarks";
 import { recordLearningOutcome } from "@/lib/adaptive-store";
-import { defaultVoicePreferences, parseVoicePreferences, prepareFeedbackSpeech, prepareQuestionSpeech, VOICE_PREFERENCES_KEY } from "@/lib/voice";
+import { defaultVoicePreferences, parseVoicePreferences, prepareFeedbackSpeech, prepareQuestionSpeech, prepareRationaleSpeech, VOICE_PREFERENCES_KEY } from "@/lib/voice";
 
 const STORAGE_KEY = "rounds.session.v1";
 
@@ -34,6 +34,7 @@ export default function HomeScreen() {
   const [answerDraft, setAnswerDraft] = useState("");
   const [voiceNotice, setVoiceNotice] = useState<string | null>(null);
   const [speechRate, setSpeechRate] = useState(defaultVoicePreferences.rate);
+  const [spokenRationale, setSpokenRationale] = useState(defaultVoicePreferences.spokenRationale);
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
   const autoTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const recordingTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -59,7 +60,11 @@ export default function HomeScreen() {
     AsyncStorage.getItem(STORAGE_KEY).then((value) => {
       if (value) setResults(JSON.parse(value) as SavedResult[]);
     });
-    AsyncStorage.getItem(VOICE_PREFERENCES_KEY).then((value) => setSpeechRate(parseVoicePreferences(value).rate));
+    AsyncStorage.getItem(VOICE_PREFERENCES_KEY).then((value) => {
+      const preferences = parseVoicePreferences(value);
+      setSpeechRate(preferences.rate);
+      setSpokenRationale(preferences.spokenRationale);
+    });
     return () => {
       Speech.stop();
       if (autoTimer.current) clearTimeout(autoTimer.current);
@@ -186,7 +191,15 @@ export default function HomeScreen() {
     setPhase("result");
     await saveResult(nextEvaluation.verdict);
     await recordLearningOutcome(question.id, nextEvaluation.verdict);
-    Speech.speak(prepareFeedbackSpeech(nextEvaluation.feedback), { rate: speechRate, language: "en-US" });
+    Speech.speak(prepareFeedbackSpeech(nextEvaluation.feedback), {
+      rate: speechRate,
+      language: "en-US",
+      onDone: () => {
+        if (spokenRationale) {
+          Speech.speak(prepareRationaleSpeech(question.explanation, question.clinicalSignificance), { rate: speechRate, language: "en-US" });
+        }
+      },
+    });
     if (autoMode) {
       autoTimer.current = setTimeout(() => nextQuestion(), 4500);
     }
@@ -194,6 +207,7 @@ export default function HomeScreen() {
 
   const nextQuestion = () => {
     haptic.light();
+    Speech.stop();
     if (autoTimer.current) clearTimeout(autoTimer.current);
     if (!hasAnotherQuestion(index, queue.length)) {
       setAutoMode(false);
@@ -238,6 +252,18 @@ export default function HomeScreen() {
     return () => { mounted = false; };
   }, []));
 
+  useFocusEffect(useCallback(() => {
+    let mounted = true;
+    AsyncStorage.getItem(VOICE_PREFERENCES_KEY).then((value) => {
+      const preferences = parseVoicePreferences(value);
+      if (mounted) {
+        setSpeechRate(preferences.rate);
+        setSpokenRationale(preferences.spokenRationale);
+      }
+    });
+    return () => { mounted = false; };
+  }, []));
+
   const toggleAutoMode = () => {
     const nextMode = !autoMode;
     haptic.medium();
@@ -272,6 +298,7 @@ export default function HomeScreen() {
 
   const startFreshRound = () => {
     haptic.medium();
+    Speech.stop();
     setQueue(shuffle(questionsForCategory(category)));
     setIndex(0);
     setEvaluation(null);
@@ -289,6 +316,11 @@ export default function HomeScreen() {
   };
 
   const isCurrentQuestionSaved = bookmarkIds(bookmarks).includes(question.id);
+  const playRationale = () => {
+    Speech.stop();
+    haptic.light();
+    Speech.speak(prepareRationaleSpeech(question.explanation, question.clinicalSignificance), { rate: speechRate, language: "en-US" });
+  };
 
   const phaseLabel = phase === "asking" ? "Speaking question" : phase === "listening" ? "Listening for your answer" : phase === "transcribing" ? "Transcribing your answer" : phase === "result" ? "Answer reviewed" : phase === "complete" ? "Unique question round completed" : "Ready when you are";
   const verdictColor = evaluation?.verdict === "correct" ? colors.success : evaluation?.verdict === "partial" ? colors.warning : colors.error;
@@ -345,6 +377,8 @@ export default function HomeScreen() {
             <Text style={[styles.body, { color: colors.muted }]}>{question.explanation}</Text>
             <Text style={[styles.contextTitle, { color: colors.foreground }]}>Why it matters</Text>
             <Text style={[styles.body, { color: colors.muted }]}>{question.clinicalSignificance}</Text>
+            <View style={styles.rationaleControls}><Pressable onPress={playRationale} accessibilityRole="button" accessibilityLabel="Replay the clinical rationale" style={[styles.rationaleButton, { borderColor: colors.primary }]}><Text style={[styles.rationaleButtonText, { color: colors.primary }]}>♬ Replay rationale</Text></Pressable><Pressable onPress={() => void Speech.stop()} accessibilityRole="button" accessibilityLabel="Stop spoken rationale" style={[styles.rationaleButton, { borderColor: colors.border }]}><Text style={[styles.rationaleButtonText, { color: colors.foreground }]}>Stop voice</Text></Pressable></View>
+            <Text style={[styles.rationaleStatus, { color: colors.muted }]}>{spokenRationale ? "Spoken rationale is on in Settings." : "Spoken rationale is off. Use Replay rationale anytime."}</Text>
             <Text style={[styles.contextTitle, { color: colors.foreground }]}>Keyword check</Text>
             <View style={styles.keyList}>
               {question.keys.map((key) => {
@@ -437,6 +471,6 @@ const styles = StyleSheet.create({
   question: { fontFamily: "Georgia", fontSize: 25, lineHeight: 34, fontWeight: "700" }, phase: { fontSize: 13, fontWeight: "600" }, bookmarkButton: { alignSelf: "flex-start", borderWidth: 1, borderRadius: 999, paddingHorizontal: 12, paddingVertical: 8 }, bookmarkText: { fontSize: 12, fontWeight: "900" },
   actionArea: { gap: 12, alignItems: "stretch" }, micButton: { minHeight: 58, borderRadius: 18, alignItems: "center", justifyContent: "center", flexDirection: "row", gap: 10 }, micIcon: { color: "#F5F1E8", fontSize: 22 }, micText: { color: "#F5F1E8", fontSize: 16, fontWeight: "800" }, primaryButton: { minHeight: 58, borderRadius: 18, alignItems: "center", justifyContent: "center" }, primaryButtonText: { fontSize: 16, fontWeight: "800" }, pressed: { opacity: 0.82, transform: [{ scale: 0.98 }] }, recordingPanel: { borderWidth: 1.5, borderRadius: 20, padding: 14, gap: 10 }, recordingHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" }, recordingLabel: { fontSize: 11, letterSpacing: 1.4, fontWeight: "900" }, recordingTime: { fontSize: 13, fontWeight: "900" }, progressTrack: { height: 6, borderRadius: 999, overflow: "hidden" }, progressFill: { height: 6, borderRadius: 999 }, voiceControls: { flexDirection: "row", flexWrap: "wrap", gap: 8 }, secondaryVoiceButton: { minHeight: 40, borderWidth: 1, borderRadius: 13, paddingHorizontal: 13, justifyContent: "center", alignItems: "center" }, secondaryVoiceText: { fontSize: 13, fontWeight: "900" },
   fallbackArea: { gap: 8 }, fallbackButtons: { flexDirection: "row", gap: 8 }, voiceNotice: { fontSize: 12, lineHeight: 17, paddingHorizontal: 2 }, input: { minHeight: 74, borderWidth: 1, borderRadius: 16, padding: 14, fontSize: 15, textAlignVertical: "top" }, textSubmit: { minHeight: 42, borderWidth: 1, borderRadius: 14, justifyContent: "center", alignItems: "center", flex: 1, paddingHorizontal: 10 }, textSubmitLabel: { fontSize: 13, fontWeight: "800" }, modeRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" }, modeLabel: { fontSize: 13, fontWeight: "600" }, modeToggle: { borderRadius: 999, padding: 5, paddingRight: 12, flexDirection: "row", alignItems: "center", gap: 7 }, toggleKnob: { width: 20, height: 20, borderRadius: 10, backgroundColor: "#F5F1E8" }, toggleKnobOn: { backgroundColor: "#F5F1E8" }, modeText: { fontSize: 10, fontWeight: "900", letterSpacing: 0.8 },
-  reviewCard: { borderWidth: 1.5, borderRadius: 22, padding: 18, gap: 10 }, reviewHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" }, verdict: { fontSize: 13, fontWeight: "900", letterSpacing: 1.2 }, match: { fontSize: 12, fontWeight: "700" }, transcriptLabel: { fontSize: 10, fontWeight: "800", letterSpacing: 1.2, marginTop: 4 }, transcript: { fontSize: 15, lineHeight: 22 }, contextTitle: { fontSize: 15, fontWeight: "800", marginTop: 4 }, body: { fontSize: 14, lineHeight: 21 }, keyList: { flexDirection: "row", flexWrap: "wrap", gap: 7 }, keyPill: { flexDirection: "row", gap: 6, alignItems: "center", borderWidth: 1, paddingHorizontal: 10, paddingVertical: 7, borderRadius: 999 }, nextStepBox: { padding: 12, borderRadius: 14, gap: 4, marginTop: 3 }, answerBox: { padding: 12, borderRadius: 14, gap: 4, marginTop: 3 }, bodyStrong: { fontSize: 14, lineHeight: 20, fontWeight: "700" },
+  reviewCard: { borderWidth: 1.5, borderRadius: 22, padding: 18, gap: 10 }, reviewHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" }, verdict: { fontSize: 13, fontWeight: "900", letterSpacing: 1.2 }, match: { fontSize: 12, fontWeight: "700" }, transcriptLabel: { fontSize: 10, fontWeight: "800", letterSpacing: 1.2, marginTop: 4 }, transcript: { fontSize: 15, lineHeight: 22 }, contextTitle: { fontSize: 15, fontWeight: "800", marginTop: 4 }, body: { fontSize: 14, lineHeight: 21 }, rationaleControls: { flexDirection: "row", flexWrap: "wrap", gap: 8, marginTop: 2 }, rationaleButton: { borderWidth: 1, borderRadius: 13, paddingHorizontal: 12, minHeight: 39, alignItems: "center", justifyContent: "center" }, rationaleButtonText: { fontSize: 12, fontWeight: "900" }, rationaleStatus: { fontSize: 11, lineHeight: 16, marginTop: -3 }, keyList: { flexDirection: "row", flexWrap: "wrap", gap: 7 }, keyPill: { flexDirection: "row", gap: 6, alignItems: "center", borderWidth: 1, paddingHorizontal: 10, paddingVertical: 7, borderRadius: 999 }, nextStepBox: { padding: 12, borderRadius: 14, gap: 4, marginTop: 3 }, answerBox: { padding: 12, borderRadius: 14, gap: 4, marginTop: 3 }, bodyStrong: { fontSize: 14, lineHeight: 20, fontWeight: "700" },
   statsCard: { borderWidth: 1, borderRadius: 20, padding: 16, gap: 14 }, statsRow: { flexDirection: "row", justifyContent: "space-between" }, statValue: { fontSize: 22, fontWeight: "800" }, statLabel: { fontSize: 11, color: "#687076", marginTop: 2 }, resetButton: { minHeight: 38, borderTopWidth: 1, justifyContent: "center", alignItems: "center", marginTop: 2 }, resetText: { fontSize: 12, fontWeight: "800" },
 });

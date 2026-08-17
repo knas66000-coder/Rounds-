@@ -102,3 +102,9 @@
 - [x] Add voice accessibility labels and persist the selected voice preferences locally
 - [x] Add deterministic tests for speech content preparation and voice-state utilities
 - [x] Validate and checkpoint the voice experience improvement release
+- [x] Define the optional spoken-rationale sequence, interruption behavior, and learner controls
+- [x] Persist the spoken-rationale preference alongside the saved speech pace
+- [x] Read the clinical rationale automatically after feedback when the preference is enabled
+- [x] Add a manual replay-rationale control and clear stop behavior in answer review
+- [x] Add deterministic tests for spoken-rationale content preparation and preference defaults
+- [x] Validate and checkpoint the spoken-rationale release
