@@ -1,6 +1,6 @@
 import { and, desc, eq, inArray } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { communityNotificationPreferences, communityNotifications, communityPosts, communityReactions, communityReplies, communityReports, InsertUser, studyMaterials, users } from "../drizzle/schema";
+import { academicProfiles, communityNotificationPreferences, communityNotifications, communityPosts, communityReactions, communityReplies, communityReports, InsertUser, studyMaterials, users } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 import { shouldCreateCommunityNotification, type CommunityNotificationType, type NotificationPreference } from "../shared/notification-rules";
 import { canUseStudyMaterial } from "../shared/study-material-permissions";
@@ -274,4 +274,20 @@ export async function deleteOwnedStudyMaterial(userId: number, materialId: numbe
   if (!db) throw new Error("Study material storage is temporarily unavailable.");
   const result = await db.delete(studyMaterials).where(and(eq(studyMaterials.id, materialId), eq(studyMaterials.userId, userId)));
   return result[0].affectedRows > 0;
+}
+
+export async function getAcademicProfile(userId: number) {
+  const db = await getDb();
+  if (!db) return null;
+  const profile = await db.select({ institutionName: academicProfiles.institutionName, program: academicProfiles.program, updatedAt: academicProfiles.updatedAt }).from(academicProfiles).where(eq(academicProfiles.userId, userId)).limit(1);
+  return profile[0] ?? null;
+}
+
+export async function saveAcademicProfile(userId: number, input: { institutionName: string; program: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Academic profile storage is temporarily unavailable.");
+  const existing = await db.select({ id: academicProfiles.id }).from(academicProfiles).where(eq(academicProfiles.userId, userId)).limit(1);
+  if (existing.length) await db.update(academicProfiles).set(input).where(eq(academicProfiles.id, existing[0].id));
+  else await db.insert(academicProfiles).values({ userId, ...input });
+  return getAcademicProfile(userId);
 }

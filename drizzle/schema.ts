@@ -91,7 +91,17 @@ export const studyMaterials = mysqlTable("study_materials", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+export const academicProfiles = mysqlTable("academic_profiles", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  institutionName: varchar("institutionName", { length: 120 }).notNull(),
+  program: varchar("program", { length: 64 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => [uniqueIndex("academic_profiles_user").on(table.userId)]);
+
 export type CommunityPost = typeof communityPosts.$inferSelect;
 export type CommunityReply = typeof communityReplies.$inferSelect;
 export type CommunityNotification = typeof communityNotifications.$inferSelect;
 export type StudyMaterial = typeof studyMaterials.$inferSelect;
+export type AcademicProfile = typeof academicProfiles.$inferSelect;

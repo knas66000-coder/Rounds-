@@ -120,3 +120,9 @@
 - [x] Add adaptive follow-up questions for incomplete Nursing responses
 - [x] Add deterministic tests for oral-exam selection, follow-up logic, privacy, and source-citation behavior
 - [x] Validate and checkpoint the Rounds voice-first oral-examination release
+- [x] Define academic-profile fields, onboarding behavior, and program-pack routing rules
+- [x] Add protected persistence for a learner's university and academic program
+- [x] Build post-sign-in academic-profile onboarding for learners without a completed profile
+- [x] Add personalized program-pack routing and a Nursing-specific study home
+- [x] Add deterministic tests for academic-profile validation, privacy, and routing rules
+- [x] Validate and checkpoint the personalized academic-home release

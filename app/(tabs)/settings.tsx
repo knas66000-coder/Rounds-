@@ -18,6 +18,7 @@ export default function SettingsScreen() {
   const [rate, setRate] = useState(defaultVoicePreferences.rate);
   const [spokenRationale, setSpokenRationale] = useState(defaultVoicePreferences.spokenRationale);
   const notificationPreferences = trpc.notifications.preferences.useQuery();
+  const academicProfile = trpc.academicProfile.get.useQuery();
   const updateNotificationPreferences = trpc.notifications.updatePreferences.useMutation({ onSuccess: () => void notificationPreferences.refetch() });
   const notificationSettings = notificationPreferences.data ?? { reactionAlerts: true, replyAlerts: true };
 
@@ -53,6 +54,12 @@ export default function SettingsScreen() {
           <Text style={[styles.accountName, { color: colors.foreground }]}>{user?.name || user?.email || "Private learner"}</Text>
           <Text style={[styles.accountText, { color: colors.muted }]}>This device has an active protected session.</Text>
           <Pressable onPress={signOut} accessibilityRole="button" style={[styles.signOut, { borderColor: colors.border }]}><Text style={[styles.signOutText, { color: colors.foreground }]}>Sign out</Text></Pressable>
+        </View>
+
+        <View style={[styles.info, { borderColor: colors.border }]}>
+          <Text style={[styles.infoTitle, { color: colors.foreground }]}>Academic home</Text>
+          <Text style={[styles.infoText, { color: colors.muted }]}>{academicProfile.data ? `${academicProfile.data.institutionName} · ${academicProfile.data.program.replace(/_/g, " ")}` : "Complete your university and program profile to open the correct course pack."}</Text>
+          <Pressable onPress={() => router.push("/academic-onboarding" as never)} accessibilityRole="button"><Text style={[styles.test, { color: colors.primary }]}>Change university or program</Text></Pressable>
         </View>
 
         <View style={[styles.group, { backgroundColor: colors.surface, borderColor: colors.border }]}>

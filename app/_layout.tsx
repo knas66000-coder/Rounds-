@@ -1,6 +1,6 @@
 import "@/global.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Stack, useSegments } from "expo-router";
+import { Redirect, Stack, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -21,6 +21,7 @@ import { initManusRuntime, subscribeSafeAreaInsets } from "@/lib/_core/manus-run
 import { AuthSessionProvider, useAuthSession } from "@/lib/auth-session";
 import { accessStateFor } from "@/lib/auth-gate";
 import { SecureAccessGate } from "@/components/secure-access-gate";
+import { requiresAcademicOnboarding } from "@/shared/academic-profile";
 
 const DEFAULT_WEB_INSETS: EdgeInsets = { top: 0, right: 0, bottom: 0, left: 0 };
 const DEFAULT_WEB_FRAME: Rect = { x: 0, y: 0, width: 0, height: 0 };
@@ -119,7 +120,9 @@ function ProtectedNavigator() {
   const segments = useSegments();
   const { loading, isAuthenticated, refresh } = useAuthSession();
   const isCallback = segments[0] === "oauth";
+  const isAcademicOnboarding = (segments[0] as string | undefined) === "academic-onboarding";
   const accessState = accessStateFor({ loading, isAuthenticated, isCallback });
+  const academicProfile = trpc.academicProfile.get.useQuery(undefined, { enabled: accessState === "app" });
 
   useEffect(() => {
     if (!isCallback && segments.join("/") !== "") void refresh();
@@ -128,5 +131,7 @@ function ProtectedNavigator() {
   if (accessState === "callback") return <Stack screenOptions={{ headerShown: false }}><Stack.Screen name="oauth/callback" /></Stack>;
   if (accessState === "loading") return <SecureAccessGate busy />;
   if (accessState === "sign-in") return <SecureAccessGate />;
-  return <Stack screenOptions={{ headerShown: false }}><Stack.Screen name="(tabs)" /><Stack.Screen name="mock-exam" /><Stack.Screen name="oral-exam" /><Stack.Screen name="study-materials" /><Stack.Screen name="adaptive-review" /><Stack.Screen name="exam-remediation" /><Stack.Screen name="bookmark-review" /><Stack.Screen name="notifications" /><Stack.Screen name="oauth/callback" /></Stack>;
+  if (academicProfile.isLoading) return <SecureAccessGate busy />;
+  if (requiresAcademicOnboarding(academicProfile.data) && !isAcademicOnboarding) return <Redirect href={"/academic-onboarding" as never} />;
+  return <Stack screenOptions={{ headerShown: false }}><Stack.Screen name="(tabs)" /><Stack.Screen name="academic-onboarding" /><Stack.Screen name="academic-home" /><Stack.Screen name="mock-exam" /><Stack.Screen name="oral-exam" /><Stack.Screen name="study-materials" /><Stack.Screen name="adaptive-review" /><Stack.Screen name="exam-remediation" /><Stack.Screen name="bookmark-review" /><Stack.Screen name="notifications" /><Stack.Screen name="oauth/callback" /></Stack>;
 }

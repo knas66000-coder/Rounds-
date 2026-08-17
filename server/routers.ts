@@ -10,6 +10,7 @@ import { z } from "zod";
 import * as db from "./db";
 import { validateCommunityText } from "../shared/community-safety";
 import { normalizeGroundedReference } from "../shared/study-material-safety";
+import { academicProfileProblem, isAcademicProgram } from "../shared/academic-profile";
 
 const MAX_AUDIO_BYTES = 16 * 1024 * 1024;
 const MAX_STUDY_MATERIAL_BYTES = 4 * 1024 * 1024;
@@ -112,6 +113,15 @@ export const appRouter = router({
       } catch {
         return { supported: false, title: material.title, excerpt: "", explanation: "" };
       }
+    }),
+  }),
+
+  academicProfile: router({
+    get: protectedProcedure.query(({ ctx }) => db.getAcademicProfile(ctx.user.id)),
+    save: protectedProcedure.input(z.object({ institutionName: z.string().trim().max(120), program: z.string().max(64) })).mutation(async ({ ctx, input }) => {
+      const problem = academicProfileProblem(input);
+      if (problem || !isAcademicProgram(input.program)) throw new TRPCError({ code: "BAD_REQUEST", message: problem ?? "Choose a supported academic program." });
+      return db.saveAcademicProfile(ctx.user.id, { institutionName: input.institutionName.trim().replace(/\s+/g, " "), program: input.program });
     }),
   }),
 
