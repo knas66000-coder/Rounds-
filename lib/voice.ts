@@ -1,0 +1,33 @@
+export const VOICE_PREFERENCES_KEY = "rounds.voice.preferences.v1";
+
+export type VoicePreferences = { rate: number };
+
+export const defaultVoicePreferences: VoicePreferences = { rate: 0.92 };
+
+export function clampSpeechRate(rate: number): number {
+  return Math.min(1.15, Math.max(0.72, Math.round(rate * 100) / 100));
+}
+
+export function parseVoicePreferences(value: string | null): VoicePreferences {
+  if (!value) return defaultVoicePreferences;
+  try {
+    const parsed = JSON.parse(value) as Partial<VoicePreferences>;
+    return { rate: typeof parsed.rate === "number" ? clampSpeechRate(parsed.rate) : defaultVoicePreferences.rate };
+  } catch {
+    return defaultVoicePreferences;
+  }
+}
+
+export function prepareQuestionSpeech(question: string): string {
+  const normalized = question
+    .replace(/≤/g, " less than or equal to ")
+    .replace(/≥/g, " greater than or equal to ")
+    .replace(/°/g, " degrees ")
+    .replace(/\s+/g, " ")
+    .trim();
+  return `Question. ${normalized} Pause to think. Then state your answer when recording begins.`;
+}
+
+export function prepareFeedbackSpeech(feedback: string): string {
+  return `Feedback. ${feedback.trim()}`;
+}

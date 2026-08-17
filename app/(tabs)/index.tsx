@@ -14,6 +14,7 @@ import { ACTIVE_CATEGORY_KEY, hasAnotherQuestion, nextStepForVerdict, questionsF
 import { haptic } from "@/lib/haptics";
 import { bookmarkIds, BOOKMARKS_KEY, parseBookmarks, toggleBookmark, type Bookmark } from "@/lib/bookmarks";
 import { recordLearningOutcome } from "@/lib/adaptive-store";
+import { defaultVoicePreferences, parseVoicePreferences, prepareFeedbackSpeech, prepareQuestionSpeech, VOICE_PREFERENCES_KEY } from "@/lib/voice";
 
 const STORAGE_KEY = "rounds.session.v1";
 
@@ -32,6 +33,7 @@ export default function HomeScreen() {
   const [results, setResults] = useState<SavedResult[]>([]);
   const [answerDraft, setAnswerDraft] = useState("");
   const [voiceNotice, setVoiceNotice] = useState<string | null>(null);
+  const [speechRate, setSpeechRate] = useState(defaultVoicePreferences.rate);
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
   const autoTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const recordingTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -57,6 +59,7 @@ export default function HomeScreen() {
     AsyncStorage.getItem(STORAGE_KEY).then((value) => {
       if (value) setResults(JSON.parse(value) as SavedResult[]);
     });
+    AsyncStorage.getItem(VOICE_PREFERENCES_KEY).then((value) => setSpeechRate(parseVoicePreferences(value).rate));
     return () => {
       Speech.stop();
       if (autoTimer.current) clearTimeout(autoTimer.current);
@@ -71,21 +74,40 @@ export default function HomeScreen() {
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(next));
   };
 
-  const askQuestion = () => {
+  const speakQuestion = (beginRecording: boolean) => {
     haptic.light();
     Speech.stop();
+    setPhase("asking");
+    setVoiceNotice("Reading the question clearly. You can stop or replay at any time.");
+    Speech.speak(prepareQuestionSpeech(question.q), {
+      rate: speechRate,
+      pitch: 1,
+      language: "en-US",
+      onDone: () => {
+        if (beginRecording) void startListening();
+        else {
+          setPhase(evaluation ? "result" : "idle");
+          setVoiceNotice(null);
+        }
+      },
+      onError: () => {
+        if (beginRecording) void startListening();
+        else setPhase(evaluation ? "result" : "idle");
+      },
+    });
+  };
+
+  const askQuestion = () => {
     setEvaluation(null);
     setTranscript("");
     setAnswerDraft("");
-    setVoiceNotice(null);
-    setPhase("asking");
-    Speech.speak(question.q, {
-      rate: 0.98,
-      pitch: 1,
-      language: "en-US",
-      onDone: () => void startListening(),
-      onError: () => void startListening(),
-    });
+    speakQuestion(true);
+  };
+
+  const stopSpeaking = async () => {
+    await Speech.stop();
+    setPhase(evaluation ? "result" : "idle");
+    setVoiceNotice("Speech stopped. Replay the question or type your answer when ready.");
   };
 
   const startListening = async () => {
@@ -102,7 +124,7 @@ export default function HomeScreen() {
       await recorder.prepareToRecordAsync();
       recorder.record();
       setPhase("listening");
-      setVoiceNotice("Recording your answer. Tap Stop & grade when you finish, or wait up to 8 seconds.");
+      setVoiceNotice("Listening now. Speak naturally; you can stop early whenever you finish.");
       if (recordingTimer.current) clearTimeout(recordingTimer.current);
       recordingTimer.current = setTimeout(() => void stopListeningAndTranscribe(), 8000);
     } catch {
@@ -126,8 +148,8 @@ export default function HomeScreen() {
       const response = await transcribeMutation.mutateAsync(payload);
       if (!response.text) throw new Error("No speech was recognized.");
       setAnswerDraft(response.text);
-      setVoiceNotice(null);
-      await submitAnswer(response.text);
+      setPhase("idle");
+      setVoiceNotice("Transcript ready. Review or correct it, then submit to grade. You can also record again.");
     } catch {
       haptic.error();
       setPhase("idle");
@@ -139,6 +161,12 @@ export default function HomeScreen() {
     if (recordingTimer.current) clearTimeout(recordingTimer.current);
     if (recorderState.isRecording) await recorder.stop();
     await submitAnswer(answerDraft);
+  };
+
+  const retryRecording = () => {
+    setAnswerDraft("");
+    setVoiceNotice(null);
+    void startListening();
   };
 
   const submitAnswer = async (value: string) => {
@@ -158,7 +186,7 @@ export default function HomeScreen() {
     setPhase("result");
     await saveResult(nextEvaluation.verdict);
     await recordLearningOutcome(question.id, nextEvaluation.verdict);
-    Speech.speak(nextEvaluation.feedback, { rate: 0.98, language: "en-US" });
+    Speech.speak(prepareFeedbackSpeech(nextEvaluation.feedback), { rate: speechRate, language: "en-US" });
     if (autoMode) {
       autoTimer.current = setTimeout(() => nextQuestion(), 4500);
     }
@@ -264,6 +292,8 @@ export default function HomeScreen() {
 
   const phaseLabel = phase === "asking" ? "Speaking question" : phase === "listening" ? "Listening for your answer" : phase === "transcribing" ? "Transcribing your answer" : phase === "result" ? "Answer reviewed" : phase === "complete" ? "Unique question round completed" : "Ready when you are";
   const verdictColor = evaluation?.verdict === "correct" ? colors.success : evaluation?.verdict === "partial" ? colors.warning : colors.error;
+  const recordingSeconds = Math.min(8, Math.max(0, Math.ceil((recorderState.durationMillis ?? 0) / 1000)));
+  const recordingPercent = `${Math.min(100, (recordingSeconds / 8) * 100)}%` as `${number}%`;
 
   return (
     <ScreenContainer className="px-5" edges={["top", "left", "right"]}>
@@ -332,14 +362,17 @@ export default function HomeScreen() {
 
         <View style={styles.actionArea}>
           {phase === "listening" ? (
-            <Pressable onPress={() => void stopListeningAndTranscribe()} style={({ pressed }) => [styles.micButton, { backgroundColor: colors.error }, pressed && styles.pressed]} accessibilityRole="button" accessibilityLabel="Stop microphone recording and grade answer" accessibilityHint="Stops recording and submits the transcribed response for grading">
-              <Text style={styles.micIcon}>■</Text>
-              <Text style={styles.micText}>Stop & grade</Text>
-            </Pressable>
-          ) : phase === "asking" || phase === "transcribing" ? (
-            <View style={[styles.micButton, { backgroundColor: colors.primary, opacity: 0.78 }]} accessibilityLabel={phase === "asking" ? "Question is being spoken" : "Spoken answer is being transcribed"}>
+            <View style={[styles.recordingPanel, { borderColor: colors.error, backgroundColor: colors.surface }]} accessibilityLabel={`Recording spoken answer, ${recordingSeconds} of 8 seconds elapsed`}>
+              <View style={styles.recordingHeader}><Text style={[styles.recordingLabel, { color: colors.error }]}>RECORDING</Text><Text style={[styles.recordingTime, { color: colors.foreground }]}>{recordingSeconds}s / 8s</Text></View>
+              <View style={[styles.progressTrack, { backgroundColor: colors.border }]}><View style={[styles.progressFill, { backgroundColor: colors.error, width: recordingPercent }]} /></View>
+              <Pressable onPress={() => void stopListeningAndTranscribe()} style={({ pressed }) => [styles.micButton, { backgroundColor: colors.error }, pressed && styles.pressed]} accessibilityRole="button" accessibilityLabel="Stop microphone recording and review transcript" accessibilityHint="Stops recording so you can review your spoken answer before grading"><Text style={styles.micIcon}>■</Text><Text style={styles.micText}>Stop & review transcript</Text></Pressable>
+            </View>
+          ) : phase === "asking" ? (
+            <Pressable onPress={() => void stopSpeaking()} style={({ pressed }) => [styles.micButton, { backgroundColor: colors.primary }, pressed && styles.pressed]} accessibilityRole="button" accessibilityLabel="Stop spoken question"><Text style={styles.micIcon}>■</Text><Text style={styles.micText}>Stop speaking</Text></Pressable>
+          ) : phase === "transcribing" ? (
+            <View style={[styles.micButton, { backgroundColor: colors.primary, opacity: 0.78 }]} accessibilityLabel="Spoken answer is being transcribed">
               <Text style={styles.micIcon}>…</Text>
-              <Text style={styles.micText}>{phase === "asking" ? "Speaking…" : "Transcribing…"}</Text>
+              <Text style={styles.micText}>Transcribing…</Text>
             </View>
           ) : phase === "complete" ? (
             <Pressable onPress={startFreshRound} style={({ pressed }) => [styles.primaryButton, { backgroundColor: colors.primary }, pressed && styles.pressed]} accessibilityRole="button" accessibilityLabel="Start a fresh shuffled question round">
@@ -358,10 +391,11 @@ export default function HomeScreen() {
           {(phase === "listening" || phase === "asking" || phase === "transcribing" || voiceNotice) && (
             <View style={styles.fallbackArea}>
               {voiceNotice ? <Text style={[styles.voiceNotice, { color: colors.muted }]}>{voiceNotice}</Text> : null}
-              <TextInput value={answerDraft} onChangeText={setAnswerDraft} placeholder="Type your answer if you prefer" placeholderTextColor={colors.muted} style={[styles.input, { borderColor: colors.border, color: colors.foreground, backgroundColor: colors.surface }]} multiline editable={phase !== "transcribing"} />
-              {phase !== "transcribing" ? <Pressable onPress={() => void submitTypedAnswer()} style={({ pressed }) => [styles.textSubmit, { borderColor: colors.primary }, pressed && styles.pressed]}><Text style={[styles.textSubmitLabel, { color: colors.primary }]}>Submit typed answer</Text></Pressable> : null}
+              <TextInput value={answerDraft} onChangeText={setAnswerDraft} placeholder="Type your answer or review your transcript" placeholderTextColor={colors.muted} style={[styles.input, { borderColor: colors.border, color: colors.foreground, backgroundColor: colors.surface }]} multiline editable={phase !== "transcribing"} accessibilityLabel="Answer text or recognized speech transcript" />
+              {phase !== "transcribing" ? <View style={styles.fallbackButtons}><Pressable onPress={() => void submitTypedAnswer()} style={({ pressed }) => [styles.textSubmit, { borderColor: colors.primary }, pressed && styles.pressed]} accessibilityRole="button"><Text style={[styles.textSubmitLabel, { color: colors.primary }]}>Submit & grade</Text></Pressable><Pressable onPress={retryRecording} style={({ pressed }) => [styles.textSubmit, { borderColor: colors.border }, pressed && styles.pressed]} accessibilityRole="button"><Text style={[styles.textSubmitLabel, { color: colors.foreground }]}>Record again</Text></Pressable></View> : null}
             </View>
           )}
+          {phase !== "listening" && phase !== "transcribing" && phase !== "complete" ? <View style={styles.voiceControls}><Pressable onPress={() => speakQuestion(false)} accessibilityRole="button" accessibilityLabel="Replay current question" style={[styles.secondaryVoiceButton, { borderColor: colors.primary }]}><Text style={[styles.secondaryVoiceText, { color: colors.primary }]}>↻ Replay question</Text></Pressable></View> : null}
           <View style={styles.modeRow}>
             <Text style={[styles.modeLabel, { color: colors.muted }]}>Practice mode</Text>
             <Pressable onPress={toggleAutoMode} accessibilityRole="switch" accessibilityState={{ checked: autoMode }} accessibilityLabel="Auto practice mode" accessibilityHint="When on, the next question begins automatically after feedback" style={[styles.modeToggle, { backgroundColor: autoMode ? colors.primary : colors.border }]}>
@@ -401,8 +435,8 @@ const styles = StyleSheet.create({
   chip: { borderWidth: 1, paddingHorizontal: 14, paddingVertical: 9, borderRadius: 999 },
   questionCard: { borderWidth: 1, borderRadius: 24, padding: 22, gap: 18 }, cardMeta: { flexDirection: "row", justifyContent: "space-between" }, category: { fontSize: 11, fontWeight: "800", letterSpacing: 1.2 }, progress: { fontSize: 11, fontWeight: "700", letterSpacing: 1 },
   question: { fontFamily: "Georgia", fontSize: 25, lineHeight: 34, fontWeight: "700" }, phase: { fontSize: 13, fontWeight: "600" }, bookmarkButton: { alignSelf: "flex-start", borderWidth: 1, borderRadius: 999, paddingHorizontal: 12, paddingVertical: 8 }, bookmarkText: { fontSize: 12, fontWeight: "900" },
-  actionArea: { gap: 12, alignItems: "stretch" }, micButton: { minHeight: 66, borderRadius: 22, alignItems: "center", justifyContent: "center", flexDirection: "row", gap: 10 }, micIcon: { color: "#F5F1E8", fontSize: 22 }, micText: { color: "#F5F1E8", fontSize: 17, fontWeight: "800" }, primaryButton: { minHeight: 58, borderRadius: 18, alignItems: "center", justifyContent: "center" }, primaryButtonText: { fontSize: 16, fontWeight: "800" }, pressed: { opacity: 0.82, transform: [{ scale: 0.98 }] },
-  fallbackArea: { gap: 8 }, voiceNotice: { fontSize: 12, lineHeight: 17, paddingHorizontal: 2 }, input: { minHeight: 74, borderWidth: 1, borderRadius: 16, padding: 14, fontSize: 15, textAlignVertical: "top" }, textSubmit: { minHeight: 42, borderWidth: 1, borderRadius: 14, justifyContent: "center", alignItems: "center" }, textSubmitLabel: { fontSize: 13, fontWeight: "800" }, modeRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" }, modeLabel: { fontSize: 13, fontWeight: "600" }, modeToggle: { borderRadius: 999, padding: 5, paddingRight: 12, flexDirection: "row", alignItems: "center", gap: 7 }, toggleKnob: { width: 20, height: 20, borderRadius: 10, backgroundColor: "#F5F1E8" }, toggleKnobOn: { backgroundColor: "#F5F1E8" }, modeText: { fontSize: 10, fontWeight: "900", letterSpacing: 0.8 },
+  actionArea: { gap: 12, alignItems: "stretch" }, micButton: { minHeight: 58, borderRadius: 18, alignItems: "center", justifyContent: "center", flexDirection: "row", gap: 10 }, micIcon: { color: "#F5F1E8", fontSize: 22 }, micText: { color: "#F5F1E8", fontSize: 16, fontWeight: "800" }, primaryButton: { minHeight: 58, borderRadius: 18, alignItems: "center", justifyContent: "center" }, primaryButtonText: { fontSize: 16, fontWeight: "800" }, pressed: { opacity: 0.82, transform: [{ scale: 0.98 }] }, recordingPanel: { borderWidth: 1.5, borderRadius: 20, padding: 14, gap: 10 }, recordingHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" }, recordingLabel: { fontSize: 11, letterSpacing: 1.4, fontWeight: "900" }, recordingTime: { fontSize: 13, fontWeight: "900" }, progressTrack: { height: 6, borderRadius: 999, overflow: "hidden" }, progressFill: { height: 6, borderRadius: 999 }, voiceControls: { flexDirection: "row", flexWrap: "wrap", gap: 8 }, secondaryVoiceButton: { minHeight: 40, borderWidth: 1, borderRadius: 13, paddingHorizontal: 13, justifyContent: "center", alignItems: "center" }, secondaryVoiceText: { fontSize: 13, fontWeight: "900" },
+  fallbackArea: { gap: 8 }, fallbackButtons: { flexDirection: "row", gap: 8 }, voiceNotice: { fontSize: 12, lineHeight: 17, paddingHorizontal: 2 }, input: { minHeight: 74, borderWidth: 1, borderRadius: 16, padding: 14, fontSize: 15, textAlignVertical: "top" }, textSubmit: { minHeight: 42, borderWidth: 1, borderRadius: 14, justifyContent: "center", alignItems: "center", flex: 1, paddingHorizontal: 10 }, textSubmitLabel: { fontSize: 13, fontWeight: "800" }, modeRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" }, modeLabel: { fontSize: 13, fontWeight: "600" }, modeToggle: { borderRadius: 999, padding: 5, paddingRight: 12, flexDirection: "row", alignItems: "center", gap: 7 }, toggleKnob: { width: 20, height: 20, borderRadius: 10, backgroundColor: "#F5F1E8" }, toggleKnobOn: { backgroundColor: "#F5F1E8" }, modeText: { fontSize: 10, fontWeight: "900", letterSpacing: 0.8 },
   reviewCard: { borderWidth: 1.5, borderRadius: 22, padding: 18, gap: 10 }, reviewHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center" }, verdict: { fontSize: 13, fontWeight: "900", letterSpacing: 1.2 }, match: { fontSize: 12, fontWeight: "700" }, transcriptLabel: { fontSize: 10, fontWeight: "800", letterSpacing: 1.2, marginTop: 4 }, transcript: { fontSize: 15, lineHeight: 22 }, contextTitle: { fontSize: 15, fontWeight: "800", marginTop: 4 }, body: { fontSize: 14, lineHeight: 21 }, keyList: { flexDirection: "row", flexWrap: "wrap", gap: 7 }, keyPill: { flexDirection: "row", gap: 6, alignItems: "center", borderWidth: 1, paddingHorizontal: 10, paddingVertical: 7, borderRadius: 999 }, nextStepBox: { padding: 12, borderRadius: 14, gap: 4, marginTop: 3 }, answerBox: { padding: 12, borderRadius: 14, gap: 4, marginTop: 3 }, bodyStrong: { fontSize: 14, lineHeight: 20, fontWeight: "700" },
   statsCard: { borderWidth: 1, borderRadius: 20, padding: 16, gap: 14 }, statsRow: { flexDirection: "row", justifyContent: "space-between" }, statValue: { fontSize: 22, fontWeight: "800" }, statLabel: { fontSize: 11, color: "#687076", marginTop: 2 }, resetButton: { minHeight: 38, borderTopWidth: 1, justifyContent: "center", alignItems: "center", marginTop: 2 }, resetText: { fontSize: 12, fontWeight: "800" },
 });

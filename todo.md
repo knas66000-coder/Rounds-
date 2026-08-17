@@ -95,3 +95,10 @@
 - [x] Add notification preference controls to Settings
 - [x] Add deterministic tests for notification eligibility, privacy, and unread-state logic
 - [x] Validate and checkpoint the community notification release
+- [x] Review the current spoken-question lifecycle, recording controls, and transcription failure paths
+- [x] Add structured spoken-question delivery with configurable pacing and a replay/stop control
+- [x] Add visible recording duration, speech-state feedback, and early-stop guidance
+- [x] Improve transcription recovery with clear retry, edited-transcript, and typed-answer paths
+- [x] Add voice accessibility labels and persist the selected voice preferences locally
+- [x] Add deterministic tests for speech content preparation and voice-state utilities
+- [x] Validate and checkpoint the voice experience improvement release
