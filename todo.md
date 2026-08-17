@@ -108,3 +108,9 @@
 - [x] Add a manual replay-rationale control and clear stop behavior in answer review
 - [x] Add deterministic tests for spoken-rationale content preparation and preference defaults
 - [x] Validate and checkpoint the spoken-rationale release
+- [x] Define an offline-first installed-learning scope for downloaded content, practice, progress, and safe later synchronization
+- [x] Generate and prioritize university-program and course-unit ideas before committing to a catalog
+- [x] Define the shared academic hierarchy and reusable Nursing-derived learning foundation
+- [x] Design the university program catalog and initial pilot course-unit maps
+- [x] Define content, assessment, safety, and high-school compatibility requirements
+- [x] Document the university-program rollout blueprint and implementation sequence
