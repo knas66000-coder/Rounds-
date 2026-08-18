@@ -206,3 +206,9 @@
 - [x] Extend active course packs with reviewed subject-specific calculation and logic-trace activities
 - [x] Validate no-repeat rounds, feedback correctness, subject separation, and native build quality
 - [x] Checkpoint and deliver the expanded shared learning-engine release
+- [x] Define the scenario and decision-case contract, feedback rules, and subject-safety boundaries
+- [x] Build deterministic decision-case evaluation utilities and coverage tests
+- [x] Add reusable native scenario and decision-case controls to direct activities and learning rounds
+- [x] Extend active course packs with reviewed subject-specific scenarios and verify discipline boundaries
+- [x] Validate no-repeat learning, feedback accuracy, offline state, and native build quality
+- [x] Checkpoint and deliver the scenario and decision-case Rounds release

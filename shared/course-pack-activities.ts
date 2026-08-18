@@ -50,7 +50,21 @@ export type LogicTraceActivity = {
   explanation: string;
 };
 
-export type StarterCourseActivity = EvidenceReadingActivity | WritingPlannerActivity | CalculationActivity | LogicTraceActivity;
+export type ScenarioActivity = {
+  kind: "scenario";
+  packId: string;
+  courseId: string;
+  title: string;
+  eyebrow: string;
+  scenario: string;
+  prompt: string;
+  options: string[];
+  bestOption: string;
+  explanation: string;
+  boundaryNote?: string;
+};
+
+export type StarterCourseActivity = EvidenceReadingActivity | WritingPlannerActivity | CalculationActivity | LogicTraceActivity | ScenarioActivity;
 
 export const STARTER_COURSE_ACTIVITIES: StarterCourseActivity[] = [
   {
@@ -132,6 +146,34 @@ export const STARTER_COURSE_ACTIVITIES: StarterCourseActivity[] = [
   {
     kind: "worked_calculation", packId: "social-sciences-foundations", courseId: "social-response-count", title: "Describe a response count", eyebrow: "SOCIAL SCIENCES STARTER",
     scenario: "In a small voluntary discussion poll, 8 of 20 invited students reply. The activity asks only for a percentage description of this response count.", prompt: "What percentage of invited students replied?", expectedAnswer: 40, unit: "%", tolerance: 0.01, explanation: "Divide replies by invitations, then multiply by 100: 8 ÷ 20 × 100 = 40%. The percentage describes the poll response count, not the beliefs of all students.",
+  },
+  {
+    kind: "scenario", packId: "university-foundation-year", courseId: "foundation-attribution-choice", title: "Credit a source before submission", eyebrow: "ACADEMIC FOUNDATIONS SCENARIO",
+    scenario: "A learner has copied two sentences from an online article into a draft because the wording is useful. The learner has the page open but has not recorded the author, date, or link.", prompt: "What is the most responsible next step before submitting the draft?", options: ["Leave the sentences unchanged because the page is public.", "Record the source details, use quotation or paraphrase appropriately, and show the source clearly in the draft.", "Remove every source from the draft so attribution is unnecessary.", "Share the article text under another learner’s name."], bestOption: "Record the source details, use quotation or paraphrase appropriately, and show the source clearly in the draft.", explanation: "Academic work should make the origin of words and ideas traceable. Recording source details supports accurate attribution and later checking.",
+  },
+  {
+    kind: "scenario", packId: "computing-foundations", courseId: "computing-accessibility-choice", title: "Include the user requirement", eyebrow: "COMPUTING SCENARIO",
+    scenario: "A team is planning a campus-events page. One learner explains that some users rely on keyboard navigation and readable text contrast. The team has limited time for the first version.", prompt: "Which planning choice is most responsible?", options: ["Treat keyboard and contrast needs as optional decoration after launch.", "Include keyboard navigation and readable contrast as requirements, then test them with the first version.", "Ask users who need those features to use a different site.", "Replace all text with images to reduce planning work."], bestOption: "Include keyboard navigation and readable contrast as requirements, then test them with the first version.", explanation: "Accessibility needs belong in the problem definition and testing plan, not as an optional extra after a product is built.",
+  },
+  {
+    kind: "scenario", packId: "business-foundations", courseId: "business-customer-consent", title: "Ask before using contact details", eyebrow: "BUSINESS SCENARIO",
+    scenario: "A student team collects email addresses from classmates during a public event sign-up. The form says it is for event attendance, but the team now wants to send a separate promotional message about a new idea.", prompt: "What should the team do before using the addresses for promotion?", options: ["Send the promotion because the addresses were collected at an event.", "Check the stated purpose and seek clear permission for the new promotional use.", "Publish the address list so others can promote the idea too.", "Assume no one will mind because the project is small."], bestOption: "Check the stated purpose and seek clear permission for the new promotional use.", explanation: "Contact details should be used consistently with the purpose explained when they were collected. A new use needs clear, appropriate permission.", boundaryNote: "This is a learning scenario, not legal advice.",
+  },
+  {
+    kind: "scenario", packId: "engineering-foundations", courseId: "engineering-evidence-choice", title: "Test before selecting", eyebrow: "ENGINEERING SCENARIO",
+    scenario: "Two proposed study-area layouts both fit the available wall space. One layout is cheaper on paper, while the other may be easier for users to reach. The group has not measured user movement or asked facilities staff about maintenance.", prompt: "What should the group do before choosing a final layout?", options: ["Choose the cheaper layout immediately because cost is the only relevant factor.", "Gather relevant user-access and maintenance evidence, then compare both layouts against the stated constraints.", "Build both permanent layouts before asking any questions.", "Select the layout with the most colors."], bestOption: "Gather relevant user-access and maintenance evidence, then compare both layouts against the stated constraints.", explanation: "A responsible design decision checks the stated constraints with relevant evidence instead of relying on one preference or assumption.", boundaryNote: "This is a learning scenario, not engineering or safety approval.",
+  },
+  {
+    kind: "scenario", packId: "natural-sciences-foundations", courseId: "science-replication-choice", title: "Repeat a careful observation", eyebrow: "NATURAL SCIENCES SCENARIO",
+    scenario: "A learner notices one unexpected result in a classroom measurement activity. The recording sheet shows that the instrument reading was copied once, and the learner cannot tell whether the original reading was stable.", prompt: "What is the strongest next step for the learning activity?", options: ["Treat the unexpected value as final proof of a new explanation.", "Record the conditions clearly and repeat the observation using the same stated method before drawing a conclusion.", "Delete the value without recording that it occurred.", "Choose the result that best matches the expected answer."], bestOption: "Record the conditions clearly and repeat the observation using the same stated method before drawing a conclusion.", explanation: "Careful repetition and transparent recording help distinguish an observation from a supported conclusion.",
+  },
+  {
+    kind: "scenario", packId: "education-foundations", courseId: "education-inclusive-choice", title: "Offer a fair way to show learning", eyebrow: "EDUCATION SCENARIO",
+    scenario: "A tutor plans a short check for understanding after a lesson. One learner is more comfortable giving a brief spoken explanation, while another prefers a written response. Both can address the same learning objective.", prompt: "Which design choice best keeps the check connected to the objective?", options: ["Require one format only because different formats cannot show the same learning.", "Allow an appropriate spoken or written response using the same clear success criteria.", "Skip the check because learners prefer different formats.", "Grade learners only on how quickly they respond."], bestOption: "Allow an appropriate spoken or written response using the same clear success criteria.", explanation: "Multiple accessible response formats can be fair when they are evaluated against the same relevant learning objective.",
+  },
+  {
+    kind: "scenario", packId: "social-sciences-foundations", courseId: "social-context-choice", title: "Respect context in an interpretation", eyebrow: "SOCIAL SCIENCES SCENARIO",
+    scenario: "A learner reads three anonymous comments about long travel times to campus. The comments describe individual experiences, but the learner has no information about routes, work schedules, cost, or the wider student population.", prompt: "Which interpretation is most responsible?", options: ["The comments prove every learner experiences the same travel problem.", "The comments are useful perspectives that suggest a broader, context-sensitive question for further study.", "The comments should be ignored because personal accounts never matter.", "The learner should identify the authors publicly to verify the comments."], bestOption: "The comments are useful perspectives that suggest a broader, context-sensitive question for further study.", explanation: "Individual perspectives can inform research questions, but responsible interpretation avoids overgeneralizing and respects privacy.",
   },
 ];
 

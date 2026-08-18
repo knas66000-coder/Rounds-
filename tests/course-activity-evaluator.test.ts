@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { evaluateCalculationAnswer, evaluateLogicTraceAnswer, normalizeCalculationInput } from "../shared/course-activity-evaluator";
+import { evaluateCalculationAnswer, evaluateLogicTraceAnswer, evaluateScenarioDecision, normalizeCalculationInput } from "../shared/course-activity-evaluator";
 
 describe("Rounds shared calculation and logic evaluation", () => {
   it("normalizes safe numeric and percentage inputs without evaluating expressions", () => {
@@ -20,5 +20,11 @@ describe("Rounds shared calculation and logic evaluation", () => {
     const activity = { correctOption: "Show the validation message.", explanation: "The blank field stops the request." };
     expect(evaluateLogicTraceAnswer("Show the validation message.", activity).outcome).toBe("correct");
     expect(evaluateLogicTraceAnswer("Send the request.", activity).outcome).toBe("review");
+  });
+
+  it("checks a scenario choice against the stated responsible decision", () => {
+    const activity = { bestOption: "Record the source first.", explanation: "The source needs traceable attribution." };
+    expect(evaluateScenarioDecision("Record the source first.", activity).outcome).toBe("correct");
+    expect(evaluateScenarioDecision("Hide the source.", activity).outcome).toBe("review");
   });
 });

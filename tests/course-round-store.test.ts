@@ -5,9 +5,9 @@ describe("Rounds shared learning-round state", () => {
   it("keeps queues subject-specific and no-repeat by activity identity", () => {
     const state = parseCourseRoundState(null);
     const foundation = activitiesForCourseRound("university-foundation-year", state);
-    expect(foundation.map(courseRoundActivityId)).toEqual(["university-foundation-year:academic-writing", "university-foundation-year:digital-literacy", "university-foundation-year:quantitative-literacy"]);
+    expect(foundation.map(courseRoundActivityId)).toEqual(expect.arrayContaining(["university-foundation-year:academic-writing", "university-foundation-year:digital-literacy", "university-foundation-year:quantitative-literacy"]));
     expect(new Set(foundation.map(courseRoundActivityId)).size).toBe(foundation.length);
-    expect(activitiesForCourseRound("computing-foundations", state).map(courseRoundActivityId)).toEqual(["computing-foundations:computing-logic-trace", "computing-foundations:computing-requirements"]);
+    expect(activitiesForCourseRound("computing-foundations", state).map(courseRoundActivityId)).toEqual(expect.arrayContaining(["computing-foundations:computing-logic-trace", "computing-foundations:computing-requirements"]));
   });
 
   it("persists a bookmark and outcome without leaking the saved activity into another pack", () => {

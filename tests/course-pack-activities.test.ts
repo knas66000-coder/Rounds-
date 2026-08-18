@@ -23,4 +23,9 @@ describe("Rounds starter course activities", () => {
     expect(STARTER_COURSE_ACTIVITIES.some((activity) => activity.kind === "worked_calculation")).toBe(true);
     expect(STARTER_COURSE_ACTIVITIES.some((activity) => activity.kind === "logic_trace")).toBe(true);
   });
+
+  it("gives every active non-Nursing pack a reviewed scenario decision without using clinical content", () => {
+    const scenarioPacks = new Set(STARTER_COURSE_ACTIVITIES.filter((activity) => activity.kind === "scenario").map((activity) => activity.packId));
+    expect(scenarioPacks).toEqual(new Set(["university-foundation-year", "computing-foundations", "business-foundations", "engineering-foundations", "natural-sciences-foundations", "education-foundations", "social-sciences-foundations"]));
+  });
 });
