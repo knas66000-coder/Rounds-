@@ -184,3 +184,8 @@
 - [x] Create a program-neutral course-pack home and Foundation Year catalog interface
 - [x] Connect pack state to academic routing and validate install, resume, and subject-separation behavior
 - [x] Checkpoint and deliver the first shared Rounds course-pack foundation release
+- [x] Define active starter-pack boundaries and reviewed activity scope for every current academic program
+- [x] Activate all current program packs with subject-specific local starter experiences
+- [x] Implement Foundation Year local download and reusable writing-planner and evidence-reading activity players
+- [x] Connect active packs and local progress to every program home and validate subject separation
+- [x] Checkpoint and deliver the all-program Rounds course-pack activation release

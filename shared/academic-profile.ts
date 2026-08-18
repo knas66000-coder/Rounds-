@@ -1,12 +1,12 @@
 export const ACADEMIC_PROGRAMS = [
   { id: "nursing", title: "Nursing", faculty: "Health Sciences", packTitle: "Nursing practice pack", description: "NCLEX-style clinical scenarios, oral practice, adaptive remediation, and mock exams.", available: true },
-  { id: "engineering", title: "Engineering", faculty: "Engineering and Technology", packTitle: "Engineering foundations pack", description: "Mathematics, design reasoning, systems thinking, and technical problem-solving.", available: false },
-  { id: "computing", title: "Computing", faculty: "Computing and Digital Skills", packTitle: "Computing foundations pack", description: "Programming, data, networks, cybersecurity, and digital ethics.", available: false },
-  { id: "business", title: "Business", faculty: "Business and Entrepreneurship", packTitle: "Business foundations pack", description: "Accounting, economics, management, entrepreneurship, and decision cases.", available: false },
-  { id: "natural_sciences", title: "Natural Sciences", faculty: "Natural Sciences and Mathematics", packTitle: "Science foundations pack", description: "Biology, chemistry, physics, mathematics, and statistics.", available: false },
-  { id: "education", title: "Education", faculty: "Education", packTitle: "Education foundations pack", description: "Learning theory, assessment, inclusive practice, and classroom scenarios.", available: false },
-  { id: "social_sciences", title: "Social Sciences", faculty: "Social Sciences and Humanities", packTitle: "Social sciences foundations pack", description: "Psychology, sociology, research methods, communication, and ethics.", available: false },
-  { id: "foundation_year", title: "University Foundation Year", faculty: "Cross-program", packTitle: "Foundation Year pack", description: "Academic writing, study skills, digital literacy, statistics, and research methods.", available: false },
+  { id: "engineering", title: "Engineering", faculty: "Engineering and Technology", packTitle: "Engineering foundations pack", description: "Design constraints, systems thinking, technical communication, and structured problem-solving.", available: true },
+  { id: "computing", title: "Computing", faculty: "Computing and Digital Skills", packTitle: "Computing foundations pack", description: "Clear requirements, logic, data thinking, and responsible digital decisions.", available: true },
+  { id: "business", title: "Business", faculty: "Business and Entrepreneurship", packTitle: "Business foundations pack", description: "Customer evidence, decision cases, entrepreneurship, and responsible planning.", available: true },
+  { id: "natural_sciences", title: "Natural Sciences", faculty: "Natural Sciences and Mathematics", packTitle: "Science foundations pack", description: "Observation, evidence, explanation, and structured scientific thinking.", available: true },
+  { id: "education", title: "Education", faculty: "Education", packTitle: "Education foundations pack", description: "Observable learning goals, inclusive planning, and reflective practice.", available: true },
+  { id: "social_sciences", title: "Social Sciences", faculty: "Social Sciences and Humanities", packTitle: "Social sciences foundations pack", description: "Claims, evidence, respectful interpretation, and research thinking.", available: true },
+  { id: "foundation_year", title: "University Foundation Year", faculty: "Cross-program", packTitle: "Foundation Year pack", description: "Academic writing, digital literacy, study skills, statistics, and research methods.", available: true },
 ] as const;
 
 export type AcademicProgramId = (typeof ACADEMIC_PROGRAMS)[number]["id"];

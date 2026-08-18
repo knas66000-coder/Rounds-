@@ -14,8 +14,15 @@ describe("Rounds course-pack catalog", () => {
     expect(nursing.find((pack) => pack.id === "nursing-practice")?.readiness).toBe("active");
   });
 
-  it("uses subject-neutral learning-mode labels and clear readiness states", () => {
+  it("uses subject-neutral learning-mode labels and clear active-pack states", () => {
     expect(courseActivityLabel("writing_planner")).toBe("Writing planner");
-    expect(coursePackReadinessLabel("catalog")).toBe("CATALOG PREVIEW");
+    expect(coursePackReadinessLabel("active")).toBe("ACTIVE");
+  });
+
+  it("activates a distinct starter pack for every current university program", () => {
+    const specialistPrograms = ["engineering", "computing", "business", "natural_sciences", "education", "social_sciences"] as const;
+    const specialistsHaveOwnActiveStarter = specialistPrograms.every((program) => coursePacksForProgram(program).some((pack) => pack.audience !== "all_university" && pack.readiness === "active"));
+    expect(specialistsHaveOwnActiveStarter).toBe(true);
+    expect(coursePacksForProgram("foundation_year").some((pack) => pack.id === "university-foundation-year" && pack.readiness === "active")).toBe(true);
   });
 });

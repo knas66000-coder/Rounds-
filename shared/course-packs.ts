@@ -25,32 +25,20 @@ export type CoursePack = {
   courses: CourseUnitPreview[];
 };
 
+const activeStarter = (id: string, title: string, summary: string, activityKinds: CourseActivityKind[]): CourseUnitPreview => ({ id, title, summary, activityKinds, contentState: "active" });
+
 export const COURSE_PACKS: CoursePack[] = [
   {
-    id: "nursing-practice",
-    revision: "embedded-nursing-v1",
-    title: "Nursing Practice",
-    faculty: "Health Sciences",
-    description: "The active Nursing reference pack with clinical scenarios, spoken practice, adaptive remediation, and mock exams.",
-    audience: ["nursing"],
-    readiness: "active",
-    delivery: "embedded",
-    courses: [{ id: "nclex-practice", title: "NCLEX Practice", summary: "Existing reviewed Rounds Nursing practice and assessment activities.", activityKinds: ["recall", "scenario", "oral_practice", "timed_assessment"], contentState: "active" }],
+    id: "nursing-practice", revision: "embedded-nursing-v1", title: "Nursing Practice", faculty: "Health Sciences", description: "The established Nursing reference pack with clinical scenarios, spoken practice, adaptive remediation, and mock exams.", audience: ["nursing"], readiness: "active", delivery: "embedded",
+    courses: [activeStarter("nclex-practice", "NCLEX Practice", "Existing reviewed Rounds Nursing practice and assessment activities.", ["recall", "scenario", "oral_practice", "timed_assessment"])],
   },
   {
-    id: "university-foundation-year",
-    revision: "catalog-v1",
-    title: "University Foundation Year",
-    faculty: "Cross-program",
-    description: "A shared course sequence for academic, digital, quantitative, research, and professional learning foundations.",
-    audience: "all_university",
-    readiness: "catalog",
-    delivery: "not_downloadable",
+    id: "university-foundation-year", revision: "foundation-starter-v1", title: "University Foundation Year", faculty: "Cross-program", description: "A shared local foundation for academic, digital, research, communication, and quantitative learning.", audience: "all_university", readiness: "active", delivery: "downloadable", estimatedDownloadMb: 3,
     courses: [
-      { id: "academic-writing", title: "Academic Writing and Referencing", summary: "Arguments, evidence, citation practice, and revision planning.", activityKinds: ["evidence_reading", "writing_planner"], contentState: "review_pending" },
+      activeStarter("academic-writing", "Academic Writing and Referencing", "Read evidence carefully, then plan a clear academic response.", ["evidence_reading", "writing_planner"]),
       { id: "quantitative-literacy", title: "Quantitative Literacy and Statistics", summary: "Ratios, percentages, graphs, and introductory statistics.", activityKinds: ["worked_calculation", "evidence_reading"], contentState: "review_pending" },
       { id: "research-methods", title: "Research Methods and Information Quality", summary: "Research questions, variables, methods, ethics, and source evaluation.", activityKinds: ["scenario", "evidence_reading"], contentState: "review_pending" },
-      { id: "digital-literacy", title: "Digital Literacy and Privacy", summary: "Files, documents, spreadsheets, account safety, and information quality.", activityKinds: ["scenario", "recall"], contentState: "review_pending" },
+      activeStarter("digital-literacy", "Digital Literacy and Privacy", "Practice clear, responsible decisions about information and digital work.", ["evidence_reading", "scenario"]),
       { id: "study-strategies", title: "Study and Learning Strategies", summary: "Retrieval practice, planning, notes, and examination routines.", activityKinds: ["writing_planner", "recall"], contentState: "review_pending" },
       { id: "professional-communication", title: "Professional Communication", summary: "Audience, email, presentation planning, and group communication.", activityKinds: ["writing_planner", "oral_practice"], contentState: "review_pending" },
       { id: "academic-ethics", title: "Ethics and Academic Integrity", summary: "Consent, attribution, fairness, and responsible technology use.", activityKinds: ["scenario", "evidence_reading"], contentState: "review_pending" },
@@ -58,53 +46,37 @@ export const COURSE_PACKS: CoursePack[] = [
     ],
   },
   {
-    id: "computing-foundations",
-    revision: "roadmap-v1",
-    title: "Computing Foundations",
-    faculty: "Computing and Digital Skills",
-    description: "The first specialist pilot for programming, data, web, networks, and responsible AI.",
-    audience: ["computing"],
-    readiness: "planned",
-    delivery: "not_downloadable",
-    courses: [{ id: "computing-preview", title: "Computing Course Sequence", summary: "Programming, data and spreadsheet skills, web foundations, networks, and AI ethics.", activityKinds: ["logic_trace", "scenario", "evidence_reading"], contentState: "planned" }],
+    id: "computing-foundations", revision: "computing-starter-v1", title: "Computing Foundations", faculty: "Computing and Digital Skills", description: "A local starter pack for clear technical reasoning, requirements, and responsible digital choices.", audience: ["computing"], readiness: "active", delivery: "embedded",
+    courses: [activeStarter("computing-requirements", "Clear Problem Requirements", "Read a simple product brief and identify the information needed before building.", ["evidence_reading", "logic_trace"])],
   },
   {
-    id: "business-foundations",
-    revision: "roadmap-v1",
-    title: "Business Foundations",
-    faculty: "Business and Entrepreneurship",
-    description: "A specialist pilot for decision cases, quantitative business basics, and entrepreneurship.",
-    audience: ["business"],
-    readiness: "planned",
-    delivery: "not_downloadable",
-    courses: [{ id: "business-preview", title: "Business Course Sequence", summary: "Accounting, economics, management, marketing, and entrepreneurship.", activityKinds: ["scenario", "worked_calculation", "writing_planner"], contentState: "planned" }],
+    id: "business-foundations", revision: "business-starter-v1", title: "Business Foundations", faculty: "Business and Entrepreneurship", description: "A local starter pack for customer evidence, clear decision-making, and entrepreneurship thinking.", audience: ["business"], readiness: "active", delivery: "embedded",
+    courses: [activeStarter("business-customer-evidence", "Customer Need Evidence", "Separate a customer observation from an unsupported business assumption.", ["evidence_reading", "scenario"])],
   },
   {
-    id: "engineering-foundations",
-    revision: "roadmap-v1",
-    title: "Engineering Foundations",
-    faculty: "Engineering and Technology",
-    description: "A specialist pilot for systems thinking, design reasoning, technical communication, and review-ready calculation activities.",
-    audience: ["engineering"],
-    readiness: "planned",
-    delivery: "not_downloadable",
-    courses: [{ id: "engineering-preview", title: "Engineering Course Sequence", summary: "Engineering mathematics, design process, systems, technical communication, and safety.", activityKinds: ["worked_calculation", "logic_trace", "writing_planner"], contentState: "planned" }],
+    id: "engineering-foundations", revision: "engineering-starter-v1", title: "Engineering Foundations", faculty: "Engineering and Technology", description: "A local starter pack for constraints, structured design thinking, and clear technical communication.", audience: ["engineering"], readiness: "active", delivery: "embedded",
+    courses: [activeStarter("engineering-design-constraints", "Design Constraints", "Plan a design response around requirements, limits, and evidence to gather.", ["writing_planner", "logic_trace"])],
   },
   {
-    id: "health-sciences",
-    revision: "roadmap-v1",
-    title: "Health Sciences",
-    faculty: "Health Sciences",
-    description: "A reviewed expansion track for foundational health-science units; this will not reuse Nursing clinical questions.",
-    audience: ["natural_sciences"],
-    readiness: "planned",
-    delivery: "not_downloadable",
-    courses: [{ id: "health-preview", title: "Health Sciences Course Sequence", summary: "Anatomy and physiology, nutrition and public health, and other reviewer-approved units.", activityKinds: ["recall", "scenario", "evidence_reading"], contentState: "planned" }],
+    id: "natural-sciences-foundations", revision: "science-starter-v1", title: "Natural Sciences Foundations", faculty: "Natural Sciences and Mathematics", description: "A local starter pack for careful observation, explanation, and evidence-based science learning.", audience: ["natural_sciences"], readiness: "active", delivery: "embedded",
+    courses: [activeStarter("science-observation-evidence", "Observation and Explanation", "Distinguish an observation from an explanation and identify the next useful evidence.", ["evidence_reading", "recall"])],
+  },
+  {
+    id: "education-foundations", revision: "education-starter-v1", title: "Education Foundations", faculty: "Education", description: "A local starter pack for observable learning goals, inclusive planning, and reflective teaching practice.", audience: ["education"], readiness: "active", delivery: "embedded",
+    courses: [activeStarter("education-learning-objectives", "Observable Learning Objectives", "Turn a broad learning aim into a clear, observable learner objective.", ["writing_planner", "evidence_reading"])],
+  },
+  {
+    id: "social-sciences-foundations", revision: "social-sciences-starter-v1", title: "Social Sciences Foundations", faculty: "Social Sciences and Humanities", description: "A local starter pack for claims, evidence, respectful interpretation, and research thinking.", audience: ["social_sciences"], readiness: "active", delivery: "embedded",
+    courses: [activeStarter("social-claims-evidence", "Claims and Supporting Evidence", "Identify the difference between a claim, an observation, and supporting evidence.", ["evidence_reading", "writing_planner"])],
   },
 ];
 
 export function coursePacksForProgram(program: AcademicProgramId): CoursePack[] {
   return COURSE_PACKS.filter((pack) => pack.audience === "all_university" || pack.audience.includes(program));
+}
+
+export function coursePackForId(packId: string): CoursePack | null {
+  return COURSE_PACKS.find((pack) => pack.id === packId) ?? null;
 }
 
 export function coursePackReadinessLabel(readiness: CoursePackReadiness): string {

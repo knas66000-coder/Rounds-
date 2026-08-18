@@ -61,6 +61,17 @@ export async function loadCoursePackResume(): Promise<CoursePackResume | null> {
   return parseCoursePackResume(await AsyncStorage.getItem(COURSE_PACK_RESUME_KEY));
 }
 
+export async function installLocalCoursePack(packId: string): Promise<CoursePackInstall | null> {
+  const pack = coursePackById(packId);
+  if (!pack || !canInstallPack(pack)) return null;
+  const current = await loadCoursePackInstalls();
+  const existing = current.find((install) => install.packId === pack.id && install.revision === pack.revision);
+  if (existing) return existing;
+  const next = [...current.filter((install) => install.packId !== pack.id), { packId: pack.id, revision: pack.revision, installedAt: new Date().toISOString() }];
+  await AsyncStorage.setItem(COURSE_PACK_INSTALLS_KEY, JSON.stringify(next));
+  return next[next.length - 1];
+}
+
 export async function saveCoursePackResume(packId: string, courseId: string): Promise<CoursePackResume | null> {
   const pack = coursePackById(packId);
   if (!pack || !pack.courses.some((course) => course.id === courseId)) return null;

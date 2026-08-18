@@ -2,8 +2,13 @@ import { normalizeRoundsEmail } from "./rounds-auth";
 
 export const OWNER_CONTROL_PACKS = [
   { id: "nursing", title: "Nursing / Health Sciences", status: "active", detail: "Voice practice, Oral Exam, mock exams, adaptive review, and Research Updates." },
-  { id: "foundation", title: "University Foundation Year", status: "planned", detail: "Academic Writing, Study Skills, Statistics, and Research Methods." },
-  { id: "engineering", title: "Engineering Foundations", status: "planned", detail: "Mathematics, mechanics, technical drawing, and problem-solving." },
+  { id: "foundation", title: "University Foundation Year", status: "active", detail: "Offline starter activities for Academic Writing and Digital Literacy, with staged shared units." },
+  { id: "computing", title: "Computing Foundations", status: "active", detail: "Local starter activities for requirements, logic, and responsible digital decision-making." },
+  { id: "business", title: "Business Foundations", status: "active", detail: "Local starter activities for customer evidence and responsible planning." },
+  { id: "engineering", title: "Engineering Foundations", status: "active", detail: "Local starter activities for design constraints, structured reasoning, and technical communication." },
+  { id: "natural-sciences", title: "Natural Sciences Foundations", status: "active", detail: "Local starter activities for observation, evidence, and explanation." },
+  { id: "education", title: "Education Foundations", status: "active", detail: "Local starter activities for observable objectives and inclusive planning." },
+  { id: "social-sciences", title: "Social Sciences Foundations", status: "active", detail: "Local starter activities for claims, evidence, and respectful interpretation." },
   { id: "high-school", title: "High School Combinations", status: "planned", detail: "Future BCM, PCM, Economics, Entrepreneurship, and related subject packs." },
 ] as const;
 
