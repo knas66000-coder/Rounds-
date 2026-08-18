@@ -174,3 +174,8 @@
 - [x] Add voice selection, a listening preview, and saved local voice preferences in Settings
 - [x] Apply the selected local voice to Voice Tutor and existing spoken learning controls
 - [x] Validate and checkpoint the no-cost Rounds voice quality release
+- [x] Audit the active academic-home flow, Nursing reference pack, and existing university-learning blueprint
+- [x] Define the reusable offline-first course-pack structure, study modes, and academic quality rules
+- [x] Design the first university program catalog and staged rollout without adding unverified course content
+- [x] Document learner flows, owner controls, and content-ingestion requirements for Rounds course packs
+- [x] Validate and checkpoint the Rounds course-pack design release
