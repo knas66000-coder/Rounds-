@@ -20,6 +20,7 @@ import { trpc, createTRPCClient } from "@/lib/trpc";
 import { initManusRuntime, subscribeSafeAreaInsets } from "@/lib/_core/manus-runtime";
 import { AuthSessionProvider, useAuthSession } from "@/lib/auth-session";
 import { SecureAccessGate } from "@/components/secure-access-gate";
+import { BiometricAppLock } from "@/components/biometric-app-lock";
 import { requiresAcademicOnboarding } from "@/shared/academic-profile";
 
 const DEFAULT_WEB_INSETS: EdgeInsets = { top: 0, right: 0, bottom: 0, left: 0 };
@@ -85,7 +86,7 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <trpc.Provider client={trpcClient} queryClient={queryClient}>
         <QueryClientProvider client={queryClient}>
-          <AuthSessionProvider><ProtectedNavigator /></AuthSessionProvider>
+          <AuthSessionProvider><BiometricAppLock><ProtectedNavigator /></BiometricAppLock></AuthSessionProvider>
           <StatusBar style="auto" />
         </QueryClientProvider>
       </trpc.Provider>

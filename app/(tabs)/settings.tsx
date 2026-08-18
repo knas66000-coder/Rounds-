@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Alert, Pressable, ScrollView, StyleSheet, Switch, Text, View } from "react-native";
+import { Alert, Platform, Pressable, ScrollView, StyleSheet, Switch, Text, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Speech from "expo-speech";
+import * as LocalAuthentication from "expo-local-authentication";
 import { useRouter } from "expo-router";
 
 import { ScreenContainer } from "@/components/screen-container";
@@ -9,6 +10,8 @@ import { useColors } from "@/hooks/use-colors";
 import { useAuthSession } from "@/lib/auth-session";
 import { trpc } from "@/lib/trpc";
 import { clampSpeechRate, defaultVoicePreferences, parseVoicePreferences, VOICE_PREFERENCES_KEY } from "@/lib/voice";
+import { shareRoundsAccountExport } from "@/lib/account-export";
+import { BIOMETRIC_UNLOCK_KEY, parseBiometricUnlock } from "@/shared/account-privacy";
 
 export default function SettingsScreen() {
   const colors = useColors();
@@ -17,8 +20,10 @@ export default function SettingsScreen() {
   const [auto, setAuto] = useState(false);
   const [rate, setRate] = useState(defaultVoicePreferences.rate);
   const [spokenRationale, setSpokenRationale] = useState(defaultVoicePreferences.spokenRationale);
+  const [biometricUnlock, setBiometricUnlock] = useState(false);
   const notificationPreferences = trpc.notifications.preferences.useQuery();
   const academicProfile = trpc.academicProfile.get.useQuery();
+  const accountExport = trpc.roundsAccount.exportData.useQuery(undefined, { enabled: false });
   const updateNotificationPreferences = trpc.notifications.updatePreferences.useMutation({ onSuccess: () => void notificationPreferences.refetch() });
   const notificationSettings = notificationPreferences.data ?? { reactionAlerts: true, replyAlerts: true };
 
@@ -28,6 +33,7 @@ export default function SettingsScreen() {
       setRate(preferences.rate);
       setSpokenRationale(preferences.spokenRationale);
     });
+    AsyncStorage.getItem(BIOMETRIC_UNLOCK_KEY).then((value) => setBiometricUnlock(parseBiometricUnlock(value)));
   }, []);
 
   const saveVoicePreferences = (nextRate: number, nextSpokenRationale: boolean) => {
@@ -39,6 +45,23 @@ export default function SettingsScreen() {
 
   const reset = () => Alert.alert("Reset session?", "This removes locally stored practice results.", [{ text: "Cancel", style: "cancel" }, { text: "Reset", style: "destructive", onPress: () => AsyncStorage.removeItem("rounds.session.v1") }]);
   const signOut = () => Alert.alert("Sign out?", "This ends your secure session on this device. Your local study data will remain available when you sign in again.", [{ text: "Cancel", style: "cancel" }, { text: "Sign out", style: "destructive", onPress: () => void logout() }]);
+  const setBiometricProtection = async (next: boolean) => {
+    if (!next) { setBiometricUnlock(false); await AsyncStorage.setItem(BIOMETRIC_UNLOCK_KEY, "false"); return; }
+    if (Platform.OS === "web") { Alert.alert("Available in the installed app", "Biometric unlock is available on iOS and Android after installing Rounds."); return; }
+    const [hasHardware, enrolled] = await Promise.all([LocalAuthentication.hasHardwareAsync(), LocalAuthentication.isEnrolledAsync()]);
+    if (!hasHardware || !enrolled) { Alert.alert("Biometrics unavailable", "Set up Face ID, Touch ID, or fingerprint on this device first. Your Rounds password remains available."); return; }
+    setBiometricUnlock(true);
+    await AsyncStorage.setItem(BIOMETRIC_UNLOCK_KEY, "true");
+  };
+  const exportPrivateData = async () => {
+    try {
+      const response = await accountExport.refetch();
+      if (!response.data) throw new Error("Your account data is not available right now.");
+      await shareRoundsAccountExport(response.data);
+    } catch (exportError) {
+      Alert.alert("Export unavailable", exportError instanceof Error ? exportError.message : "Try again while connected to the internet.");
+    }
+  };
 
   return (
     <ScreenContainer className="px-5" edges={["top", "left", "right"]}>
@@ -54,6 +77,14 @@ export default function SettingsScreen() {
           <Text style={[styles.accountName, { color: colors.foreground }]}>{user?.name || user?.email || "Private learner"}</Text>
           <Text style={[styles.accountText, { color: colors.muted }]}>This device has an active protected session.</Text>
           <Pressable onPress={signOut} accessibilityRole="button" style={[styles.signOut, { borderColor: colors.border }]}><Text style={[styles.signOutText, { color: colors.foreground }]}>Sign out</Text></Pressable>
+        </View>
+
+        <View style={[styles.info, { borderColor: colors.border }]}>
+          <Text style={[styles.infoTitle, { color: colors.foreground }]}>Privacy and access</Text>
+          <Text style={[styles.infoText, { color: colors.muted }]}>Download your profile, course-material metadata, and your own community activity. Passwords, session tokens, private PDF contents, and storage keys are never included.</Text>
+          <Pressable onPress={() => void exportPrivateData()} accessibilityRole="button"><Text style={[styles.test, { color: colors.primary }]}>{accountExport.isFetching ? "Preparing private export…" : "Download private account data"}</Text></Pressable>
+          <View style={[styles.divider, { backgroundColor: colors.border }]} />
+          <SettingRow label="Biometric unlock" description="After one minute in the background, use device biometrics to reopen Rounds. Your password remains the fallback." right={<Switch value={biometricUnlock} onValueChange={(value) => void setBiometricProtection(value)} trackColor={{ false: colors.border, true: colors.primary }} thumbColor={colors.background} accessibilityLabel="Enable biometric unlock" />} colors={colors} />
         </View>
 
         <View style={[styles.info, { borderColor: colors.border }]}>

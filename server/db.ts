@@ -137,6 +137,23 @@ export async function markRoundsUserSignedIn(userId: number) {
   await db.update(users).set({ lastSignedIn: new Date() }).where(eq(users.id, userId));
 }
 
+/** Returns only learner-owned records suitable for a private download. Credentials, sessions, raw PDFs, and storage keys are intentionally excluded. */
+export async function getRoundsAccountExport(userId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Account storage is temporarily unavailable.");
+  const [userRows, profileRows, materials, posts, replies, preferences] = await Promise.all([
+    db.select({ name: users.name, email: users.email, createdAt: users.createdAt, lastSignedIn: users.lastSignedIn }).from(users).where(eq(users.id, userId)).limit(1),
+    db.select({ institutionName: academicProfiles.institutionName, program: academicProfiles.program, createdAt: academicProfiles.createdAt, updatedAt: academicProfiles.updatedAt }).from(academicProfiles).where(eq(academicProfiles.userId, userId)).limit(1),
+    db.select({ title: studyMaterials.title, mimeType: studyMaterials.mimeType, byteSize: studyMaterials.byteSize, createdAt: studyMaterials.createdAt }).from(studyMaterials).where(eq(studyMaterials.userId, userId)),
+    db.select({ kind: communityPosts.kind, content: communityPosts.content, status: communityPosts.status, createdAt: communityPosts.createdAt, updatedAt: communityPosts.updatedAt }).from(communityPosts).where(eq(communityPosts.userId, userId)),
+    db.select({ postId: communityReplies.postId, content: communityReplies.content, status: communityReplies.status, createdAt: communityReplies.createdAt, updatedAt: communityReplies.updatedAt }).from(communityReplies).where(eq(communityReplies.userId, userId)),
+    db.select({ reactionAlerts: communityNotificationPreferences.reactionAlerts, replyAlerts: communityNotificationPreferences.replyAlerts, updatedAt: communityNotificationPreferences.updatedAt }).from(communityNotificationPreferences).where(eq(communityNotificationPreferences.userId, userId)).limit(1),
+  ]);
+  const account = userRows[0];
+  if (!account) throw new Error("This Rounds account is no longer available.");
+  return { schemaVersion: 1, exportedAt: new Date(), account, academicProfile: profileRows[0] ?? null, studyMaterialMetadata: materials, community: { posts, replies }, notificationPreferences: preferences[0] ?? null };
+}
+
 export type CommunityFeedItem = {
   id: number;
   userId: number;

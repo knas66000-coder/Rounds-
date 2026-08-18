@@ -137,3 +137,13 @@
 - [x] Replace the learner-facing OAuth gate with Rounds-native account screens and protected navigation
 - [x] Add deterministic tests for account validation, session expiry, and private-identity ownership
 - [x] Validate and checkpoint the Rounds-native access release
+- [ ] Define private account-data export, deletion, confirmation, and recovery boundaries
+- [ ] Add protected Rounds account export and deletion services with complete owned-data cleanup
+- [ ] Add Settings controls for downloading private account data and permanently deleting an account
+- [ ] Add deterministic tests for export scope, deletion ownership, and revoked-session behavior
+- [ ] Validate and checkpoint the account-privacy release
+- [x] Define Rounds account-data export scope and biometric unlock behavior with offline-safe fallback
+- [x] Add a protected Rounds account export that excludes passwords, session tokens, and private file contents
+- [x] Add an optional biometric app-unlock preference with secure device fallback
+- [x] Add deterministic tests for export privacy and biometric preference rules
+- [x] Validate and checkpoint the Rounds account-export and biometric-unlock release

@@ -74,6 +74,10 @@ export const appRouter = router({
     }),
   }),
 
+  roundsAccount: router({
+    exportData: protectedProcedure.query(({ ctx }) => db.getRoundsAccountExport(ctx.user.id)),
+  }),
+
   voice: router({
     transcribe: publicProcedure
       .input(z.object({
