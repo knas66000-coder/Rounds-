@@ -33,10 +33,10 @@ export const COURSE_PACKS: CoursePack[] = [
     courses: [activeStarter("nclex-practice", "NCLEX Practice", "Existing reviewed Rounds Nursing practice and assessment activities.", ["recall", "scenario", "oral_practice", "timed_assessment"])],
   },
   {
-    id: "university-foundation-year", revision: "foundation-starter-v1", title: "University Foundation Year", faculty: "Cross-program", description: "A shared local foundation for academic, digital, research, communication, and quantitative learning.", audience: "all_university", readiness: "active", delivery: "downloadable", estimatedDownloadMb: 3,
+    id: "university-foundation-year", revision: "foundation-starter-v2", title: "University Foundation Year", faculty: "Cross-program", description: "A shared local foundation for academic, digital, research, communication, and quantitative learning.", audience: "all_university", readiness: "active", delivery: "downloadable", estimatedDownloadMb: 3,
     courses: [
       activeStarter("academic-writing", "Academic Writing and Referencing", "Read evidence carefully, then plan a clear academic response.", ["evidence_reading", "writing_planner"]),
-      { id: "quantitative-literacy", title: "Quantitative Literacy and Statistics", summary: "Ratios, percentages, graphs, and introductory statistics.", activityKinds: ["worked_calculation", "evidence_reading"], contentState: "review_pending" },
+      activeStarter("quantitative-literacy", "Quantitative Literacy and Statistics", "Ratios, percentages, graphs, and introductory statistics.", ["worked_calculation", "evidence_reading"]),
       { id: "research-methods", title: "Research Methods and Information Quality", summary: "Research questions, variables, methods, ethics, and source evaluation.", activityKinds: ["scenario", "evidence_reading"], contentState: "review_pending" },
       activeStarter("digital-literacy", "Digital Literacy and Privacy", "Practice clear, responsible decisions about information and digital work.", ["evidence_reading", "scenario"]),
       { id: "study-strategies", title: "Study and Learning Strategies", summary: "Retrieval practice, planning, notes, and examination routines.", activityKinds: ["writing_planner", "recall"], contentState: "review_pending" },
@@ -46,28 +46,28 @@ export const COURSE_PACKS: CoursePack[] = [
     ],
   },
   {
-    id: "computing-foundations", revision: "computing-starter-v1", title: "Computing Foundations", faculty: "Computing and Digital Skills", description: "A local starter pack for clear technical reasoning, requirements, and responsible digital choices.", audience: ["computing"], readiness: "active", delivery: "embedded",
-    courses: [activeStarter("computing-requirements", "Clear Problem Requirements", "Read a simple product brief and identify the information needed before building.", ["evidence_reading", "logic_trace"])],
+    id: "computing-foundations", revision: "computing-starter-v2", title: "Computing Foundations", faculty: "Computing and Digital Skills", description: "A local starter pack for clear technical reasoning, requirements, and responsible digital choices.", audience: ["computing"], readiness: "active", delivery: "embedded",
+    courses: [activeStarter("computing-requirements", "Clear Problem Requirements", "Read a simple product brief and identify the information needed before building.", ["evidence_reading"]), activeStarter("computing-logic-trace", "Logic Trace", "Follow a simple rule sequence and identify the resulting action.", ["logic_trace"])],
   },
   {
-    id: "business-foundations", revision: "business-starter-v1", title: "Business Foundations", faculty: "Business and Entrepreneurship", description: "A local starter pack for customer evidence, clear decision-making, and entrepreneurship thinking.", audience: ["business"], readiness: "active", delivery: "embedded",
-    courses: [activeStarter("business-customer-evidence", "Customer Need Evidence", "Separate a customer observation from an unsupported business assumption.", ["evidence_reading", "scenario"])],
+    id: "business-foundations", revision: "business-starter-v2", title: "Business Foundations", faculty: "Business and Entrepreneurship", description: "A local starter pack for customer evidence, clear decision-making, and entrepreneurship thinking.", audience: ["business"], readiness: "active", delivery: "embedded",
+    courses: [activeStarter("business-customer-evidence", "Customer Need Evidence", "Separate a customer observation from an unsupported business assumption.", ["evidence_reading", "scenario"]), activeStarter("business-break-even-basics", "Simple Break-even Count", "Work through a fixed-cost and contribution example.", ["worked_calculation"])],
   },
   {
-    id: "engineering-foundations", revision: "engineering-starter-v1", title: "Engineering Foundations", faculty: "Engineering and Technology", description: "A local starter pack for constraints, structured design thinking, and clear technical communication.", audience: ["engineering"], readiness: "active", delivery: "embedded",
-    courses: [activeStarter("engineering-design-constraints", "Design Constraints", "Plan a design response around requirements, limits, and evidence to gather.", ["writing_planner", "logic_trace"])],
+    id: "engineering-foundations", revision: "engineering-starter-v2", title: "Engineering Foundations", faculty: "Engineering and Technology", description: "A local starter pack for constraints, structured design thinking, and clear technical communication.", audience: ["engineering"], readiness: "active", delivery: "embedded",
+    courses: [activeStarter("engineering-design-constraints", "Design Constraints", "Plan a design response around requirements, limits, and evidence to gather.", ["writing_planner"]), activeStarter("engineering-constraint-order", "Constraint Order", "Trace the first stated design constraint before comparing preferences.", ["logic_trace"])],
   },
   {
-    id: "natural-sciences-foundations", revision: "science-starter-v1", title: "Natural Sciences Foundations", faculty: "Natural Sciences and Mathematics", description: "A local starter pack for careful observation, explanation, and evidence-based science learning.", audience: ["natural_sciences"], readiness: "active", delivery: "embedded",
-    courses: [activeStarter("science-observation-evidence", "Observation and Explanation", "Distinguish an observation from an explanation and identify the next useful evidence.", ["evidence_reading", "recall"])],
+    id: "natural-sciences-foundations", revision: "science-starter-v2", title: "Natural Sciences Foundations", faculty: "Natural Sciences and Mathematics", description: "A local starter pack for careful observation, explanation, and evidence-based science learning.", audience: ["natural_sciences"], readiness: "active", delivery: "embedded",
+    courses: [activeStarter("science-observation-evidence", "Observation and Explanation", "Distinguish an observation from an explanation and identify the next useful evidence.", ["evidence_reading", "recall"]), activeStarter("science-mean-observation", "Simple Mean", "Calculate a mean from recorded observation values.", ["worked_calculation"])],
   },
   {
-    id: "education-foundations", revision: "education-starter-v1", title: "Education Foundations", faculty: "Education", description: "A local starter pack for observable learning goals, inclusive planning, and reflective teaching practice.", audience: ["education"], readiness: "active", delivery: "embedded",
-    courses: [activeStarter("education-learning-objectives", "Observable Learning Objectives", "Turn a broad learning aim into a clear, observable learner objective.", ["writing_planner", "evidence_reading"])],
+    id: "education-foundations", revision: "education-starter-v2", title: "Education Foundations", faculty: "Education", description: "A local starter pack for observable learning goals, inclusive planning, and reflective teaching practice.", audience: ["education"], readiness: "active", delivery: "embedded",
+    courses: [activeStarter("education-learning-objectives", "Observable Learning Objectives", "Turn a broad learning aim into a clear, observable learner objective.", ["writing_planner", "evidence_reading"]), activeStarter("education-check-for-understanding", "Check for Understanding", "Trace the learner evidence that matches an observable learning goal.", ["logic_trace"])],
   },
   {
-    id: "social-sciences-foundations", revision: "social-sciences-starter-v1", title: "Social Sciences Foundations", faculty: "Social Sciences and Humanities", description: "A local starter pack for claims, evidence, respectful interpretation, and research thinking.", audience: ["social_sciences"], readiness: "active", delivery: "embedded",
-    courses: [activeStarter("social-claims-evidence", "Claims and Supporting Evidence", "Identify the difference between a claim, an observation, and supporting evidence.", ["evidence_reading", "writing_planner"])],
+    id: "social-sciences-foundations", revision: "social-sciences-starter-v2", title: "Social Sciences Foundations", faculty: "Social Sciences and Humanities", description: "A local starter pack for claims, evidence, respectful interpretation, and research thinking.", audience: ["social_sciences"], readiness: "active", delivery: "embedded",
+    courses: [activeStarter("social-claims-evidence", "Claims and Supporting Evidence", "Identify the difference between a claim, an observation, and supporting evidence.", ["evidence_reading", "writing_planner"]), activeStarter("social-response-count", "Response Count", "Calculate and describe a small survey response percentage.", ["worked_calculation"])],
   },
 ];
 

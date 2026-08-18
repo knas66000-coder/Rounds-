@@ -22,7 +22,35 @@ export type WritingPlannerActivity = {
   prompts: { id: string; label: string; helper: string }[];
 };
 
-export type StarterCourseActivity = EvidenceReadingActivity | WritingPlannerActivity;
+export type CalculationActivity = {
+  kind: "worked_calculation";
+  packId: string;
+  courseId: string;
+  title: string;
+  eyebrow: string;
+  scenario: string;
+  prompt: string;
+  expectedAnswer: number;
+  unit?: string;
+  tolerance?: number;
+  explanation: string;
+  safetyNote?: string;
+};
+
+export type LogicTraceActivity = {
+  kind: "logic_trace";
+  packId: string;
+  courseId: string;
+  title: string;
+  eyebrow: string;
+  scenario: string;
+  prompt: string;
+  options: string[];
+  correctOption: string;
+  explanation: string;
+};
+
+export type StarterCourseActivity = EvidenceReadingActivity | WritingPlannerActivity | CalculationActivity | LogicTraceActivity;
 
 export const STARTER_COURSE_ACTIVITIES: StarterCourseActivity[] = [
   {
@@ -76,6 +104,34 @@ export const STARTER_COURSE_ACTIVITIES: StarterCourseActivity[] = [
     kind: "evidence_reading", packId: "social-sciences-foundations", courseId: "social-claims-evidence", title: "Match a claim to evidence", eyebrow: "SOCIAL SCIENCES STARTER", passageTitle: "A study group conversation",
     passage: "After speaking with two classmates, a learner says, “Students in this program do not have time to study.” One classmate works evenings and one commutes a long distance. The learner has not asked other students or examined course schedules, work patterns, or available support.",
     prompt: "Which response uses the evidence most responsibly?", options: ["The two conversations establish what every student experiences.", "The conversations describe two experiences and suggest a question for broader, respectful investigation.", "The learner should infer the reason for every student’s limited time.", "The learner should ignore the conversations because personal experience never matters."], correctOption: "The conversations describe two experiences and suggest a question for broader, respectful investigation.", explanation: "Individual accounts can be meaningful starting points, but they do not automatically establish a conclusion about an entire program.",
+  },
+  {
+    kind: "worked_calculation", packId: "university-foundation-year", courseId: "quantitative-literacy", title: "Find a survey response rate", eyebrow: "QUANTITATIVE LITERACY STARTER",
+    scenario: "A student society invites 30 members to complete a short planning survey. Twelve members respond.", prompt: "What percentage of invited members responded?", expectedAnswer: 40, unit: "%", tolerance: 0.01, explanation: "Divide responses by invitations, then multiply by 100: 12 ÷ 30 × 100 = 40%. This describes this survey only; it does not prove the views of every student.",
+  },
+  {
+    kind: "logic_trace", packId: "computing-foundations", courseId: "computing-logic-trace", title: "Trace a sign-in check", eyebrow: "COMPUTING STARTER",
+    scenario: "A sign-in form first checks whether both the email and password fields have text. If either field is blank, it shows “Complete both fields.” Only after both fields have text does it send a sign-in request.", prompt: "What happens when the email field is blank and the password field has text?", options: ["The form sends a sign-in request.", "The form shows “Complete both fields.”", "The form resets the password automatically.", "The form assumes the email is correct."], correctOption: "The form shows “Complete both fields.”", explanation: "The first rule requires both fields to contain text. With one blank field, the form stops at the validation message rather than sending a request.",
+  },
+  {
+    kind: "worked_calculation", packId: "business-foundations", courseId: "business-break-even-basics", title: "Count a simple break-even point", eyebrow: "BUSINESS STARTER",
+    scenario: "A student project has fixed event costs of 120 units. Each ticket contributes 10 units after its direct event cost.", prompt: "How many tickets are needed to cover the fixed cost in this simplified example?", expectedAnswer: 12, unit: " tickets", tolerance: 0, explanation: "Divide fixed cost by contribution per ticket: 120 ÷ 10 = 12 tickets. This is a learning example, not financial or investment advice.", safetyNote: "For learning only; real prices and costs need fuller review.",
+  },
+  {
+    kind: "logic_trace", packId: "engineering-foundations", courseId: "engineering-constraint-order", title: "Check a design constraint first", eyebrow: "ENGINEERING STARTER",
+    scenario: "A design brief says a proposed study-area fixture must fit within a 2-metre wall section before the group compares colors or finishes. Proposal A needs 2.4 metres. Proposal B needs 1.8 metres.", prompt: "Which proposal can move to the next design comparison?", options: ["Proposal A, because color can be chosen later.", "Proposal B, because it satisfies the stated space constraint.", "Both proposals, because every design idea should be built first.", "Neither proposal, because no other information matters."], correctOption: "Proposal B, because it satisfies the stated space constraint.", explanation: "The stated fit constraint is checked before secondary preferences. Proposal B fits the 2-metre section, while Proposal A does not.",
+  },
+  {
+    kind: "worked_calculation", packId: "natural-sciences-foundations", courseId: "science-mean-observation", title: "Calculate a simple mean", eyebrow: "NATURAL SCIENCES STARTER",
+    scenario: "A learner records three classroom thermometer readings: 14, 16, and 18 degrees. The activity is only about calculating the mean of the recorded values.", prompt: "What is the mean reading?", expectedAnswer: 16, unit: " degrees", tolerance: 0, explanation: "Add the readings, then divide by the number of readings: (14 + 16 + 18) ÷ 3 = 16. A mean summarizes recorded values; it does not explain their cause.",
+  },
+  {
+    kind: "logic_trace", packId: "education-foundations", courseId: "education-check-for-understanding", title: "Use evidence of learning", eyebrow: "EDUCATION STARTER",
+    scenario: "A tutor wants to check whether learners can identify a reliable source. The planned activity asks each learner to choose one source and state one reason it appears reliable. The tutor will then review the stated reason.", prompt: "What evidence is the tutor using to check learning?", options: ["Whether each learner can choose a source and explain one reliability reason.", "Whether the tutor spoke for the entire lesson.", "Whether all learners use the same pen color.", "Whether the room is silent for the whole activity."], correctOption: "Whether each learner can choose a source and explain one reliability reason.", explanation: "The learner action and explanation are observable evidence connected to the stated learning goal.",
+  },
+  {
+    kind: "worked_calculation", packId: "social-sciences-foundations", courseId: "social-response-count", title: "Describe a response count", eyebrow: "SOCIAL SCIENCES STARTER",
+    scenario: "In a small voluntary discussion poll, 8 of 20 invited students reply. The activity asks only for a percentage description of this response count.", prompt: "What percentage of invited students replied?", expectedAnswer: 40, unit: "%", tolerance: 0.01, explanation: "Divide replies by invitations, then multiply by 100: 8 ÷ 20 × 100 = 40%. The percentage describes the poll response count, not the beliefs of all students.",
   },
 ];
 

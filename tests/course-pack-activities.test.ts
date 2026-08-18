@@ -16,4 +16,11 @@ describe("Rounds starter course activities", () => {
   it("keeps starter content within its declared academic boundary", () => {
     expect(STARTER_COURSE_ACTIVITIES.every((activity) => !/NCLEX|diagnos|medication|patient/i.test(JSON.stringify(activity)))).toBe(true);
   });
+
+  it("gives every active non-Nursing pack more than one reviewed activity while adding calculation or logic practice where appropriate", () => {
+    const counts = STARTER_COURSE_ACTIVITIES.reduce<Record<string, number>>((result, activity) => ({ ...result, [activity.packId]: (result[activity.packId] ?? 0) + 1 }), {});
+    expect(Object.values(counts).every((count) => count >= 2)).toBe(true);
+    expect(STARTER_COURSE_ACTIVITIES.some((activity) => activity.kind === "worked_calculation")).toBe(true);
+    expect(STARTER_COURSE_ACTIVITIES.some((activity) => activity.kind === "logic_trace")).toBe(true);
+  });
 });

@@ -200,3 +200,9 @@
 - [x] Apply equal pack controls to every program home and library while retaining subject-specific activities
 - [x] Validate equal eligibility, local progress, and subject-separation safeguards across every program
 - [x] Checkpoint and deliver the equal-treatment Rounds course-pack release
+- [x] Define calculation and logic-trace activity contracts, answer rules, and subject-safety boundaries
+- [x] Build deterministic calculation checking and logic-trace feedback utilities with tests
+- [x] Add reusable native calculation and logic-trace players to the shared learning-round interface
+- [x] Extend active course packs with reviewed subject-specific calculation and logic-trace activities
+- [x] Validate no-repeat rounds, feedback correctness, subject separation, and native build quality
+- [x] Checkpoint and deliver the expanded shared learning-engine release
