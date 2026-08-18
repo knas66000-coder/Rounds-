@@ -91,13 +91,13 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-export async function createRoundsAccount(input: { name: string; email: string; passwordHash: string }) {
+export async function createRoundsAccount(input: { name: string; email: string; passwordHash: string; role?: "user" | "admin" }) {
   const db = await getDb();
   if (!db) throw new Error("Account storage is temporarily unavailable.");
   const existing = await db.select({ id: roundsAccounts.id }).from(roundsAccounts).where(eq(roundsAccounts.email, input.email)).limit(1);
   if (existing.length) return { duplicate: true as const };
   const openId = `rounds:${crypto.randomUUID()}`;
-  await db.insert(users).values({ openId, name: input.name, email: input.email, loginMethod: "rounds", lastSignedIn: new Date() });
+  await db.insert(users).values({ openId, name: input.name, email: input.email, loginMethod: "rounds", role: input.role ?? "user", lastSignedIn: new Date() });
   const user = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
   const userId = user[0]?.id;
   if (!userId) throw new Error("The new Rounds account could not be initialized.");
@@ -135,6 +135,36 @@ export async function markRoundsUserSignedIn(userId: number) {
   const db = await getDb();
   if (!db) return;
   await db.update(users).set({ lastSignedIn: new Date() }).where(eq(users.id, userId));
+}
+
+export async function promoteRoundsUserToAdmin(userId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Account storage is temporarily unavailable.");
+  await db.update(users).set({ role: "admin", lastSignedIn: new Date() }).where(eq(users.id, userId));
+}
+
+export async function getOwnerControlOverview() {
+  const db = await getDb();
+  if (!db) throw new Error("Platform data is temporarily unavailable.");
+  const [learnerRows, profiles, materials, openReports, recentLearners] = await Promise.all([
+    db.select({ id: users.id }).from(users).where(eq(users.role, "user")),
+    db.select({ program: academicProfiles.program }).from(academicProfiles),
+    db.select({ id: studyMaterials.id }).from(studyMaterials),
+    db.select({ id: communityReports.id, targetType: communityReports.targetType, targetId: communityReports.targetId, reason: communityReports.reason, createdAt: communityReports.createdAt }).from(communityReports).where(eq(communityReports.status, "open")).orderBy(desc(communityReports.createdAt)).limit(30),
+    db.select({ id: users.id, name: users.name, email: users.email, createdAt: users.createdAt, lastSignedIn: users.lastSignedIn, institutionName: academicProfiles.institutionName, program: academicProfiles.program }).from(users).leftJoin(academicProfiles, eq(users.id, academicProfiles.userId)).where(eq(users.role, "user")).orderBy(desc(users.createdAt)).limit(30),
+  ]);
+  const programDistribution = profiles.reduce<Record<string, number>>((totals, profile) => {
+    totals[profile.program] = (totals[profile.program] ?? 0) + 1;
+    return totals;
+  }, {});
+  return { metrics: { learners: learnerRows.length, academicProfiles: profiles.length, studyMaterials: materials.length, openReports: openReports.length }, programDistribution, recentLearners, openReports };
+}
+
+export async function resolveCommunityReportAsOwner(reportId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Community safety data is temporarily unavailable.");
+  const result = await db.update(communityReports).set({ status: "resolved" }).where(and(eq(communityReports.id, reportId), eq(communityReports.status, "open")));
+  return result[0].affectedRows > 0;
 }
 
 /** Returns only learner-owned records suitable for a private download. Credentials, sessions, raw PDFs, and storage keys are intentionally excluded. */

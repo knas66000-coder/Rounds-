@@ -14,6 +14,8 @@ import { academicProfileProblem, isAcademicProgram } from "../shared/academic-pr
 import { normalizeResearchUpdate, researchTopicProblem, TRUSTED_RESEARCH_DOMAINS } from "../shared/research-updates";
 import { accountProblem, normalizeRoundsEmail, signInProblem } from "../shared/rounds-auth";
 import { hashRoundsPassword, hashRoundsSessionToken, newRoundsSession, verifyRoundsPassword } from "./rounds-auth";
+import { requireRoundsOwner } from "./owner-control";
+import { isRoundsOwnerEmail, OWNER_CONTROL_PACKS } from "../shared/owner-control";
 
 const MAX_AUDIO_BYTES = 16 * 1024 * 1024;
 const MAX_STUDY_MATERIAL_BYTES = 4 * 1024 * 1024;
@@ -51,7 +53,8 @@ export const appRouter = router({
     register: publicProcedure.input(z.object({ name: z.string(), email: z.string(), password: z.string() })).mutation(async ({ input }) => {
       const problem = accountProblem(input);
       if (problem) throw new TRPCError({ code: "BAD_REQUEST", message: problem });
-      const account = await db.createRoundsAccount({ name: input.name.trim().replace(/\s+/g, " "), email: normalizeRoundsEmail(input.email), passwordHash: await hashRoundsPassword(input.password) });
+      const email = normalizeRoundsEmail(input.email);
+      const account = await db.createRoundsAccount({ name: input.name.trim().replace(/\s+/g, " "), email, passwordHash: await hashRoundsPassword(input.password), role: isRoundsOwnerEmail(email, process.env.ROUNDS_OWNER_EMAIL) ? "admin" : "user" });
       if (account.duplicate || !account.user) throw new TRPCError({ code: "CONFLICT", message: "An account with this email already exists. Sign in instead." });
       const session = newRoundsSession();
       await db.createRoundsSession(account.user.id, session.tokenHash, session.expiresAt);
@@ -62,6 +65,7 @@ export const appRouter = router({
       if (problem) throw new TRPCError({ code: "BAD_REQUEST", message: problem });
       const account = await db.getRoundsAccountByEmail(normalizeRoundsEmail(input.email));
       if (!account || !(await verifyRoundsPassword(input.password, account.passwordHash))) throw new TRPCError({ code: "UNAUTHORIZED", message: "Email or password is not correct." });
+      if (isRoundsOwnerEmail(account.user.email, process.env.ROUNDS_OWNER_EMAIL) && account.user.role !== "admin") await db.promoteRoundsUserToAdmin(account.user.id);
       await db.markRoundsUserSignedIn(account.user.id);
       const session = newRoundsSession();
       await db.createRoundsSession(account.user.id, session.tokenHash, session.expiresAt);
@@ -76,6 +80,19 @@ export const appRouter = router({
 
   roundsAccount: router({
     exportData: protectedProcedure.query(({ ctx }) => db.getRoundsAccountExport(ctx.user.id)),
+  }),
+
+  ownerControl: router({
+    overview: protectedProcedure.query(async ({ ctx }) => {
+      requireRoundsOwner(ctx.user);
+      return { ...(await db.getOwnerControlOverview()), packs: OWNER_CONTROL_PACKS };
+    }),
+    resolveReport: protectedProcedure.input(z.object({ reportId: z.number().int().positive() })).mutation(async ({ ctx, input }) => {
+      requireRoundsOwner(ctx.user);
+      const resolved = await db.resolveCommunityReportAsOwner(input.reportId);
+      if (!resolved) throw new TRPCError({ code: "NOT_FOUND", message: "This report is already resolved or unavailable." });
+      return { success: true };
+    }),
   }),
 
   voice: router({

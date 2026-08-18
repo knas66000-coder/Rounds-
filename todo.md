@@ -147,3 +147,8 @@
 - [x] Add an optional biometric app-unlock preference with secure device fallback
 - [x] Add deterministic tests for export privacy and biometric preference rules
 - [x] Validate and checkpoint the Rounds account-export and biometric-unlock release
+- [x] Define the separate Rounds Owner Control Center roles, scope, and data-access boundaries
+- [x] Create the separate control-center foundation and secure owner access flow
+- [x] Add platform overview, learner management, course-pack controls, and safety review surfaces
+- [x] Validate administrative permissions, privacy controls, and operational workflows
+- [x] Checkpoint and deliver the separate Rounds Owner Control Center
