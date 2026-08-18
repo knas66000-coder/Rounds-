@@ -179,3 +179,8 @@
 - [x] Design the first university program catalog and staged rollout without adding unverified course content
 - [x] Document learner flows, owner controls, and content-ingestion requirements for Rounds course packs
 - [x] Validate and checkpoint the Rounds course-pack design release
+- [x] Define reusable local course-pack models, states, and subject-appropriate activity contracts
+- [x] Build the offline local pack registry and install-state manager with deterministic tests
+- [x] Create a program-neutral course-pack home and Foundation Year catalog interface
+- [x] Connect pack state to academic routing and validate install, resume, and subject-separation behavior
+- [x] Checkpoint and deliver the first shared Rounds course-pack foundation release
