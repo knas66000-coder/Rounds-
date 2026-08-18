@@ -110,6 +110,17 @@ export const studyMaterials = mysqlTable("study_materials", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+/** Extracted, privacy-scoped text sections used only by the owner's Rounds PDF Reader. */
+export const studyMaterialSections = mysqlTable("study_material_sections", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  materialId: int("materialId").notNull(),
+  position: int("position").notNull(),
+  heading: varchar("heading", { length: 180 }).notNull(),
+  content: text("content").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => [uniqueIndex("study_material_sections_position").on(table.materialId, table.position)]);
+
 export const academicProfiles = mysqlTable("academic_profiles", {
   id: int("id").autoincrement().primaryKey(),
   userId: int("userId").notNull(),
@@ -123,6 +134,7 @@ export type CommunityPost = typeof communityPosts.$inferSelect;
 export type CommunityReply = typeof communityReplies.$inferSelect;
 export type CommunityNotification = typeof communityNotifications.$inferSelect;
 export type StudyMaterial = typeof studyMaterials.$inferSelect;
+export type StudyMaterialSection = typeof studyMaterialSections.$inferSelect;
 export type AcademicProfile = typeof academicProfiles.$inferSelect;
 export type RoundsAccount = typeof roundsAccounts.$inferSelect;
 export type RoundsSession = typeof roundsSessions.$inferSelect;

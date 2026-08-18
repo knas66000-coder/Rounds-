@@ -16,6 +16,7 @@ import { accountProblem, normalizeRoundsEmail, signInProblem } from "../shared/r
 import { hashRoundsPassword, hashRoundsSessionToken, newRoundsSession, verifyRoundsPassword } from "./rounds-auth";
 import { requireRoundsOwner } from "./owner-control";
 import { isRoundsOwnerEmail, OWNER_CONTROL_PACKS } from "../shared/owner-control";
+import { extractPdfReadingSections } from "./pdf-reader";
 
 const MAX_AUDIO_BYTES = 16 * 1024 * 1024;
 const MAX_STUDY_MATERIAL_BYTES = 4 * 1024 * 1024;
@@ -139,12 +140,37 @@ export const appRouter = router({
       const filename = `rounds-study-materials/${ctx.user.id}/${crypto.randomUUID()}.pdf`;
       const stored = await storagePut(filename, content, input.mimeType);
       const materialId = await db.createStudyMaterial(ctx.user.id, { title: input.title, storageKey: stored.key, mimeType: input.mimeType, byteSize: content.length });
-      return { id: materialId, title: input.title, mimeType: input.mimeType, byteSize: content.length };
+      try {
+        const sections = await extractPdfReadingSections(content);
+        await db.replaceStudyMaterialSections(ctx.user.id, materialId, sections);
+        return { id: materialId, title: input.title, mimeType: input.mimeType, byteSize: content.length, readerStatus: sections.length ? "ready" as const : "no_text" as const, sectionCount: sections.length };
+      } catch {
+        return { id: materialId, title: input.title, mimeType: input.mimeType, byteSize: content.length, readerStatus: "unavailable" as const, sectionCount: 0 };
+      }
     }),
     delete: protectedProcedure.input(z.object({ materialId: z.number().int().positive() })).mutation(async ({ ctx, input }) => {
       const deleted = await db.deleteOwnedStudyMaterial(ctx.user.id, input.materialId);
       if (!deleted) throw new TRPCError({ code: "NOT_FOUND", message: "This private study material is no longer available." });
       return { success: true };
+    }),
+    reader: protectedProcedure.input(z.object({ materialId: z.number().int().positive() })).query(async ({ ctx, input }) => {
+      const reader = await db.getOwnedStudyMaterialReader(ctx.user.id, input.materialId);
+      if (!reader) throw new TRPCError({ code: "NOT_FOUND", message: "This private study material is no longer available." });
+      return reader;
+    }),
+    reindexReader: protectedProcedure.input(z.object({ materialId: z.number().int().positive() })).mutation(async ({ ctx, input }) => {
+      const material = await db.getOwnedStudyMaterial(ctx.user.id, input.materialId);
+      if (!material) throw new TRPCError({ code: "NOT_FOUND", message: "This private study material is no longer available." });
+      const response = await fetch(await storageGetSignedUrl(material.storageKey));
+      if (!response.ok) throw new TRPCError({ code: "BAD_REQUEST", message: "Your private PDF could not be prepared for reading. Try again while connected." });
+      const sections = await extractPdfReadingSections(Buffer.from(await response.arrayBuffer()));
+      await db.replaceStudyMaterialSections(ctx.user.id, material.id, sections);
+      return { sectionCount: sections.length, status: sections.length ? "ready" as const : "no_text" as const };
+    }),
+    openOriginal: protectedProcedure.input(z.object({ materialId: z.number().int().positive() })).query(async ({ ctx, input }) => {
+      const material = await db.getOwnedStudyMaterial(ctx.user.id, input.materialId);
+      if (!material) throw new TRPCError({ code: "NOT_FOUND", message: "This private study material is no longer available." });
+      return { url: await storageGetSignedUrl(material.storageKey), title: material.title };
     }),
     groundOralFeedback: protectedProcedure.input(z.object({ materialId: z.number().int().positive(), question: z.string().min(1).max(2000), learnerAnswer: z.string().min(1).max(2000) })).mutation(async ({ ctx, input }) => {
       const material = await db.getOwnedStudyMaterial(ctx.user.id, input.materialId);

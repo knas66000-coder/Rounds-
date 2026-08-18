@@ -152,3 +152,10 @@
 - [x] Add platform overview, learner management, course-pack controls, and safety review surfaces
 - [x] Validate administrative permissions, privacy controls, and operational workflows
 - [x] Checkpoint and deliver the separate Rounds Owner Control Center
+- [x] Define private PDF Reader parsing limits, section indexing, topic-search behavior, and offline boundaries
+- [x] Add protected PDF extraction, private reading-section storage, and topic-search services
+- [x] Build a private learner PDF Reader with search, passage jump, and last-reading-position persistence
+- [x] Add PDF Reader entry points from Study Materials and Oral Exam source references
+- [x] Add deterministic tests for PDF sectioning, topic search, and ownership boundaries
+- [x] Validate and checkpoint the Rounds PDF Reader release
+- [x] Add reader-quality patterns: resume position, progress indicator, saved passages, focused controls, and offline cache behavior

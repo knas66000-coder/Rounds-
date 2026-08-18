@@ -1,6 +1,6 @@
 import { and, desc, eq, gt, inArray } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { academicProfiles, communityNotificationPreferences, communityNotifications, communityPosts, communityReactions, communityReplies, communityReports, InsertUser, roundsAccounts, roundsSessions, studyMaterials, users } from "../drizzle/schema";
+import { academicProfiles, communityNotificationPreferences, communityNotifications, communityPosts, communityReactions, communityReplies, communityReports, InsertUser, roundsAccounts, roundsSessions, studyMaterialSections, studyMaterials, users } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 import { shouldCreateCommunityNotification, type CommunityNotificationType, type NotificationPreference } from "../shared/notification-rules";
 import { canUseStudyMaterial } from "../shared/study-material-permissions";
@@ -355,6 +355,13 @@ export async function createStudyMaterial(userId: number, input: { title: string
   return Number(result[0].insertId);
 }
 
+export async function replaceStudyMaterialSections(userId: number, materialId: number, sections: Array<{ position: number; heading: string; content: string }>) {
+  const db = await getDb();
+  if (!db) throw new Error("Study material storage is temporarily unavailable.");
+  await db.delete(studyMaterialSections).where(and(eq(studyMaterialSections.userId, userId), eq(studyMaterialSections.materialId, materialId)));
+  if (sections.length) await db.insert(studyMaterialSections).values(sections.map((section) => ({ ...section, userId, materialId })));
+}
+
 export async function getOwnedStudyMaterial(userId: number, materialId: number) {
   const db = await getDb();
   if (!db) throw new Error("Study material storage is temporarily unavailable.");
@@ -362,9 +369,19 @@ export async function getOwnedStudyMaterial(userId: number, materialId: number) 
   return material[0] && canUseStudyMaterial(material[0].userId, userId) ? material[0] : null;
 }
 
+export async function getOwnedStudyMaterialReader(userId: number, materialId: number) {
+  const db = await getDb();
+  if (!db) throw new Error("Study material storage is temporarily unavailable.");
+  const material = await getOwnedStudyMaterial(userId, materialId);
+  if (!material) return null;
+  const sections = await db.select({ position: studyMaterialSections.position, heading: studyMaterialSections.heading, content: studyMaterialSections.content }).from(studyMaterialSections).where(and(eq(studyMaterialSections.userId, userId), eq(studyMaterialSections.materialId, materialId))).orderBy(studyMaterialSections.position);
+  return { material: { id: material.id, title: material.title, mimeType: material.mimeType, byteSize: material.byteSize, createdAt: material.createdAt }, sections };
+}
+
 export async function deleteOwnedStudyMaterial(userId: number, materialId: number) {
   const db = await getDb();
   if (!db) throw new Error("Study material storage is temporarily unavailable.");
+  await db.delete(studyMaterialSections).where(and(eq(studyMaterialSections.userId, userId), eq(studyMaterialSections.materialId, materialId)));
   const result = await db.delete(studyMaterials).where(and(eq(studyMaterials.id, materialId), eq(studyMaterials.userId, userId)));
   return result[0].affectedRows > 0;
 }
