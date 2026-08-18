@@ -164,3 +164,8 @@
 - [x] Generate 3–5 private learner-material practice questions from a selected PDF section with section citations
 - [x] Validate deployment startup, native narration behavior, source boundaries, and builds for PDF listening and practice
 - [x] Checkpoint and deliver the PDF listening and learner-material practice release
+- [x] Define the Rounds conversational voice tutor flow, response boundaries, and privacy safeguards
+- [x] Build a protected voice-tutor response service with constrained study support and safe fallback behavior
+- [x] Create a native voice-tutor screen with recording, transcript review, spoken replies, and stop controls
+- [x] Link the voice tutor from the active Nursing study experience and add deterministic safeguards tests
+- [x] Validate and checkpoint the Rounds conversational voice tutor release

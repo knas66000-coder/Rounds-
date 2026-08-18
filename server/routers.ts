@@ -18,6 +18,7 @@ import { requireRoundsOwner } from "./owner-control";
 import { isRoundsOwnerEmail, OWNER_CONTROL_PACKS } from "../shared/owner-control";
 import { extractPdfReadingSections } from "./pdf-reader";
 import { buildPdfPracticePrompt, normalizePdfPractice } from "../shared/pdf-practice";
+import { buildVoiceTutorSystemPrompt, normalizeVoiceTutorHistory, normalizeVoiceTutorResponse, voiceTutorSafetyRedirect, voiceTutorSafetyResponse, voiceTutorUnavailableResponse, type VoiceTutorTurn } from "../shared/voice-tutor";
 
 const MAX_AUDIO_BYTES = 16 * 1024 * 1024;
 const MAX_STUDY_MATERIAL_BYTES = 4 * 1024 * 1024;
@@ -131,6 +132,33 @@ export const appRouter = router({
 
         return { text: result.text.trim(), language: result.language ?? "en" };
       }),
+  }),
+
+  voiceTutor: router({
+    respond: protectedProcedure.input(z.object({
+      message: z.string().trim().min(2).max(900),
+      history: z.array(z.object({ role: z.enum(["user", "assistant"]), content: z.string().trim().min(1).max(700) })).max(6),
+    })).mutation(async ({ input }) => {
+      if (voiceTutorSafetyRedirect(input.message)) return voiceTutorSafetyResponse();
+      const history = normalizeVoiceTutorHistory(input.history as VoiceTutorTurn[]);
+      try {
+        const response = await invokeLLM({
+          model: "gpt-5-mini",
+          messages: [
+            { role: "system", content: buildVoiceTutorSystemPrompt() },
+            ...history.map((turn) => ({ role: turn.role, content: turn.content })),
+            { role: "user", content: input.message.trim() },
+          ],
+          response_format: { type: "json_object" },
+          maxCompletionTokens: 700,
+        });
+        const content = response.choices[0]?.message?.content;
+        const normalized = normalizeVoiceTutorResponse(JSON.parse(typeof content === "string" ? content : "{}"));
+        return normalized ?? voiceTutorUnavailableResponse();
+      } catch {
+        return voiceTutorUnavailableResponse();
+      }
+    }),
   }),
 
   studyMaterials: router({
