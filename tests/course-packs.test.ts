@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { courseActivityLabel, coursePackReadinessLabel, coursePacksForProgram } from "../shared/course-packs";
+import { courseActivityLabel, coursePackReadinessLabel, coursePacksForProgram, primaryCoursePackForProgram } from "../shared/course-packs";
 
 describe("Rounds course-pack catalog", () => {
   it("keeps the shared Foundation Year catalog available across university programs without leaking Nursing content", () => {
@@ -24,5 +24,12 @@ describe("Rounds course-pack catalog", () => {
     const specialistsHaveOwnActiveStarter = specialistPrograms.every((program) => coursePacksForProgram(program).some((pack) => pack.audience !== "all_university" && pack.readiness === "active"));
     expect(specialistsHaveOwnActiveStarter).toBe(true);
     expect(coursePacksForProgram("foundation_year").some((pack) => pack.id === "university-foundation-year" && pack.readiness === "active")).toBe(true);
+  });
+
+  it("gives every program a primary learning round without reusing the Nursing reference pack", () => {
+    expect(primaryCoursePackForProgram("nursing")?.id).toBe("nursing-practice");
+    expect(primaryCoursePackForProgram("computing")?.id).toBe("computing-foundations");
+    expect(primaryCoursePackForProgram("foundation_year")?.id).toBe("university-foundation-year");
+    expect(primaryCoursePackForProgram("social_sciences")?.id).toBe("social-sciences-foundations");
   });
 });

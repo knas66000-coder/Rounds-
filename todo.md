@@ -189,3 +189,14 @@
 - [x] Implement Foundation Year local download and reusable writing-planner and evidence-reading activity players
 - [x] Connect active packs and local progress to every program home and validate subject separation
 - [x] Checkpoint and deliver the all-program Rounds course-pack activation release
+- [x] Audit the Nursing learning baseline and map transferable capabilities to every active program
+- [x] Build a reusable subject-neutral learning-round engine with completion, bookmarking, and feedback contracts
+- [x] Expand each active non-Nursing pack with an equivalent structured learning round and local progress experience
+- [x] Standardize program-home controls, review access, and local learning continuity across all packs
+- [x] Validate parity, subject separation, and native build quality for the all-program baseline
+- [x] Checkpoint and deliver the all-program Rounds learning-baseline release
+- [x] Audit unequal pack labels, availability rules, and program-home flows across active programs
+- [x] Define and implement the common active-pack contract for access, progress, course states, and learner language
+- [x] Apply equal pack controls to every program home and library while retaining subject-specific activities
+- [x] Validate equal eligibility, local progress, and subject-separation safeguards across every program
+- [x] Checkpoint and deliver the equal-treatment Rounds course-pack release

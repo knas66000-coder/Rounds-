@@ -79,6 +79,11 @@ export function coursePackForId(packId: string): CoursePack | null {
   return COURSE_PACKS.find((pack) => pack.id === packId) ?? null;
 }
 
+export function primaryCoursePackForProgram(program: AcademicProgramId): CoursePack | null {
+  const packs = coursePacksForProgram(program);
+  return packs.find((pack) => pack.audience !== "all_university") ?? packs.find((pack) => pack.id === "university-foundation-year") ?? null;
+}
+
 export function coursePackReadinessLabel(readiness: CoursePackReadiness): string {
   if (readiness === "active") return "ACTIVE";
   if (readiness === "catalog") return "CATALOG PREVIEW";
