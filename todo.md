@@ -169,3 +169,8 @@
 - [x] Create a native voice-tutor screen with recording, transcript review, spoken replies, and stop controls
 - [x] Link the voice tutor from the active Nursing study experience and add deterministic safeguards tests
 - [x] Validate and checkpoint the Rounds conversational voice tutor release
+- [x] Define the no-cost on-device voice quality, language selection, pronunciation, and fallback strategy
+- [x] Add installed English-voice discovery, quality ranking, and clinical-term speech preparation
+- [x] Add voice selection, a listening preview, and saved local voice preferences in Settings
+- [x] Apply the selected local voice to Voice Tutor and existing spoken learning controls
+- [x] Validate and checkpoint the no-cost Rounds voice quality release

@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
@@ -8,12 +7,13 @@ import { RecordingPresets, requestRecordingPermissionsAsync, setAudioModeAsync, 
 import { ScreenContainer } from "@/components/screen-container";
 import { categories, questionBank, type Category, type Question } from "@/data/questionBank";
 import { useColors } from "@/hooks/use-colors";
+import { useRoundsVoice } from "@/hooks/use-rounds-voice";
 import { encodeRecordedAudio } from "@/lib/audio-encoding";
 import { haptic } from "@/lib/haptics";
 import { buildOralExamQueue, matchOralExamTopic, oralExamFollowUpPrompt, selectOralExamFollowUp } from "@/lib/oral-exam";
 import { evaluateAnswer, type Evaluation } from "@/lib/rounds";
 import { recordLearningOutcome } from "@/lib/adaptive-store";
-import { defaultVoicePreferences, parseVoicePreferences, prepareFeedbackSpeech, prepareQuestionSpeech, prepareRationaleSpeech, VOICE_PREFERENCES_KEY } from "@/lib/voice";
+import { prepareFeedbackSpeech, prepareQuestionSpeech, prepareRationaleSpeech } from "@/lib/voice";
 import { trpc } from "@/lib/trpc";
 
 type OralPhase = "setup" | "speaking" | "listening" | "transcribing" | "review" | "complete";
@@ -31,8 +31,6 @@ export default function OralExamScreen() {
   const [answerDraft, setAnswerDraft] = useState("");
   const [evaluation, setEvaluation] = useState<Evaluation | null>(null);
   const [followUp, setFollowUp] = useState(false);
-  const [speechRate, setSpeechRate] = useState(defaultVoicePreferences.rate);
-  const [spokenRationale, setSpokenRationale] = useState(defaultVoicePreferences.spokenRationale);
   const [notice, setNotice] = useState("Choose a topic, then begin a focused oral-practice round.");
   const [selectedMaterialId, setSelectedMaterialId] = useState<number | null>(null);
   const [groundedReference, setGroundedReference] = useState<GroundedReference | null>(null);
@@ -43,6 +41,8 @@ export default function OralExamScreen() {
   const transcribeMutation = trpc.voice.transcribe.useMutation();
   const materialsQuery = trpc.studyMaterials.list.useQuery();
   const groundingMutation = trpc.studyMaterials.groundOralFeedback.useMutation();
+  const { preferences, speechOptions } = useRoundsVoice();
+  const spokenRationale = preferences.spokenRationale;
   const question = queue[index];
   const recordingSeconds = Math.min(8, Math.max(0, Math.ceil((recorderState.durationMillis ?? 0) / 1000)));
 
@@ -51,11 +51,6 @@ export default function OralExamScreen() {
   }, [recorder]);
 
   useEffect(() => {
-    AsyncStorage.getItem(VOICE_PREFERENCES_KEY).then((value) => {
-      const preferences = parseVoicePreferences(value);
-      setSpeechRate(preferences.rate);
-      setSpokenRationale(preferences.spokenRationale);
-    });
     return () => {
       Speech.stop();
       if (recordingTimer.current) clearTimeout(recordingTimer.current);
@@ -92,11 +87,14 @@ export default function OralExamScreen() {
     if (!question) return;
     haptic.light();
     Speech.stop();
+    if (!speechOptions) {
+      setNotice("Choose an installed English voice in Settings before asking a question aloud. You can still record or type an answer.");
+      return;
+    }
     setPhase("speaking");
     setNotice("Reading the question. Recording will begin after the prompt.");
     Speech.speak(prepareQuestionSpeech(question.q), {
-      rate: speechRate,
-      language: "en-US",
+      ...speechOptions,
       onDone: () => void beginRecording("answer"),
       onError: () => { setPhase("setup"); setNotice("Speech could not start. You can record or type an answer."); },
     });
@@ -178,11 +176,10 @@ export default function OralExamScreen() {
       setQueue((current) => [...current.slice(0, index + 1), suggestedFollowUp, ...current.slice(index + 1).filter((item) => item.id !== suggestedFollowUp.id)]);
     }
     setNotice(suggestedFollowUp ? oralExamFollowUpPrompt(nextEvaluation.matched, question) : "Review the explanation, then continue when ready.");
-    Speech.speak(prepareFeedbackSpeech(nextEvaluation.feedback), {
-      rate: speechRate,
-      language: "en-US",
+    if (speechOptions) Speech.speak(prepareFeedbackSpeech(nextEvaluation.feedback), {
+      ...speechOptions,
       onDone: () => {
-        if (spokenRationale) Speech.speak(prepareRationaleSpeech(question.explanation, question.clinicalSignificance), { rate: speechRate, language: "en-US" });
+        if (spokenRationale) Speech.speak(prepareRationaleSpeech(question.explanation, question.clinicalSignificance), speechOptions);
       },
     });
   };
@@ -207,7 +204,7 @@ export default function OralExamScreen() {
   const replayRationale = () => {
     if (!question) return;
     Speech.stop();
-    Speech.speak(prepareRationaleSpeech(question.explanation, question.clinicalSignificance), { rate: speechRate, language: "en-US" });
+    if (speechOptions) Speech.speak(prepareRationaleSpeech(question.explanation, question.clinicalSignificance), speechOptions);
   };
 
   const hasRound = queue.length > 0 && phase !== "complete";

@@ -8,13 +8,14 @@ import { ScreenContainer } from "@/components/screen-container";
 import { categories, questionBank, type Category } from "@/data/questionBank";
 import { evaluateAnswer, shuffle, type Evaluation, type Verdict } from "@/lib/rounds";
 import { useColors } from "@/hooks/use-colors";
+import { useRoundsVoice } from "@/hooks/use-rounds-voice";
 import { encodeRecordedAudio } from "@/lib/audio-encoding";
 import { trpc } from "@/lib/trpc";
 import { ACTIVE_CATEGORY_KEY, hasAnotherQuestion, nextStepForVerdict, questionsForCategory } from "@/lib/session";
 import { haptic } from "@/lib/haptics";
 import { bookmarkIds, BOOKMARKS_KEY, parseBookmarks, toggleBookmark, type Bookmark } from "@/lib/bookmarks";
 import { recordLearningOutcome } from "@/lib/adaptive-store";
-import { defaultVoicePreferences, parseVoicePreferences, prepareFeedbackSpeech, prepareQuestionSpeech, prepareRationaleSpeech, VOICE_PREFERENCES_KEY } from "@/lib/voice";
+import { prepareFeedbackSpeech, prepareQuestionSpeech, prepareRationaleSpeech } from "@/lib/voice";
 
 const STORAGE_KEY = "rounds.session.v1";
 
@@ -33,8 +34,6 @@ export default function HomeScreen() {
   const [results, setResults] = useState<SavedResult[]>([]);
   const [answerDraft, setAnswerDraft] = useState("");
   const [voiceNotice, setVoiceNotice] = useState<string | null>(null);
-  const [speechRate, setSpeechRate] = useState(defaultVoicePreferences.rate);
-  const [spokenRationale, setSpokenRationale] = useState(defaultVoicePreferences.spokenRationale);
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
   const autoTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const recordingTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -43,6 +42,8 @@ export default function HomeScreen() {
   const recorderRef = useRef(recorder);
   const isRecordingRef = useRef(false);
   const transcribeMutation = trpc.voice.transcribe.useMutation();
+  const { preferences, speechOptions, reload: reloadRoundsVoice } = useRoundsVoice();
+  const spokenRationale = preferences.spokenRationale;
   const question = queue[index];
   const answered = results.length;
   const correct = results.filter((item) => item.verdict === "correct").length;
@@ -59,11 +60,6 @@ export default function HomeScreen() {
   useEffect(() => {
     AsyncStorage.getItem(STORAGE_KEY).then((value) => {
       if (value) setResults(JSON.parse(value) as SavedResult[]);
-    });
-    AsyncStorage.getItem(VOICE_PREFERENCES_KEY).then((value) => {
-      const preferences = parseVoicePreferences(value);
-      setSpeechRate(preferences.rate);
-      setSpokenRationale(preferences.spokenRationale);
     });
     return () => {
       Speech.stop();
@@ -82,12 +78,16 @@ export default function HomeScreen() {
   const speakQuestion = (beginRecording: boolean) => {
     haptic.light();
     Speech.stop();
+    if (!speechOptions) {
+      setPhase(evaluation ? "result" : "idle");
+      setVoiceNotice("Choose an installed English voice in Settings before listening. You can still type or record an answer.");
+      return;
+    }
     setPhase("asking");
     setVoiceNotice("Reading the question clearly. You can stop or replay at any time.");
     Speech.speak(prepareQuestionSpeech(question.q), {
-      rate: speechRate,
+      ...speechOptions,
       pitch: 1,
-      language: "en-US",
       onDone: () => {
         if (beginRecording) void startListening();
         else {
@@ -191,13 +191,10 @@ export default function HomeScreen() {
     setPhase("result");
     await saveResult(nextEvaluation.verdict);
     await recordLearningOutcome(question.id, nextEvaluation.verdict);
-    Speech.speak(prepareFeedbackSpeech(nextEvaluation.feedback), {
-      rate: speechRate,
-      language: "en-US",
+    if (speechOptions) Speech.speak(prepareFeedbackSpeech(nextEvaluation.feedback), {
+      ...speechOptions,
       onDone: () => {
-        if (spokenRationale) {
-          Speech.speak(prepareRationaleSpeech(question.explanation, question.clinicalSignificance), { rate: speechRate, language: "en-US" });
-        }
+        if (spokenRationale) Speech.speak(prepareRationaleSpeech(question.explanation, question.clinicalSignificance), speechOptions);
       },
     });
     if (autoMode) {
@@ -253,16 +250,9 @@ export default function HomeScreen() {
   }, []));
 
   useFocusEffect(useCallback(() => {
-    let mounted = true;
-    AsyncStorage.getItem(VOICE_PREFERENCES_KEY).then((value) => {
-      const preferences = parseVoicePreferences(value);
-      if (mounted) {
-        setSpeechRate(preferences.rate);
-        setSpokenRationale(preferences.spokenRationale);
-      }
-    });
-    return () => { mounted = false; };
-  }, []));
+    void reloadRoundsVoice();
+    return () => undefined;
+  }, [reloadRoundsVoice]));
 
   const toggleAutoMode = () => {
     const nextMode = !autoMode;
@@ -319,7 +309,8 @@ export default function HomeScreen() {
   const playRationale = () => {
     Speech.stop();
     haptic.light();
-    Speech.speak(prepareRationaleSpeech(question.explanation, question.clinicalSignificance), { rate: speechRate, language: "en-US" });
+    if (speechOptions) Speech.speak(prepareRationaleSpeech(question.explanation, question.clinicalSignificance), speechOptions);
+    else setVoiceNotice("Choose an installed English voice in Settings before replaying this rationale.");
   };
 
   const phaseLabel = phase === "asking" ? "Speaking question" : phase === "listening" ? "Listening for your answer" : phase === "transcribing" ? "Transcribing your answer" : phase === "result" ? "Answer reviewed" : phase === "complete" ? "Unique question round completed" : "Ready when you are";

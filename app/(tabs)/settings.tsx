@@ -7,9 +7,10 @@ import { useRouter } from "expo-router";
 
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
+import { useRoundsVoice } from "@/hooks/use-rounds-voice";
 import { useAuthSession } from "@/lib/auth-session";
 import { trpc } from "@/lib/trpc";
-import { clampSpeechRate, defaultVoicePreferences, parseVoicePreferences, VOICE_PREFERENCES_KEY } from "@/lib/voice";
+import { clampSpeechRate, defaultVoicePreferences, prepareLocalSpeech, VOICE_PREFERENCES_KEY } from "@/lib/voice";
 import { shareRoundsAccountExport } from "@/lib/account-export";
 import { BIOMETRIC_UNLOCK_KEY, parseBiometricUnlock } from "@/shared/account-privacy";
 
@@ -20,7 +21,9 @@ export default function SettingsScreen() {
   const [auto, setAuto] = useState(false);
   const [rate, setRate] = useState(defaultVoicePreferences.rate);
   const [spokenRationale, setSpokenRationale] = useState(defaultVoicePreferences.spokenRationale);
+  const [voiceIdentifier, setVoiceIdentifier] = useState<string | null>(defaultVoicePreferences.voiceIdentifier);
   const [biometricUnlock, setBiometricUnlock] = useState(false);
+  const { preferences, englishVoices, selectedVoice, reload: reloadVoices } = useRoundsVoice();
   const notificationPreferences = trpc.notifications.preferences.useQuery();
   const academicProfile = trpc.academicProfile.get.useQuery();
   const accountExport = trpc.roundsAccount.exportData.useQuery(undefined, { enabled: false });
@@ -28,19 +31,27 @@ export default function SettingsScreen() {
   const notificationSettings = notificationPreferences.data ?? { reactionAlerts: true, replyAlerts: true };
 
   useEffect(() => {
-    AsyncStorage.getItem(VOICE_PREFERENCES_KEY).then((value) => {
-      const preferences = parseVoicePreferences(value);
-      setRate(preferences.rate);
-      setSpokenRationale(preferences.spokenRationale);
-    });
     AsyncStorage.getItem(BIOMETRIC_UNLOCK_KEY).then((value) => setBiometricUnlock(parseBiometricUnlock(value)));
   }, []);
 
-  const saveVoicePreferences = (nextRate: number, nextSpokenRationale: boolean) => {
-    const preferences = { rate: clampSpeechRate(nextRate), spokenRationale: nextSpokenRationale };
+  useEffect(() => {
     setRate(preferences.rate);
     setSpokenRationale(preferences.spokenRationale);
-    void AsyncStorage.setItem(VOICE_PREFERENCES_KEY, JSON.stringify(preferences));
+    setVoiceIdentifier(preferences.voiceIdentifier);
+  }, [preferences]);
+
+  const saveVoicePreferences = (nextRate: number, nextSpokenRationale: boolean, nextVoiceIdentifier: string | null = voiceIdentifier) => {
+    const nextPreferences = { rate: clampSpeechRate(nextRate), spokenRationale: nextSpokenRationale, voiceIdentifier: nextVoiceIdentifier };
+    setRate(nextPreferences.rate);
+    setSpokenRationale(nextPreferences.spokenRationale);
+    setVoiceIdentifier(nextPreferences.voiceIdentifier);
+    void AsyncStorage.setItem(VOICE_PREFERENCES_KEY, JSON.stringify(nextPreferences)).then(() => void reloadVoices());
+  };
+  const previewVoice = (identifier?: string) => {
+    const voice = englishVoices.find((item) => item.identifier === identifier) ?? selectedVoice;
+    if (!voice) { Alert.alert("No English voice found", "Install an English text-to-speech voice on this device, then reopen Rounds Settings."); return; }
+    void Speech.stop();
+    Speech.speak(prepareLocalSpeech("Rounds is ready. Check blood pressure, S P O two, and medication safety before answering."), { voice: voice.identifier, language: voice.language, rate });
   };
 
   const reset = () => Alert.alert("Reset session?", "This removes locally stored practice results.", [{ text: "Cancel", style: "cancel" }, { text: "Reset", style: "destructive", onPress: () => AsyncStorage.removeItem("rounds.session.v1") }]);
@@ -101,6 +112,14 @@ export default function SettingsScreen() {
           <SettingRow label="Spoken rationale" description="Read the clinical context and why it matters automatically after feedback" right={<Switch value={spokenRationale} onValueChange={(value) => saveVoicePreferences(rate, value)} trackColor={{ false: colors.border, true: colors.primary }} thumbColor={colors.background} accessibilityLabel="Automatically read the clinical rationale after answer feedback" />} colors={colors} />
         </View>
 
+        <View style={[styles.info, { borderColor: colors.border }]}> 
+          <Text style={[styles.infoTitle, { color: colors.foreground }]}>Rounds voice</Text>
+          <Text style={[styles.infoText, { color: colors.muted }]}>Rounds deliberately uses an installed English voice instead of your phone’s regional default. Choose the clearest option below; Rounds will use it for questions, explanations, private PDF passages, and Voice Tutor replies.</Text>
+          {selectedVoice ? <View style={[styles.selectedVoice, { borderColor: colors.primary, backgroundColor: colors.surface }]}><Text style={[styles.selectedVoiceLabel, { color: colors.primary }]}>CURRENT VOICE</Text><Text style={[styles.selectedVoiceName, { color: colors.foreground }]}>{selectedVoice.name}</Text><Text style={[styles.selectedVoiceDetails, { color: colors.muted }]}>{selectedVoice.language} · {selectedVoice.quality}</Text><Pressable onPress={() => previewVoice(selectedVoice.identifier)} accessibilityRole="button"><Text style={[styles.test, { color: colors.primary }]}>Preview this voice</Text></Pressable></View> : <Text style={[styles.noVoice, { color: colors.warning }]}>No installed English voice is available. Spoken delivery stays off until an English voice pack is installed on this device.</Text>}
+          {englishVoices.slice(0, 8).map((voice) => <View key={voice.identifier} style={[styles.voiceOption, { borderColor: voice.identifier === (selectedVoice?.identifier ?? voiceIdentifier) ? colors.primary : colors.border }]}><View style={styles.grow}><Text style={[styles.voiceOptionName, { color: colors.foreground }]}>{voice.name}</Text><Text style={[styles.voiceOptionDetails, { color: colors.muted }]}>{voice.language} · {voice.quality}</Text></View><Pressable onPress={() => saveVoicePreferences(rate, spokenRationale, voice.identifier)} accessibilityRole="button" style={[styles.voiceUseButton, { backgroundColor: voice.identifier === (selectedVoice?.identifier ?? voiceIdentifier) ? colors.primary : colors.background, borderColor: colors.primary }]}><Text style={{ color: voice.identifier === (selectedVoice?.identifier ?? voiceIdentifier) ? colors.background : colors.primary, fontSize: 11, fontWeight: "900" }}>{voice.identifier === (selectedVoice?.identifier ?? voiceIdentifier) ? "Selected" : "Use"}</Text></Pressable><Pressable onPress={() => previewVoice(voice.identifier)} accessibilityRole="button" accessibilityLabel={`Preview ${voice.name}`}><Text style={[styles.preview, { color: colors.primary }]}>Preview</Text></Pressable></View>)}
+          {englishVoices.length > 8 ? <Text style={[styles.voiceLimit, { color: colors.muted }]}>Showing the eight highest-ranked English voices on this device.</Text> : null}
+        </View>
+
         <View style={[styles.info, { borderColor: colors.border }]}>
           <Text style={[styles.infoTitle, { color: colors.foreground }]}>Community alerts</Text>
           <Text style={[styles.infoText, { color: colors.muted }]}>Private, in-app alerts never include full community post or reply text.</Text>
@@ -113,7 +132,7 @@ export default function SettingsScreen() {
         <View style={[styles.info, { borderColor: colors.border }]}>
           <Text style={[styles.infoTitle, { color: colors.foreground }]}>Voice practice</Text>
           <Text style={[styles.infoText, { color: colors.muted }]}>Rounds reads each question clearly, records a short answer, then lets you review the transcript before grading. On iOS, turn off Silent Mode to hear speech.</Text>
-          <Pressable onPress={() => Speech.speak("Rounds is ready for your next practice question.", { rate, language: "en-US" })} accessibilityRole="button"><Text style={[styles.test, { color: colors.primary }]}>Test current voice pace</Text></Pressable>
+          <Pressable onPress={() => previewVoice(selectedVoice?.identifier)} accessibilityRole="button"><Text style={[styles.test, { color: colors.primary }]}>Test current voice pace</Text></Pressable>
         </View>
 
         <Pressable onPress={reset} accessibilityRole="button" style={[styles.reset, { borderColor: colors.error }]}><Text style={{ color: colors.error, fontWeight: "800" }}>Reset local session results</Text></Pressable>
@@ -128,5 +147,5 @@ function SettingRow({ label, description, right, colors }: { label: string; desc
 }
 
 const styles = StyleSheet.create({
-  scroll: { paddingTop: 18, paddingBottom: 32 }, header: { gap: 5 }, eyebrow: { fontSize: 12, letterSpacing: 2.2, fontWeight: "800" }, title: { fontFamily: "Georgia", fontSize: 30, fontWeight: "700", marginTop: 3 }, sub: { fontSize: 14, lineHeight: 20 }, account: { marginTop: 22, borderWidth: 1, borderRadius: 20, padding: 17, gap: 5 }, accountLabel: { fontSize: 10, fontWeight: "900", letterSpacing: 1.2 }, accountName: { fontSize: 17, fontWeight: "900" }, accountText: { fontSize: 12, lineHeight: 17 }, signOut: { alignSelf: "flex-start", borderWidth: 1, borderRadius: 12, paddingHorizontal: 13, paddingVertical: 8, marginTop: 5 }, signOutText: { fontSize: 13, fontWeight: "900" }, group: { marginTop: 18, borderWidth: 1, borderRadius: 20, paddingHorizontal: 16 }, row: { minHeight: 74, flexDirection: "row", alignItems: "center", gap: 12 }, copy: { flex: 1, gap: 4 }, label: { fontSize: 16, fontWeight: "800" }, description: { fontSize: 12, lineHeight: 17 }, divider: { height: 1 }, rateRow: { flexDirection: "row", gap: 7 }, rateButton: { width: 34, height: 34, borderWidth: 1, borderRadius: 10, alignItems: "center", justifyContent: "center" }, info: { marginTop: 18, borderWidth: 1, borderRadius: 20, padding: 17, gap: 8 }, infoTitle: { fontSize: 16, fontWeight: "800" }, infoText: { fontSize: 14, lineHeight: 21 }, test: { fontSize: 14, fontWeight: "800", marginTop: 2 }, reset: { marginTop: 18, minHeight: 48, borderWidth: 1, borderRadius: 16, alignItems: "center", justifyContent: "center" }, version: { textAlign: "center", fontSize: 12, marginTop: 18 },
+  scroll: { paddingTop: 18, paddingBottom: 32 }, header: { gap: 5 }, eyebrow: { fontSize: 12, letterSpacing: 2.2, fontWeight: "800" }, title: { fontFamily: "Georgia", fontSize: 30, fontWeight: "700", marginTop: 3 }, sub: { fontSize: 14, lineHeight: 20 }, account: { marginTop: 22, borderWidth: 1, borderRadius: 20, padding: 17, gap: 5 }, accountLabel: { fontSize: 10, fontWeight: "900", letterSpacing: 1.2 }, accountName: { fontSize: 17, fontWeight: "900" }, accountText: { fontSize: 12, lineHeight: 17 }, signOut: { alignSelf: "flex-start", borderWidth: 1, borderRadius: 12, paddingHorizontal: 13, paddingVertical: 8, marginTop: 5 }, signOutText: { fontSize: 13, fontWeight: "900" }, group: { marginTop: 18, borderWidth: 1, borderRadius: 20, paddingHorizontal: 16 }, row: { minHeight: 74, flexDirection: "row", alignItems: "center", gap: 12 }, copy: { flex: 1, gap: 4 }, grow: { flex: 1 }, label: { fontSize: 16, fontWeight: "800" }, description: { fontSize: 12, lineHeight: 17 }, divider: { height: 1 }, rateRow: { flexDirection: "row", gap: 7 }, rateButton: { width: 34, height: 34, borderWidth: 1, borderRadius: 10, alignItems: "center", justifyContent: "center" }, info: { marginTop: 18, borderWidth: 1, borderRadius: 20, padding: 17, gap: 8 }, infoTitle: { fontSize: 16, fontWeight: "800" }, infoText: { fontSize: 14, lineHeight: 21 }, test: { fontSize: 14, fontWeight: "800", marginTop: 2 }, selectedVoice: { borderWidth: 1, borderRadius: 14, padding: 12, gap: 3 }, selectedVoiceLabel: { fontSize: 10, letterSpacing: 1.1, fontWeight: "900" }, selectedVoiceName: { fontSize: 15, fontWeight: "900" }, selectedVoiceDetails: { fontSize: 12, lineHeight: 17 }, voiceOption: { minHeight: 55, borderWidth: 1, borderRadius: 13, padding: 10, flexDirection: "row", alignItems: "center", gap: 9 }, voiceOptionName: { fontSize: 13, fontWeight: "800" }, voiceOptionDetails: { fontSize: 11, marginTop: 2 }, voiceUseButton: { minWidth: 62, minHeight: 32, borderWidth: 1, borderRadius: 10, alignItems: "center", justifyContent: "center", paddingHorizontal: 8 }, preview: { fontSize: 11, fontWeight: "900" }, noVoice: { fontSize: 13, lineHeight: 19, fontWeight: "700" }, voiceLimit: { fontSize: 11, lineHeight: 16 }, reset: { marginTop: 18, minHeight: 48, borderWidth: 1, borderRadius: 16, alignItems: "center", justifyContent: "center" }, version: { textAlign: "center", fontSize: 12, marginTop: 18 },
 });

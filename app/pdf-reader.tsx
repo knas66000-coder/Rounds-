@@ -3,12 +3,12 @@ import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, Text
 import { useLocalSearchParams, useRouter } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
 import * as Speech from "expo-speech";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { ScreenContainer } from "@/components/screen-container";
+import { useRoundsVoice } from "@/hooks/use-rounds-voice";
 import { useAuthSession } from "@/lib/auth-session";
 import { loadPdfReaderCache, loadPdfReaderProgress, savePdfReaderCache, savePdfReaderProgress, type CachedPdfReader } from "@/lib/pdf-reader-cache";
-import { defaultVoicePreferences, parseVoicePreferences, preparePdfSectionSpeech, VOICE_PREFERENCES_KEY } from "@/lib/voice";
+import { preparePdfSectionSpeech } from "@/lib/voice";
 import { trpc } from "@/lib/trpc";
 import { searchReadingSections } from "@/shared/pdf-reader";
 import type { LearnerMaterialPractice } from "@/shared/pdf-practice";
@@ -29,10 +29,10 @@ export default function PdfReaderScreen() {
   const [position, setPosition] = useState(initialSection);
   const [saved, setSaved] = useState<Set<number>>(new Set());
   const [query, setQuery] = useState("");
-  const [speechRate, setSpeechRate] = useState(defaultVoicePreferences.rate);
   const [isNarrating, setIsNarrating] = useState(false);
   const [practice, setPractice] = useState<LearnerMaterialPractice | null>(null);
   const [revealedAnswers, setRevealedAnswers] = useState<Set<number>>(new Set());
+  const { speechOptions } = useRoundsVoice();
 
   useEffect(() => {
     if (!user || !materialId) return;
@@ -49,16 +49,7 @@ export default function PdfReaderScreen() {
     void savePdfReaderCache(user.id, materialId, cacheable);
   }, [user, materialId, readerQuery.data]);
 
-  useEffect(() => {
-    let mounted = true;
-    void AsyncStorage.getItem(VOICE_PREFERENCES_KEY).then((value) => {
-      if (mounted) setSpeechRate(parseVoicePreferences(value).rate);
-    });
-    return () => {
-      mounted = false;
-      void Speech.stop();
-    };
-  }, []);
+  useEffect(() => () => { void Speech.stop(); }, []);
 
   const reader = readerQuery.data ?? cached;
   const sections = useMemo(() => reader?.sections ?? [], [reader]);
@@ -92,10 +83,13 @@ export default function PdfReaderScreen() {
   const readActiveSection = async () => {
     if (!activeSection) return;
     await Speech.stop();
+    if (!speechOptions) {
+      Alert.alert("Choose an English voice", "Install or select an English device voice in Rounds Settings before listening to this passage.");
+      return;
+    }
     setIsNarrating(true);
     Speech.speak(preparePdfSectionSpeech(activeSection.heading, activeSection.content), {
-      rate: speechRate,
-      language: "en-US",
+      ...speechOptions,
       onDone: () => setIsNarrating(false),
       onStopped: () => setIsNarrating(false),
       onError: () => setIsNarrating(false),
