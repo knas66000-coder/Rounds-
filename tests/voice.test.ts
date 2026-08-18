@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { clampSpeechRate, parseVoicePreferences, prepareQuestionSpeech, prepareRationaleSpeech } from "../lib/voice";
+import { clampSpeechRate, parseVoicePreferences, preparePdfSectionSpeech, prepareQuestionSpeech, prepareRationaleSpeech } from "../lib/voice";
 
 describe("voice utilities", () => {
   it("keeps saved speech pace within the accessible range", () => {
@@ -14,5 +14,6 @@ describe("voice utilities", () => {
     expect(prepareQuestionSpeech("Keep BP ≥ 90°?")).toContain("greater than or equal to 90 degrees");
     expect(prepareQuestionSpeech("What is first?")).toContain("Pause to think");
     expect(prepareRationaleSpeech("Assess first.", "It prevents deterioration.")).toContain("Why it matters.");
+    expect(preparePdfSectionSpeech("Vitals", "Temperature ≥ 38° C")).toContain("Temperature greater than or equal to 38 degrees C");
   });
 });

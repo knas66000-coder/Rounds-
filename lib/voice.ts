@@ -38,3 +38,15 @@ export function prepareFeedbackSpeech(feedback: string): string {
 export function prepareRationaleSpeech(clinicalContext: string, whyItMatters: string): string {
   return `Clinical rationale. ${clinicalContext.trim()} Why it matters. ${whyItMatters.trim()}`;
 }
+
+/** Prepares a short, private learner PDF section for the device text-to-speech engine. */
+export function preparePdfSectionSpeech(heading: string, content: string): string {
+  const normalizedHeading = heading.replace(/\s+/g, " ").trim();
+  const normalizedContent = content
+    .replace(/≤/g, " less than or equal to ")
+    .replace(/≥/g, " greater than or equal to ")
+    .replace(/°/g, " degrees ")
+    .replace(/\s+/g, " ")
+    .trim();
+  return `Study passage. ${normalizedHeading}. ${normalizedContent}`;
+}

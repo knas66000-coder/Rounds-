@@ -159,3 +159,8 @@
 - [x] Add deterministic tests for PDF sectioning, topic search, and ownership boundaries
 - [x] Validate and checkpoint the Rounds PDF Reader release
 - [x] Add reader-quality patterns: resume position, progress indicator, saved passages, focused controls, and offline cache behavior
+- [x] Repair ESM-safe PDF parser loading so the production server starts successfully
+- [x] Add narration controls for a selected private PDF section using saved Rounds speech preferences
+- [x] Generate 3–5 private learner-material practice questions from a selected PDF section with section citations
+- [x] Validate deployment startup, native narration behavior, source boundaries, and builds for PDF listening and practice
+- [x] Checkpoint and deliver the PDF listening and learner-material practice release
