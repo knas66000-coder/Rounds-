@@ -19,7 +19,6 @@ import type { EdgeInsets, Metrics, Rect } from "react-native-safe-area-context";
 import { trpc, createTRPCClient } from "@/lib/trpc";
 import { initManusRuntime, subscribeSafeAreaInsets } from "@/lib/_core/manus-runtime";
 import { AuthSessionProvider, useAuthSession } from "@/lib/auth-session";
-import { accessStateFor } from "@/lib/auth-gate";
 import { SecureAccessGate } from "@/components/secure-access-gate";
 import { requiresAcademicOnboarding } from "@/shared/academic-profile";
 
@@ -119,18 +118,15 @@ export default function RootLayout() {
 function ProtectedNavigator() {
   const segments = useSegments();
   const { loading, isAuthenticated, refresh } = useAuthSession();
-  const isCallback = segments[0] === "oauth";
   const isAcademicOnboarding = (segments[0] as string | undefined) === "academic-onboarding";
-  const accessState = accessStateFor({ loading, isAuthenticated, isCallback });
-  const academicProfile = trpc.academicProfile.get.useQuery(undefined, { enabled: accessState === "app" });
+  const academicProfile = trpc.academicProfile.get.useQuery(undefined, { enabled: isAuthenticated });
 
   useEffect(() => {
-    if (!isCallback && segments.join("/") !== "") void refresh();
-  }, [isCallback, refresh, segments]);
+    void refresh();
+  }, [refresh]);
 
-  if (accessState === "callback") return <Stack screenOptions={{ headerShown: false }}><Stack.Screen name="oauth/callback" /></Stack>;
-  if (accessState === "loading") return <SecureAccessGate busy />;
-  if (accessState === "sign-in") return <SecureAccessGate />;
+  if (loading) return <SecureAccessGate busy />;
+  if (!isAuthenticated) return <SecureAccessGate />;
   if (academicProfile.isLoading) return <SecureAccessGate busy />;
   if (requiresAcademicOnboarding(academicProfile.data) && !isAcademicOnboarding) return <Redirect href={"/academic-onboarding" as never} />;
   return <Stack screenOptions={{ headerShown: false }}><Stack.Screen name="(tabs)" /><Stack.Screen name="academic-onboarding" /><Stack.Screen name="academic-home" /><Stack.Screen name="research-updates" /><Stack.Screen name="mock-exam" /><Stack.Screen name="oral-exam" /><Stack.Screen name="study-materials" /><Stack.Screen name="adaptive-review" /><Stack.Screen name="exam-remediation" /><Stack.Screen name="bookmark-review" /><Stack.Screen name="notifications" /><Stack.Screen name="oauth/callback" /></Stack>;

@@ -1,6 +1,7 @@
 import type { CreateExpressContextOptions } from "@trpc/server/adapters/express";
 import type { User } from "../../drizzle/schema";
-import { sdk } from "./sdk";
+import { getUserByRoundsSessionHash } from "../db";
+import { hashRoundsSessionToken } from "../rounds-auth";
 
 export type TrpcContext = {
   req: CreateExpressContextOptions["req"];
@@ -12,9 +13,10 @@ export async function createContext(opts: CreateExpressContextOptions): Promise<
   let user: User | null = null;
 
   try {
-    user = await sdk.authenticateRequest(opts.req);
+    const roundsToken = opts.req.header("x-rounds-session")?.trim();
+    if (roundsToken) user = await getUserByRoundsSessionHash(hashRoundsSessionToken(roundsToken)) ?? null;
   } catch (error) {
-    // Authentication is optional for public procedures.
+    // Authentication is optional for public procedures; an invalid opaque session is ignored.
     user = null;
   }
 

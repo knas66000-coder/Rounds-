@@ -131,3 +131,9 @@
 - [x] Build the Nursing Research Updates screen and entry point inside Rounds
 - [x] Add deterministic tests for trusted-source, citation, and offline-fallback rules
 - [x] Validate and checkpoint the Research Updates release
+- [x] Audit the blocked OAuth gate and define Rounds-native account and session boundaries
+- [x] Add private Rounds account registration, sign-in, password hashing, and session persistence
+- [x] Route academic profiles and private learning APIs through the Rounds-native identity
+- [x] Replace the learner-facing OAuth gate with Rounds-native account screens and protected navigation
+- [x] Add deterministic tests for account validation, session expiry, and private-identity ownership
+- [x] Validate and checkpoint the Rounds-native access release

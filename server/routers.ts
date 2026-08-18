@@ -12,6 +12,8 @@ import { validateCommunityText } from "../shared/community-safety";
 import { normalizeGroundedReference } from "../shared/study-material-safety";
 import { academicProfileProblem, isAcademicProgram } from "../shared/academic-profile";
 import { normalizeResearchUpdate, researchTopicProblem, TRUSTED_RESEARCH_DOMAINS } from "../shared/research-updates";
+import { accountProblem, normalizeRoundsEmail, signInProblem } from "../shared/rounds-auth";
+import { hashRoundsPassword, hashRoundsSessionToken, newRoundsSession, verifyRoundsPassword } from "./rounds-auth";
 
 const MAX_AUDIO_BYTES = 16 * 1024 * 1024;
 const MAX_STUDY_MATERIAL_BYTES = 4 * 1024 * 1024;
@@ -41,6 +43,34 @@ export const appRouter = router({
       return {
         success: true,
       } as const;
+    }),
+  }),
+
+  roundsAuth: router({
+    me: protectedProcedure.query(({ ctx }) => ({ id: ctx.user.id, name: ctx.user.name ?? "Learner", email: ctx.user.email ?? "", lastSignedIn: ctx.user.lastSignedIn })),
+    register: publicProcedure.input(z.object({ name: z.string(), email: z.string(), password: z.string() })).mutation(async ({ input }) => {
+      const problem = accountProblem(input);
+      if (problem) throw new TRPCError({ code: "BAD_REQUEST", message: problem });
+      const account = await db.createRoundsAccount({ name: input.name.trim().replace(/\s+/g, " "), email: normalizeRoundsEmail(input.email), passwordHash: await hashRoundsPassword(input.password) });
+      if (account.duplicate || !account.user) throw new TRPCError({ code: "CONFLICT", message: "An account with this email already exists. Sign in instead." });
+      const session = newRoundsSession();
+      await db.createRoundsSession(account.user.id, session.tokenHash, session.expiresAt);
+      return { token: session.token, user: { id: account.user.id, name: account.user.name ?? "Learner", email: account.user.email ?? "", lastSignedIn: account.user.lastSignedIn } };
+    }),
+    signIn: publicProcedure.input(z.object({ email: z.string(), password: z.string() })).mutation(async ({ input }) => {
+      const problem = signInProblem(input.email, input.password);
+      if (problem) throw new TRPCError({ code: "BAD_REQUEST", message: problem });
+      const account = await db.getRoundsAccountByEmail(normalizeRoundsEmail(input.email));
+      if (!account || !(await verifyRoundsPassword(input.password, account.passwordHash))) throw new TRPCError({ code: "UNAUTHORIZED", message: "Email or password is not correct." });
+      await db.markRoundsUserSignedIn(account.user.id);
+      const session = newRoundsSession();
+      await db.createRoundsSession(account.user.id, session.tokenHash, session.expiresAt);
+      return { token: session.token, user: { id: account.user.id, name: account.user.name ?? "Learner", email: account.user.email ?? "", lastSignedIn: new Date() } };
+    }),
+    signOut: protectedProcedure.mutation(async ({ ctx }) => {
+      const token = ctx.req.header("x-rounds-session")?.trim();
+      if (token) await db.deleteRoundsSession(hashRoundsSessionToken(token));
+      return { success: true };
     }),
   }),
 

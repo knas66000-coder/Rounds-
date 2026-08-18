@@ -1,6 +1,6 @@
-import { and, desc, eq, inArray } from "drizzle-orm";
+import { and, desc, eq, gt, inArray } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { academicProfiles, communityNotificationPreferences, communityNotifications, communityPosts, communityReactions, communityReplies, communityReports, InsertUser, studyMaterials, users } from "../drizzle/schema";
+import { academicProfiles, communityNotificationPreferences, communityNotifications, communityPosts, communityReactions, communityReplies, communityReports, InsertUser, roundsAccounts, roundsSessions, studyMaterials, users } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 import { shouldCreateCommunityNotification, type CommunityNotificationType, type NotificationPreference } from "../shared/notification-rules";
 import { canUseStudyMaterial } from "../shared/study-material-permissions";
@@ -89,6 +89,52 @@ export async function getUserByOpenId(openId: string) {
   const result = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
 
   return result.length > 0 ? result[0] : undefined;
+}
+
+export async function createRoundsAccount(input: { name: string; email: string; passwordHash: string }) {
+  const db = await getDb();
+  if (!db) throw new Error("Account storage is temporarily unavailable.");
+  const existing = await db.select({ id: roundsAccounts.id }).from(roundsAccounts).where(eq(roundsAccounts.email, input.email)).limit(1);
+  if (existing.length) return { duplicate: true as const };
+  const openId = `rounds:${crypto.randomUUID()}`;
+  await db.insert(users).values({ openId, name: input.name, email: input.email, loginMethod: "rounds", lastSignedIn: new Date() });
+  const user = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
+  const userId = user[0]?.id;
+  if (!userId) throw new Error("The new Rounds account could not be initialized.");
+  await db.insert(roundsAccounts).values({ userId, email: input.email, passwordHash: input.passwordHash });
+  return { duplicate: false as const, user: user[0] };
+}
+
+export async function getRoundsAccountByEmail(email: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const rows = await db.select({ user: users, passwordHash: roundsAccounts.passwordHash }).from(roundsAccounts).innerJoin(users, eq(roundsAccounts.userId, users.id)).where(eq(roundsAccounts.email, email)).limit(1);
+  return rows[0];
+}
+
+export async function createRoundsSession(userId: number, tokenHash: string, expiresAt: Date) {
+  const db = await getDb();
+  if (!db) throw new Error("Session storage is temporarily unavailable.");
+  await db.insert(roundsSessions).values({ userId, tokenHash, expiresAt });
+}
+
+export async function getUserByRoundsSessionHash(tokenHash: string, now = new Date()) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const rows = await db.select({ user: users }).from(roundsSessions).innerJoin(users, eq(roundsSessions.userId, users.id)).where(and(eq(roundsSessions.tokenHash, tokenHash), gt(roundsSessions.expiresAt, now))).limit(1);
+  return rows[0]?.user;
+}
+
+export async function deleteRoundsSession(tokenHash: string) {
+  const db = await getDb();
+  if (!db) return;
+  await db.delete(roundsSessions).where(eq(roundsSessions.tokenHash, tokenHash));
+}
+
+export async function markRoundsUserSignedIn(userId: number) {
+  const db = await getDb();
+  if (!db) return;
+  await db.update(users).set({ lastSignedIn: new Date() }).where(eq(users.id, userId));
 }
 
 export type CommunityFeedItem = {

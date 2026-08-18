@@ -25,6 +25,25 @@ export const users = mysqlTable("users", {
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
+/** Rounds-native learner credentials. Passwords are one-way scrypt hashes only. */
+export const roundsAccounts = mysqlTable("rounds_accounts", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  email: varchar("email", { length: 320 }).notNull(),
+  passwordHash: varchar("passwordHash", { length: 255 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => [uniqueIndex("rounds_accounts_user").on(table.userId), uniqueIndex("rounds_accounts_email").on(table.email)]);
+
+/** Opaque Rounds sessions. Only a SHA-256 hash of each bearer token is persisted. */
+export const roundsSessions = mysqlTable("rounds_sessions", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  tokenHash: varchar("tokenHash", { length: 64 }).notNull(),
+  expiresAt: timestamp("expiresAt").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => [uniqueIndex("rounds_sessions_token_hash").on(table.tokenHash)]);
+
 export const communityPosts = mysqlTable("community_posts", {
   id: int("id").autoincrement().primaryKey(),
   userId: int("userId").notNull(),
@@ -105,3 +124,5 @@ export type CommunityReply = typeof communityReplies.$inferSelect;
 export type CommunityNotification = typeof communityNotifications.$inferSelect;
 export type StudyMaterial = typeof studyMaterials.$inferSelect;
 export type AcademicProfile = typeof academicProfiles.$inferSelect;
+export type RoundsAccount = typeof roundsAccounts.$inferSelect;
+export type RoundsSession = typeof roundsSessions.$inferSelect;
