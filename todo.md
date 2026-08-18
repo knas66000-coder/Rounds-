@@ -212,3 +212,9 @@
 - [x] Extend active course packs with reviewed subject-specific scenarios and verify discipline boundaries
 - [x] Validate no-repeat learning, feedback accuracy, offline state, and native build quality
 - [x] Checkpoint and deliver the scenario and decision-case Rounds release
+- [x] Define multi-step case-chain data contracts, branching rules, reflection boundaries, and subject-safety requirements
+- [x] Build deterministic case-chain progression and local resume-state utilities with tests
+- [x] Create a reusable native case-chain player with decision feedback, step progress, and private reflection
+- [x] Add reviewed multi-step cases to active course packs and connect them to the shared learning library
+- [x] Validate progression, local resume, subject separation, and native build quality
+- [x] Checkpoint and deliver the Rounds multi-step case-chain release
