@@ -4,6 +4,9 @@ import { ScreenContainer } from "@/components/screen-container";
 import { trpc } from "@/lib/trpc";
 import { useColors } from "@/hooks/use-colors";
 import { haptic } from "@/lib/haptics";
+import { useAuthSession } from "@/lib/auth-session";
+import { SecureAccessGate } from "@/components/secure-access-gate";
+import { hasCommunityProfile } from "@/shared/local-first-access";
 import { communitySafetyNotice, validateCommunityText } from "@/shared/community-safety";
 
 type PostKind = "study_win" | "study_tip" | "encouragement";
@@ -12,6 +15,13 @@ type FeedPost = { id: number; userId: number; kind: PostKind; content: string; a
 const kindLabels: Record<PostKind, string> = { study_win: "STUDY WIN", study_tip: "STUDY TIP", encouragement: "ENCOURAGEMENT" };
 
 export default function CommunityScreen() {
+  const { loading, isAuthenticated } = useAuthSession();
+  if (loading) return <ScreenContainer className="items-center justify-center px-5"><Text>Preparing your study space…</Text></ScreenContainer>;
+  if (!hasCommunityProfile(isAuthenticated)) return <SecureAccessGate purpose="community" />;
+  return <AuthenticatedCommunityScreen />;
+}
+
+function AuthenticatedCommunityScreen() {
   const colors = useColors();
   const [composerOpen, setComposerOpen] = useState(false);
   const [replyPost, setReplyPost] = useState<FeedPost | null>(null);

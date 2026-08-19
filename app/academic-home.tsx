@@ -7,14 +7,18 @@ import { useColors } from "@/hooks/use-colors";
 import { haptic } from "@/lib/haptics";
 import { isPackInstalled, loadCoursePackInstalls, type CoursePackInstall } from "@/lib/course-pack-store";
 import { trpc } from "@/lib/trpc";
+import { useAuthSession } from "@/lib/auth-session";
+import { useLocalLearningProfile } from "@/lib/local-learning-profile";
 import { isAcademicProgram, isUgandaHighSchoolProgram, programPackFor } from "@/shared/academic-profile";
 import { primaryCoursePackForProgram } from "@/shared/course-packs";
 
 export default function AcademicHomeScreen() {
   const colors = useColors();
   const router = useRouter();
-  const profileQuery = trpc.academicProfile.get.useQuery();
-  const profile = profileQuery.data;
+  const { isAuthenticated } = useAuthSession();
+  const { profile: localProfile, ready: localReady } = useLocalLearningProfile();
+  const profileQuery = trpc.academicProfile.get.useQuery(undefined, { enabled: isAuthenticated });
+  const profile = localProfile ?? profileQuery.data;
   const [installs, setInstalls] = useState<CoursePackInstall[]>([]);
   const [installsReady, setInstallsReady] = useState(false);
 
@@ -22,7 +26,8 @@ export default function AcademicHomeScreen() {
     void loadCoursePackInstalls().then((next) => { setInstalls(next); setInstallsReady(true); });
   }, []);
 
-  if (!profile || !isAcademicProgram(profile.program)) return null;
+  if (!localReady) return null;
+  if (!profile || !isAcademicProgram(profile.program)) return <Redirect href="/academic-onboarding" />;
   if (isUgandaHighSchoolProgram(profile.program)) return <Redirect href="/high-school-home" />;
 
   const pack = programPackFor(profile.program);

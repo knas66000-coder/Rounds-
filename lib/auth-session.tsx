@@ -24,7 +24,7 @@ export function AuthSessionProvider({ children }: { children: ReactNode }) {
   const [hasStoredSession, setHasStoredSession] = useState(false);
   const [user, setUser] = useState<RoundsLearner | null>(null);
   const [sessionError, setSessionError] = useState<Error | null>(null);
-  const me = trpc.roundsAuth.me.useQuery(undefined, { enabled: ready, retry: false });
+  const me = trpc.roundsAuth.me.useQuery(undefined, { enabled: ready && hasStoredSession, retry: false });
   const signInMutation = trpc.roundsAuth.signIn.useMutation();
   const registerMutation = trpc.roundsAuth.register.useMutation();
   const signOutMutation = trpc.roundsAuth.signOut.useMutation();

@@ -322,3 +322,9 @@
 - [x] Inspect the shared Rounds light-mode theme tokens and establish a brighter accessible palette
 - [x] Apply the brighter light-mode palette across the shared app theme without changing the sage brand identity
 - [x] Validate the combined voice-stability and light-theme refresh, then checkpoint the release
+- [x] Define the local-first learner mode, on-device data boundary, and optional community-profile contract
+- [x] Audit existing route guards and classify learning, community, and other online-only access paths
+- [x] Implement private on-device learner access for offline study without mandatory account creation
+- [x] Add an on-demand secure community enrollment flow that preserves existing authenticated social features
+- [x] Add deterministic coverage for local learning access, community enrollment boundaries, and authenticated compatibility
+- [x] Validate and checkpoint the local-first optional-profile release

@@ -12,6 +12,8 @@ import { loadHighSchoolTopicProgress, topicProgressForPack, type HighSchoolTopic
 import { isPackInstalled, loadCoursePackInstalls, type CoursePackInstall } from "@/lib/course-pack-store";
 import { courseRoundSnapshot, loadCourseRoundState, type CourseRoundState } from "@/lib/course-round-store";
 import { trpc } from "@/lib/trpc";
+import { useAuthSession } from "@/lib/auth-session";
+import { useLocalLearningProfile } from "@/lib/local-learning-profile";
 import { isUgandaHighSchoolProgram } from "@/shared/academic-profile";
 import { highSchoolCoursePacks, type CoursePack } from "@/shared/course-packs";
 
@@ -25,8 +27,10 @@ const fallbackTopicProgress: HighSchoolTopicProgressState = { records: [], saved
 export default function HighSchoolHomeScreen() {
   const colors = useColors();
   const router = useRouter();
-  const profileQuery = trpc.academicProfile.get.useQuery();
-  const profile = profileQuery.data;
+  const { isAuthenticated } = useAuthSession();
+  const { profile: localProfile, ready: localProfileReady } = useLocalLearningProfile();
+  const profileQuery = trpc.academicProfile.get.useQuery(undefined, { enabled: isAuthenticated });
+  const profile = localProfile ?? profileQuery.data;
   const [level, setLevel] = useState<HighSchoolLevel>("s1");
   const [topicScope, setTopicScope] = useState<HighSchoolTopicScope>("level_matched");
   const [installs, setInstalls] = useState<CoursePackInstall[]>([]);
@@ -59,6 +63,7 @@ export default function HighSchoolHomeScreen() {
     });
   }, []);
 
+  if (!localProfileReady) return <ScreenContainer className="items-center justify-center"><ActivityIndicator color={colors.primary} /></ScreenContainer>;
   if (!profile || !isUgandaHighSchoolProgram(profile.program)) return null;
 
   const chooseLevel = async (next: HighSchoolLevel) => { haptic.medium(); setLevel(next); await saveHighSchoolLevel(next); };

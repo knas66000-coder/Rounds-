@@ -4,16 +4,23 @@ import { ScreenContainer } from "@/components/screen-container";
 import { trpc } from "@/lib/trpc";
 import { useColors } from "@/hooks/use-colors";
 import { haptic } from "@/lib/haptics";
+import { useAuthSession } from "@/lib/auth-session";
+import { SecureAccessGate } from "@/components/secure-access-gate";
+import { hasCommunityProfile } from "@/shared/local-first-access";
 
 type NotificationItem = { id: number; postId: number; type: "reaction" | "reply"; read: boolean; createdAt: Date; title: string; detail: string };
 
 export default function NotificationsScreen() {
   const colors = useColors();
+  const { loading, isAuthenticated } = useAuthSession();
   const router = useRouter();
-  const notifications = trpc.notifications.list.useQuery();
-  const unread = trpc.notifications.unreadCount.useQuery();
+  const communityEnabled = hasCommunityProfile(isAuthenticated);
+  const notifications = trpc.notifications.list.useQuery(undefined, { enabled: communityEnabled });
+  const unread = trpc.notifications.unreadCount.useQuery(undefined, { enabled: communityEnabled });
   const markRead = trpc.notifications.markRead.useMutation({ onSuccess: () => { void notifications.refetch(); void unread.refetch(); } });
   const markAll = trpc.notifications.markAllRead.useMutation({ onSuccess: () => { void notifications.refetch(); void unread.refetch(); haptic.success(); } });
+  if (loading) return <ScreenContainer className="items-center justify-center"><Text>Preparing your study space…</Text></ScreenContainer>;
+  if (!communityEnabled) return <SecureAccessGate purpose="community" />;
   const items = (notifications.data ?? []) as NotificationItem[];
   const openNotification = (item: NotificationItem) => {
     if (!item.read) markRead.mutate({ notificationId: item.id });

@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuthSession } from "@/lib/auth-session";
 import { useColors } from "@/hooks/use-colors";
 
-export function SecureAccessGate({ busy = false }: { busy?: boolean }) {
+export function SecureAccessGate({ busy = false, purpose = "account" }: { busy?: boolean; purpose?: "account" | "community" }) {
   const colors = useColors();
   const { error, signIn, register } = useAuthSession();
   const [mode, setMode] = useState<"sign-in" | "register">("sign-in");
@@ -35,6 +35,7 @@ export function SecureAccessGate({ busy = false }: { busy?: boolean }) {
   }
 
   const isRegister = mode === "register";
+  const communityOnly = purpose === "community";
   return (
     <SafeAreaView edges={["top", "bottom", "left", "right"]} style={[styles.screen, { backgroundColor: colors.background }]}>
       <KeyboardAvoidingView behavior={Platform.select({ ios: "padding", default: undefined })} style={styles.keyboardArea}>
@@ -42,23 +43,23 @@ export function SecureAccessGate({ busy = false }: { busy?: boolean }) {
           <View style={styles.brandBlock}>
             <View style={[styles.brandMark, { backgroundColor: colors.primary }]}><Text style={[styles.brandMarkText, { color: colors.background }]}>R</Text></View>
             <Text style={[styles.eyebrow, { color: colors.primary }]}>ROUNDS</Text>
-            <Text style={[styles.title, { color: colors.foreground }]}>{isRegister ? "Start your study space." : "Your study space."}</Text>
-            <Text style={[styles.body, { color: colors.muted }]}>{isRegister ? "Create a private Rounds account to keep your learning path with you." : "Sign in to continue your voice-first learning session."}</Text>
+            <Text style={[styles.title, { color: colors.foreground }]}>{communityOnly ? "Join the study community." : isRegister ? "Start your study space." : "Your study space."}</Text>
+            <Text style={[styles.body, { color: colors.muted }]}>{communityOnly ? "Learning stays available privately on this device. Create a profile only to share, reply, react, and receive community updates." : isRegister ? "Create a private Rounds account to keep your learning path with you." : "Sign in to continue your voice-first learning session."}</Text>
           </View>
 
           <View style={[styles.sheet, { backgroundColor: colors.surface, borderColor: colors.border }]}>
             <View style={styles.sheetHeading}>
-              <Text style={[styles.sheetTitle, { color: colors.foreground }]}>{isRegister ? "Create account" : "Sign in"}</Text>
-              <Text style={[styles.sheetBody, { color: colors.muted }]}>{isRegister ? "Your profile and private study material stay connected to this account." : "Your progress, saved study content, and settings are ready when you are."}</Text>
+              <Text style={[styles.sheetTitle, { color: colors.foreground }]}>{isRegister ? communityOnly ? "Create community profile" : "Create account" : "Sign in"}</Text>
+              <Text style={[styles.sheetBody, { color: colors.muted }]}>{communityOnly ? "A secure profile is required because community activity belongs to a real learner. Your private on-device study data is not uploaded by this step." : isRegister ? "Your profile and private study material stay connected to this account." : "Your progress, saved study content, and settings are ready when you are."}</Text>
             </View>
             {isRegister ? <TextInput value={name} onChangeText={setName} placeholder="Your name" placeholderTextColor={colors.muted} autoCapitalize="words" returnKeyType="next" style={[styles.input, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.background }]} accessibilityLabel="Your name" /> : null}
             <TextInput value={email} onChangeText={setEmail} placeholder="Email address" placeholderTextColor={colors.muted} autoCapitalize="none" autoCorrect={false} keyboardType="email-address" returnKeyType="next" style={[styles.input, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.background }]} accessibilityLabel="Email address" />
             <TextInput value={password} onChangeText={setPassword} placeholder="Password" placeholderTextColor={colors.muted} secureTextEntry autoCapitalize="none" autoCorrect={false} returnKeyType="done" onSubmitEditing={() => void submit()} style={[styles.input, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.background }]} accessibilityLabel="Password" />
             <Pressable onPress={() => void submit()} accessibilityRole="button" accessibilityLabel={isRegister ? "Create a Rounds account" : "Sign in to Rounds"} style={({ pressed }) => [styles.primaryButton, { backgroundColor: colors.primary }, pressed && styles.pressed]}>
-              <Text style={[styles.primaryText, { color: colors.background }]}>{isRegister ? "Create account" : "Continue"}</Text>
+              <Text style={[styles.primaryText, { color: colors.background }]}>{isRegister ? communityOnly ? "Create community profile" : "Create account" : "Continue"}</Text>
             </Pressable>
             <Pressable onPress={() => { setMode(isRegister ? "sign-in" : "register"); setFormError(null); }} accessibilityRole="button" style={({ pressed }) => [styles.modeButton, pressed && styles.pressed]}>
-              <Text style={[styles.modeText, { color: colors.primary }]}>{isRegister ? "I already have an account" : "Create a Rounds account"}</Text>
+              <Text style={[styles.modeText, { color: colors.primary }]}>{isRegister ? "I already have a profile" : communityOnly ? "Create a community profile" : "Create a Rounds account"}</Text>
             </Pressable>
             {formError || error ? <Text style={[styles.error, { color: colors.error }]}>{formError ?? "We could not confirm your Rounds session. Please sign in again."}</Text> : null}
           </View>

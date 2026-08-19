@@ -24,8 +24,8 @@ export default function SettingsScreen() {
   const [voiceIdentifier, setVoiceIdentifier] = useState<string | null>(defaultVoicePreferences.voiceIdentifier);
   const [biometricUnlock, setBiometricUnlock] = useState(false);
   const { preferences, englishVoices, selectedVoice, reload: reloadVoices } = useRoundsVoice();
-  const notificationPreferences = trpc.notifications.preferences.useQuery();
-  const academicProfile = trpc.academicProfile.get.useQuery();
+  const notificationPreferences = trpc.notifications.preferences.useQuery(undefined, { enabled: Boolean(user) });
+  const academicProfile = trpc.academicProfile.get.useQuery(undefined, { enabled: Boolean(user) });
   const accountExport = trpc.roundsAccount.exportData.useQuery(undefined, { enabled: false });
   const updateNotificationPreferences = trpc.notifications.updatePreferences.useMutation({ onSuccess: () => void notificationPreferences.refetch() });
   const notificationSettings = notificationPreferences.data ?? { reactionAlerts: true, replyAlerts: true };

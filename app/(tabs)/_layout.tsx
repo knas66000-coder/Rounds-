@@ -6,13 +6,17 @@ import { HapticTab } from "@/components/haptic-tab";
 import { IconSymbol } from "@/components/ui/icon-symbol";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
+import { useAuthSession } from "@/lib/auth-session";
+import { shouldQueryCommunityData } from "@/shared/local-first-access";
 
 export default function TabLayout() {
   const colors = useColors();
+  const { isAuthenticated } = useAuthSession();
   const insets = useSafeAreaInsets();
   const bottomPadding = Platform.OS === "web" ? 10 : Math.max(insets.bottom, 8);
   const tabBarHeight = 58 + bottomPadding;
-  const unreadNotifications = trpc.notifications.unreadCount.useQuery(undefined, { refetchInterval: 30000 });
+  const communityEnabled = shouldQueryCommunityData(isAuthenticated);
+  const unreadNotifications = trpc.notifications.unreadCount.useQuery(undefined, { enabled: communityEnabled, refetchInterval: communityEnabled ? 30000 : false });
 
   return (
     <Tabs
