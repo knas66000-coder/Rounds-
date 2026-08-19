@@ -15,7 +15,7 @@ import { ACTIVE_CATEGORY_KEY, hasAnotherQuestion, nextStepForVerdict, questionsF
 import { haptic } from "@/lib/haptics";
 import { bookmarkIds, BOOKMARKS_KEY, parseBookmarks, toggleBookmark, type Bookmark } from "@/lib/bookmarks";
 import { recordLearningOutcome } from "@/lib/adaptive-store";
-import { prepareFeedbackSpeech, prepareQuestionSpeech, prepareRationaleSpeech } from "@/lib/voice";
+import { prepareFeedbackSpeech, prepareQuestionSpeech, prepareRationaleSpeech, stopRoundsSpeech } from "@/lib/voice";
 
 const STORAGE_KEY = "rounds.session.v1";
 
@@ -62,7 +62,7 @@ export default function HomeScreen() {
       if (value) setResults(JSON.parse(value) as SavedResult[]);
     });
     return () => {
-      Speech.stop();
+      void stopRoundsSpeech(Speech);
       if (autoTimer.current) clearTimeout(autoTimer.current);
       if (recordingTimer.current) clearTimeout(recordingTimer.current);
       if (isRecordingRef.current) void recorderRef.current.stop();
@@ -75,9 +75,9 @@ export default function HomeScreen() {
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(next));
   };
 
-  const speakQuestion = (beginRecording: boolean) => {
+  const speakQuestion = async (beginRecording: boolean) => {
     haptic.light();
-    Speech.stop();
+    await stopRoundsSpeech(Speech);
     if (!speechOptions) {
       setPhase(evaluation ? "result" : "idle");
       setVoiceNotice("Choose an installed English voice in Settings before listening. You can still type or record an answer.");
@@ -106,11 +106,11 @@ export default function HomeScreen() {
     setEvaluation(null);
     setTranscript("");
     setAnswerDraft("");
-    speakQuestion(true);
+    void speakQuestion(true);
   };
 
   const stopSpeaking = async () => {
-    await Speech.stop();
+    await stopRoundsSpeech(Speech);
     setPhase(evaluation ? "result" : "idle");
     setVoiceNotice("Speech stopped. Replay the question or type your answer when ready.");
   };
@@ -180,7 +180,7 @@ export default function HomeScreen() {
       Alert.alert("Add an answer", "Speak your answer or type a response before submitting.");
       return;
     }
-    Speech.stop();
+    await stopRoundsSpeech(Speech);
     const nextEvaluation = evaluateAnswer(clean, question);
     if (nextEvaluation.verdict === "correct") haptic.success();
     else if (nextEvaluation.verdict === "partial") haptic.warning();
@@ -204,7 +204,7 @@ export default function HomeScreen() {
 
   const nextQuestion = () => {
     haptic.light();
-    Speech.stop();
+    void stopRoundsSpeech(Speech);
     if (autoTimer.current) clearTimeout(autoTimer.current);
     if (!hasAnotherQuestion(index, queue.length)) {
       setAutoMode(false);
@@ -221,7 +221,7 @@ export default function HomeScreen() {
   };
 
   const changeCategory = (value: Category | "All", persist = true) => {
-    Speech.stop();
+    void stopRoundsSpeech(Speech);
     setCategory(value);
     const nextQueue = shuffle(questionsForCategory(value));
     setQueue(nextQueue.length ? nextQueue : questionBank);
@@ -259,7 +259,7 @@ export default function HomeScreen() {
     haptic.medium();
     setAutoMode(nextMode);
     if (!nextMode) {
-      Speech.stop();
+      void stopRoundsSpeech(Speech);
       if (autoTimer.current) clearTimeout(autoTimer.current);
       return;
     }
@@ -271,7 +271,7 @@ export default function HomeScreen() {
       { text: "Cancel", style: "cancel" },
       { text: "Reset", style: "destructive", onPress: () => {
         haptic.medium();
-        Speech.stop();
+        void stopRoundsSpeech(Speech);
         if (autoTimer.current) clearTimeout(autoTimer.current);
         if (recordingTimer.current) clearTimeout(recordingTimer.current);
         setResults([]);
@@ -288,7 +288,7 @@ export default function HomeScreen() {
 
   const startFreshRound = () => {
     haptic.medium();
-    Speech.stop();
+    void stopRoundsSpeech(Speech);
     setQueue(shuffle(questionsForCategory(category)));
     setIndex(0);
     setEvaluation(null);
@@ -306,8 +306,8 @@ export default function HomeScreen() {
   };
 
   const isCurrentQuestionSaved = bookmarkIds(bookmarks).includes(question.id);
-  const playRationale = () => {
-    Speech.stop();
+  const playRationale = async () => {
+    await stopRoundsSpeech(Speech);
     haptic.light();
     if (speechOptions) Speech.speak(prepareRationaleSpeech(question.explanation, question.clinicalSignificance), speechOptions);
     else setVoiceNotice("Choose an installed English voice in Settings before replaying this rationale.");
@@ -368,7 +368,7 @@ export default function HomeScreen() {
             <Text style={[styles.body, { color: colors.muted }]}>{question.explanation}</Text>
             <Text style={[styles.contextTitle, { color: colors.foreground }]}>Why it matters</Text>
             <Text style={[styles.body, { color: colors.muted }]}>{question.clinicalSignificance}</Text>
-            <View style={styles.rationaleControls}><Pressable onPress={playRationale} accessibilityRole="button" accessibilityLabel="Replay the clinical rationale" style={[styles.rationaleButton, { borderColor: colors.primary }]}><Text style={[styles.rationaleButtonText, { color: colors.primary }]}>♬ Replay rationale</Text></Pressable><Pressable onPress={() => void Speech.stop()} accessibilityRole="button" accessibilityLabel="Stop spoken rationale" style={[styles.rationaleButton, { borderColor: colors.border }]}><Text style={[styles.rationaleButtonText, { color: colors.foreground }]}>Stop voice</Text></Pressable></View>
+            <View style={styles.rationaleControls}><Pressable onPress={() => void playRationale()} accessibilityRole="button" accessibilityLabel="Replay the clinical rationale" style={[styles.rationaleButton, { borderColor: colors.primary }]}><Text style={[styles.rationaleButtonText, { color: colors.primary }]}>♬ Replay rationale</Text></Pressable><Pressable onPress={() => void stopRoundsSpeech(Speech)} accessibilityRole="button" accessibilityLabel="Stop spoken rationale" style={[styles.rationaleButton, { borderColor: colors.border }]}><Text style={[styles.rationaleButtonText, { color: colors.foreground }]}>Stop voice</Text></Pressable></View>
             <Text style={[styles.rationaleStatus, { color: colors.muted }]}>{spokenRationale ? "Spoken rationale is on in Settings." : "Spoken rationale is off. Use Replay rationale anytime."}</Text>
             <Text style={[styles.contextTitle, { color: colors.foreground }]}>Keyword check</Text>
             <View style={styles.keyList}>

@@ -2,8 +2,21 @@ export const VOICE_PREFERENCES_KEY = "rounds.voice.preferences.v1";
 
 export type VoicePreferences = { rate: number; spokenRationale: boolean; voiceIdentifier: string | null };
 export type InstalledVoice = { identifier: string; name: string; language: string; quality: "Default" | "Enhanced" };
+export type SpeechStopApi = { stop?: () => Promise<void> | void };
 
 export const defaultVoicePreferences: VoicePreferences = { rate: 0.92, spokenRationale: true, voiceIdentifier: null };
+
+/** Stops queued speech when the native runtime provides the method, without allowing a missing or failing bridge method to crash learning. */
+export async function stopRoundsSpeech(speech: SpeechStopApi | null | undefined): Promise<boolean> {
+  const stop = speech?.stop;
+  if (typeof stop !== "function") return false;
+  try {
+    await stop.call(speech);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 export function clampSpeechRate(rate: number): number {
   return Math.min(1.15, Math.max(0.72, Math.round(rate * 100) / 100));

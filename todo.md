@@ -311,3 +311,14 @@
 - [x] Repair the verified sign-up, sign-in, session, or routing defect without weakening account security
 - [x] Validate secure learner authentication and selected-program access end to end
 - [x] Checkpoint the Rounds-native authentication repair
+- [x] Define the Nursing learner-experience baseline for all-program parity comparison
+- [x] Audit university and high-school course-pack capabilities against the Nursing baseline
+- [x] Report verified parity, intended subject differences, and remaining course-equality priorities
+- [x] Inspect the mobile voice playback call sites and Expo speech API contract behind the reported Speech.stop crash
+- [x] Reproduce the unavailable speech-stop crash and add deterministic regression coverage
+- [x] Repair voice playback stop and cleanup handling without weakening the spoken-learning controls
+- [x] Validate the repaired voice flow across type checks, native-compatible build output, and regressions
+- [x] Checkpoint the mobile voice-crash repair
+- [x] Inspect the shared Rounds light-mode theme tokens and establish a brighter accessible palette
+- [x] Apply the brighter light-mode palette across the shared app theme without changing the sage brand identity
+- [x] Validate the combined voice-stability and light-theme refresh, then checkpoint the release

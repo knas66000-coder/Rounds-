@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { clampSpeechRate, parseVoicePreferences, preparePdfSectionSpeech, prepareQuestionSpeech, prepareRationaleSpeech } from "../lib/voice";
+import { clampSpeechRate, parseVoicePreferences, preparePdfSectionSpeech, prepareQuestionSpeech, prepareRationaleSpeech, stopRoundsSpeech } from "../lib/voice";
 
 describe("voice utilities", () => {
   it("keeps saved speech pace within the accessible range", () => {
@@ -15,5 +15,13 @@ describe("voice utilities", () => {
     expect(prepareQuestionSpeech("What is first?")).toContain("Pause to think");
     expect(prepareRationaleSpeech("Assess first.", "It prevents deterioration.")).toContain("Why it matters.");
     expect(preparePdfSectionSpeech("Vitals", "Temperature ≥ 38° C")).toContain("Temperature greater than or equal to 38 degrees C");
+  });
+
+  it("does not crash when a native speech bridge omits or rejects stop", async () => {
+    let calls = 0;
+    expect(await stopRoundsSpeech({ stop: () => { calls += 1; } })).toBe(true);
+    expect(calls).toBe(1);
+    expect(await stopRoundsSpeech({})).toBe(false);
+    expect(await stopRoundsSpeech({ stop: async () => { throw new Error("bridge unavailable"); } })).toBe(false);
   });
 });

@@ -8,7 +8,7 @@ import { ScreenContainer } from "@/components/screen-container";
 import { useRoundsVoice } from "@/hooks/use-rounds-voice";
 import { useAuthSession } from "@/lib/auth-session";
 import { loadPdfReaderCache, loadPdfReaderProgress, savePdfReaderCache, savePdfReaderProgress, type CachedPdfReader } from "@/lib/pdf-reader-cache";
-import { preparePdfSectionSpeech } from "@/lib/voice";
+import { preparePdfSectionSpeech, stopRoundsSpeech } from "@/lib/voice";
 import { trpc } from "@/lib/trpc";
 import { searchReadingSections } from "@/shared/pdf-reader";
 import type { LearnerMaterialPractice } from "@/shared/pdf-practice";
@@ -49,7 +49,7 @@ export default function PdfReaderScreen() {
     void savePdfReaderCache(user.id, materialId, cacheable);
   }, [user, materialId, readerQuery.data]);
 
-  useEffect(() => () => { void Speech.stop(); }, []);
+  useEffect(() => () => { void stopRoundsSpeech(Speech); }, []);
 
   const reader = readerQuery.data ?? cached;
   const sections = useMemo(() => reader?.sections ?? [], [reader]);
@@ -60,7 +60,7 @@ export default function PdfReaderScreen() {
 
   const moveTo = (nextPosition: number) => {
     const next = Math.min(Math.max(0, nextPosition), Math.max(0, sections.length - 1));
-    void Speech.stop();
+    void stopRoundsSpeech(Speech);
     setIsNarrating(false);
     setPractice(null);
     setRevealedAnswers(new Set());
@@ -82,7 +82,7 @@ export default function PdfReaderScreen() {
   };
   const readActiveSection = async () => {
     if (!activeSection) return;
-    await Speech.stop();
+    await stopRoundsSpeech(Speech);
     if (!speechOptions) {
       Alert.alert("Choose an English voice", "Install or select an English device voice in Rounds Settings before listening to this passage.");
       return;
@@ -96,7 +96,7 @@ export default function PdfReaderScreen() {
     });
   };
   const stopNarration = async () => {
-    await Speech.stop();
+    await stopRoundsSpeech(Speech);
     setIsNarrating(false);
   };
   const createPractice = async () => {

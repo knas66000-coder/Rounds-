@@ -8,7 +8,7 @@ import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { useRoundsVoice } from "@/hooks/use-rounds-voice";
 import { encodeRecordedAudio } from "@/lib/audio-encoding";
-import { prepareLocalSpeech } from "@/lib/voice";
+import { prepareLocalSpeech, stopRoundsSpeech } from "@/lib/voice";
 import { trpc } from "@/lib/trpc";
 import type { VoiceTutorAction, VoiceTutorTurn } from "@/shared/voice-tutor";
 
@@ -35,20 +35,20 @@ export default function VoiceTutorScreen() {
 
   useEffect(() => {
     return () => {
-      void Speech.stop();
+      void stopRoundsSpeech(Speech);
       if (recordingTimer.current) clearTimeout(recordingTimer.current);
       if (recorderRef.current.isRecording) void recorderRef.current.stop();
     };
   }, []);
 
   const stopVoice = async () => {
-    await Speech.stop();
+    await stopRoundsSpeech(Speech);
     if (phase === "speaking") setPhase("ready");
     setNotice("Voice stopped. Speak or type another study question when you are ready.");
   };
 
   const speakTutorReply = async (reply: string) => {
-    await Speech.stop();
+    await stopRoundsSpeech(Speech);
     if (!speechOptions) {
       setPhase("ready");
       setNotice("Your reply is ready to read. Install or choose an English device voice in Settings to hear Rounds aloud.");
@@ -65,7 +65,7 @@ export default function VoiceTutorScreen() {
 
   const beginRecording = async () => {
     try {
-      await Speech.stop();
+      await stopRoundsSpeech(Speech);
       const permission = await requestRecordingPermissionsAsync();
       if (!permission.granted) {
         setNotice("Microphone access is off. Type your study question below instead.");
@@ -110,7 +110,7 @@ export default function VoiceTutorScreen() {
       Alert.alert("Add a study question", "Speak to Rounds or type a Nursing study question before sending.");
       return;
     }
-    await Speech.stop();
+    await stopRoundsSpeech(Speech);
     const history = turns.slice(-6).map(({ role, content }) => ({ role, content }));
     setTurns((current) => [...current, { role: "user", content: message }]);
     setDraft("");
@@ -128,14 +128,14 @@ export default function VoiceTutorScreen() {
   };
 
   const openAction = (action: VoiceTutorAction | undefined) => {
-    void Speech.stop();
+    void stopRoundsSpeech(Speech);
     if (action === "oral_exam") router.push("/oral-exam");
     if (action === "adaptive_review") router.push("/adaptive-review");
     if (action === "pdf_reader") router.push("/study-materials");
   };
 
   const clearConversation = () => {
-    void Speech.stop();
+    void stopRoundsSpeech(Speech);
     setTurns([]);
     setDraft("");
     setPhase("ready");
@@ -152,7 +152,7 @@ export default function VoiceTutorScreen() {
         keyExtractor={(_, index) => `voice-turn-${index}`}
         contentContainerStyle={styles.content}
         keyboardShouldPersistTaps="handled"
-        ListHeaderComponent={<><Pressable onPress={() => { void Speech.stop(); router.back(); }} accessibilityRole="button"><Text style={[styles.back, { color: colors.primary }]}>‹ Study tools</Text></Pressable><View style={styles.header}><Text style={[styles.eyebrow, { color: colors.primary }]}>ROUNDS VOICE TUTOR</Text><Text style={[styles.title, { color: colors.foreground }]}>Talk through a study topic.</Text><Text style={[styles.sub, { color: colors.muted }]}>Speak a Nursing study question, check the transcript, then hear a concise Rounds response. This is study support, not patient-specific clinical direction.</Text></View><View style={[styles.statusCard, { borderColor: colors.primary, backgroundColor: colors.surface }]}><Text style={[styles.statusLabel, { color: colors.primary }]}>{phase === "listening" ? `LISTENING · ${recordingSeconds}s / 12s` : phase === "transcribing" ? "TRANSCRIBING" : phase === "thinking" ? "PREPARING RESPONSE" : phase === "speaking" ? "ROUNDS IS SPEAKING" : "READY"}</Text><Text style={[styles.statusCopy, { color: colors.muted }]}>{notice}</Text>{phase === "speaking" ? <Pressable onPress={() => void stopVoice()} accessibilityRole="button" style={[styles.stopVoice, { borderColor: colors.primary }]}><Text style={[styles.stopVoiceText, { color: colors.primary }]}>Stop voice</Text></Pressable> : null}</View>{turns.length === 0 ? <View style={[styles.welcomeCard, { borderColor: colors.border, backgroundColor: colors.surface }]}><Text style={[styles.welcomeTitle, { color: colors.foreground }]}>Try a focused learning question</Text><Text style={[styles.welcomeText, { color: colors.muted }]}>For example: “Explain why hand hygiene matters before medication administration,” or “Help me choose a topic for oral practice.”</Text></View> : null}</>}
+        ListHeaderComponent={<><Pressable onPress={() => { void stopRoundsSpeech(Speech); router.back(); }} accessibilityRole="button"><Text style={[styles.back, { color: colors.primary }]}>‹ Study tools</Text></Pressable><View style={styles.header}><Text style={[styles.eyebrow, { color: colors.primary }]}>ROUNDS VOICE TUTOR</Text><Text style={[styles.title, { color: colors.foreground }]}>Talk through a study topic.</Text><Text style={[styles.sub, { color: colors.muted }]}>Speak a Nursing study question, check the transcript, then hear a concise Rounds response. This is study support, not patient-specific clinical direction.</Text></View><View style={[styles.statusCard, { borderColor: colors.primary, backgroundColor: colors.surface }]}><Text style={[styles.statusLabel, { color: colors.primary }]}>{phase === "listening" ? `LISTENING · ${recordingSeconds}s / 12s` : phase === "transcribing" ? "TRANSCRIBING" : phase === "thinking" ? "PREPARING RESPONSE" : phase === "speaking" ? "ROUNDS IS SPEAKING" : "READY"}</Text><Text style={[styles.statusCopy, { color: colors.muted }]}>{notice}</Text>{phase === "speaking" ? <Pressable onPress={() => void stopVoice()} accessibilityRole="button" style={[styles.stopVoice, { borderColor: colors.primary }]}><Text style={[styles.stopVoiceText, { color: colors.primary }]}>Stop voice</Text></Pressable> : null}</View>{turns.length === 0 ? <View style={[styles.welcomeCard, { borderColor: colors.border, backgroundColor: colors.surface }]}><Text style={[styles.welcomeTitle, { color: colors.foreground }]}>Try a focused learning question</Text><Text style={[styles.welcomeText, { color: colors.muted }]}>For example: “Explain why hand hygiene matters before medication administration,” or “Help me choose a topic for oral practice.”</Text></View> : null}</>}
         renderItem={({ item }) => <View style={[styles.bubble, item.role === "user" ? [styles.userBubble, { backgroundColor: colors.primary }] : [styles.tutorBubble, { borderColor: item.safetyRedirect ? colors.warning : colors.border, backgroundColor: colors.surface }]]}><Text style={[styles.bubbleLabel, { color: item.role === "user" ? colors.background : item.safetyRedirect ? colors.warning : colors.primary }]}>{item.role === "user" ? "YOU" : item.safetyRedirect ? "SAFETY NOTE" : "ROUNDS"}</Text><Text style={[styles.bubbleText, { color: item.role === "user" ? colors.background : colors.foreground }]}>{item.content}</Text>{actionLabel(item.action) ? <Pressable onPress={() => openAction(item.action)} accessibilityRole="button"><Text style={[styles.actionLink, { color: colors.primary }]}>{actionLabel(item.action)} ›</Text></Pressable> : null}</View>}
         ListFooterComponent={<View style={styles.composer}><TextInput value={draft} onChangeText={setDraft} editable={!isBusy} multiline placeholder="Type a Nursing study question or review your spoken transcript" placeholderTextColor={colors.muted} style={[styles.input, { borderColor: colors.border, backgroundColor: colors.surface, color: colors.foreground }, isBusy && styles.dimmed]} accessibilityLabel="Voice tutor study question or transcript" /><View style={styles.controls}>{phase === "listening" ? <Pressable onPress={() => void stopAndTranscribe()} accessibilityRole="button" style={[styles.recordButton, { backgroundColor: colors.error }]}><Text style={[styles.recordButtonText, { color: colors.background }]}>Stop & review</Text></Pressable> : <Pressable onPress={() => void beginRecording()} disabled={isBusy} accessibilityRole="button" style={[styles.recordButton, { borderColor: colors.primary }, isBusy && styles.dimmed]}><Text style={[styles.recordButtonText, { color: colors.primary }]}>Speak to Rounds</Text></Pressable>}<Pressable onPress={() => void sendToTutor()} disabled={isBusy || !draft.trim()} accessibilityRole="button" style={[styles.sendButton, { backgroundColor: colors.primary }, (isBusy || !draft.trim()) && styles.dimmed]}>{phase === "transcribing" || phase === "thinking" ? <ActivityIndicator color={colors.background} /> : <Text style={[styles.sendButtonText, { color: colors.background }]}>Send</Text>}</Pressable></View>{turns.length ? <Pressable onPress={clearConversation} accessibilityRole="button"><Text style={[styles.clear, { color: colors.muted }]}>Clear this private conversation</Text></Pressable> : null}<Text style={[styles.footnote, { color: colors.muted }]}>Voice Tutor needs a connection for transcription and replies. Your conversation is not saved to Community, owner tools, or your account. Rounds uses the English voice chosen in Settings. On iPhone, turn off Silent Mode to hear speech.</Text></View>}
       />

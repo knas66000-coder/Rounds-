@@ -10,7 +10,7 @@ import { useColors } from "@/hooks/use-colors";
 import { useRoundsVoice } from "@/hooks/use-rounds-voice";
 import { useAuthSession } from "@/lib/auth-session";
 import { trpc } from "@/lib/trpc";
-import { clampSpeechRate, defaultVoicePreferences, prepareLocalSpeech, VOICE_PREFERENCES_KEY } from "@/lib/voice";
+import { clampSpeechRate, defaultVoicePreferences, prepareLocalSpeech, stopRoundsSpeech, VOICE_PREFERENCES_KEY } from "@/lib/voice";
 import { shareRoundsAccountExport } from "@/lib/account-export";
 import { BIOMETRIC_UNLOCK_KEY, parseBiometricUnlock } from "@/shared/account-privacy";
 
@@ -47,10 +47,10 @@ export default function SettingsScreen() {
     setVoiceIdentifier(nextPreferences.voiceIdentifier);
     void AsyncStorage.setItem(VOICE_PREFERENCES_KEY, JSON.stringify(nextPreferences)).then(() => void reloadVoices());
   };
-  const previewVoice = (identifier?: string) => {
+  const previewVoice = async (identifier?: string) => {
     const voice = englishVoices.find((item) => item.identifier === identifier) ?? selectedVoice;
     if (!voice) { Alert.alert("No English voice found", "Install an English text-to-speech voice on this device, then reopen Rounds Settings."); return; }
-    void Speech.stop();
+    await stopRoundsSpeech(Speech);
     Speech.speak(prepareLocalSpeech("Rounds is ready. Check blood pressure, S P O two, and medication safety before answering."), { voice: voice.identifier, language: voice.language, rate });
   };
 

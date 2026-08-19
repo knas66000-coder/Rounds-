@@ -13,7 +13,7 @@ import { haptic } from "@/lib/haptics";
 import { buildOralExamQueue, matchOralExamTopic, oralExamFollowUpPrompt, selectOralExamFollowUp } from "@/lib/oral-exam";
 import { evaluateAnswer, type Evaluation } from "@/lib/rounds";
 import { recordLearningOutcome } from "@/lib/adaptive-store";
-import { prepareFeedbackSpeech, prepareQuestionSpeech, prepareRationaleSpeech } from "@/lib/voice";
+import { prepareFeedbackSpeech, prepareQuestionSpeech, prepareRationaleSpeech, stopRoundsSpeech } from "@/lib/voice";
 import { trpc } from "@/lib/trpc";
 
 type OralPhase = "setup" | "speaking" | "listening" | "transcribing" | "review" | "complete";
@@ -52,7 +52,7 @@ export default function OralExamScreen() {
 
   useEffect(() => {
     return () => {
-      Speech.stop();
+      void stopRoundsSpeech(Speech);
       if (recordingTimer.current) clearTimeout(recordingTimer.current);
       if (recorderRef.current.isRecording) void recorderRef.current.stop();
     };
@@ -65,7 +65,7 @@ export default function OralExamScreen() {
   }, [materialsQuery.data, selectedMaterialId]);
 
   const startRound = (topic = selectedCategory) => {
-    Speech.stop();
+    void stopRoundsSpeech(Speech);
     const nextQueue = buildOralExamQueue(questionBank, topic, 10);
     if (!nextQueue.length) {
       setNotice("This topic is not available in the installed Nursing pack yet.");
@@ -83,10 +83,10 @@ export default function OralExamScreen() {
     setPhase("setup");
   };
 
-  const speakQuestion = () => {
+  const speakQuestion = async () => {
     if (!question) return;
     haptic.light();
-    Speech.stop();
+    await stopRoundsSpeech(Speech);
     if (!speechOptions) {
       setNotice("Choose an installed English voice in Settings before asking a question aloud. You can still record or type an answer.");
       return;
@@ -161,7 +161,7 @@ export default function OralExamScreen() {
       Alert.alert("Add an answer", "Speak or type your clinical response before submitting.");
       return;
     }
-    Speech.stop();
+    await stopRoundsSpeech(Speech);
     const nextEvaluation = evaluateAnswer(response, question);
     setEvaluation(nextEvaluation);
     setPhase("review");
@@ -185,7 +185,7 @@ export default function OralExamScreen() {
   };
 
   const nextQuestion = () => {
-    Speech.stop();
+    void stopRoundsSpeech(Speech);
     haptic.light();
     if (index + 1 >= queue.length) {
       setPhase("complete");
@@ -201,9 +201,9 @@ export default function OralExamScreen() {
     setNotice("Next question ready. Hear it aloud or answer when ready.");
   };
 
-  const replayRationale = () => {
+  const replayRationale = async () => {
     if (!question) return;
-    Speech.stop();
+    await stopRoundsSpeech(Speech);
     if (speechOptions) Speech.speak(prepareRationaleSpeech(question.explanation, question.clinicalSignificance), speechOptions);
   };
 
