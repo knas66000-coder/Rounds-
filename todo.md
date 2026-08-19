@@ -232,3 +232,7 @@
 - [x] Refine the bottom tabs and authentication entry surface for a native application feel
 - [x] Rework the main learning, study, and academic-home entry points into compact mobile-native sections
 - [x] Validate native-safe layouts, interactions, builds, and checkpoint the native-feel release
+- [x] Define compact native mobile navigation and action patterns for course packs and research updates
+- [x] Refine the course-pack library into focused local actions and concise subject rows
+- [x] Refine connected research updates into a native search-and-source flow with compact controls
+- [x] Validate and checkpoint the secondary native-flow release

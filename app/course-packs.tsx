@@ -4,6 +4,7 @@ import { useRouter } from "expo-router";
 
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
+import { haptic } from "@/lib/haptics";
 import { canInstallPack, installLocalCoursePack, isPackInstalled, loadCoursePackInstalls, loadCoursePackResume, saveCoursePackResume, type CoursePackInstall, type CoursePackResume } from "@/lib/course-pack-store";
 import { trpc } from "@/lib/trpc";
 import { isAcademicProgram } from "@/shared/academic-profile";
@@ -42,10 +43,8 @@ export default function CoursePacksScreen() {
   }, []);
 
   const openCourse = async (pack: CoursePack, courseId: string) => {
-    if (pack.id === "nursing-practice") {
-      router.replace("/" as never);
-      return;
-    }
+    haptic.light();
+    if (pack.id === "nursing-practice") { router.replace("/" as never); return; }
     if (!isPackInstalled(pack, installs)) {
       Alert.alert("Add for offline first", `Add ${pack.title} to this device before opening its local starter activities.`);
       return;
@@ -58,20 +57,26 @@ export default function CoursePacksScreen() {
     }
     router.push({ pathname: "/course-activity", params: { packId: pack.id, courseId } } as never);
   };
+
   const addForOffline = async (pack: CoursePack) => {
+    haptic.medium();
     const installed = await installLocalCoursePack(pack.id);
     if (!installed) { Alert.alert("Pack unavailable", "This pack is already on the device or is not ready for offline installation."); return; }
     setInstalls((current) => [...current.filter((item) => item.packId !== pack.id), installed]);
     Alert.alert("Ready offline", `${pack.title} is now available in your local Rounds library.`);
   };
+
   const startLearningRound = (pack: CoursePack) => {
+    haptic.medium();
     if (pack.id === "nursing-practice") { router.replace("/" as never); return; }
     if (!isPackInstalled(pack, installs)) { Alert.alert("Add for offline first", `Add ${pack.title} to this device before starting its local learning round.`); return; }
     router.push({ pathname: "/course-round", params: { packId: pack.id } } as never);
   };
+
   const openCaseChain = (pack: CoursePack) => {
     const chain = caseChainForPack(pack.id);
     if (!chain || pack.id === "nursing-practice") return;
+    haptic.light();
     if (!isPackInstalled(pack, installs)) { Alert.alert("Add for offline first", `Add ${pack.title} to this device before opening its local learning case.`); return; }
     router.push({ pathname: "/case-chain", params: { chainId: chain.id } } as never);
   };
@@ -85,9 +90,9 @@ export default function CoursePacksScreen() {
         keyExtractor={(pack) => pack.id}
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={<View style={styles.header}><Pressable onPress={() => router.back()} accessibilityRole="button"><Text style={[styles.back, { color: colors.primary }]}>‹ {profile.program.replace(/_/g, " ")}</Text></Pressable><Text style={[styles.eyebrow, { color: colors.primary }]}>YOUR LEARNING LIBRARY</Text><Text style={[styles.title, { color: colors.foreground }]}>Course packs for {profile.institutionName}</Text><Text style={[styles.sub, { color: colors.muted }]}>The learning engine is shared. The content, study method, and assessment style belong to each subject.</Text>{resume ? <Text style={[styles.resume, { color: colors.muted }]}>Resume saved locally · {resume.courseId.replace(/-/g, " ")}</Text> : null}{selectedPack ? <SelectedPack pack={selectedPack} installed={isPackInstalled(selectedPack, installs)} colors={colors} onOpenCourse={openCourse} onInstall={addForOffline} onStartRound={startLearningRound} onOpenCase={openCaseChain} /> : null}<Text style={[styles.sectionTitle, { color: colors.foreground }]}>Available for your program</Text></View>}
-        renderItem={({ item }) => <PackCard pack={item} accent={packAccents[item.id] ?? colors.primary} selected={item.id === selectedPack?.id} installed={isPackInstalled(item, installs)} colors={colors} onPress={() => setSelectedPackId(item.id)} />}
-        ListEmptyComponent={<View style={[styles.empty, { borderColor: colors.border, backgroundColor: colors.surface }]}><Text style={[styles.emptyTitle, { color: colors.foreground }]}>Your pack list is being prepared.</Text><Text style={[styles.emptyText, { color: colors.muted }]}>Return to your program home or review your academic profile.</Text></View>}
+        ListHeaderComponent={<View style={styles.header}><View style={styles.topBar}><Pressable onPress={() => { haptic.light(); router.back(); }} accessibilityRole="button" style={({ pressed }) => [styles.backButton, { backgroundColor: colors.surface, borderColor: colors.border }, pressed && styles.pressed]}><Text style={[styles.backText, { color: colors.primary }]}>‹</Text></Pressable><Text style={[styles.topBarTitle, { color: colors.muted }]}>COURSE LIBRARY</Text><View style={styles.topBarSpacer} /></View><Text style={[styles.title, { color: colors.foreground }]}>Your learning packs</Text><Text style={[styles.sub, { color: colors.muted }]}>{profile.institutionName} · your study content is organised by subject and stored locally after installation.</Text>{resume ? <Text style={[styles.resume, { color: colors.muted }]}>Resume: {resume.courseId.replace(/-/g, " ")}</Text> : null}{selectedPack ? <SelectedPack pack={selectedPack} installed={isPackInstalled(selectedPack, installs)} colors={colors} onOpenCourse={openCourse} onInstall={addForOffline} onStartRound={startLearningRound} onOpenCase={openCaseChain} /> : null}<Text style={[styles.sectionTitle, { color: colors.muted }]}>YOUR AVAILABLE PACKS</Text></View>}
+        renderItem={({ item }) => <PackCard pack={item} accent={packAccents[item.id] ?? colors.primary} selected={item.id === selectedPack?.id} installed={isPackInstalled(item, installs)} colors={colors} onPress={() => { haptic.light(); setSelectedPackId(item.id); }} />}
+        ListEmptyComponent={<View style={[styles.empty, { borderColor: colors.border, backgroundColor: colors.surface }]}><Text style={[styles.emptyTitle, { color: colors.foreground }]}>Your library is being prepared.</Text><Text style={[styles.emptyText, { color: colors.muted }]}>Return to your program home or review your academic profile.</Text></View>}
       />
     </ScreenContainer>
   );
@@ -96,13 +101,57 @@ export default function CoursePacksScreen() {
 function SelectedPack({ pack, installed, colors, onOpenCourse, onInstall, onStartRound, onOpenCase }: { pack: CoursePack; installed: boolean; colors: ReturnType<typeof useColors>; onOpenCourse: (pack: CoursePack, courseId: string) => void; onInstall: (pack: CoursePack) => void; onStartRound: (pack: CoursePack) => void; onOpenCase: (pack: CoursePack) => void }) {
   const accent = packAccents[pack.id] ?? colors.primary;
   const chain = caseChainForPack(pack.id);
-  return <View style={[styles.focusCard, { borderColor: accent, backgroundColor: colors.surface }]}><Text style={[styles.focusLabel, { color: accent }]}>{installed ? "READY ON THIS DEVICE" : coursePackReadinessLabel(pack.readiness)}</Text><Text style={[styles.focusTitle, { color: colors.foreground }]}>{pack.title}</Text><Text style={[styles.focusCopy, { color: colors.muted }]}>{pack.description}</Text>{canInstallPack(pack) && !installed ? <Pressable onPress={() => onInstall(pack)} accessibilityRole="button" style={[styles.installButton, { backgroundColor: accent }]}><Text style={[styles.installButtonText, { color: colors.background }]}>Add for offline · {pack.estimatedDownloadMb ?? 0} MB</Text></Pressable> : <Pressable onPress={() => onStartRound(pack)} accessibilityRole="button" style={[styles.installButton, { backgroundColor: accent }]}><Text style={[styles.installButtonText, { color: colors.background }]}>Start learning round</Text></Pressable>}{chain ? <Pressable onPress={() => onOpenCase(pack)} accessibilityRole="button" style={[styles.caseButton, { borderColor: accent }]}><Text style={[styles.caseButtonText, { color: accent }]}>Open multi-step learning case</Text></Pressable> : null}<FlatList horizontal data={pack.courses} keyExtractor={(course) => course.id} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.courseList} renderItem={({ item: course }) => <Pressable onPress={() => void onOpenCourse(pack, course.id)} accessibilityRole="button" style={({ pressed }) => [styles.courseCard, { borderColor: colors.border, backgroundColor: colors.background }, pressed && styles.pressed]}><Text style={[styles.courseTitle, { color: colors.foreground }]}>{course.title}</Text><Text numberOfLines={3} style={[styles.courseSummary, { color: colors.muted }]}>{course.summary}</Text><Text style={[styles.courseMode, { color: accent }]}>{course.activityKinds.map(courseActivityLabel).join(" · ")}</Text><Text style={[styles.courseAction, { color: accent }]}>{pack.id === "nursing-practice" ? "Open practice" : course.contentState === "active" ? (installed ? "Open activity detail" : "Add pack for offline") : "Next activity in development"}</Text></Pressable>} /></View>;
+  return <View style={[styles.focusSheet, { backgroundColor: colors.surface, borderColor: accent }]}><View style={styles.focusHeader}><View style={[styles.focusMark, { backgroundColor: accent }]}><Text style={[styles.focusMarkText, { color: colors.background }]}>{pack.title.slice(0, 1)}</Text></View><View style={styles.focusCopyWrap}><Text style={[styles.focusLabel, { color: accent }]}>{installed ? "READY ON THIS DEVICE" : coursePackReadinessLabel(pack.readiness)}</Text><Text style={[styles.focusTitle, { color: colors.foreground }]}>{pack.title}</Text></View></View><Text style={[styles.focusCopy, { color: colors.muted }]}>{pack.description}</Text>{canInstallPack(pack) && !installed ? <Pressable onPress={() => onInstall(pack)} accessibilityRole="button" style={({ pressed }) => [styles.primaryAction, { backgroundColor: accent }, pressed && styles.pressed]}><Text style={[styles.primaryActionText, { color: colors.background }]}>Download for offline · {pack.estimatedDownloadMb ?? 0} MB</Text><Text style={[styles.primaryActionArrow, { color: colors.background }]}>›</Text></Pressable> : <Pressable onPress={() => onStartRound(pack)} accessibilityRole="button" style={({ pressed }) => [styles.primaryAction, { backgroundColor: accent }, pressed && styles.pressed]}><Text style={[styles.primaryActionText, { color: colors.background }]}>Start learning round</Text><Text style={[styles.primaryActionArrow, { color: colors.background }]}>›</Text></Pressable>}{chain ? <Pressable onPress={() => onOpenCase(pack)} accessibilityRole="button" style={({ pressed }) => [styles.caseAction, { borderColor: accent }, pressed && styles.pressed]}><Text style={[styles.caseActionText, { color: accent }]}>Open multi-step learning case</Text><Text style={[styles.caseActionArrow, { color: accent }]}>›</Text></Pressable> : null}<Text style={[styles.courseSectionLabel, { color: colors.muted }]}>START FROM A COURSE</Text><FlatList horizontal data={pack.courses} keyExtractor={(course) => course.id} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.courseList} renderItem={({ item: course }) => <Pressable onPress={() => void onOpenCourse(pack, course.id)} accessibilityRole="button" style={({ pressed }) => [styles.courseCard, { borderColor: colors.border, backgroundColor: colors.background }, pressed && styles.pressed]}><Text numberOfLines={2} style={[styles.courseTitle, { color: colors.foreground }]}>{course.title}</Text><Text numberOfLines={3} style={[styles.courseSummary, { color: colors.muted }]}>{course.summary}</Text><Text numberOfLines={2} style={[styles.courseMode, { color: accent }]}>{course.activityKinds.map(courseActivityLabel).join(" · ")}</Text><Text style={[styles.courseAction, { color: accent }]}>{pack.id === "nursing-practice" ? "Open practice ›" : course.contentState === "active" ? (installed ? "Open activity ›" : "Install pack first") : "In development"}</Text></Pressable>} /></View>;
 }
 
 function PackCard({ pack, accent, selected, installed, colors, onPress }: { pack: CoursePack; accent: string; selected: boolean; installed: boolean; colors: ReturnType<typeof useColors>; onPress: () => void }) {
-  return <Pressable onPress={onPress} accessibilityRole="button" accessibilityLabel={`Open ${pack.title}`} style={({ pressed }) => [styles.packCard, { borderColor: selected ? accent : colors.border, backgroundColor: colors.surface }, pressed && styles.pressed]}><View style={[styles.accent, { backgroundColor: accent }]} /><View style={styles.packCopy}><View style={styles.packTop}><Text style={[styles.packFaculty, { color: accent }]}>{pack.faculty.toUpperCase()}</Text><Text style={[styles.packStatus, { color: pack.readiness === "active" ? colors.success : pack.readiness === "catalog" ? accent : colors.warning }]}>{installed ? "INSTALLED" : coursePackReadinessLabel(pack.readiness)}</Text></View><Text style={[styles.packTitle, { color: colors.foreground }]}>{pack.title}</Text><Text numberOfLines={2} style={[styles.packDescription, { color: colors.muted }]}>{pack.description}</Text><Text style={[styles.openLabel, { color: accent }]}>{selected ? "Viewing above" : "View course structure"}</Text></View></Pressable>;
+  return <Pressable onPress={onPress} accessibilityRole="button" accessibilityState={{ selected }} accessibilityLabel={`Open ${pack.title}`} style={({ pressed }) => [styles.packRow, { borderColor: selected ? accent : colors.border, backgroundColor: colors.surface }, pressed && styles.pressed]}><View style={[styles.packDot, { backgroundColor: accent }]} /><View style={styles.packCopy}><View style={styles.packTop}><Text style={[styles.packFaculty, { color: accent }]}>{pack.faculty.toUpperCase()}</Text><Text style={[styles.packStatus, { color: pack.readiness === "active" ? colors.success : pack.readiness === "catalog" ? accent : colors.warning }]}>{installed ? "INSTALLED" : coursePackReadinessLabel(pack.readiness)}</Text></View><Text style={[styles.packTitle, { color: colors.foreground }]}>{pack.title}</Text><Text numberOfLines={1} style={[styles.packDescription, { color: colors.muted }]}>{pack.description}</Text></View><Text style={[styles.packChevron, { color: accent }]}>{selected ? "•" : "›"}</Text></Pressable>;
 }
 
 const styles = StyleSheet.create({
-  content: { paddingTop: 19, paddingBottom: 40, gap: 10 }, header: { gap: 8, marginBottom: 8 }, back: { fontSize: 14, fontWeight: "900", marginBottom: 4 }, eyebrow: { fontSize: 10, letterSpacing: 1.5, fontWeight: "900" }, title: { fontFamily: "Georgia", fontSize: 29, lineHeight: 36, fontWeight: "700" }, sub: { fontSize: 14, lineHeight: 21 }, resume: { fontSize: 12, textTransform: "capitalize", marginTop: 2 }, sectionTitle: { fontSize: 16, fontWeight: "900", marginTop: 9 }, focusCard: { marginTop: 9, borderWidth: 1.5, borderRadius: 22, padding: 17, gap: 7 }, focusLabel: { fontSize: 10, letterSpacing: 1.3, fontWeight: "900" }, focusTitle: { fontFamily: "Georgia", fontSize: 23, fontWeight: "700" }, focusCopy: { fontSize: 14, lineHeight: 20 }, installButton: { minHeight: 45, borderRadius: 14, alignItems: "center", justifyContent: "center", marginTop: 2 }, installButtonText: { fontSize: 13, fontWeight: "900" }, caseButton: { minHeight: 42, borderWidth: 1, borderRadius: 14, alignItems: "center", justifyContent: "center" }, caseButtonText: { fontSize: 13, fontWeight: "900" }, courseList: { gap: 10, paddingTop: 5, paddingBottom: 1 }, courseCard: { width: 214, minHeight: 190, borderWidth: 1, borderRadius: 16, padding: 13, gap: 6 }, courseTitle: { fontSize: 15, lineHeight: 20, fontWeight: "900" }, courseSummary: { fontSize: 12, lineHeight: 17, flex: 1 }, courseMode: { fontSize: 10, lineHeight: 15, fontWeight: "800" }, courseAction: { fontSize: 12, fontWeight: "900" }, packCard: { borderWidth: 1, borderRadius: 19, minHeight: 126, flexDirection: "row", overflow: "hidden" }, accent: { width: 6 }, packCopy: { flex: 1, padding: 14, gap: 4 }, packTop: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", gap: 8 }, packFaculty: { fontSize: 9, letterSpacing: 1.1, fontWeight: "900", flex: 1 }, packStatus: { fontSize: 9, letterSpacing: 0.8, fontWeight: "900" }, packTitle: { fontSize: 17, fontWeight: "900" }, packDescription: { fontSize: 12, lineHeight: 17 }, openLabel: { fontSize: 12, fontWeight: "900", marginTop: 2 }, empty: { borderWidth: 1, borderRadius: 18, padding: 17, gap: 5 }, emptyTitle: { fontSize: 16, fontWeight: "900" }, emptyText: { fontSize: 13, lineHeight: 19 }, pressed: { opacity: 0.8, transform: [{ scale: 0.98 }] },
+  content: { paddingTop: 16, paddingBottom: 34, gap: 9 },
+  header: { gap: 10, marginBottom: 6 },
+  topBar: { height: 38, flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
+  backButton: { width: 38, height: 38, borderWidth: 1, borderRadius: 13, alignItems: "center", justifyContent: "center" },
+  backText: { fontSize: 26, lineHeight: 30, fontWeight: "300", marginTop: -2 },
+  topBarTitle: { fontSize: 10, letterSpacing: 1.5, fontWeight: "900" },
+  topBarSpacer: { width: 38 },
+  title: { fontFamily: "Georgia", fontSize: 29, lineHeight: 36, fontWeight: "700" },
+  sub: { fontSize: 13, lineHeight: 19 },
+  resume: { fontSize: 11, lineHeight: 16, textTransform: "capitalize" },
+  sectionTitle: { fontSize: 10, letterSpacing: 1.5, fontWeight: "900", marginTop: 4 },
+  focusSheet: { borderWidth: 1.5, borderRadius: 24, padding: 16, gap: 10, marginTop: 2 },
+  focusHeader: { flexDirection: "row", alignItems: "center", gap: 10 },
+  focusMark: { width: 40, height: 40, borderRadius: 14, alignItems: "center", justifyContent: "center" },
+  focusMarkText: { fontSize: 20, fontWeight: "900" },
+  focusCopyWrap: { flex: 1, gap: 2 },
+  focusLabel: { fontSize: 9, letterSpacing: 1.1, fontWeight: "900" },
+  focusTitle: { fontSize: 19, fontWeight: "900" },
+  focusCopy: { fontSize: 13, lineHeight: 19 },
+  primaryAction: { minHeight: 50, borderRadius: 16, paddingHorizontal: 15, flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
+  primaryActionText: { fontSize: 13, fontWeight: "900" },
+  primaryActionArrow: { fontSize: 27, fontWeight: "300" },
+  caseAction: { minHeight: 43, borderWidth: 1, borderRadius: 14, paddingHorizontal: 14, flexDirection: "row", alignItems: "center", justifyContent: "space-between" },
+  caseActionText: { fontSize: 12, fontWeight: "900" },
+  caseActionArrow: { fontSize: 23, fontWeight: "300" },
+  courseSectionLabel: { fontSize: 9, letterSpacing: 1.2, fontWeight: "900", marginTop: 2 },
+  courseList: { gap: 9, paddingTop: 1, paddingBottom: 1 },
+  courseCard: { width: 178, minHeight: 156, borderWidth: 1, borderRadius: 17, padding: 12, gap: 5 },
+  courseTitle: { fontSize: 14, lineHeight: 18, fontWeight: "900" },
+  courseSummary: { fontSize: 11, lineHeight: 16, flex: 1 },
+  courseMode: { fontSize: 9, lineHeight: 13, fontWeight: "800" },
+  courseAction: { fontSize: 11, fontWeight: "900" },
+  packRow: { minHeight: 86, borderWidth: 1, borderRadius: 18, padding: 13, flexDirection: "row", alignItems: "center", gap: 10 },
+  packDot: { width: 9, height: 42, borderRadius: 99 },
+  packCopy: { flex: 1, gap: 3 },
+  packTop: { flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: 8 },
+  packFaculty: { fontSize: 8, letterSpacing: 1, fontWeight: "900", flex: 1 },
+  packStatus: { fontSize: 8, letterSpacing: 0.7, fontWeight: "900" },
+  packTitle: { fontSize: 15, fontWeight: "900" },
+  packDescription: { fontSize: 11, lineHeight: 15 },
+  packChevron: { fontSize: 25, fontWeight: "300" },
+  empty: { borderWidth: 1, borderRadius: 18, padding: 17, gap: 5 },
+  emptyTitle: { fontSize: 16, fontWeight: "900" },
+  emptyText: { fontSize: 13, lineHeight: 19 },
+  pressed: { opacity: 0.78, transform: [{ scale: 0.98 }] },
 });
