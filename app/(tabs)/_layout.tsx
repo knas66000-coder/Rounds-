@@ -1,32 +1,42 @@
 import { Tabs } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { Platform } from "react-native";
 
 import { HapticTab } from "@/components/haptic-tab";
 import { IconSymbol } from "@/components/ui/icon-symbol";
-import { Platform } from "react-native";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
 
 export default function TabLayout() {
   const colors = useColors();
   const insets = useSafeAreaInsets();
-  const bottomPadding = Platform.OS === "web" ? 12 : Math.max(insets.bottom, 8);
-  const tabBarHeight = 56 + bottomPadding;
+  const bottomPadding = Platform.OS === "web" ? 10 : Math.max(insets.bottom, 8);
+  const tabBarHeight = 58 + bottomPadding;
   const unreadNotifications = trpc.notifications.unreadCount.useQuery(undefined, { refetchInterval: 30000 });
 
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: colors.tint,
         headerShown: false,
         tabBarButton: HapticTab,
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.muted,
+        tabBarHideOnKeyboard: true,
+        sceneStyle: { backgroundColor: colors.background },
+        tabBarLabelStyle: { fontSize: 10, fontWeight: "800", marginTop: 1 },
+        tabBarItemStyle: { paddingTop: 3 },
         tabBarStyle: {
-          paddingTop: 8,
+          paddingTop: 7,
           paddingBottom: bottomPadding,
           height: tabBarHeight,
           backgroundColor: colors.background,
           borderTopColor: colors.border,
-          borderTopWidth: 0.5,
+          borderTopWidth: 1,
+          elevation: 12,
+          shadowColor: "#1F2F29",
+          shadowOpacity: 0.08,
+          shadowRadius: 12,
+          shadowOffset: { width: 0, height: -4 },
         },
       }}
     >
@@ -34,21 +44,21 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Practice",
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={25} name="house.fill" color={color} />,
         }}
       />
       <Tabs.Screen
         name="categories"
         options={{
           title: "Topics",
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="list.bullet" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={25} name="list.bullet" color={color} />,
         }}
       />
       <Tabs.Screen
         name="study"
         options={{
           title: "Study",
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="bookmark.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={25} name="bookmark.fill" color={color} />,
         }}
       />
       <Tabs.Screen
@@ -56,23 +66,17 @@ export default function TabLayout() {
         options={{
           title: "Community",
           tabBarBadge: unreadNotifications.data ? unreadNotifications.data : undefined,
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.2.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={25} name="person.2.fill" color={color} />,
         }}
       />
       <Tabs.Screen
         name="progress"
         options={{
           title: "Progress",
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="chart.bar.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={25} name="chart.bar.fill" color={color} />,
         }}
       />
-      <Tabs.Screen
-        name="settings"
-        options={{
-          title: "Settings",
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="gearshape.fill" color={color} />,
-        }}
-      />
+      <Tabs.Screen name="settings" options={{ href: null }} />
     </Tabs>
   );
 }

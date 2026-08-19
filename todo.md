@@ -228,3 +228,7 @@
 - [x] Add finite alternate branches to Foundation Year, Business, Engineering, Natural Sciences, Education, and Social Sciences cases
 - [x] Extend deterministic case-chain tests for every alternate path and reflection privacy
 - [x] Validate and checkpoint the all-program case-branching release
+- [x] Define a mobile-first Rounds app-shell treatment for native navigation, touch feedback, and compact actions
+- [x] Refine the bottom tabs and authentication entry surface for a native application feel
+- [x] Rework the main learning, study, and academic-home entry points into compact mobile-native sections
+- [x] Validate native-safe layouts, interactions, builds, and checkpoint the native-feel release

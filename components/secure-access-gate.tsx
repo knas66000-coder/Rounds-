@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
 import { useAuthSession } from "@/lib/auth-session";
 import { useColors } from "@/hooks/use-colors";
-import { ActivityIndicator, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 export function SecureAccessGate({ busy = false }: { busy?: boolean }) {
   const colors = useColors();
@@ -11,6 +13,7 @@ export function SecureAccessGate({ busy = false }: { busy?: boolean }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formError, setFormError] = useState<string | null>(null);
+
   const submit = async () => {
     try {
       setFormError(null);
@@ -21,9 +24,75 @@ export function SecureAccessGate({ busy = false }: { busy?: boolean }) {
     }
   };
 
-  if (busy) return <View style={[styles.screen, { backgroundColor: colors.background }]}><ActivityIndicator size="large" color={colors.primary} /><Text style={[styles.loading, { color: colors.muted }]}>Preparing your private study space…</Text></View>;
+  if (busy) {
+    return (
+      <SafeAreaView edges={["top", "bottom", "left", "right"]} style={[styles.busyScreen, { backgroundColor: colors.background }]}>
+        <View style={[styles.busyMark, { backgroundColor: colors.primary }]}><Text style={[styles.busyMarkText, { color: colors.background }]}>R</Text></View>
+        <ActivityIndicator size="small" color={colors.primary} />
+        <Text style={[styles.loading, { color: colors.muted }]}>Preparing your private study space…</Text>
+      </SafeAreaView>
+    );
+  }
 
-  return <View style={[styles.screen, { backgroundColor: colors.background }]}><View style={styles.content}><Text style={[styles.eyebrow, { color: colors.primary }]}>ROUNDS</Text><Text style={[styles.title, { color: colors.foreground }]}>{mode === "register" ? "Create your study space." : "Welcome back."}</Text><Text style={[styles.body, { color: colors.muted }]}>{mode === "register" ? "Create a Rounds account to save your academic profile and keep study material private." : "Sign in to continue to your private Rounds study space."}</Text><View style={[styles.securityCard, { backgroundColor: colors.surface, borderColor: colors.border }]}><Text style={[styles.securityTitle, { color: colors.foreground }]}>Private by design</Text><Text style={[styles.securityBody, { color: colors.muted }]}>Your Rounds password is protected with one-way hashing. You can sign out at any time from Settings.</Text></View>{mode === "register" ? <TextInput value={name} onChangeText={setName} placeholder="Your name" placeholderTextColor={colors.muted} autoCapitalize="words" style={[styles.input, { color: colors.foreground, borderColor: colors.border }]} accessibilityLabel="Your name" /> : null}<TextInput value={email} onChangeText={setEmail} placeholder="Email address" placeholderTextColor={colors.muted} autoCapitalize="none" autoCorrect={false} keyboardType="email-address" style={[styles.input, { color: colors.foreground, borderColor: colors.border }]} accessibilityLabel="Email address" /><TextInput value={password} onChangeText={setPassword} placeholder="Password" placeholderTextColor={colors.muted} secureTextEntry autoCapitalize="none" autoCorrect={false} style={[styles.input, { color: colors.foreground, borderColor: colors.border }]} accessibilityLabel="Password" /><Pressable onPress={() => void submit()} accessibilityRole="button" accessibilityLabel={mode === "register" ? "Create a Rounds account" : "Sign in to Rounds"} style={({ pressed }) => [styles.signIn, { backgroundColor: colors.primary }, pressed && styles.pressed]}><Text style={[styles.signInText, { color: colors.background }]}>{mode === "register" ? "Create Rounds account" : "Sign in to Rounds"}</Text></Pressable><Pressable onPress={() => { setMode(mode === "sign-in" ? "register" : "sign-in"); setFormError(null); }} accessibilityRole="button"><Text style={[styles.switchText, { color: colors.primary }]}>{mode === "sign-in" ? "New to Rounds? Create an account" : "Already have an account? Sign in"}</Text></Pressable>{formError || error ? <Text style={[styles.error, { color: colors.error }]}>{formError ?? "We could not confirm your Rounds session. Please sign in again."}</Text> : null}<Text style={[styles.footnote, { color: colors.muted }]}>Rounds is a study tool and does not provide medical care or official exam scoring.</Text></View></View>;
+  const isRegister = mode === "register";
+  return (
+    <SafeAreaView edges={["top", "bottom", "left", "right"]} style={[styles.screen, { backgroundColor: colors.background }]}>
+      <KeyboardAvoidingView behavior={Platform.select({ ios: "padding", default: undefined })} style={styles.keyboardArea}>
+        <ScrollView contentContainerStyle={styles.scrollContent} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+          <View style={styles.brandBlock}>
+            <View style={[styles.brandMark, { backgroundColor: colors.primary }]}><Text style={[styles.brandMarkText, { color: colors.background }]}>R</Text></View>
+            <Text style={[styles.eyebrow, { color: colors.primary }]}>ROUNDS</Text>
+            <Text style={[styles.title, { color: colors.foreground }]}>{isRegister ? "Start your study space." : "Your study space."}</Text>
+            <Text style={[styles.body, { color: colors.muted }]}>{isRegister ? "Create a private Rounds account to keep your learning path with you." : "Sign in to continue your voice-first learning session."}</Text>
+          </View>
+
+          <View style={[styles.sheet, { backgroundColor: colors.surface, borderColor: colors.border }]}>
+            <View style={styles.sheetHeading}>
+              <Text style={[styles.sheetTitle, { color: colors.foreground }]}>{isRegister ? "Create account" : "Sign in"}</Text>
+              <Text style={[styles.sheetBody, { color: colors.muted }]}>{isRegister ? "Your profile and private study material stay connected to this account." : "Your progress, saved study content, and settings are ready when you are."}</Text>
+            </View>
+            {isRegister ? <TextInput value={name} onChangeText={setName} placeholder="Your name" placeholderTextColor={colors.muted} autoCapitalize="words" returnKeyType="next" style={[styles.input, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.background }]} accessibilityLabel="Your name" /> : null}
+            <TextInput value={email} onChangeText={setEmail} placeholder="Email address" placeholderTextColor={colors.muted} autoCapitalize="none" autoCorrect={false} keyboardType="email-address" returnKeyType="next" style={[styles.input, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.background }]} accessibilityLabel="Email address" />
+            <TextInput value={password} onChangeText={setPassword} placeholder="Password" placeholderTextColor={colors.muted} secureTextEntry autoCapitalize="none" autoCorrect={false} returnKeyType="done" onSubmitEditing={() => void submit()} style={[styles.input, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.background }]} accessibilityLabel="Password" />
+            <Pressable onPress={() => void submit()} accessibilityRole="button" accessibilityLabel={isRegister ? "Create a Rounds account" : "Sign in to Rounds"} style={({ pressed }) => [styles.primaryButton, { backgroundColor: colors.primary }, pressed && styles.pressed]}>
+              <Text style={[styles.primaryText, { color: colors.background }]}>{isRegister ? "Create account" : "Continue"}</Text>
+            </Pressable>
+            <Pressable onPress={() => { setMode(isRegister ? "sign-in" : "register"); setFormError(null); }} accessibilityRole="button" style={({ pressed }) => [styles.modeButton, pressed && styles.pressed]}>
+              <Text style={[styles.modeText, { color: colors.primary }]}>{isRegister ? "I already have an account" : "Create a Rounds account"}</Text>
+            </Pressable>
+            {formError || error ? <Text style={[styles.error, { color: colors.error }]}>{formError ?? "We could not confirm your Rounds session. Please sign in again."}</Text> : null}
+          </View>
+          <Text style={[styles.footnote, { color: colors.muted }]}>Private by design. Rounds is a study tool and does not provide medical care or official exam scoring.</Text>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
+  );
 }
 
-const styles = StyleSheet.create({ screen: { flex: 1, justifyContent: "center", padding: 24 }, content: { gap: 13, maxWidth: 520, width: "100%", alignSelf: "center" }, eyebrow: { fontSize: 12, letterSpacing: 2.4, fontWeight: "900" }, title: { fontFamily: "Georgia", fontSize: 34, lineHeight: 42, fontWeight: "700" }, body: { fontSize: 16, lineHeight: 24 }, securityCard: { borderWidth: 1, borderRadius: 22, padding: 18, gap: 5 }, securityTitle: { fontSize: 16, fontWeight: "900" }, securityBody: { fontSize: 14, lineHeight: 20 }, input: { minHeight: 52, borderWidth: 1, borderRadius: 15, paddingHorizontal: 15, fontSize: 16 }, signIn: { minHeight: 60, borderRadius: 18, justifyContent: "center", alignItems: "center", marginTop: 2 }, signInText: { fontSize: 16, fontWeight: "900" }, switchText: { fontSize: 14, fontWeight: "800", textAlign: "center", paddingVertical: 4 }, error: { fontSize: 13, lineHeight: 19, textAlign: "center" }, footnote: { fontSize: 12, lineHeight: 18, textAlign: "center", marginTop: 4 }, loading: { fontSize: 14, fontWeight: "700", marginTop: 14, textAlign: "center" }, pressed: { opacity: 0.82, transform: [{ scale: 0.98 }] } });
+const styles = StyleSheet.create({
+  screen: { flex: 1 },
+  keyboardArea: { flex: 1 },
+  scrollContent: { flexGrow: 1, justifyContent: "space-between", paddingHorizontal: 20, paddingTop: 28, paddingBottom: 20, gap: 24 },
+  brandBlock: { gap: 7, paddingTop: 8 },
+  brandMark: { width: 42, height: 42, borderRadius: 14, alignItems: "center", justifyContent: "center", marginBottom: 9 },
+  brandMarkText: { fontSize: 23, fontWeight: "900" },
+  eyebrow: { fontSize: 11, letterSpacing: 2.1, fontWeight: "900" },
+  title: { fontFamily: "Georgia", fontSize: 32, lineHeight: 39, fontWeight: "700" },
+  body: { fontSize: 15, lineHeight: 22, maxWidth: 350 },
+  sheet: { borderWidth: 1, borderRadius: 28, padding: 18, gap: 11 },
+  sheetHeading: { gap: 4, marginBottom: 4 },
+  sheetTitle: { fontSize: 19, fontWeight: "900" },
+  sheetBody: { fontSize: 13, lineHeight: 19 },
+  input: { minHeight: 54, borderWidth: 1, borderRadius: 16, paddingHorizontal: 15, fontSize: 16 },
+  primaryButton: { minHeight: 56, borderRadius: 17, justifyContent: "center", alignItems: "center", marginTop: 4 },
+  primaryText: { fontSize: 16, fontWeight: "900" },
+  modeButton: { minHeight: 40, justifyContent: "center", alignItems: "center" },
+  modeText: { fontSize: 14, fontWeight: "800" },
+  error: { fontSize: 13, lineHeight: 19, textAlign: "center", paddingHorizontal: 5 },
+  footnote: { fontSize: 11, lineHeight: 16, textAlign: "center", paddingHorizontal: 10 },
+  busyScreen: { flex: 1, alignItems: "center", justifyContent: "center", gap: 13, padding: 24 },
+  busyMark: { width: 46, height: 46, borderRadius: 15, alignItems: "center", justifyContent: "center", marginBottom: 3 },
+  busyMarkText: { fontSize: 24, fontWeight: "900" },
+  loading: { fontSize: 14, fontWeight: "700", textAlign: "center" },
+  pressed: { opacity: 0.78, transform: [{ scale: 0.98 }] },
+});
