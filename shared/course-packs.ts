@@ -97,11 +97,35 @@ export const COURSE_PACKS: CoursePack[] = [
     id: "uganda-high-school-mathematics", revision: "ug-hs-mathematics-starter-v1", title: "High School Mathematics", faculty: "Uganda High School", description: "Original starter learning in quantity, patterns, calculations, reasoning, and clear mathematical communication. It is not an official NCDC syllabus or examination service.", audience: ["uganda_high_school_mathematics"], readiness: "active", delivery: "downloadable", estimatedDownloadMb: 2,
     courses: [activeStarter("mathematics-pattern-trace", "Trace a Number Pattern", "Follow a stated number rule and identify its next result.", ["logic_trace"]), activeStarter("mathematics-percentage-count", "Percentage of a Quantity", "Calculate a percentage from stated whole and part quantities.", ["worked_calculation"]), activeStarter("mathematics-representation-choice", "Choose a Useful Representation", "Choose a clear mathematical representation before drawing a conclusion.", ["scenario"])],
   },
+  {
+    id: "uganda-high-school-geography", revision: "ug-hs-geography-starter-v1", title: "High School Geography", faculty: "Uganda High School", description: "Original starter learning in place, maps, environments, data, and geographic explanation. It is not an official NCDC syllabus or fieldwork guide.", audience: ["uganda_high_school_geography"], readiness: "active", delivery: "downloadable", estimatedDownloadMb: 2,
+    courses: [activeStarter("geography-map-evidence", "Read a Map Key", "Use a map key and stated location details without claiming more than the evidence shows.", ["evidence_reading"]), activeStarter("geography-scale-count", "Calculate a Map Distance", "Calculate a stated distance using a simple map scale example.", ["worked_calculation"]), activeStarter("geography-environment-choice", "Compare an Environmental Claim", "Choose a careful response to a local environmental claim using stated evidence.", ["scenario"])],
+  },
+  {
+    id: "uganda-high-school-history-civics", revision: "ug-hs-history-civics-starter-v1", title: "High School History and Civics", faculty: "Uganda High School", description: "Original starter learning in sources, timelines, civic reasoning, claims, and respectful evidence use. It is not an official NCDC syllabus or political advice.", audience: ["uganda_high_school_history_civics"], readiness: "active", delivery: "downloadable", estimatedDownloadMb: 2,
+    courses: [activeStarter("history-source-evidence", "Read a Historical Source", "Separate a source’s statement from a conclusion that would need corroboration.", ["evidence_reading"]), activeStarter("history-timeline-trace", "Trace a Timeline", "Use stated event order to identify the next supported historical sequence step.", ["logic_trace"]), activeStarter("civics-respectful-choice", "Evaluate a Civic Choice", "Choose a respectful, evidence-aware step in a school-community discussion.", ["scenario"])],
+  },
+  {
+    id: "uganda-high-school-ict", revision: "ug-hs-ict-starter-v1", title: "High School ICT and Digital Skills", faculty: "Uganda High School", description: "Original starter learning in digital information, data, logic, safe choices, and responsible technology use. It is not an official NCDC syllabus or cybersecurity service.", audience: ["uganda_high_school_ict"], readiness: "active", delivery: "downloadable", estimatedDownloadMb: 2,
+    courses: [activeStarter("ict-information-evidence", "Check a Digital Claim", "Use source details to separate a digital claim from evidence that needs checking.", ["evidence_reading"]), activeStarter("ict-logic-trace", "Trace a Simple Rule", "Follow a stated conditional rule and identify its outcome.", ["logic_trace"]), activeStarter("ict-data-choice", "Share Data Responsibly", "Choose a privacy-aware action when a class activity uses digital information.", ["scenario"])],
+  },
+  {
+    id: "uganda-high-school-agriculture", revision: "ug-hs-agriculture-starter-v1", title: "High School Agriculture and Food Systems", faculty: "Uganda High School", description: "Original starter learning in observations, production systems, records, sustainability, and agricultural reasoning. It is not an official NCDC syllabus or farming instruction.", audience: ["uganda_high_school_agriculture"], readiness: "active", delivery: "downloadable", estimatedDownloadMb: 2,
+    courses: [activeStarter("agriculture-record-evidence", "Use a Farm Record Carefully", "Separate a recorded observation from an unsupported production explanation.", ["evidence_reading"]), activeStarter("agriculture-output-count", "Calculate a Recorded Average", "Calculate a simple average from stated classroom production records.", ["worked_calculation"]), activeStarter("agriculture-sustainability-choice", "Choose a Sustainable Next Step", "Choose a careful next question before making an agricultural claim.", ["scenario"])],
+  },
+  {
+    id: "uganda-high-school-religion-ethics", revision: "ug-hs-religion-ethics-starter-v1", title: "High School Religious and Ethical Studies", faculty: "Uganda High School", description: "Original starter learning in values, respectful dialogue, claims, community choices, and ethical reflection. It is not an official NCDC syllabus or religious authority.", audience: ["uganda_high_school_religion_ethics"], readiness: "active", delivery: "downloadable", estimatedDownloadMb: 2,
+    courses: [activeStarter("ethics-perspective-evidence", "Recognise a Perspective", "Separate a speaker’s value-based perspective from a verifiable claim.", ["evidence_reading"]), activeStarter("ethics-reason-trace", "Trace a Reasoned Choice", "Follow a stated reason and identify the conclusion it supports.", ["logic_trace"]), activeStarter("ethics-dialogue-choice", "Choose Respectful Dialogue", "Choose a respectful next step when classmates disagree about a community issue.", ["scenario"])],
+  },
 ];
 
 export function coursePacksForProgram(program: AcademicProgramId): CoursePack[] {
   const highSchool = program.startsWith("uganda_high_school_");
   return COURSE_PACKS.filter((pack) => (!highSchool && pack.audience === "all_university") || (highSchool && pack.audience === "all_high_school") || (Array.isArray(pack.audience) && pack.audience.includes(program)));
+}
+
+export function highSchoolCoursePacks(): CoursePack[] {
+  return COURSE_PACKS.filter((pack) => pack.audience === "all_high_school" || (Array.isArray(pack.audience) && pack.audience.some((program) => program.startsWith("uganda_high_school_"))));
 }
 
 export function coursePackForId(packId: string): CoursePack | null {

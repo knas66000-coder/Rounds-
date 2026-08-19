@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { courseActivityLabel, coursePackReadinessLabel, coursePacksForProgram, primaryCoursePackForProgram } from "../shared/course-packs";
+import { courseActivityLabel, coursePackReadinessLabel, coursePacksForProgram, highSchoolCoursePacks, primaryCoursePackForProgram } from "../shared/course-packs";
 
 describe("Rounds course-pack catalog", () => {
   it("keeps the shared Foundation Year catalog available across university programs without leaking Nursing content", () => {
@@ -42,6 +42,11 @@ describe("Rounds course-pack catalog", () => {
       ["uganda_high_school_english", "uganda-high-school-english"],
       ["uganda_high_school_physics", "uganda-high-school-physics"],
       ["uganda_high_school_mathematics", "uganda-high-school-mathematics"],
+      ["uganda_high_school_geography", "uganda-high-school-geography"],
+      ["uganda_high_school_history_civics", "uganda-high-school-history-civics"],
+      ["uganda_high_school_ict", "uganda-high-school-ict"],
+      ["uganda_high_school_agriculture", "uganda-high-school-agriculture"],
+      ["uganda_high_school_religion_ethics", "uganda-high-school-religion-ethics"],
     ] as const;
 
     for (const [program, packId] of highSchoolPacks) {
@@ -52,5 +57,7 @@ describe("Rounds course-pack catalog", () => {
       expect(available.some((pack) => pack.id === "nursing-practice" || pack.id === "university-foundation-year")).toBe(false);
       expect(primaryCoursePackForProgram(program)?.id).toBe(packId);
     }
+    expect(highSchoolCoursePacks()).toHaveLength(highSchoolPacks.length);
+    expect(highSchoolCoursePacks().every((pack) => pack.delivery === "downloadable" && pack.readiness === "active")).toBe(true);
   });
 });

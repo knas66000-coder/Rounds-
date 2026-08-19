@@ -5,7 +5,7 @@ import { useRouter } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { trpc } from "@/lib/trpc";
-import { ACADEMIC_PROGRAMS, academicProfileProblem, type AcademicProgramId } from "@/shared/academic-profile";
+import { ACADEMIC_PROGRAMS, academicProfileProblem, isUgandaHighSchoolProgram, type AcademicProgramId } from "@/shared/academic-profile";
 
 export default function AcademicOnboardingScreen() {
   const colors = useColors();
@@ -30,7 +30,7 @@ export default function AcademicOnboardingScreen() {
     try {
       await saveProfile.mutateAsync({ institutionName, program });
       await profileQuery.refetch();
-      router.replace("/academic-home");
+      router.replace(isUgandaHighSchoolProgram(program) ? "/high-school-home" : "/academic-home");
     } catch (error) {
       Alert.alert("Profile not saved", error instanceof Error ? error.message : "Please try again when your connection is available.");
     }

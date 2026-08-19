@@ -17,6 +17,13 @@ describe("Rounds shared learning-round state", () => {
     expect(courseRoundSnapshot("business-foundations", state)).toEqual({ completed: 0, correct: 0, review: 0, saved: 0 });
   });
 
+  it("reports high-school subject progress locally without leaking revision counts across subjects", () => {
+    const id = "uganda-high-school-geography:geography-map-evidence";
+    const state = recordCourseRoundOutcome(toggleCourseRoundBookmark(parseCourseRoundState(null), id), id, "correct", "2026-08-19T00:00:00.000Z");
+    expect(courseRoundSnapshot("uganda-high-school-geography", state)).toEqual({ completed: 1, correct: 1, review: 0, saved: 1 });
+    expect(courseRoundSnapshot("uganda-high-school-ict", state)).toEqual({ completed: 0, correct: 0, review: 0, saved: 0 });
+  });
+
   it("rejects malformed or unknown stored round records", () => {
     const state = parseCourseRoundState(JSON.stringify({ records: [{ activityId: "nursing-practice:nclex-practice", outcome: "correct", completedAt: "2026-08-18T00:00:00.000Z" }, { activityId: "bad", outcome: "correct", completedAt: "now" }], bookmarks: ["missing:activity", "business-foundations:business-customer-evidence"] }));
     expect(state.records).toEqual([]);

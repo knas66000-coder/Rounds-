@@ -9,7 +9,7 @@ export const OWNER_CONTROL_PACKS = [
   { id: "natural-sciences", title: "Natural Sciences Foundations", status: "active", detail: "Local starter activities for observation, evidence, and explanation." },
   { id: "education", title: "Education Foundations", status: "active", detail: "Local starter activities for observable objectives and inclusive planning." },
   { id: "social-sciences", title: "Social Sciences Foundations", status: "active", detail: "Local starter activities for claims, evidence, and respectful interpretation." },
-  { id: "uganda-high-school", title: "Uganda High School", status: "active", detail: "Active local starter packs for Biology, Chemistry, Economics, Entrepreneurship, English, Physics, and Mathematics, with private learning cases and offline installation." },
+  { id: "uganda-high-school", title: "Uganda High School", status: "active", detail: "Active local core packs for Biology, Chemistry, Physics, Mathematics, English, Economics, Entrepreneurship, Geography, History and Civics, ICT, Agriculture, and Religious and Ethical Studies; each includes private learning cases and offline installation." },
 ] as const;
 
 export function isRoundsOwnerEmail(email: string | null | undefined, configuredOwnerEmail: string | undefined) {

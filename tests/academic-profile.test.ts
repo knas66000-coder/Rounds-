@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { academicProfileProblem, isAcademicProgram, programPackFor, requiresAcademicOnboarding } from "../shared/academic-profile";
+import { academicProfileProblem, isAcademicProgram, isUgandaHighSchoolProgram, programPackFor, requiresAcademicOnboarding } from "../shared/academic-profile";
 
 describe("academic profile", () => {
   it("accepts a university and a supported academic program", () => {
@@ -18,5 +18,12 @@ describe("academic profile", () => {
     expect(requiresAcademicOnboarding(null)).toBe(true);
     expect(requiresAcademicOnboarding({ program: "unsupported" })).toBe(true);
     expect(requiresAcademicOnboarding({ program: "nursing" })).toBe(false);
+  });
+
+  it("recognises every coordinated Uganda high-school core program without treating a university program as high-school", () => {
+    expect(isUgandaHighSchoolProgram("uganda_high_school_geography")).toBe(true);
+    expect(isUgandaHighSchoolProgram("uganda_high_school_religion_ethics")).toBe(true);
+    expect(isUgandaHighSchoolProgram("engineering")).toBe(false);
+    expect(programPackFor("uganda_high_school_ict").available).toBe(true);
   });
 });

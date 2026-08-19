@@ -31,4 +31,12 @@ describe("Rounds local course-pack state", () => {
     expect(installs).toHaveLength(1);
     expect(isPackInstalled(foundation, installs)).toBe(true);
   });
+
+  it("keeps high-school core installs downloadable and isolated by the reviewed pack revision", () => {
+    const geography = COURSE_PACKS.find((pack) => pack.id === "uganda-high-school-geography")!;
+    const installs = parseCoursePackInstalls(JSON.stringify([{ packId: geography.id, revision: geography.revision, installedAt: "2026-08-19T00:00:00.000Z" }]));
+    expect(canInstallPack(geography)).toBe(true);
+    expect(isPackInstalled(geography, installs)).toBe(true);
+    expect(parseCoursePackInstalls(JSON.stringify([{ packId: geography.id, revision: "stale", installedAt: "2026-08-19T00:00:00.000Z" }]))).toEqual([]);
+  });
 });

@@ -247,3 +247,10 @@
 - [x] Add original Physics and Mathematics starter activities, no-repeat rounds, and private branching cases
 - [x] Extend high-school navigation, owner visibility, and deterministic coverage for both science packs
 - [x] Validate and checkpoint the Physics and Mathematics high-school pack release
+- [x] Finalize the broad Uganda-focused core high-school scope, content boundaries, and acceptance criteria
+- [x] Add active Geography, History and Civics, ICT and Digital Skills, Agriculture and Food Systems, and Religious and Ethical Studies packs
+- [x] Add Senior 1–6 level selection and a dedicated high-school learning home with local level-aware progress
+- [x] Add original reviewed activities, no-repeat learning rounds, saved review, and finite private cases for every new core subject
+- [x] Add high-school revision planning, subject-level progress, offline package navigation, and owner visibility
+- [x] Extend deterministic coverage for high-school subjects, levels, local installs, activities, cases, and data boundaries
+- [x] Validate and checkpoint the coordinated Uganda high-school completion release

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import { useRouter } from "expo-router";
+import { Redirect, useRouter } from "expo-router";
 
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
@@ -23,10 +23,11 @@ export default function AcademicHomeScreen() {
   }, []);
 
   if (!profile || !isAcademicProgram(profile.program)) return null;
+  if (isUgandaHighSchoolProgram(profile.program)) return <Redirect href="/high-school-home" />;
 
   const pack = programPackFor(profile.program);
   const nursing = pack.id === "nursing";
-  const highSchool = isUgandaHighSchoolProgram(profile.program);
+  const highSchool = false;
   const primaryCoursePack = primaryCoursePackForProgram(profile.program);
   const requiresLocalInstall = primaryCoursePack?.delivery === "downloadable";
   const packInstalled = !requiresLocalInstall || Boolean(primaryCoursePack && isPackInstalled(primaryCoursePack, installs));

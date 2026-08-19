@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { Alert, FlatList, Pressable, StyleSheet, Text, View } from "react-native";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { haptic } from "@/lib/haptics";
 import { canInstallPack, installLocalCoursePack, isPackInstalled, loadCoursePackInstalls, loadCoursePackResume, saveCoursePackResume, type CoursePackInstall, type CoursePackResume } from "@/lib/course-pack-store";
 import { trpc } from "@/lib/trpc";
-import { isAcademicProgram } from "@/shared/academic-profile";
-import { courseActivityLabel, coursePackReadinessLabel, coursePacksForProgram, type CoursePack } from "@/shared/course-packs";
+import { isAcademicProgram, isUgandaHighSchoolProgram } from "@/shared/academic-profile";
+import { courseActivityLabel, coursePackReadinessLabel, coursePacksForProgram, highSchoolCoursePacks, type CoursePack } from "@/shared/course-packs";
 import { starterActivityFor } from "@/shared/course-pack-activities";
 import { caseChainForPack } from "@/shared/case-chains";
 
@@ -28,18 +28,24 @@ const packAccents: Record<string, string> = {
   "uganda-high-school-english": "#6E527D",
   "uganda-high-school-physics": "#3D6D92",
   "uganda-high-school-mathematics": "#8C4C5F",
+  "uganda-high-school-geography": "#547B69",
+  "uganda-high-school-history-civics": "#7B6150",
+  "uganda-high-school-ict": "#386D83",
+  "uganda-high-school-agriculture": "#6B7D40",
+  "uganda-high-school-religion-ethics": "#765A7C",
 };
 
 export default function CoursePacksScreen() {
   const colors = useColors();
   const router = useRouter();
+  const params = useLocalSearchParams<{ focus?: string }>();
   const profileQuery = trpc.academicProfile.get.useQuery();
   const profile = profileQuery.data;
   const [installs, setInstalls] = useState<CoursePackInstall[]>([]);
   const [resume, setResume] = useState<CoursePackResume | null>(null);
   const [selectedPackId, setSelectedPackId] = useState<string | null>(null);
 
-  const packs = useMemo(() => profile && isAcademicProgram(profile.program) ? coursePacksForProgram(profile.program) : [], [profile]);
+  const packs = useMemo(() => profile && isAcademicProgram(profile.program) ? (isUgandaHighSchoolProgram(profile.program) ? highSchoolCoursePacks() : coursePacksForProgram(profile.program)) : [], [profile]);
   const selectedPack = packs.find((pack) => pack.id === selectedPackId) ?? packs[0] ?? null;
 
   useEffect(() => {
@@ -48,6 +54,10 @@ export default function CoursePacksScreen() {
       setResume(nextResume);
     });
   }, []);
+
+  useEffect(() => {
+    if (typeof params.focus === "string" && packs.some((pack) => pack.id === params.focus)) setSelectedPackId(params.focus);
+  }, [packs, params.focus]);
 
   const openCourse = async (pack: CoursePack, courseId: string) => {
     haptic.light();
