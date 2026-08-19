@@ -31,7 +31,7 @@ export default function HighSchoolTopicsScreen() {
   useEffect(() => {
     void loadHighSchoolTopicProgress().then((next) => {
       setProgress(next);
-      setSession(selectHighSchoolTopicSession(packId, level, next, 3, 0));
+      setSession(selectHighSchoolTopicSession(packId, level, next, 4, 0));
       setReady(true);
     });
   }, [packId, level]);
@@ -79,7 +79,7 @@ export default function HighSchoolTopicsScreen() {
     const nextNonce = nonce + 1;
     haptic.medium();
     setNonce(nextNonce);
-    setSession(selectHighSchoolTopicSession(packId, level, progress, 3, nextNonce));
+    setSession(selectHighSchoolTopicSession(packId, level, progress, 4, nextNonce));
     setIndex(0);
     setSelected(null);
     setReflection("");

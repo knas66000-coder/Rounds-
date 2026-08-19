@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { topicUnitForId } from "../shared/high-school-topic-units";
+import { topicUnitForId, topicUnitsForPack } from "../shared/high-school-topic-units";
 
 export const HIGH_SCHOOL_TOPIC_PROGRESS_KEY = "rounds.high-school.topic-progress.v1";
 
@@ -44,7 +44,7 @@ export function topicProgressForPack(packId: string, state: HighSchoolTopicProgr
   const ids = new Set<string>();
   for (const record of state.records) if (topicUnitForId(record.unitId)?.packId === packId) ids.add(record.unitId);
   const records = state.records.filter((record) => ids.has(record.unitId));
-  return { completed: records.length, mastered: records.filter((record) => record.outcome === "mastered").length, review: records.filter((record) => record.outcome === "review").length, reflected: records.filter((record) => record.outcome === "reflected").length, saved: state.savedUnitIds.filter((unitId) => topicUnitForId(unitId)?.packId === packId).length };
+  return { total: topicUnitsForPack(packId).length, completed: records.length, mastered: records.filter((record) => record.outcome === "mastered").length, review: records.filter((record) => record.outcome === "review").length, reflected: records.filter((record) => record.outcome === "reflected").length, saved: state.savedUnitIds.filter((unitId) => topicUnitForId(unitId)?.packId === packId).length };
 }
 
 export async function loadHighSchoolTopicProgress(): Promise<HighSchoolTopicProgressState> {

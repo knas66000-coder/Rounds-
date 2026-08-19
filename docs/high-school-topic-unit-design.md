@@ -43,3 +43,9 @@ The existing boundaries still apply. High-risk subjects retain their explicit li
 ## Acceptance Criteria
 
 A release is ready only if every active high-school pack has level-aware units, a session cannot repeat a unit, selected-band units are preferred without leaking learner data, topic progress remains local, and deterministic tests cover the selector, subject separation, level mapping, and malformed local state rejection.
+
+## Pathway-Depth Expansion
+
+The first topic-unit release established six units per active high-school subject: one original foundation, development, and extension unit, each paired with a private reflection companion. The pathway-depth release adds a second three-topic sequence and its reflections to every subject. Each pack therefore has **twelve** topic units across two distinct topic pathways before its separate starter activities and branching case are considered.
+
+The additional pathway is intentionally different from the first. It gives the learner another foundation observation, another development comparison, and another extension decision around a separate subject theme. This doubles the locally available topic material while retaining the same privacy, subject-boundary, no-repeat, and source-free original-content rules.

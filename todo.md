@@ -271,3 +271,8 @@
 - [x] Update high-school home and learning routes with topic choices, level-aware progress, and clear session explanations
 - [x] Add deterministic tests for topic separation, level targeting, adaptive balance, no-repeat sessions, and private local state
 - [x] Validate and checkpoint the coordinated high-school curriculum-deepening release
+- [x] Define the all-subject pathway depth, topic-variation, and learning-boundary target
+- [x] Add additional original level-aware topic units across every active high-school subject
+- [x] Update adaptive topic sessions and pathway progress for the deeper unit catalogue
+- [x] Extend deterministic coverage for expanded topic breadth, session variation, and local privacy boundaries
+- [x] Validate and checkpoint the all-subject high-school pathway expansion
