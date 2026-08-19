@@ -1,4 +1,4 @@
-import type { HighSchoolLevel } from "./high-school-store";
+import type { HighSchoolLevel, HighSchoolTopicScope } from "./high-school-store";
 import type { HighSchoolTopicProgressState } from "./high-school-topic-store";
 import { isUnitRecommendedForLevel, topicUnitsForPack, type HighSchoolTopicMode, type HighSchoolTopicUnit } from "../shared/high-school-topic-units";
 
@@ -37,9 +37,10 @@ function canUseMode(candidate: HighSchoolTopicUnit, selected: HighSchoolTopicSes
  * repeat in a session; when an alternative exists, consecutive activity modes
  * are avoided. The score intentionally favours unseen learning before review.
  */
-export function selectHighSchoolTopicSession(packId: string, level: HighSchoolLevel, state: HighSchoolTopicProgressState, count = 3, nonce = 0): HighSchoolTopicSessionItem[] {
+export function selectHighSchoolTopicSession(packId: string, level: HighSchoolLevel, state: HighSchoolTopicProgressState, count = 3, nonce = 0, scope: HighSchoolTopicScope = "level_matched"): HighSchoolTopicSessionItem[] {
   const allUnits = topicUnitsForPack(packId);
-  const candidates = [...allUnits.filter((unit) => isUnitRecommendedForLevel(unit, level)), ...allUnits.filter((unit) => !isUnitRecommendedForLevel(unit, level))];
+  const recommended = allUnits.filter((unit) => isUnitRecommendedForLevel(unit, level));
+  const candidates = scope === "level_matched" ? recommended : [...recommended, ...allUnits.filter((unit) => !isUnitRecommendedForLevel(unit, level))];
   const ranked = [...candidates].sort((left, right) => {
     const levelDelta = Number(!isUnitRecommendedForLevel(left, level)) - Number(!isUnitRecommendedForLevel(right, level));
     const reasonDelta = priority[reasonForUnit(left, state)] - priority[reasonForUnit(right, state)];
@@ -50,11 +51,16 @@ export function selectHighSchoolTopicSession(packId: string, level: HighSchoolLe
     if (selected.length >= count || selected.some((item) => item.unit.id === unit.id || item.unit.topicId === unit.topicId) || !canUseMode(unit, selected, ranked)) return;
     selected.push({ unit, reason: reasonForUnit(unit, state) });
   };
-  // Reserve review and saved work before filling with new learning. This keeps an
-  // eligible saved item from being permanently hidden as deeper packs add options.
+  // Reserve review and saved work before filling with new learning. A broader
+  // session keeps one place open for an eligible alternate-band topic when possible.
   for (const reason of ["review_topic", "saved_topic", "new_topic", "refresh_topic"] as const) {
+    if (scope === "broadened" && selected.length >= count - 1) break;
     const candidate = ranked.find((unit) => reasonForUnit(unit, state) === reason && !selected.some((item) => item.unit.id === unit.id || item.unit.topicId === unit.topicId) && canUseMode(unit, selected, ranked));
     if (candidate) addUnit(candidate);
+  }
+  if (scope === "broadened" && selected.length < count && !selected.some((item) => !isUnitRecommendedForLevel(item.unit, level))) {
+    const alternateBandCandidate = ranked.find((unit) => !isUnitRecommendedForLevel(unit, level) && !selected.some((item) => item.unit.id === unit.id || item.unit.topicId === unit.topicId) && canUseMode(unit, selected, ranked));
+    if (alternateBandCandidate) addUnit(alternateBandCandidate);
   }
   for (const unit of ranked) {
     if (selected.length >= count) break;

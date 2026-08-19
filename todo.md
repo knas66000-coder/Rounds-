@@ -281,3 +281,8 @@
 - [x] Update learner pathway progress totals and topic-session presentation for eighteen-unit subject packs
 - [x] Extend deterministic coverage for third-pathway breadth, varied-session selection, and local progress isolation
 - [x] Validate and checkpoint the third high-school pathway expansion
+- [x] Define local Senior-level topic-scope options, defaults, and learner privacy boundaries
+- [x] Add persistent local topic-scope preferences and scope-aware adaptive topic selection
+- [x] Build native high-school controls that explain and apply level-matched or broader topic sessions
+- [x] Add deterministic coverage for scope persistence, session eligibility, and subject isolation
+- [x] Validate and checkpoint the Senior-level topic-scope filtering release

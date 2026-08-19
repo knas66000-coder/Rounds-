@@ -4,6 +4,7 @@ import { highSchoolCoursePacks } from "../shared/course-packs";
 
 export const HIGH_SCHOOL_LEVEL_KEY = "rounds.high-school.level.v1";
 export const HIGH_SCHOOL_REVISION_KEY = "rounds.high-school.revision.v1";
+export const HIGH_SCHOOL_TOPIC_SCOPE_KEY = "rounds.high-school.topic-scope.v1";
 
 export const HIGH_SCHOOL_LEVELS = [
   { id: "s1", title: "Senior 1", band: "FOUNDATION" },
@@ -16,6 +17,7 @@ export const HIGH_SCHOOL_LEVELS = [
 
 export type HighSchoolLevel = (typeof HIGH_SCHOOL_LEVELS)[number]["id"];
 export type HighSchoolLearningBand = "foundation" | "development" | "extension";
+export type HighSchoolTopicScope = "level_matched" | "broadened";
 export type HighSchoolRevisionPlan = { focusPackId: string | null; weeklyTarget: 2 | 3 | 4; updatedAt: string | null };
 
 const fallbackRevisionPlan: HighSchoolRevisionPlan = { focusPackId: null, weeklyTarget: 3, updatedAt: null };
@@ -26,6 +28,14 @@ export function isHighSchoolLevel(value: string | null | undefined): value is Hi
 
 export function parseHighSchoolLevel(value: string | null): HighSchoolLevel {
   return isHighSchoolLevel(value) ? value : "s1";
+}
+
+export function isHighSchoolTopicScope(value: string | null | undefined): value is HighSchoolTopicScope {
+  return value === "level_matched" || value === "broadened";
+}
+
+export function parseHighSchoolTopicScope(value: string | null): HighSchoolTopicScope {
+  return isHighSchoolTopicScope(value) ? value : "level_matched";
 }
 
 export function parseHighSchoolRevisionPlan(value: string | null): HighSchoolRevisionPlan {
@@ -49,6 +59,15 @@ export async function saveHighSchoolLevel(level: HighSchoolLevel): Promise<HighS
   return level;
 }
 
+export async function loadHighSchoolTopicScope(): Promise<HighSchoolTopicScope> {
+  return parseHighSchoolTopicScope(await AsyncStorage.getItem(HIGH_SCHOOL_TOPIC_SCOPE_KEY));
+}
+
+export async function saveHighSchoolTopicScope(scope: HighSchoolTopicScope): Promise<HighSchoolTopicScope> {
+  await AsyncStorage.setItem(HIGH_SCHOOL_TOPIC_SCOPE_KEY, scope);
+  return scope;
+}
+
 export async function loadHighSchoolRevisionPlan(): Promise<HighSchoolRevisionPlan> {
   return parseHighSchoolRevisionPlan(await AsyncStorage.getItem(HIGH_SCHOOL_REVISION_KEY));
 }
@@ -67,4 +86,8 @@ export function highSchoolLearningBand(level: HighSchoolLevel): HighSchoolLearni
   if (level === "s1" || level === "s2") return "foundation";
   if (level === "s3" || level === "s4") return "development";
   return "extension";
+}
+
+export function highSchoolTopicScopeLabel(scope: HighSchoolTopicScope): string {
+  return scope === "level_matched" ? "For my level" : "Broaden my session";
 }

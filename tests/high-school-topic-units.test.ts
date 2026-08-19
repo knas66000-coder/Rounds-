@@ -61,6 +61,16 @@ describe("Rounds high-school topic units", () => {
     expect(session.some((item) => item.unit.id === "mathematics-justification-extension" && item.reason === "saved_topic")).toBe(true);
   });
 
+  it("keeps the matched scope inside the selected band while a broader session intentionally includes a different band", () => {
+    const packId = "uganda-high-school-biology";
+    const state = { records: [], savedUnitIds: [] };
+    const matched = selectHighSchoolTopicSession(packId, "s1", state, 4, 7, "level_matched");
+    const broadened = selectHighSchoolTopicSession(packId, "s1", state, 4, 7, "broadened");
+    expect(matched.every((item) => item.unit.band === "foundation")).toBe(true);
+    expect(broadened.some((item) => item.unit.band !== "foundation")).toBe(true);
+    expect(broadened.every((item) => item.unit.packId === packId)).toBe(true);
+  });
+
   it("reports the expanded private pathway total without exposing progress outside its pack", () => {
     const state = recordHighSchoolTopicOutcome({ records: [], savedUnitIds: [] }, "biology-cell-functions-pathway-three-foundation", "mastered", "2026-08-19T00:00:00.000Z");
     const biology = topicProgressForPack("uganda-high-school-biology", state);
