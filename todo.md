@@ -286,3 +286,8 @@
 - [x] Build native high-school controls that explain and apply level-matched or broader topic sessions
 - [x] Add deterministic coverage for scope persistence, session eligibility, and subject isolation
 - [x] Validate and checkpoint the Senior-level topic-scope filtering release
+- [x] Define private high-school topic-completion milestone thresholds, language, and progress boundaries
+- [x] Add deterministic local milestone calculations based on topic progress only
+- [x] Build a native high-school dashboard surface for progress milestones and next achievable step
+- [x] Add deterministic coverage for milestone eligibility, threshold transitions, and local subject isolation
+- [x] Validate and checkpoint the private topic-completion milestone release
