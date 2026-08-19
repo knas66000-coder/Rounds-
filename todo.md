@@ -276,3 +276,8 @@
 - [x] Update adaptive topic sessions and pathway progress for the deeper unit catalogue
 - [x] Extend deterministic coverage for expanded topic breadth, session variation, and local privacy boundaries
 - [x] Validate and checkpoint the all-subject high-school pathway expansion
+- [x] Define third-pathway coverage, four-topic-session, and local learning-boundary targets for all high-school subjects
+- [x] Add a third set of original level-aware topic units across every active high-school subject
+- [x] Update learner pathway progress totals and topic-session presentation for eighteen-unit subject packs
+- [x] Extend deterministic coverage for third-pathway breadth, varied-session selection, and local progress isolation
+- [x] Validate and checkpoint the third high-school pathway expansion

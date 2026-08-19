@@ -9,7 +9,7 @@ import { highSchoolLevelLabel, isHighSchoolLevel, type HighSchoolLevel } from "@
 import { highSchoolTopicSessionReasonLabel, selectHighSchoolTopicSession, type HighSchoolTopicSessionItem } from "@/lib/high-school-topic-session";
 import { loadHighSchoolTopicProgress, recordHighSchoolTopicOutcome, saveHighSchoolTopicProgress, toggleHighSchoolTopicSaved, type HighSchoolTopicProgressState } from "@/lib/high-school-topic-store";
 import { coursePackForId } from "@/shared/course-packs";
-import { topicUnitModesLabel, type HighSchoolTopicUnit } from "@/shared/high-school-topic-units";
+import { topicUnitModesLabel, topicUnitsForPack, type HighSchoolTopicUnit } from "@/shared/high-school-topic-units";
 
 const fallbackProgress: HighSchoolTopicProgressState = { records: [], savedUnitIds: [] };
 
@@ -19,6 +19,7 @@ export default function HighSchoolTopicsScreen() {
   const { packId = "", level: levelParam } = useLocalSearchParams<{ packId?: string; level?: string }>();
   const level: HighSchoolLevel = isHighSchoolLevel(levelParam) ? levelParam : "s1";
   const pack = coursePackForId(packId);
+  const topicTotal = topicUnitsForPack(packId).length;
   const [progress, setProgress] = useState<HighSchoolTopicProgressState>(fallbackProgress);
   const [session, setSession] = useState<HighSchoolTopicSessionItem[]>([]);
   const [index, setIndex] = useState(0);
@@ -96,7 +97,7 @@ export default function HighSchoolTopicsScreen() {
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
         <Pressable onPress={() => router.back()} accessibilityRole="button"><Text style={[styles.back, { color: colors.primary }]}>‹ High-school study</Text></Pressable>
         <View style={styles.header}><View><Text style={[styles.eyebrow, { color: colors.primary }]}>{highSchoolTopicSessionReasonLabel(current.reason)} · {highSchoolLevelLabel(level).toUpperCase()}</Text><Text style={[styles.title, { color: colors.foreground }]}>{pack.title}</Text></View><View style={[styles.progressPill, { borderColor: colors.border, backgroundColor: colors.surface }]}><Text style={[styles.progressNumber, { color: colors.primary }]}>{index + 1}/{session.length}</Text><Text style={[styles.progressLabel, { color: colors.muted }]}>VARIED TOPICS</Text></View></View>
-        <View style={[styles.sessionNote, { borderColor: colors.border, backgroundColor: colors.surface }]}><Text style={[styles.sessionNoteText, { color: colors.muted }]}>Rounds uses your local progress to mix a new topic, a review need, or a saved item. A session never repeats a topic or unit.</Text></View>
+        <View style={[styles.sessionNote, { borderColor: colors.border, backgroundColor: colors.surface }]}><Text style={[styles.sessionNoteText, { color: colors.muted }]}>This {session.length}-topic session draws from {topicTotal} local topic units. Rounds mixes a new topic, a review need, or a saved item, and never repeats a topic or unit inside one session.</Text></View>
         <View style={[styles.card, { borderColor: colors.border, backgroundColor: colors.surface }]}>
           <View style={styles.meta}><View><Text style={[styles.eyebrow, { color: colors.primary }]}>{topicUnitModesLabel(unit.mode).toUpperCase()}</Text><Text style={[styles.cue, { color: colors.muted }]}>{unit.cue}</Text></View><Pressable onPress={toggleSaved} accessibilityRole="button" style={[styles.save, { borderColor: saved ? colors.primary : colors.border, backgroundColor: saved ? colors.primary : colors.background }]}><Text style={[styles.saveText, { color: saved ? colors.background : colors.primary }]}>{saved ? "★ Saved" : "☆ Save"}</Text></Pressable></View>
           <Text style={[styles.activityTitle, { color: colors.foreground }]}>{unit.title}</Text>

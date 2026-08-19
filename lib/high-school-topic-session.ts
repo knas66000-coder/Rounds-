@@ -50,9 +50,9 @@ export function selectHighSchoolTopicSession(packId: string, level: HighSchoolLe
     if (selected.length >= count || selected.some((item) => item.unit.id === unit.id || item.unit.topicId === unit.topicId) || !canUseMode(unit, selected, ranked)) return;
     selected.push({ unit, reason: reasonForUnit(unit, state) });
   };
-  // Reserve an opportunity for each learning purpose before filling the rest.
-  // This keeps an eligible saved item from being permanently hidden behind new work.
-  for (const reason of ["new_topic", "review_topic", "saved_topic", "refresh_topic"] as const) {
+  // Reserve review and saved work before filling with new learning. This keeps an
+  // eligible saved item from being permanently hidden as deeper packs add options.
+  for (const reason of ["review_topic", "saved_topic", "new_topic", "refresh_topic"] as const) {
     const candidate = ranked.find((unit) => reasonForUnit(unit, state) === reason && !selected.some((item) => item.unit.id === unit.id || item.unit.topicId === unit.topicId) && canUseMode(unit, selected, ranked));
     if (candidate) addUnit(candidate);
   }

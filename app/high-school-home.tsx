@@ -34,6 +34,7 @@ export default function HighSchoolHomeScreen() {
   const packs = useMemo(() => highSchoolCoursePacks(), []);
   const focusPack = packs.find((pack) => pack.id === revision.focusPackId) ?? null;
   const overallTopics = packs.reduce((sum, pack) => sum + topicProgressForPack(pack.id, topicProgress).completed, 0);
+  const overallTopicCapacity = packs.reduce((sum, pack) => sum + topicProgressForPack(pack.id, topicProgress).total, 0);
   const overallSaved = packs.reduce((sum, pack) => sum + topicProgressForPack(pack.id, topicProgress).saved, 0);
 
   useEffect(() => {
@@ -79,7 +80,7 @@ export default function HighSchoolHomeScreen() {
             <FlatList horizontal data={HIGH_SCHOOL_LEVELS} keyExtractor={(item) => item.id} showsHorizontalScrollIndicator={false} contentContainerStyle={styles.levelList} renderItem={({ item }) => <Pressable onPress={() => void chooseLevel(item.id)} accessibilityRole="radio" accessibilityState={{ selected: level === item.id }} style={({ pressed }) => [styles.levelChip, { borderColor: level === item.id ? colors.primary : colors.border, backgroundColor: level === item.id ? colors.primary : colors.background }, pressed && styles.pressed]}><Text style={[styles.levelChipTitle, { color: level === item.id ? colors.background : colors.foreground }]}>{item.title}</Text><Text style={[styles.levelChipBand, { color: level === item.id ? colors.background : colors.muted }]}>{item.band}</Text></Pressable>} />
           </View>
           <View style={[styles.progressStrip, { borderColor: colors.border, backgroundColor: colors.surface }]}>
-            <Metric colors={colors} value={String(overallTopics)} label="TOPICS COMPLETED" />
+            <Metric colors={colors} value={ready ? `${overallTopics}/${overallTopicCapacity}` : "–"} label="TOPICS COMPLETED" />
             <Metric colors={colors} value={String(overallSaved)} label="SAVED TOPICS" />
             <Metric colors={colors} value={ready ? String(installs.filter((entry) => packs.some((pack) => pack.id === entry.packId)).length) : "–"} label="OFFLINE PACKS" />
           </View>

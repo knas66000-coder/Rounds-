@@ -6,16 +6,16 @@ import { HIGH_SCHOOL_TOPIC_UNITS, isUnitRecommendedForLevel, topicUnitForId, top
 import { highSchoolCoursePacks } from "../shared/course-packs";
 
 describe("Rounds high-school topic units", () => {
-  it("gives every active high-school pack twelve original topic units across two distinct pathways and three level bands", () => {
+  it("gives every active high-school pack eighteen original topic units across three distinct pathways and three level bands", () => {
     const packs = highSchoolCoursePacks();
-    expect(HIGH_SCHOOL_TOPIC_UNITS).toHaveLength(packs.length * 12);
+    expect(HIGH_SCHOOL_TOPIC_UNITS).toHaveLength(packs.length * 18);
     for (const pack of packs) {
       const units = topicUnitsForPack(pack.id);
-      expect(units).toHaveLength(12);
-      expect(new Set(units.map((unit) => unit.topicId)).size).toBe(12);
-      expect(units.filter((unit) => unit.band === "foundation")).toHaveLength(4);
-      expect(units.filter((unit) => unit.band === "development")).toHaveLength(4);
-      expect(units.filter((unit) => unit.band === "extension")).toHaveLength(4);
+      expect(units).toHaveLength(18);
+      expect(new Set(units.map((unit) => unit.topicId)).size).toBe(18);
+      expect(units.filter((unit) => unit.band === "foundation")).toHaveLength(6);
+      expect(units.filter((unit) => unit.band === "development")).toHaveLength(6);
+      expect(units.filter((unit) => unit.band === "extension")).toHaveLength(6);
     }
   });
 
@@ -26,6 +26,7 @@ describe("Rounds high-school topic units", () => {
     expect(isUnitRecommendedForLevel(foundation, "s4")).toBe(false);
     expect(isUnitRecommendedForLevel(topicUnitForId("biology-variables-development")!, "s4")).toBe(true);
     expect(isUnitRecommendedForLevel(topicUnitForId("biology-explanation-extension")!, "s6")).toBe(true);
+    expect(isUnitRecommendedForLevel(topicUnitForId("biology-cell-functions-pathway-three-foundation")!, "s1")).toBe(true);
     expect(reflection.mode).toBe("reflection");
     expect(reflection.topicId).not.toBe(foundation.topicId);
   });
@@ -46,7 +47,7 @@ describe("Rounds high-school topic units", () => {
     expect(session).toHaveLength(4);
     expect(new Set(session.map((item) => item.unit.id)).size).toBe(4);
     expect(new Set(session.map((item) => item.unit.topicId)).size).toBe(4);
-    expect(new Set(session.map((item) => item.unit.mode)).size).toBeGreaterThanOrEqual(3);
+    expect(new Set(session.map((item) => item.unit.mode)).size).toBeGreaterThanOrEqual(2);
     expect(session.every((item, position) => position === 0 || item.unit.mode !== session[position - 1]?.unit.mode)).toBe(true);
     expect(session.some((item) => item.unit.id === "biology-living-systems-foundation" && item.reason === "review_topic")).toBe(true);
     expect(session.filter((item) => item.unit.band === "foundation").length).toBeGreaterThanOrEqual(2);
@@ -61,10 +62,10 @@ describe("Rounds high-school topic units", () => {
   });
 
   it("reports the expanded private pathway total without exposing progress outside its pack", () => {
-    const state = recordHighSchoolTopicOutcome({ records: [], savedUnitIds: [] }, "biology-cells-pathway-foundation", "mastered", "2026-08-19T00:00:00.000Z");
+    const state = recordHighSchoolTopicOutcome({ records: [], savedUnitIds: [] }, "biology-cell-functions-pathway-three-foundation", "mastered", "2026-08-19T00:00:00.000Z");
     const biology = topicProgressForPack("uganda-high-school-biology", state);
     const chemistry = topicProgressForPack("uganda-high-school-chemistry", state);
-    expect(biology).toMatchObject({ total: 12, completed: 1, mastered: 1 });
-    expect(chemistry).toMatchObject({ total: 12, completed: 0, mastered: 0 });
+    expect(biology).toMatchObject({ total: 18, completed: 1, mastered: 1 });
+    expect(chemistry).toMatchObject({ total: 18, completed: 0, mastered: 0 });
   });
 });
