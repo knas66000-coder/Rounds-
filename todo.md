@@ -306,3 +306,8 @@
 - [x] Build native saved-topic collection controls with one-tap local review entry
 - [x] Add deterministic coverage for sort order, pack isolation, saved-state changes, and empty collections
 - [x] Validate and checkpoint the private saved-topic collection release
+- [x] Inspect the Rounds-native authentication client, server procedures, persistence, and runtime logs
+- [x] Reproduce the reported learner access failure with deterministic authentication coverage
+- [x] Repair the verified sign-up, sign-in, session, or routing defect without weakening account security
+- [x] Validate secure learner authentication and selected-program access end to end
+- [x] Checkpoint the Rounds-native authentication repair
