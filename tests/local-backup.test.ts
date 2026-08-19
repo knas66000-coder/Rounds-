@@ -19,6 +19,7 @@ describe("encrypted local study backup", () => {
     const records = filterStudyStorageRecords([
       ["rounds.session.v1", "stored:rounds.session.v1"],
       ["rounds.high-school.topic-progress.v1", "stored:rounds.high-school.topic-progress.v1"],
+      ["rounds.university-topic-progress.v1", "stored:rounds.university-topic-progress.v1"],
       ["rounds.course-packs.draft.education.foundation.v1", "stored:rounds.course-packs.draft.education.foundation.v1"],
       ["rounds.biometric-unlock.v1", "stored:rounds.biometric-unlock.v1"],
       ["rounds.native.session.v1", "stored:rounds.native.session.v1"],
@@ -29,6 +30,7 @@ describe("encrypted local study backup", () => {
       "rounds.course-packs.draft.education.foundation.v1": "stored:rounds.course-packs.draft.education.foundation.v1",
       "rounds.high-school.topic-progress.v1": "stored:rounds.high-school.topic-progress.v1",
       "rounds.session.v1": "stored:rounds.session.v1",
+      "rounds.university-topic-progress.v1": "stored:rounds.university-topic-progress.v1",
     });
     expect(isStudyBackupStorageKey("rounds.native.session.v1")).toBe(false);
     expect(isStudyBackupStorageKey("rounds.biometric-unlock.v1")).toBe(false);

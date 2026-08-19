@@ -23,6 +23,7 @@ export const STUDY_BACKUP_STORAGE_KEYS = [
   "rounds.course-packs.resume.v1",
   "rounds.course-round.state.v1",
   "rounds.course-case-chains.v1",
+  "rounds.university-topic-progress.v1",
   "rounds.high-school.level.v1",
   "rounds.high-school.revision.v1",
   "rounds.high-school.topic-scope.v1",

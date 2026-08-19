@@ -333,8 +333,8 @@
 - [x] Build a native encrypted backup export flow with passphrase confirmation and share-sheet delivery
 - [x] Add deterministic coverage for backup validation, data boundaries, and encrypted envelope behavior
 - [x] Validate and checkpoint the encrypted local backup export release
-- [ ] Audit Nursing learning capabilities against every active university and high-school course pack
-- [ ] Define the subject-neutral course-pack parity standard and staged upgrade sequence
-- [ ] Upgrade shared learning architecture and university course packs through the parity standard
-- [ ] Upgrade Uganda-focused high-school course packs through the parity standard
-- [ ] Add deterministic parity coverage and validate the course-pack improvement release
+- [x] Audit Nursing learning capabilities against every active university and high-school course pack
+- [x] Define the subject-neutral course-pack parity standard and staged upgrade sequence
+- [x] Upgrade shared learning architecture and university course packs through the parity standard
+- [x] Upgrade Uganda-focused high-school course packs through the parity standard
+- [x] Add deterministic parity coverage and validate the course-pack improvement release
