@@ -26,6 +26,9 @@ The Uganda National Examinations Board publishes upper-secondary curriculum mate
 | Literature | Textual evidence, interpretation, themes, and response planning | Learning practice, not official marking or examination prediction |
 | Fine Art | Visual observation, design choices, critique, and reflection | Learning practice, not professional art assessment |
 | Technical Drawing | Visual communication, scale, conventions, and review | Learning practice, not engineering, construction, or safety guidance |
+| Food and Nutrition | Records, food information, planning, and careful comparison | Learning practice, not dietetic, medical, food-safety, or food-preparation guidance |
+| Music | Listening, pattern, performance planning, and respectful response | Learning practice, not professional music assessment or performance direction |
+| Physical Education | Movement planning, fair participation, and reflection | Learning practice, not exercise prescription, sports coaching, injury, or medical guidance |
 
 Each pack should use the same Rounds capabilities already available to university packs: local install state, no-repeat learning rounds, immediate feedback, saved activities, worked calculations or logic traces where appropriate, scenarios, and private multi-step cases. Subject content remains original and specifically labelled as reviewed starter material, not an official NCDC or UNEB resource.
 
@@ -41,6 +44,7 @@ The coordinated Rounds completion release provides an active **broad core and sp
 | Senior 5–6 | Advanced-level routing with the same subject boundaries and original starter content; no claim of examination prediction or official assessment. |
 | Core subjects | Active downloadable packs, reviewed activities, a finite private decision case, saved review, and owner visibility. |
 | Specialist electives | Active downloadable Kiswahili, Literature, Fine Art, and Technical Drawing packs with the same reviewed-activity, private-case, local-progress, and owner-visibility safeguards. |
+| Practical electives | Active downloadable Food and Nutrition, Music, and Physical Education packs with the same reviewed-activity, private-case, local-progress, and owner-visibility safeguards. |
 
 ## References
 

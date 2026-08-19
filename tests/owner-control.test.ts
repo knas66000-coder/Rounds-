@@ -20,5 +20,6 @@ describe("Rounds Owner Control Center access rules", () => {
     expect(highSchool?.status).toBe("active");
     expect(highSchool?.detail).toContain("Kiswahili");
     expect(highSchool?.detail).toContain("Technical Drawing");
+    expect(highSchool?.detail).toContain("Physical Education");
   });
 });

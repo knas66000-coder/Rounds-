@@ -46,4 +46,11 @@ describe("Rounds local course-pack state", () => {
     expect(canInstallPack(technicalDrawing)).toBe(true);
     expect(isPackInstalled(technicalDrawing, installs)).toBe(true);
   });
+
+  it("accepts practical elective packs as isolated downloadable local installs", () => {
+    const physicalEducation = COURSE_PACKS.find((pack) => pack.id === "uganda-high-school-physical-education")!;
+    const installs = parseCoursePackInstalls(JSON.stringify([{ packId: physicalEducation.id, revision: physicalEducation.revision, installedAt: "2026-08-19T00:00:00.000Z" }]));
+    expect(canInstallPack(physicalEducation)).toBe(true);
+    expect(isPackInstalled(physicalEducation, installs)).toBe(true);
+  });
 });

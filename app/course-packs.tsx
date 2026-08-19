@@ -37,6 +37,9 @@ const packAccents: Record<string, string> = {
   "uganda-high-school-literature": "#8B5A72",
   "uganda-high-school-fine-art": "#A4673C",
   "uganda-high-school-technical-drawing": "#4B6787",
+  "uganda-high-school-food-nutrition": "#9B7040",
+  "uganda-high-school-music": "#6C5591",
+  "uganda-high-school-physical-education": "#3F7A70",
 };
 
 export default function CoursePacksScreen() {

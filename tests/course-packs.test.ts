@@ -51,6 +51,9 @@ describe("Rounds course-pack catalog", () => {
       ["uganda_high_school_literature", "uganda-high-school-literature"],
       ["uganda_high_school_fine_art", "uganda-high-school-fine-art"],
       ["uganda_high_school_technical_drawing", "uganda-high-school-technical-drawing"],
+      ["uganda_high_school_food_nutrition", "uganda-high-school-food-nutrition"],
+      ["uganda_high_school_music", "uganda-high-school-music"],
+      ["uganda_high_school_physical_education", "uganda-high-school-physical-education"],
     ] as const;
 
     for (const [program, packId] of highSchoolPacks) {

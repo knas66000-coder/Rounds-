@@ -259,3 +259,8 @@
 - [x] Add original reviewed activities, no-repeat rounds, saved review, and finite private cases for every specialist elective
 - [x] Extend high-school home, course library, owner visibility, and deterministic coverage for the elective wave
 - [x] Validate and checkpoint the high-school specialist elective release
+- [x] Confirm Food and Nutrition, Music, and Physical Education boundaries within the Uganda high-school programme
+- [x] Add active Food and Nutrition, Music, and Physical Education profiles and downloadable pack contracts
+- [x] Add original reviewed activities, no-repeat rounds, saved review, and finite private cases for every practical elective
+- [x] Extend high-school navigation, owner visibility, programme documentation, and deterministic coverage for the practical-elective wave
+- [x] Validate and checkpoint the practical-elective high-school release
