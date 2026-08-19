@@ -40,6 +40,8 @@ describe("Rounds course-pack catalog", () => {
       ["uganda_high_school_economics", "uganda-high-school-economics"],
       ["uganda_high_school_entrepreneurship", "uganda-high-school-entrepreneurship"],
       ["uganda_high_school_english", "uganda-high-school-english"],
+      ["uganda_high_school_physics", "uganda-high-school-physics"],
+      ["uganda_high_school_mathematics", "uganda-high-school-mathematics"],
     ] as const;
 
     for (const [program, packId] of highSchoolPacks) {

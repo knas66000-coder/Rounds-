@@ -12,6 +12,8 @@ export const ACADEMIC_PROGRAMS = [
   { id: "uganda_high_school_economics", title: "High School Economics", faculty: "Uganda High School", packTitle: "Economics learning pack", description: "Original starter practice in scarcity, trade-offs, evidence, and clear economic reasoning for Ugandan high-school learners.", available: true },
   { id: "uganda_high_school_entrepreneurship", title: "High School Entrepreneurship", faculty: "Uganda High School", packTitle: "Entrepreneurship learning pack", description: "Original starter practice in customer evidence, costs, ethical choices, and responsible venture planning for Ugandan high-school learners.", available: true },
   { id: "uganda_high_school_english", title: "High School English", faculty: "Uganda High School", packTitle: "English language learning pack", description: "Original starter practice in reading, argument, source use, drafting, and revision for Ugandan high-school learners.", available: true },
+  { id: "uganda_high_school_physics", title: "High School Physics", faculty: "Uganda High School", packTitle: "Physics learning pack", description: "Original starter practice in motion, measurements, patterns, forces, and evidence-based explanation for Ugandan high-school learners.", available: true },
+  { id: "uganda_high_school_mathematics", title: "High School Mathematics", faculty: "Uganda High School", packTitle: "Mathematics learning pack", description: "Original starter practice in quantity, patterns, calculations, reasoning, and clear mathematical communication for Ugandan high-school learners.", available: true },
 ] as const;
 
 export type AcademicProgramId = (typeof ACADEMIC_PROGRAMS)[number]["id"];

@@ -89,6 +89,14 @@ export const COURSE_PACKS: CoursePack[] = [
     id: "uganda-high-school-english", revision: "ug-hs-english-starter-v1", title: "High School English", faculty: "Uganda High School", description: "Original starter learning in reading, argument, source use, drafting, and revision. It is not an official NCDC syllabus or official marking service.", audience: ["uganda_high_school_english"], readiness: "active", delivery: "downloadable", estimatedDownloadMb: 2,
     courses: [activeStarter("english-argument-evidence", "Reading Claims and Evidence", "Separate a claim, a reason, and a detail in a short persuasive passage.", ["evidence_reading"]), activeStarter("english-claim-planner", "Plan a Clear Paragraph", "Plan a claim, supporting detail, and revision check for a short paragraph.", ["writing_planner"]), activeStarter("english-source-choice", "Use a Source Responsibly", "Choose a clear source-use step before sharing a written response.", ["scenario"])],
   },
+  {
+    id: "uganda-high-school-physics", revision: "ug-hs-physics-starter-v1", title: "High School Physics", faculty: "Uganda High School", description: "Original starter learning in motion, measurement, patterns, forces, and evidence-based explanation. It is not an official NCDC syllabus or laboratory guide.", audience: ["uganda_high_school_physics"], readiness: "active", delivery: "downloadable", estimatedDownloadMb: 2,
+    courses: [activeStarter("physics-motion-evidence", "Motion and Recorded Evidence", "Separate a recorded motion observation from an unsupported explanation.", ["evidence_reading"]), activeStarter("physics-speed-count", "Simple Speed Calculation", "Calculate a speed from a stated distance and time.", ["worked_calculation"]), activeStarter("physics-fair-test-choice", "Measurement Comparison Choice", "Choose a careful way to compare recorded measurements.", ["scenario"])],
+  },
+  {
+    id: "uganda-high-school-mathematics", revision: "ug-hs-mathematics-starter-v1", title: "High School Mathematics", faculty: "Uganda High School", description: "Original starter learning in quantity, patterns, calculations, reasoning, and clear mathematical communication. It is not an official NCDC syllabus or examination service.", audience: ["uganda_high_school_mathematics"], readiness: "active", delivery: "downloadable", estimatedDownloadMb: 2,
+    courses: [activeStarter("mathematics-pattern-trace", "Trace a Number Pattern", "Follow a stated number rule and identify its next result.", ["logic_trace"]), activeStarter("mathematics-percentage-count", "Percentage of a Quantity", "Calculate a percentage from stated whole and part quantities.", ["worked_calculation"]), activeStarter("mathematics-representation-choice", "Choose a Useful Representation", "Choose a clear mathematical representation before drawing a conclusion.", ["scenario"])],
+  },
 ];
 
 export function coursePacksForProgram(program: AcademicProgramId): CoursePack[] {

@@ -242,3 +242,8 @@
 - [x] Extend onboarding, high-school home routing, course library, and owner pack visibility
 - [x] Add deterministic tests for high-school eligibility, content separation, local installs, activities, and cases
 - [x] Validate and checkpoint the Uganda high-school course-pack release
+- [x] Extend Uganda high-school framing with Physics and Mathematics learning boundaries
+- [x] Add active high-school Physics and Mathematics profiles and downloadable pack contracts
+- [x] Add original Physics and Mathematics starter activities, no-repeat rounds, and private branching cases
+- [x] Extend high-school navigation, owner visibility, and deterministic coverage for both science packs
+- [x] Validate and checkpoint the Physics and Mathematics high-school pack release
