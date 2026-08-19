@@ -18,7 +18,7 @@ export type CoursePack = {
   title: string;
   faculty: string;
   description: string;
-  audience: "all_university" | AcademicProgramId[];
+  audience: "all_university" | "all_high_school" | AcademicProgramId[];
   readiness: CoursePackReadiness;
   delivery: CoursePackDelivery;
   estimatedDownloadMb?: number;
@@ -69,10 +69,31 @@ export const COURSE_PACKS: CoursePack[] = [
     id: "social-sciences-foundations", revision: "social-sciences-starter-v3", title: "Social Sciences Foundations", faculty: "Social Sciences and Humanities", description: "A local starter pack for claims, evidence, respectful interpretation, and research thinking.", audience: ["social_sciences"], readiness: "active", delivery: "embedded",
     courses: [activeStarter("social-claims-evidence", "Claims and Supporting Evidence", "Identify the difference between a claim, an observation, and supporting evidence.", ["evidence_reading", "writing_planner"]), activeStarter("social-response-count", "Response Count", "Calculate and describe a small survey response percentage.", ["worked_calculation"]), activeStarter("social-context-choice", "Context-sensitive Interpretation", "Choose a responsible next interpretation of individual perspectives.", ["scenario"])],
   },
+  {
+    id: "uganda-high-school-biology", revision: "ug-hs-biology-starter-v1", title: "High School Biology", faculty: "Uganda High School", description: "Original starter learning in observation, living systems, evidence, and explanation. It is not an official NCDC syllabus or laboratory guide.", audience: ["uganda_high_school_biology"], readiness: "active", delivery: "downloadable", estimatedDownloadMb: 2,
+    courses: [activeStarter("biology-ecosystem-evidence", "Living Systems and Evidence", "Read an ecosystem observation and identify the evidence needed for a careful explanation.", ["evidence_reading"]), activeStarter("biology-sampling-count", "Simple Sampling Count", "Calculate a simple percentage from recorded field-observation counts.", ["worked_calculation"]), activeStarter("biology-investigation-choice", "Fair Investigation Choice", "Choose a careful next step when a biological observation raises a question.", ["scenario"])],
+  },
+  {
+    id: "uganda-high-school-chemistry", revision: "ug-hs-chemistry-starter-v1", title: "High School Chemistry", faculty: "Uganda High School", description: "Original starter learning in particle ideas, measurement patterns, variables, and careful chemical reasoning. It is not an official NCDC syllabus or laboratory guide.", audience: ["uganda_high_school_chemistry"], readiness: "active", delivery: "downloadable", estimatedDownloadMb: 2,
+    courses: [activeStarter("chemistry-particle-evidence", "Particles and Observations", "Separate an observable change from an unsupported particle-level explanation.", ["evidence_reading"]), activeStarter("chemistry-concentration-count", "Simple Concentration Count", "Calculate a simple mass-per-volume value using recorded quantities.", ["worked_calculation"]), activeStarter("chemistry-variable-choice", "Controlled Variable Choice", "Choose a fair comparison step for a classroom chemistry question.", ["scenario"])],
+  },
+  {
+    id: "uganda-high-school-economics", revision: "ug-hs-economics-starter-v1", title: "High School Economics", faculty: "Uganda High School", description: "Original starter learning in scarcity, choices, evidence, and clear economic reasoning. It is not an official NCDC syllabus or financial advice.", audience: ["uganda_high_school_economics"], readiness: "active", delivery: "downloadable", estimatedDownloadMb: 2,
+    courses: [activeStarter("economics-scarcity-evidence", "Scarcity and Choice", "Read a household or community choice and distinguish a stated trade-off from an assumption.", ["evidence_reading"]), activeStarter("economics-percentage-change", "Percentage Change", "Calculate a percentage change from a simple recorded price example.", ["worked_calculation"]), activeStarter("economics-tradeoff-choice", "Compare a Trade-off", "Choose a responsible way to explain an economic choice using stated evidence.", ["scenario"])],
+  },
+  {
+    id: "uganda-high-school-entrepreneurship", revision: "ug-hs-entrepreneurship-starter-v1", title: "High School Entrepreneurship", faculty: "Uganda High School", description: "Original starter learning in customer evidence, costs, ethical choices, and responsible venture planning. It is not an official NCDC syllabus or business advice.", audience: ["uganda_high_school_entrepreneurship"], readiness: "active", delivery: "downloadable", estimatedDownloadMb: 2,
+    courses: [activeStarter("entrepreneurship-customer-evidence", "Customer Problem Evidence", "Separate a useful customer observation from an unsupported sales claim.", ["evidence_reading"]), activeStarter("entrepreneurship-cost-count", "Simple Cost per Item", "Calculate a simple unit cost from recorded project quantities.", ["worked_calculation"]), activeStarter("entrepreneurship-ethical-choice", "Respectful Venture Choice", "Choose a responsible next action when planning a small learner venture.", ["scenario"])],
+  },
+  {
+    id: "uganda-high-school-english", revision: "ug-hs-english-starter-v1", title: "High School English", faculty: "Uganda High School", description: "Original starter learning in reading, argument, source use, drafting, and revision. It is not an official NCDC syllabus or official marking service.", audience: ["uganda_high_school_english"], readiness: "active", delivery: "downloadable", estimatedDownloadMb: 2,
+    courses: [activeStarter("english-argument-evidence", "Reading Claims and Evidence", "Separate a claim, a reason, and a detail in a short persuasive passage.", ["evidence_reading"]), activeStarter("english-claim-planner", "Plan a Clear Paragraph", "Plan a claim, supporting detail, and revision check for a short paragraph.", ["writing_planner"]), activeStarter("english-source-choice", "Use a Source Responsibly", "Choose a clear source-use step before sharing a written response.", ["scenario"])],
+  },
 ];
 
 export function coursePacksForProgram(program: AcademicProgramId): CoursePack[] {
-  return COURSE_PACKS.filter((pack) => pack.audience === "all_university" || pack.audience.includes(program));
+  const highSchool = program.startsWith("uganda_high_school_");
+  return COURSE_PACKS.filter((pack) => (!highSchool && pack.audience === "all_university") || (highSchool && pack.audience === "all_high_school") || (Array.isArray(pack.audience) && pack.audience.includes(program)));
 }
 
 export function coursePackForId(packId: string): CoursePack | null {
@@ -81,7 +102,7 @@ export function coursePackForId(packId: string): CoursePack | null {
 
 export function primaryCoursePackForProgram(program: AcademicProgramId): CoursePack | null {
   const packs = coursePacksForProgram(program);
-  return packs.find((pack) => pack.audience !== "all_university") ?? packs.find((pack) => pack.id === "university-foundation-year") ?? null;
+  return packs.find((pack) => Array.isArray(pack.audience) && pack.audience.includes(program)) ?? packs.find((pack) => pack.audience === "all_high_school") ?? packs.find((pack) => pack.id === "university-foundation-year") ?? null;
 }
 
 export function coursePackReadinessLabel(readiness: CoursePackReadiness): string {

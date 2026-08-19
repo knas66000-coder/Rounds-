@@ -4,7 +4,7 @@ import { advanceCaseStep, createCaseChainProgress, finishCaseChain, parseCaseCha
 
 describe("Rounds multi-step case chains", () => {
   it("gives every active non-Nursing pack a two-step subject-specific case chain", () => {
-    const packs = ["university-foundation-year", "computing-foundations", "business-foundations", "engineering-foundations", "natural-sciences-foundations", "education-foundations", "social-sciences-foundations"];
+    const packs = ["university-foundation-year", "computing-foundations", "business-foundations", "engineering-foundations", "natural-sciences-foundations", "education-foundations", "social-sciences-foundations", "uganda-high-school-biology", "uganda-high-school-chemistry", "uganda-high-school-economics", "uganda-high-school-entrepreneurship", "uganda-high-school-english"];
     expect(packs.every((packId) => (caseChainForPack(packId)?.steps.length ?? 0) >= 2)).toBe(true);
   });
 
@@ -26,7 +26,7 @@ describe("Rounds multi-step case chains", () => {
   });
 
   it("routes a non-best first decision in every active case to a finite repair step", () => {
-    expect(COURSE_CASE_CHAINS).toHaveLength(7);
+    expect(COURSE_CASE_CHAINS).toHaveLength(12);
 
     for (const chain of COURSE_CASE_CHAINS) {
       const first = chain.steps[0];

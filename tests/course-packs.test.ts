@@ -32,4 +32,23 @@ describe("Rounds course-pack catalog", () => {
     expect(primaryCoursePackForProgram("foundation_year")?.id).toBe("university-foundation-year");
     expect(primaryCoursePackForProgram("social_sciences")?.id).toBe("social-sciences-foundations");
   });
+
+  it("gives every Uganda high-school subject an active primary pack without leaking university or Nursing content", () => {
+    const highSchoolPacks = [
+      ["uganda_high_school_biology", "uganda-high-school-biology"],
+      ["uganda_high_school_chemistry", "uganda-high-school-chemistry"],
+      ["uganda_high_school_economics", "uganda-high-school-economics"],
+      ["uganda_high_school_entrepreneurship", "uganda-high-school-entrepreneurship"],
+      ["uganda_high_school_english", "uganda-high-school-english"],
+    ] as const;
+
+    for (const [program, packId] of highSchoolPacks) {
+      const available = coursePacksForProgram(program);
+      expect(available.map((pack) => pack.id)).toEqual([packId]);
+      expect(available[0]?.readiness).toBe("active");
+      expect(available[0]?.delivery).toBe("downloadable");
+      expect(available.some((pack) => pack.id === "nursing-practice" || pack.id === "university-foundation-year")).toBe(false);
+      expect(primaryCoursePackForProgram(program)?.id).toBe(packId);
+    }
+  });
 });

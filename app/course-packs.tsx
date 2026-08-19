@@ -21,6 +21,11 @@ const packAccents: Record<string, string> = {
   "natural-sciences-foundations": "#477159",
   "education-foundations": "#816A3E",
   "social-sciences-foundations": "#83596B",
+  "uganda-high-school-biology": "#39735D",
+  "uganda-high-school-chemistry": "#5A5E9F",
+  "uganda-high-school-economics": "#8B5E39",
+  "uganda-high-school-entrepreneurship": "#986543",
+  "uganda-high-school-english": "#6E527D",
 };
 
 export default function CoursePacksScreen() {

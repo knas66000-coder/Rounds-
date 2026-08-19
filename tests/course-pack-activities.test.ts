@@ -4,7 +4,7 @@ import { STARTER_COURSE_ACTIVITIES, starterActivityFor } from "../shared/course-
 describe("Rounds starter course activities", () => {
   it("provides a subject-specific active starter activity for every non-Nursing active pack", () => {
     const packIds = new Set(STARTER_COURSE_ACTIVITIES.map((activity) => activity.packId));
-    expect(packIds).toEqual(new Set(["university-foundation-year", "computing-foundations", "business-foundations", "engineering-foundations", "natural-sciences-foundations", "education-foundations", "social-sciences-foundations"]));
+    expect(packIds).toEqual(new Set(["university-foundation-year", "computing-foundations", "business-foundations", "engineering-foundations", "natural-sciences-foundations", "education-foundations", "social-sciences-foundations", "uganda-high-school-biology", "uganda-high-school-chemistry", "uganda-high-school-economics", "uganda-high-school-entrepreneurship", "uganda-high-school-english"]));
   });
 
   it("resolves activities only through the matching pack and course identifiers", () => {
@@ -26,6 +26,16 @@ describe("Rounds starter course activities", () => {
 
   it("gives every active non-Nursing pack a reviewed scenario decision without using clinical content", () => {
     const scenarioPacks = new Set(STARTER_COURSE_ACTIVITIES.filter((activity) => activity.kind === "scenario").map((activity) => activity.packId));
-    expect(scenarioPacks).toEqual(new Set(["university-foundation-year", "computing-foundations", "business-foundations", "engineering-foundations", "natural-sciences-foundations", "education-foundations", "social-sciences-foundations"]));
+    expect(scenarioPacks).toEqual(new Set(["university-foundation-year", "computing-foundations", "business-foundations", "engineering-foundations", "natural-sciences-foundations", "education-foundations", "social-sciences-foundations", "uganda-high-school-biology", "uganda-high-school-chemistry", "uganda-high-school-economics", "uganda-high-school-entrepreneurship", "uganda-high-school-english"]));
+  });
+
+  it("keeps every Uganda high-school pack active with three distinct original starter activities", () => {
+    const highSchoolPackIds = ["uganda-high-school-biology", "uganda-high-school-chemistry", "uganda-high-school-economics", "uganda-high-school-entrepreneurship", "uganda-high-school-english"];
+    for (const packId of highSchoolPackIds) {
+      const activities = STARTER_COURSE_ACTIVITIES.filter((activity) => activity.packId === packId);
+      expect(activities).toHaveLength(3);
+      expect(new Set(activities.map((activity) => activity.courseId)).size).toBe(3);
+      expect(activities.some((activity) => activity.kind === "scenario")).toBe(true);
+    }
   });
 });

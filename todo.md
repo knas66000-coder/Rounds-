@@ -236,3 +236,9 @@
 - [x] Refine the course-pack library into focused local actions and concise subject rows
 - [x] Refine connected research updates into a native search-and-source flow with compact controls
 - [x] Validate and checkpoint the secondary native-flow release
+- [x] Document Uganda-focused high-school pack framing and academic content boundaries
+- [x] Add high-school profile category and active Biology, Chemistry, Economics, Entrepreneurship, and English pack contracts
+- [x] Add original reviewed starter activities, no-repeat rounds, and private multi-step cases for every new high-school pack
+- [x] Extend onboarding, high-school home routing, course library, and owner pack visibility
+- [x] Add deterministic tests for high-school eligibility, content separation, local installs, activities, and cases
+- [x] Validate and checkpoint the Uganda high-school course-pack release

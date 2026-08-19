@@ -9,7 +9,7 @@ export const OWNER_CONTROL_PACKS = [
   { id: "natural-sciences", title: "Natural Sciences Foundations", status: "active", detail: "Local starter activities for observation, evidence, and explanation." },
   { id: "education", title: "Education Foundations", status: "active", detail: "Local starter activities for observable objectives and inclusive planning." },
   { id: "social-sciences", title: "Social Sciences Foundations", status: "active", detail: "Local starter activities for claims, evidence, and respectful interpretation." },
-  { id: "high-school", title: "High School Combinations", status: "planned", detail: "Future BCM, PCM, Economics, Entrepreneurship, and related subject packs." },
+  { id: "uganda-high-school", title: "Uganda High School", status: "active", detail: "Active local starter packs for Biology, Chemistry, Economics, Entrepreneurship, and English, with private learning cases and offline installation." },
 ] as const;
 
 export function isRoundsOwnerEmail(email: string | null | undefined, configuredOwnerEmail: string | undefined) {
@@ -21,6 +21,6 @@ export function canAccessOwnerControl(input: { email: string | null; role: "user
   return input.role === "admin" && isRoundsOwnerEmail(input.email, configuredOwnerEmail);
 }
 
-export function ownerPackStatusLabel(status: (typeof OWNER_CONTROL_PACKS)[number]["status"]) {
+export function ownerPackStatusLabel(status: "active" | "planned") {
   return status === "active" ? "Active" : "Planned";
 }

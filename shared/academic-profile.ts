@@ -7,6 +7,11 @@ export const ACADEMIC_PROGRAMS = [
   { id: "education", title: "Education", faculty: "Education", packTitle: "Education foundations pack", description: "Observable learning goals, inclusive planning, and reflective practice.", available: true },
   { id: "social_sciences", title: "Social Sciences", faculty: "Social Sciences and Humanities", packTitle: "Social sciences foundations pack", description: "Claims, evidence, respectful interpretation, and research thinking.", available: true },
   { id: "foundation_year", title: "University Foundation Year", faculty: "Cross-program", packTitle: "Foundation Year pack", description: "Academic writing, digital literacy, study skills, statistics, and research methods.", available: true },
+  { id: "uganda_high_school_biology", title: "High School Biology", faculty: "Uganda High School", packTitle: "Biology learning pack", description: "Original starter practice in observation, living systems, evidence, and explanation for Ugandan high-school learners.", available: true },
+  { id: "uganda_high_school_chemistry", title: "High School Chemistry", faculty: "Uganda High School", packTitle: "Chemistry learning pack", description: "Original starter practice in particle ideas, patterns, variables, and careful chemical reasoning for Ugandan high-school learners.", available: true },
+  { id: "uganda_high_school_economics", title: "High School Economics", faculty: "Uganda High School", packTitle: "Economics learning pack", description: "Original starter practice in scarcity, trade-offs, evidence, and clear economic reasoning for Ugandan high-school learners.", available: true },
+  { id: "uganda_high_school_entrepreneurship", title: "High School Entrepreneurship", faculty: "Uganda High School", packTitle: "Entrepreneurship learning pack", description: "Original starter practice in customer evidence, costs, ethical choices, and responsible venture planning for Ugandan high-school learners.", available: true },
+  { id: "uganda_high_school_english", title: "High School English", faculty: "Uganda High School", packTitle: "English language learning pack", description: "Original starter practice in reading, argument, source use, drafting, and revision for Ugandan high-school learners.", available: true },
 ] as const;
 
 export type AcademicProgramId = (typeof ACADEMIC_PROGRAMS)[number]["id"];
@@ -16,14 +21,18 @@ export function isAcademicProgram(value: string): value is AcademicProgramId {
   return ACADEMIC_PROGRAMS.some((program) => program.id === value);
 }
 
+export function isUgandaHighSchoolProgram(value: string): value is Extract<AcademicProgramId, `uganda_high_school_${string}`> {
+  return value.startsWith("uganda_high_school_") && isAcademicProgram(value);
+}
+
 export function requiresAcademicOnboarding(profile: { program: string } | null | undefined): boolean {
   return !profile || !isAcademicProgram(profile.program);
 }
 
 export function academicProfileProblem(input: { institutionName: string; program: string }): string | null {
   const institution = input.institutionName.trim().replace(/\s+/g, " ");
-  if (institution.length < 2 || institution.length > 120) return "Enter your university or college name using 2 to 120 characters.";
-  if (!isAcademicProgram(input.program)) return "Choose the academic program you study.";
+  if (institution.length < 2 || institution.length > 120) return "Enter your school, university, or college name using 2 to 120 characters.";
+  if (!isAcademicProgram(input.program)) return "Choose the program or subject you study.";
   return null;
 }
 
