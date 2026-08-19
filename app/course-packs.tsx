@@ -33,12 +33,16 @@ const packAccents: Record<string, string> = {
   "uganda-high-school-ict": "#386D83",
   "uganda-high-school-agriculture": "#6B7D40",
   "uganda-high-school-religion-ethics": "#765A7C",
+  "uganda-high-school-kiswahili": "#3B7181",
+  "uganda-high-school-literature": "#8B5A72",
+  "uganda-high-school-fine-art": "#A4673C",
+  "uganda-high-school-technical-drawing": "#4B6787",
 };
 
 export default function CoursePacksScreen() {
   const colors = useColors();
   const router = useRouter();
-  const params = useLocalSearchParams<{ focus?: string }>();
+  const params = useLocalSearchParams<{ focus?: string; level?: string }>();
   const profileQuery = trpc.academicProfile.get.useQuery();
   const profile = profileQuery.data;
   const [installs, setInstalls] = useState<CoursePackInstall[]>([]);
@@ -72,7 +76,7 @@ export default function CoursePacksScreen() {
       Alert.alert("Next activity in development", "This active pack is ready, but this course’s next reviewed activity has not been added yet. Rounds will not substitute Nursing questions or unreviewed material.");
       return;
     }
-    router.push({ pathname: "/course-activity", params: { packId: pack.id, courseId } } as never);
+    router.push({ pathname: "/course-activity", params: { packId: pack.id, courseId, ...(params.level ? { level: params.level } : {}) } } as never);
   };
 
   const addForOffline = async (pack: CoursePack) => {
@@ -87,7 +91,7 @@ export default function CoursePacksScreen() {
     haptic.medium();
     if (pack.id === "nursing-practice") { router.replace("/" as never); return; }
     if (!isPackInstalled(pack, installs)) { Alert.alert("Add for offline first", `Add ${pack.title} to this device before starting its local learning round.`); return; }
-    router.push({ pathname: "/course-round", params: { packId: pack.id } } as never);
+    router.push({ pathname: "/course-round", params: { packId: pack.id, ...(params.level ? { level: params.level } : {}) } } as never);
   };
 
   const openCaseChain = (pack: CoursePack) => {
@@ -95,7 +99,7 @@ export default function CoursePacksScreen() {
     if (!chain || pack.id === "nursing-practice") return;
     haptic.light();
     if (!isPackInstalled(pack, installs)) { Alert.alert("Add for offline first", `Add ${pack.title} to this device before opening its local learning case.`); return; }
-    router.push({ pathname: "/case-chain", params: { chainId: chain.id } } as never);
+    router.push({ pathname: "/case-chain", params: { chainId: chain.id, ...(params.level ? { level: params.level } : {}) } } as never);
   };
 
   if (!profile || !isAcademicProgram(profile.program)) return null;

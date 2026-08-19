@@ -633,6 +633,62 @@ export const COURSE_CASE_CHAINS: CourseCaseChain[] = [
       { id: "reason", title: "Propose an inclusive next step", situation: "The class has heard several respectful perspectives and has identified a shared need for a school activity that treats learners fairly.", prompt: "Which next step is most responsible?", options: ["Use school guidance and the stated shared needs to propose an option, while noting where further consultation is needed.", "Claim that every learner must hold the same view.", "Share private discussion details outside the class."], bestOption: "Use school guidance and the stated shared needs to propose an option, while noting where further consultation is needed.", explanation: "A respectful ethical conclusion connects values, reasons, school guidance, and the limits of the class discussion." },
     ],
   },
+  {
+    id: "uganda-kiswahili-message-clarity",
+    packId: "uganda-high-school-kiswahili",
+    title: "Panga ujumbe wa wazi na wa heshima",
+    eyebrow: "HIGH SCHOOL KISWAHILI CASE",
+    summary: "Turn a rushed group message into a clear, respectful Kiswahili communication plan.",
+    boundaryNote: "Learning case only; this is not an official language assessment or counselling guidance.",
+    reflectionPrompt: "Ni sehemu gani ya ujumbe ungeikagua ili iwe wazi na yenye heshima?",
+    steps: [
+      { id: "audience", title: "Tambua hadhira na kusudi", situation: "Mwanafunzi anataka kutuma ujumbe kwa kikundi cha kusoma. Ujumbe una maneno mengi ya haraka lakini hausimami kwa kusudi, muda, au hatua inayofuata.", prompt: "Hatua ipi ni bora kwanza?", options: ["Taja hadhira, kusudi, maelezo muhimu, na hatua inayofuata kabla ya kutuma.", "Tuma ujumbe mrefu bila kuusoma tena.", "Tumia kejeli ili watu wajibu haraka."], bestOption: "Taja hadhira, kusudi, maelezo muhimu, na hatua inayofuata kabla ya kutuma.", explanation: "Ujumbe wenye kusudi na hatua wazi humsaidia msomaji kuelewa bila kubashiri.", nextStepByOption: { "Taja hadhira, kusudi, maelezo muhimu, na hatua inayofuata kabla ya kutuma.": "revision", "Tuma ujumbe mrefu bila kuusoma tena.": "audience-repair", "Tumia kejeli ili watu wajibu haraka.": "audience-repair" } },
+      { id: "audience-repair", title: "Rekebisha mpango wa ujumbe", situation: "Mwanafunzi anatambua kwamba ujumbe wa haraka unaweza kuwachanganya au kuwadharau wasomaji.", prompt: "Nini kiongezwe kabla ya kutuma?", options: ["Kusudi wazi, maelezo yanayohitajika, na lugha ya heshima inayolingana na hadhira.", "Maneno mengi yasiyo na hatua inayofuata.", "Maelezo binafsi ya wanafunzi wengine."], bestOption: "Kusudi wazi, maelezo yanayohitajika, na lugha ya heshima inayolingana na hadhira.", explanation: "Marekebisho yanarudisha uwazi na heshima bila kufichua maelezo yasiyohitajika." },
+      { id: "revision", title: "Kagua kwa msomaji", situation: "Ujumbe sasa una kusudi, maelezo muhimu, na mwaliko wa hatua inayofuata.", prompt: "Ukaguzi upi ni wa muhimu zaidi?", options: ["Kagua kama msomaji anaweza kuelewa kusudi na hatua inayofuata kwa lugha ya heshima.", "Ongeza maneno magumu bila sababu.", "Ondoa maelezo yote ili ujumbe ubaki wa siri."], bestOption: "Kagua kama msomaji anaweza kuelewa kusudi na hatua inayofuata kwa lugha ya heshima.", explanation: "Ukaguzi huu huunganisha uwazi, hadhira, na mawasiliano ya heshima." },
+    ],
+  },
+  {
+    id: "uganda-literature-textual-reading",
+    packId: "uganda-high-school-literature",
+    title: "Build a text-based interpretation",
+    eyebrow: "HIGH SCHOOL LITERATURE CASE",
+    summary: "Move from a quick reaction to an interpretation grounded in stated textual details.",
+    boundaryNote: "Learning case only; this is not an official marking or examination prediction service.",
+    reflectionPrompt: "What exact textual detail would you capture before making your next interpretation?",
+    steps: [
+      { id: "detail", title: "Start with the text", situation: "A learner says a character is ‘selfish’ after reading one short scene but cannot point to the character’s words, actions, or the wider situation.", prompt: "What is the strongest first step?", options: ["Return to the scene, identify a stated action or line, and explain what it may support.", "Treat the first reaction as enough evidence.", "Remove details that might support another reading."], bestOption: "Return to the scene, identify a stated action or line, and explain what it may support.", explanation: "Close reading starts by connecting an interpretation to a stated detail rather than a quick label.", nextStepByOption: { "Return to the scene, identify a stated action or line, and explain what it may support.": "interpret", "Treat the first reaction as enough evidence.": "detail-repair", "Remove details that might support another reading.": "detail-repair" } },
+      { id: "detail-repair", title: "Restore the textual basis", situation: "The learner sees that a character label alone does not show how the text supports the claim.", prompt: "What should be added?", options: ["A precise line or action from the scene and a cautious explanation of its meaning.", "A stronger opinion without a detail.", "An assumption about the author’s private life."], bestOption: "A precise line or action from the scene and a cautious explanation of its meaning.", explanation: "The repair returns the response to the text while avoiding claims beyond the stated scene." },
+      { id: "interpret", title: "Compare possible readings", situation: "The learner has identified a character action and a line of dialogue that can support a reading.", prompt: "Which response is most responsible?", options: ["State the interpretation, explain the supporting detail, and note that another reading may need its own textual support.", "Claim that no other reader can discuss the scene.", "Treat the detail as proof of every character trait."], bestOption: "State the interpretation, explain the supporting detail, and note that another reading may need its own textual support.", explanation: "A thoughtful interpretation is text-based and remains open to other supported readings." },
+    ],
+  },
+  {
+    id: "uganda-fine-art-critique-plan",
+    packId: "uganda-high-school-fine-art",
+    title: "Plan a respectful visual critique",
+    eyebrow: "HIGH SCHOOL FINE ART CASE",
+    summary: "Use visible choices and the artist’s stated purpose to guide a respectful classroom critique.",
+    boundaryNote: "Learning case only; it is not professional art assessment or permission to share another learner’s work.",
+    reflectionPrompt: "What visible design choice would you mention in a future respectful critique?",
+    steps: [
+      { id: "observe", title: "Observe before judging", situation: "A learner sees a classmate’s artwork and says it is ‘bad’ without describing any colour, line, placement, texture, or the artist’s stated purpose.", prompt: "What should happen first?", options: ["Describe one visible design choice and ask how it relates to the artist’s stated purpose.", "Use an insult to make the critique memorable.", "Share a photo outside class before speaking to the artist."], bestOption: "Describe one visible design choice and ask how it relates to the artist’s stated purpose.", explanation: "Respectful critique starts with what is visible and makes room for the artist’s purpose.", nextStepByOption: { "Describe one visible design choice and ask how it relates to the artist’s stated purpose.": "response", "Use an insult to make the critique memorable.": "observe-repair", "Share a photo outside class before speaking to the artist.": "observe-repair" } },
+      { id: "observe-repair", title: "Reset the critique", situation: "The learner recognises that a personal attack or unapproved sharing would not help the classroom critique.", prompt: "What should the critique focus on?", options: ["Visible choices, the stated purpose, and a respectful question or suggestion.", "Rumours about the artist.", "A demand that every viewer feel the same way."], bestOption: "Visible choices, the stated purpose, and a respectful question or suggestion.", explanation: "The repair keeps the conversation focused on the work and protects the artist’s dignity." },
+      { id: "response", title: "Offer a useful response", situation: "The learner can now identify a central colour contrast and has heard the artist’s stated purpose.", prompt: "Which response is most useful?", options: ["Explain how the contrast may support the purpose and ask one respectful revision question.", "Declare that the artwork has one fixed meaning for everyone.", "Judge the artist rather than the visible work."], bestOption: "Explain how the contrast may support the purpose and ask one respectful revision question.", explanation: "The response connects visible evidence to purpose and makes critique useful for the next creative step." },
+    ],
+  },
+  {
+    id: "uganda-technical-drawing-review",
+    packId: "uganda-high-school-technical-drawing",
+    title: "Prepare a clear drawing review",
+    eyebrow: "HIGH SCHOOL TECHNICAL DRAWING CASE",
+    summary: "Move from an unclear classroom drawing to a legible, reviewable technical communication plan.",
+    boundaryNote: "Learning case only; it is not engineering, construction, manufacturing, or safety guidance.",
+    reflectionPrompt: "What label, view, or scale detail would you check before sharing your next classroom drawing?",
+    steps: [
+      { id: "view", title: "State what the drawing shows", situation: "A learner draws an object outline but does not label the view, scale, or feature being shown. The learner wants classmates to guess the missing details.", prompt: "What is the strongest first step?", options: ["State the view and relevant drawing information, then check what is still missing before peer review.", "Assume every viewer will infer the same missing details.", "Add dimensions that were not measured just to fill the page."], bestOption: "State the view and relevant drawing information, then check what is still missing before peer review.", explanation: "Clear labels and stated information make a classroom drawing easier to review without inventing missing detail.", nextStepByOption: { "State the view and relevant drawing information, then check what is still missing before peer review.": "review", "Assume every viewer will infer the same missing details.": "view-repair", "Add dimensions that were not measured just to fill the page.": "view-repair" } },
+      { id: "view-repair", title: "Restore clear communication", situation: "The learner sees that guessing or inventing details would make the drawing difficult to review responsibly.", prompt: "What should be restored?", options: ["Legible stated labels and a clear note of information that the drawing does not yet provide.", "More unlabelled lines.", "A claim that the drawing is ready for construction."], bestOption: "Legible stated labels and a clear note of information that the drawing does not yet provide.", explanation: "The repair makes the drawing’s communication limits visible rather than hiding them." },
+      { id: "review", title: "Use peer feedback", situation: "The drawing now includes a stated view and clear labels, and the learner is ready for a classroom peer review.", prompt: "Which feedback question is most useful?", options: ["Can a reviewer identify the stated view and see which information remains to be checked or added?", "Can a reviewer guess the learner’s private intentions?", "Can the drawing be treated as a safety instruction without a teacher review?"], bestOption: "Can a reviewer identify the stated view and see which information remains to be checked or added?", explanation: "A review question should check clear communication and acknowledge that a classroom drawing is not a construction instruction." },
+    ],
+  },
 ];
 
 export function caseChainForPack(packId: string): CourseCaseChain | null {

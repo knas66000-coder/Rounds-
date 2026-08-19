@@ -39,4 +39,11 @@ describe("Rounds local course-pack state", () => {
     expect(isPackInstalled(geography, installs)).toBe(true);
     expect(parseCoursePackInstalls(JSON.stringify([{ packId: geography.id, revision: "stale", installedAt: "2026-08-19T00:00:00.000Z" }]))).toEqual([]);
   });
+
+  it("accepts the specialist elective packs as isolated downloadable local installs", () => {
+    const technicalDrawing = COURSE_PACKS.find((pack) => pack.id === "uganda-high-school-technical-drawing")!;
+    const installs = parseCoursePackInstalls(JSON.stringify([{ packId: technicalDrawing.id, revision: technicalDrawing.revision, installedAt: "2026-08-19T00:00:00.000Z" }]));
+    expect(canInstallPack(technicalDrawing)).toBe(true);
+    expect(isPackInstalled(technicalDrawing, installs)).toBe(true);
+  });
 });

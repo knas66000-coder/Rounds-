@@ -254,3 +254,8 @@
 - [x] Add high-school revision planning, subject-level progress, offline package navigation, and owner visibility
 - [x] Extend deterministic coverage for high-school subjects, levels, local installs, activities, cases, and data boundaries
 - [x] Validate and checkpoint the coordinated Uganda high-school completion release
+- [x] Confirm specialist elective framing and learning boundaries for Kiswahili, Literature, Fine Art, and Technical Drawing
+- [x] Add active Kiswahili, Literature, Fine Art, and Technical Drawing profiles and offline pack contracts
+- [x] Add original reviewed activities, no-repeat rounds, saved review, and finite private cases for every specialist elective
+- [x] Extend high-school home, course library, owner visibility, and deterministic coverage for the elective wave
+- [x] Validate and checkpoint the high-school specialist elective release
