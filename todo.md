@@ -224,3 +224,7 @@
 - [x] Update the native case player, reflection review, and owner control interfaces
 - [x] Validate branch paths, privacy boundaries, owner authorization, and native build quality
 - [x] Checkpoint and deliver the Rounds advanced case-chain release
+- [x] Define alternate repair paths for every remaining active course-pack case chain
+- [x] Add finite alternate branches to Foundation Year, Business, Engineering, Natural Sciences, Education, and Social Sciences cases
+- [x] Extend deterministic case-chain tests for every alternate path and reflection privacy
+- [x] Validate and checkpoint the all-program case-branching release

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { caseChainForPack } from "../shared/case-chains";
+import { COURSE_CASE_CHAINS, caseChainForPack } from "../shared/case-chains";
 import { advanceCaseStep, createCaseChainProgress, finishCaseChain, parseCaseChainStore, recordCaseDecision, reflectionSummaryForProgress } from "../lib/case-chain-store";
 
 describe("Rounds multi-step case chains", () => {
@@ -23,6 +23,29 @@ describe("Rounds multi-step case chains", () => {
     const first = chain.steps[0];
     const alternate = recordCaseDecision(createCaseChainProgress(chain.id), first.id, "Treat them as decoration to add after launch.");
     expect(chain.steps[advanceCaseStep(alternate, chain).activeStepIndex]?.id).toBe("requirements-repair");
+  });
+
+  it("routes a non-best first decision in every active case to a finite repair step", () => {
+    expect(COURSE_CASE_CHAINS).toHaveLength(7);
+
+    for (const chain of COURSE_CASE_CHAINS) {
+      const first = chain.steps[0];
+      const nonBestOption = first.options.find((option) => option !== first.bestOption);
+      if (!nonBestOption) throw new Error(`Missing alternate decision for ${chain.id}`);
+      const declaredRepairStepId = first.nextStepByOption?.[nonBestOption];
+      const declaredNormalStepId = first.nextStepByOption?.[first.bestOption];
+      if (!declaredRepairStepId || !declaredNormalStepId) throw new Error(`Missing declared branch target for ${chain.id}`);
+
+      const next = advanceCaseStep(
+        recordCaseDecision(createCaseChainProgress(chain.id), first.id, nonBestOption),
+        chain,
+      );
+      const repairStep = chain.steps[next.activeStepIndex];
+
+      expect(repairStep?.id).toBe(declaredRepairStepId);
+      expect(repairStep?.id).not.toBe(declaredNormalStepId);
+      expect(repairStep?.nextStepByOption).toBeUndefined();
+    }
   });
 
   it("keeps reflection private and rejects malformed saved state", () => {
