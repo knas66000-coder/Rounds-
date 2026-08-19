@@ -328,3 +328,13 @@
 - [x] Add an on-demand secure community enrollment flow that preserves existing authenticated social features
 - [x] Add deterministic coverage for local learning access, community enrollment boundaries, and authenticated compatibility
 - [x] Validate and checkpoint the local-first optional-profile release
+- [x] Define encrypted local backup scope, passphrase handling, recovery limits, and privacy boundaries
+- [x] Prepare a device-compatible encrypted backup format and collection utilities for private local study data
+- [x] Build a native encrypted backup export flow with passphrase confirmation and share-sheet delivery
+- [x] Add deterministic coverage for backup validation, data boundaries, and encrypted envelope behavior
+- [x] Validate and checkpoint the encrypted local backup export release
+- [ ] Audit Nursing learning capabilities against every active university and high-school course pack
+- [ ] Define the subject-neutral course-pack parity standard and staged upgrade sequence
+- [ ] Upgrade shared learning architecture and university course packs through the parity standard
+- [ ] Upgrade Uganda-focused high-school course packs through the parity standard
+- [ ] Add deterministic parity coverage and validate the course-pack improvement release

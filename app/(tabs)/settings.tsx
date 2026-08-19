@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Alert, Platform, Pressable, ScrollView, StyleSheet, Switch, Text, View } from "react-native";
+import { Alert, Platform, Pressable, ScrollView, StyleSheet, Switch, Text, TextInput, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Speech from "expo-speech";
 import * as LocalAuthentication from "expo-local-authentication";
@@ -12,6 +12,7 @@ import { useAuthSession } from "@/lib/auth-session";
 import { trpc } from "@/lib/trpc";
 import { clampSpeechRate, defaultVoicePreferences, prepareLocalSpeech, stopRoundsSpeech, VOICE_PREFERENCES_KEY } from "@/lib/voice";
 import { shareRoundsAccountExport } from "@/lib/account-export";
+import { collectLocalStudyData, encryptLocalStudyBackup, shareEncryptedLocalStudyBackup, validateBackupPassphrase } from "@/lib/local-backup";
 import { BIOMETRIC_UNLOCK_KEY, parseBiometricUnlock } from "@/shared/account-privacy";
 
 export default function SettingsScreen() {
@@ -23,6 +24,10 @@ export default function SettingsScreen() {
   const [spokenRationale, setSpokenRationale] = useState(defaultVoicePreferences.spokenRationale);
   const [voiceIdentifier, setVoiceIdentifier] = useState<string | null>(defaultVoicePreferences.voiceIdentifier);
   const [biometricUnlock, setBiometricUnlock] = useState(false);
+  const [backupPassphrase, setBackupPassphrase] = useState("");
+  const [backupConfirmation, setBackupConfirmation] = useState("");
+  const [backupProblem, setBackupProblem] = useState<string | null>(null);
+  const [isPreparingBackup, setIsPreparingBackup] = useState(false);
   const { preferences, englishVoices, selectedVoice, reload: reloadVoices } = useRoundsVoice();
   const notificationPreferences = trpc.notifications.preferences.useQuery(undefined, { enabled: Boolean(user) });
   const academicProfile = trpc.academicProfile.get.useQuery(undefined, { enabled: Boolean(user) });
@@ -73,6 +78,24 @@ export default function SettingsScreen() {
       Alert.alert("Export unavailable", exportError instanceof Error ? exportError.message : "Try again while connected to the internet.");
     }
   };
+  const exportLocalStudyBackup = async () => {
+    const problem = validateBackupPassphrase(backupPassphrase, backupConfirmation);
+    if (problem) { setBackupProblem(problem); return; }
+    setBackupProblem(null);
+    setIsPreparingBackup(true);
+    try {
+      const studyData = await collectLocalStudyData();
+      const encryptedBackup = await encryptLocalStudyBackup(studyData, backupPassphrase);
+      await shareEncryptedLocalStudyBackup(encryptedBackup);
+      setBackupPassphrase("");
+      setBackupConfirmation("");
+      Alert.alert("Encrypted backup ready", "Your .rounds backup was prepared on this device. Save it somewhere you control, and keep its passphrase separately. Rounds cannot recover a forgotten passphrase.");
+    } catch (backupError) {
+      setBackupProblem(backupError instanceof Error ? backupError.message : "Rounds could not prepare the backup. Please try again.");
+    } finally {
+      setIsPreparingBackup(false);
+    }
+  };
 
   return (
     <ScreenContainer className="px-5" edges={["top", "left", "right"]}>
@@ -90,12 +113,22 @@ export default function SettingsScreen() {
           <Pressable onPress={signOut} accessibilityRole="button" style={[styles.signOut, { borderColor: colors.border }]}><Text style={[styles.signOutText, { color: colors.foreground }]}>Sign out</Text></Pressable>
         </View>
 
-        <View style={[styles.info, { borderColor: colors.border }]}>
+        <View style={[styles.info, { borderColor: colors.border }]}> 
           <Text style={[styles.infoTitle, { color: colors.foreground }]}>Privacy and access</Text>
           <Text style={[styles.infoText, { color: colors.muted }]}>Download your profile, course-material metadata, and your own community activity. Passwords, session tokens, private PDF contents, and storage keys are never included.</Text>
           <Pressable onPress={() => void exportPrivateData()} accessibilityRole="button"><Text style={[styles.test, { color: colors.primary }]}>{accountExport.isFetching ? "Preparing private export…" : "Download private account data"}</Text></Pressable>
           <View style={[styles.divider, { backgroundColor: colors.border }]} />
           <SettingRow label="Biometric unlock" description="After one minute in the background, use device biometrics to reopen Rounds. Your password remains the fallback." right={<Switch value={biometricUnlock} onValueChange={(value) => void setBiometricProtection(value)} trackColor={{ false: colors.border, true: colors.primary }} thumbColor={colors.background} accessibilityLabel="Enable biometric unlock" />} colors={colors} />
+        </View>
+
+        <View style={[styles.info, { borderColor: colors.border }]}> 
+          <Text style={[styles.infoTitle, { color: colors.foreground }]}>Encrypted study backup</Text>
+          <Text style={[styles.infoText, { color: colors.muted }]}>Create a passphrase-protected .rounds file containing your on-device learning profile, installed packs, practice results, saved questions and topics, progress, drafts, and study preferences. Rounds never uploads this file or remembers the passphrase.</Text>
+          <Text style={[styles.backupWarning, { color: colors.warning }]}>Keep the file and passphrase separately. If either is lost, Rounds cannot recover the backup.</Text>
+          <TextInput value={backupPassphrase} onChangeText={(value) => { setBackupPassphrase(value); setBackupProblem(null); }} secureTextEntry autoCapitalize="none" autoCorrect={false} textContentType="password" placeholder="Create a backup passphrase" placeholderTextColor={colors.muted} style={[styles.backupInput, { borderColor: colors.border, backgroundColor: colors.background, color: colors.foreground }]} accessibilityLabel="Backup passphrase" />
+          <TextInput value={backupConfirmation} onChangeText={(value) => { setBackupConfirmation(value); setBackupProblem(null); }} secureTextEntry autoCapitalize="none" autoCorrect={false} textContentType="password" placeholder="Confirm backup passphrase" placeholderTextColor={colors.muted} style={[styles.backupInput, { borderColor: colors.border, backgroundColor: colors.background, color: colors.foreground }]} accessibilityLabel="Confirm backup passphrase" returnKeyType="done" onSubmitEditing={() => void exportLocalStudyBackup()} />
+          {backupProblem ? <Text style={[styles.backupProblem, { color: colors.error }]}>{backupProblem}</Text> : null}
+          <Pressable onPress={() => void exportLocalStudyBackup()} disabled={isPreparingBackup} accessibilityRole="button" style={({ pressed }) => [styles.backupButton, { backgroundColor: colors.primary }, (pressed || isPreparingBackup) && { opacity: 0.82, transform: [{ scale: 0.98 }] }]}><Text style={[styles.backupButtonText, { color: colors.background }]}>{isPreparingBackup ? "Encrypting your backup…" : "Export encrypted study backup"}</Text></Pressable>
         </View>
 
         <View style={[styles.info, { borderColor: colors.border }]}>
@@ -147,5 +180,5 @@ function SettingRow({ label, description, right, colors }: { label: string; desc
 }
 
 const styles = StyleSheet.create({
-  scroll: { paddingTop: 18, paddingBottom: 32 }, header: { gap: 5 }, eyebrow: { fontSize: 12, letterSpacing: 2.2, fontWeight: "800" }, title: { fontFamily: "Georgia", fontSize: 30, fontWeight: "700", marginTop: 3 }, sub: { fontSize: 14, lineHeight: 20 }, account: { marginTop: 22, borderWidth: 1, borderRadius: 20, padding: 17, gap: 5 }, accountLabel: { fontSize: 10, fontWeight: "900", letterSpacing: 1.2 }, accountName: { fontSize: 17, fontWeight: "900" }, accountText: { fontSize: 12, lineHeight: 17 }, signOut: { alignSelf: "flex-start", borderWidth: 1, borderRadius: 12, paddingHorizontal: 13, paddingVertical: 8, marginTop: 5 }, signOutText: { fontSize: 13, fontWeight: "900" }, group: { marginTop: 18, borderWidth: 1, borderRadius: 20, paddingHorizontal: 16 }, row: { minHeight: 74, flexDirection: "row", alignItems: "center", gap: 12 }, copy: { flex: 1, gap: 4 }, grow: { flex: 1 }, label: { fontSize: 16, fontWeight: "800" }, description: { fontSize: 12, lineHeight: 17 }, divider: { height: 1 }, rateRow: { flexDirection: "row", gap: 7 }, rateButton: { width: 34, height: 34, borderWidth: 1, borderRadius: 10, alignItems: "center", justifyContent: "center" }, info: { marginTop: 18, borderWidth: 1, borderRadius: 20, padding: 17, gap: 8 }, infoTitle: { fontSize: 16, fontWeight: "800" }, infoText: { fontSize: 14, lineHeight: 21 }, test: { fontSize: 14, fontWeight: "800", marginTop: 2 }, selectedVoice: { borderWidth: 1, borderRadius: 14, padding: 12, gap: 3 }, selectedVoiceLabel: { fontSize: 10, letterSpacing: 1.1, fontWeight: "900" }, selectedVoiceName: { fontSize: 15, fontWeight: "900" }, selectedVoiceDetails: { fontSize: 12, lineHeight: 17 }, voiceOption: { minHeight: 55, borderWidth: 1, borderRadius: 13, padding: 10, flexDirection: "row", alignItems: "center", gap: 9 }, voiceOptionName: { fontSize: 13, fontWeight: "800" }, voiceOptionDetails: { fontSize: 11, marginTop: 2 }, voiceUseButton: { minWidth: 62, minHeight: 32, borderWidth: 1, borderRadius: 10, alignItems: "center", justifyContent: "center", paddingHorizontal: 8 }, preview: { fontSize: 11, fontWeight: "900" }, noVoice: { fontSize: 13, lineHeight: 19, fontWeight: "700" }, voiceLimit: { fontSize: 11, lineHeight: 16 }, reset: { marginTop: 18, minHeight: 48, borderWidth: 1, borderRadius: 16, alignItems: "center", justifyContent: "center" }, version: { textAlign: "center", fontSize: 12, marginTop: 18 },
+  scroll: { paddingTop: 18, paddingBottom: 32 }, header: { gap: 5 }, eyebrow: { fontSize: 12, letterSpacing: 2.2, fontWeight: "800" }, title: { fontFamily: "Georgia", fontSize: 30, fontWeight: "700", marginTop: 3 }, sub: { fontSize: 14, lineHeight: 20 }, account: { marginTop: 22, borderWidth: 1, borderRadius: 20, padding: 17, gap: 5 }, accountLabel: { fontSize: 10, fontWeight: "900", letterSpacing: 1.2 }, accountName: { fontSize: 17, fontWeight: "900" }, accountText: { fontSize: 12, lineHeight: 17 }, signOut: { alignSelf: "flex-start", borderWidth: 1, borderRadius: 12, paddingHorizontal: 13, paddingVertical: 8, marginTop: 5 }, signOutText: { fontSize: 13, fontWeight: "900" }, group: { marginTop: 18, borderWidth: 1, borderRadius: 20, paddingHorizontal: 16 }, row: { minHeight: 74, flexDirection: "row", alignItems: "center", gap: 12 }, copy: { flex: 1, gap: 4 }, grow: { flex: 1 }, label: { fontSize: 16, fontWeight: "800" }, description: { fontSize: 12, lineHeight: 17 }, divider: { height: 1 }, rateRow: { flexDirection: "row", gap: 7 }, rateButton: { width: 34, height: 34, borderWidth: 1, borderRadius: 10, alignItems: "center", justifyContent: "center" }, info: { marginTop: 18, borderWidth: 1, borderRadius: 20, padding: 17, gap: 8 }, infoTitle: { fontSize: 16, fontWeight: "800" }, infoText: { fontSize: 14, lineHeight: 21 }, test: { fontSize: 14, fontWeight: "800", marginTop: 2 }, backupWarning: { fontSize: 12, lineHeight: 18, fontWeight: "700" }, backupInput: { minHeight: 48, borderWidth: 1, borderRadius: 13, paddingHorizontal: 13, fontSize: 14 }, backupProblem: { fontSize: 12, lineHeight: 18, fontWeight: "700" }, backupButton: { minHeight: 50, borderRadius: 15, alignItems: "center", justifyContent: "center", marginTop: 2 }, backupButtonText: { fontSize: 14, fontWeight: "900" }, selectedVoice: { borderWidth: 1, borderRadius: 14, padding: 12, gap: 3 }, selectedVoiceLabel: { fontSize: 10, letterSpacing: 1.1, fontWeight: "900" }, selectedVoiceName: { fontSize: 15, fontWeight: "900" }, selectedVoiceDetails: { fontSize: 12, lineHeight: 17 }, voiceOption: { minHeight: 55, borderWidth: 1, borderRadius: 13, padding: 10, flexDirection: "row", alignItems: "center", gap: 9 }, voiceOptionName: { fontSize: 13, fontWeight: "800" }, voiceOptionDetails: { fontSize: 11, marginTop: 2 }, voiceUseButton: { minWidth: 62, minHeight: 32, borderWidth: 1, borderRadius: 10, alignItems: "center", justifyContent: "center", paddingHorizontal: 8 }, preview: { fontSize: 11, fontWeight: "900" }, noVoice: { fontSize: 13, lineHeight: 19, fontWeight: "700" }, voiceLimit: { fontSize: 11, lineHeight: 16 }, reset: { marginTop: 18, minHeight: 48, borderWidth: 1, borderRadius: 16, alignItems: "center", justifyContent: "center" }, version: { textAlign: "center", fontSize: 12, marginTop: 18 },
 });
