@@ -296,3 +296,8 @@
 - [x] Build a native high-school dashboard streak surface and next activity guidance
 - [x] Add deterministic coverage for weekly continuity, gaps, date handling, and local-only data scope
 - [x] Validate and checkpoint the private weekly study-streak release
+- [x] Define private in-subject topic-search matching, direct-entry, empty-state, and data-boundary rules
+- [x] Add deterministic local search and direct selected-topic session support
+- [x] Build native searchable subject-topic controls with clear local-result states
+- [x] Add deterministic coverage for normalized search, pack isolation, direct selection, and no-result handling
+- [x] Validate and checkpoint the private in-subject topic-search release

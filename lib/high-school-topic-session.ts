@@ -1,8 +1,8 @@
 import type { HighSchoolLevel, HighSchoolTopicScope } from "./high-school-store";
 import type { HighSchoolTopicProgressState } from "./high-school-topic-store";
-import { isUnitRecommendedForLevel, topicUnitsForPack, type HighSchoolTopicMode, type HighSchoolTopicUnit } from "../shared/high-school-topic-units";
+import { isUnitRecommendedForLevel, topicUnitForId, topicUnitsForPack, type HighSchoolTopicMode, type HighSchoolTopicUnit } from "../shared/high-school-topic-units";
 
-export type HighSchoolTopicSessionReason = "new_topic" | "review_topic" | "saved_topic" | "refresh_topic";
+export type HighSchoolTopicSessionReason = "new_topic" | "review_topic" | "saved_topic" | "refresh_topic" | "search_topic";
 export type HighSchoolTopicSessionItem = { unit: HighSchoolTopicUnit; reason: HighSchoolTopicSessionReason };
 
 function stableRank(value: string, nonce: number): number {
@@ -24,6 +24,7 @@ const priority: Record<HighSchoolTopicSessionReason, number> = {
   review_topic: 1,
   saved_topic: 2,
   refresh_topic: 3,
+  search_topic: 4,
 };
 
 function canUseMode(candidate: HighSchoolTopicUnit, selected: HighSchoolTopicSessionItem[], candidates: HighSchoolTopicUnit[]): boolean {
@@ -69,8 +70,15 @@ export function selectHighSchoolTopicSession(packId: string, level: HighSchoolLe
   return selected;
 }
 
+/** Opens one exact locally searched direct topic without widening to other packs. */
+export function selectedHighSchoolTopicSession(packId: string, unitId: string | null | undefined): HighSchoolTopicSessionItem[] {
+  const unit = unitId ? topicUnitForId(unitId) : null;
+  if (!unit || unit.packId !== packId || unit.mode === "reflection") return [];
+  return [{ unit, reason: "search_topic" }];
+}
+
 export function highSchoolTopicSessionReasonLabel(reason: HighSchoolTopicSessionReason): string {
-  return ({ new_topic: "NEW TOPIC", review_topic: "REVIEW THIS TOPIC", saved_topic: "SAVED FOR REVISIT", refresh_topic: "REFRESH THIS TOPIC" })[reason];
+  return ({ new_topic: "NEW TOPIC", review_topic: "REVIEW THIS TOPIC", saved_topic: "SAVED FOR REVISIT", refresh_topic: "REFRESH THIS TOPIC", search_topic: "SELECTED TOPIC" })[reason];
 }
 
 export function highSchoolTopicSessionModes(session: HighSchoolTopicSessionItem[]): HighSchoolTopicMode[] {
