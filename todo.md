@@ -291,3 +291,8 @@
 - [x] Build a native high-school dashboard surface for progress milestones and next achievable step
 - [x] Add deterministic coverage for milestone eligibility, threshold transitions, and local subject isolation
 - [x] Validate and checkpoint the private topic-completion milestone release
+- [x] Define private weekly study-streak activity rules, learner language, and data boundaries
+- [x] Add deterministic local streak calculations from completed high-school topic records
+- [x] Build a native high-school dashboard streak surface and next activity guidance
+- [x] Add deterministic coverage for weekly continuity, gaps, date handling, and local-only data scope
+- [x] Validate and checkpoint the private weekly study-streak release
