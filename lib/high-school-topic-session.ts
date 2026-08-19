@@ -77,6 +77,13 @@ export function selectedHighSchoolTopicSession(packId: string, unitId: string | 
   return [{ unit, reason: "search_topic" }];
 }
 
+/** Opens a direct review only when the requested unit remains saved locally. */
+export function savedHighSchoolTopicSession(packId: string, unitId: string | null | undefined, state: HighSchoolTopicProgressState): HighSchoolTopicSessionItem[] {
+  const unit = unitId && state.savedUnitIds.includes(unitId) ? topicUnitForId(unitId) : null;
+  if (!unit || unit.packId !== packId) return [];
+  return [{ unit, reason: "saved_topic" }];
+}
+
 export function highSchoolTopicSessionReasonLabel(reason: HighSchoolTopicSessionReason): string {
   return ({ new_topic: "NEW TOPIC", review_topic: "REVIEW THIS TOPIC", saved_topic: "SAVED FOR REVISIT", refresh_topic: "REFRESH THIS TOPIC", search_topic: "SELECTED TOPIC" })[reason];
 }

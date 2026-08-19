@@ -301,3 +301,8 @@
 - [x] Build native searchable subject-topic controls with clear local-result states
 - [x] Add deterministic coverage for normalized search, pack isolation, direct selection, and no-result handling
 - [x] Validate and checkpoint the private in-subject topic-search release
+- [x] Define private saved-topic collection scope, sort order, direct-review, empty-state, and data-boundary rules
+- [x] Add deterministic pack-scoped saved-topic collection and direct review entry helpers
+- [x] Build native saved-topic collection controls with one-tap local review entry
+- [x] Add deterministic coverage for sort order, pack isolation, saved-state changes, and empty collections
+- [x] Validate and checkpoint the private saved-topic collection release
