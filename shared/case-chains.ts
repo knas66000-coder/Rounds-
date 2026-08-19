@@ -6,6 +6,8 @@ export type CaseChainStep = {
   options: string[];
   bestOption: string;
   explanation: string;
+  /** Optional, finite next-step map. Any option without a target proceeds to the next listed step or reflection. */
+  nextStepByOption?: Record<string, string>;
 };
 
 export type CourseCaseChain = {
@@ -30,8 +32,9 @@ export const COURSE_CASE_CHAINS: CourseCaseChain[] = [
   {
     id: "computing-accessible-events", packId: "computing-foundations", title: "Plan an accessible events page", eyebrow: "COMPUTING CASE", summary: "Turn user needs into requirements and an early test plan.", reflectionPrompt: "What user need would you put into the first version’s acceptance criteria?",
     steps: [
-      { id: "requirements", title: "Set the requirements", situation: "A student team is planning a campus-events page. Users mention keyboard navigation and readable contrast, and the team has limited time for a first version.", prompt: "How should the team treat these needs?", options: ["Include them as requirements for the first version.", "Treat them as decoration to add after launch.", "Ask affected users to use another website."], bestOption: "Include them as requirements for the first version.", explanation: "Accessibility needs belong in the problem definition, not as optional decoration." },
+      { id: "requirements", title: "Set the requirements", situation: "A student team is planning a campus-events page. Users mention keyboard navigation and readable contrast, and the team has limited time for a first version.", prompt: "How should the team treat these needs?", options: ["Include them as requirements for the first version.", "Treat them as decoration to add after launch.", "Ask affected users to use another website."], bestOption: "Include them as requirements for the first version.", explanation: "Accessibility needs belong in the problem definition, not as optional decoration.", nextStepByOption: { "Include them as requirements for the first version.": "test", "Treat them as decoration to add after launch.": "requirements-repair", "Ask affected users to use another website.": "requirements-repair" } },
       { id: "test", title: "Choose an early test", situation: "The first page prototype now includes labeled controls and visible focus order. The team needs a short test before building more features.", prompt: "Which test is most useful now?", options: ["Navigate the page using a keyboard and check whether each control has a clear label and visible focus.", "Add more animations before any interaction test.", "Assume that a page is accessible if it works with a mouse."], bestOption: "Navigate the page using a keyboard and check whether each control has a clear label and visible focus.", explanation: "A small task-based test checks the specific requirements the team identified." },
+      { id: "requirements-repair", title: "Reframe the first version", situation: "The team has paused before building the page. It now needs to turn the reported needs into a workable first-version plan.", prompt: "What should the team add to its plan before moving forward?", options: ["Clear accessibility requirements and a small keyboard-navigation test.", "A promise to consider access only after all features are finished.", "A note that users should adapt to the design."], bestOption: "Clear accessibility requirements and a small keyboard-navigation test.", explanation: "The repair step reconnects the plan to the needs that were originally reported." },
     ],
   },
   {

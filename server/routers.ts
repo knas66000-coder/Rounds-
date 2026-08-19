@@ -19,6 +19,7 @@ import { isRoundsOwnerEmail, OWNER_CONTROL_PACKS } from "../shared/owner-control
 import { extractPdfReadingSections } from "./pdf-reader";
 import { buildPdfPracticePrompt, normalizePdfPractice } from "../shared/pdf-practice";
 import { buildVoiceTutorSystemPrompt, normalizeVoiceTutorHistory, normalizeVoiceTutorResponse, voiceTutorSafetyRedirect, voiceTutorSafetyResponse, voiceTutorUnavailableResponse, type VoiceTutorTurn } from "../shared/voice-tutor";
+import { caseChainForId } from "../shared/case-chains";
 
 const MAX_AUDIO_BYTES = 16 * 1024 * 1024;
 const MAX_STUDY_MATERIAL_BYTES = 4 * 1024 * 1024;
@@ -94,6 +95,16 @@ export const appRouter = router({
       requireRoundsOwner(ctx.user);
       const resolved = await db.resolveCommunityReportAsOwner(input.reportId);
       if (!resolved) throw new TRPCError({ code: "NOT_FOUND", message: "This report is already resolved or unavailable." });
+      return { success: true };
+    }),
+    listCaseApprovals: protectedProcedure.query(async ({ ctx }) => {
+      requireRoundsOwner(ctx.user);
+      return db.listCaseChainApprovalsForOwner();
+    }),
+    saveCaseApproval: protectedProcedure.input(z.object({ chainId: z.string().trim().min(1).max(120), status: z.enum(["draft", "approved", "needs_revision"]), ownerNote: z.string().trim().max(500) })).mutation(async ({ ctx, input }) => {
+      requireRoundsOwner(ctx.user);
+      if (!caseChainForId(input.chainId)) throw new TRPCError({ code: "NOT_FOUND", message: "This case chain is unavailable." });
+      await db.saveCaseChainApprovalAsOwner({ ...input, ownerNote: input.ownerNote.trim(), updatedByUserId: ctx.user.id });
       return { success: true };
     }),
   }),

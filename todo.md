@@ -218,3 +218,9 @@
 - [x] Add reviewed multi-step cases to active course packs and connect them to the shared learning library
 - [x] Validate progression, local resume, subject separation, and native build quality
 - [x] Checkpoint and deliver the Rounds multi-step case-chain release
+- [x] Define controlled case branching, private reflection-review boundaries, and owner approval data requirements
+- [x] Build local branching and reflection-review state with deterministic safeguards
+- [x] Add owner-only case approval status controls that never access learner reflections
+- [x] Update the native case player, reflection review, and owner control interfaces
+- [x] Validate branch paths, privacy boundaries, owner authorization, and native build quality
+- [x] Checkpoint and deliver the Rounds advanced case-chain release

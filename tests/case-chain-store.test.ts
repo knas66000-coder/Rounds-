@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { caseChainForPack } from "../shared/case-chains";
-import { advanceCaseStep, createCaseChainProgress, finishCaseChain, parseCaseChainStore, recordCaseDecision } from "../lib/case-chain-store";
+import { advanceCaseStep, createCaseChainProgress, finishCaseChain, parseCaseChainStore, recordCaseDecision, reflectionSummaryForProgress } from "../lib/case-chain-store";
 
 describe("Rounds multi-step case chains", () => {
   it("gives every active non-Nursing pack a two-step subject-specific case chain", () => {
@@ -17,10 +17,19 @@ describe("Rounds multi-step case chains", () => {
     expect(advanceCaseStep(answered, chain).activeStepIndex).toBe(1);
   });
 
+  it("uses an explicit finite branch target when a case step defines one", () => {
+    const chain = caseChainForPack("computing-foundations");
+    if (!chain) throw new Error("Missing computing case chain");
+    const first = chain.steps[0];
+    const alternate = recordCaseDecision(createCaseChainProgress(chain.id), first.id, "Treat them as decoration to add after launch.");
+    expect(chain.steps[advanceCaseStep(alternate, chain).activeStepIndex]?.id).toBe("requirements-repair");
+  });
+
   it("keeps reflection private and rejects malformed saved state", () => {
     const complete = finishCaseChain({ ...createCaseChainProgress("example"), activeStepIndex: 2 }, " I will test the requirement early. ", new Date("2026-08-18T00:00:00.000Z"));
     expect(complete.reflection).toBe("I will test the requirement early.");
     expect(complete.completedAt).toBe("2026-08-18T00:00:00.000Z");
+    expect(reflectionSummaryForProgress({ ...complete, decisions: { privateStep: "private answer" } })).toEqual({ chainId: "example", reflection: "I will test the requirement early.", completedAt: "2026-08-18T00:00:00.000Z" });
     expect(parseCaseChainStore('{"bad":{"chainId":"other"}}')).toEqual({});
   });
 });

@@ -1,6 +1,6 @@
 import { and, desc, eq, gt, inArray } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { academicProfiles, communityNotificationPreferences, communityNotifications, communityPosts, communityReactions, communityReplies, communityReports, InsertUser, roundsAccounts, roundsSessions, studyMaterialSections, studyMaterials, users } from "../drizzle/schema";
+import { academicProfiles, caseChainApprovals, communityNotificationPreferences, communityNotifications, communityPosts, communityReactions, communityReplies, communityReports, InsertUser, roundsAccounts, roundsSessions, studyMaterialSections, studyMaterials, users } from "../drizzle/schema";
 import { ENV } from "./_core/env";
 import { shouldCreateCommunityNotification, type CommunityNotificationType, type NotificationPreference } from "../shared/notification-rules";
 import { canUseStudyMaterial } from "../shared/study-material-permissions";
@@ -165,6 +165,25 @@ export async function resolveCommunityReportAsOwner(reportId: number) {
   if (!db) throw new Error("Community safety data is temporarily unavailable.");
   const result = await db.update(communityReports).set({ status: "resolved" }).where(and(eq(communityReports.id, reportId), eq(communityReports.status, "open")));
   return result[0].affectedRows > 0;
+}
+
+/** Returns case metadata only. Learner decisions, reflections, progress, and device data are intentionally excluded. */
+export async function listCaseChainApprovalsForOwner() {
+  const db = await getDb();
+  if (!db) throw new Error("Case approval data is temporarily unavailable.");
+  return db.select({ chainId: caseChainApprovals.chainId, status: caseChainApprovals.status, ownerNote: caseChainApprovals.ownerNote, updatedAt: caseChainApprovals.updatedAt }).from(caseChainApprovals).orderBy(desc(caseChainApprovals.updatedAt));
+}
+
+/** Persists only the owner’s content-review decision and note, never learner-private case information. */
+export async function saveCaseChainApprovalAsOwner(input: { chainId: string; status: "draft" | "approved" | "needs_revision"; ownerNote: string; updatedByUserId: number }) {
+  const db = await getDb();
+  if (!db) throw new Error("Case approval data is temporarily unavailable.");
+  const existing = await db.select({ id: caseChainApprovals.id }).from(caseChainApprovals).where(eq(caseChainApprovals.chainId, input.chainId)).limit(1);
+  if (existing[0]) {
+    await db.update(caseChainApprovals).set({ status: input.status, ownerNote: input.ownerNote, updatedByUserId: input.updatedByUserId }).where(eq(caseChainApprovals.id, existing[0].id));
+    return;
+  }
+  await db.insert(caseChainApprovals).values(input);
 }
 
 /** Returns only learner-owned records suitable for a private download. Credentials, sessions, raw PDFs, and storage keys are intentionally excluded. */

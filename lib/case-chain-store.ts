@@ -11,6 +11,12 @@ export type CaseChainProgress = {
   completedAt?: string;
 };
 
+export type CompletedCaseReflection = {
+  chainId: string;
+  reflection: string;
+  completedAt: string;
+};
+
 type CaseChainStore = Record<string, CaseChainProgress>;
 
 export function createCaseChainProgress(chainId: string): CaseChainProgress {
@@ -43,11 +49,19 @@ export function recordCaseDecision(progress: CaseChainProgress, stepId: string, 
 export function advanceCaseStep(progress: CaseChainProgress, chain: CourseCaseChain): CaseChainProgress {
   const activeStep = chain.steps[progress.activeStepIndex];
   if (!activeStep || !progress.decisions[activeStep.id]) return progress;
-  return { ...progress, activeStepIndex: Math.min(progress.activeStepIndex + 1, chain.steps.length) };
+  const nextStepId = activeStep.nextStepByOption?.[progress.decisions[activeStep.id]];
+  const branchIndex = nextStepId ? chain.steps.findIndex((step) => step.id === nextStepId) : -1;
+  const nextIndex = branchIndex >= 0 ? branchIndex : progress.activeStepIndex + 1;
+  return { ...progress, activeStepIndex: Math.min(nextIndex, chain.steps.length) };
 }
 
 export function finishCaseChain(progress: CaseChainProgress, reflection: string, now = new Date()): CaseChainProgress {
   return { ...progress, reflection: reflection.trim(), completedAt: now.toISOString() };
+}
+
+export function reflectionSummaryForProgress(progress: CaseChainProgress): CompletedCaseReflection | null {
+  if (!progress.completedAt || !progress.reflection.trim()) return null;
+  return { chainId: progress.chainId, reflection: progress.reflection, completedAt: progress.completedAt };
 }
 
 export async function loadCaseChainProgress(chainId: string): Promise<CaseChainProgress> {
@@ -58,4 +72,10 @@ export async function loadCaseChainProgress(chainId: string): Promise<CaseChainP
 export async function saveCaseChainProgress(progress: CaseChainProgress): Promise<void> {
   const store = parseCaseChainStore(await AsyncStorage.getItem(CASE_CHAIN_KEY));
   await AsyncStorage.setItem(CASE_CHAIN_KEY, JSON.stringify({ ...store, [progress.chainId]: progress }));
+}
+
+/** Returns reflection-only summaries for the current device. Decision histories remain excluded from the review view. */
+export async function loadCompletedCaseReflections(): Promise<CompletedCaseReflection[]> {
+  const store = parseCaseChainStore(await AsyncStorage.getItem(CASE_CHAIN_KEY));
+  return Object.values(store).map(reflectionSummaryForProgress).filter((summary): summary is CompletedCaseReflection => Boolean(summary)).sort((a, b) => b.completedAt.localeCompare(a.completedAt));
 }

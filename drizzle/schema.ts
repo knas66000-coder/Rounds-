@@ -130,6 +130,17 @@ export const academicProfiles = mysqlTable("academic_profiles", {
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 }, (table) => [uniqueIndex("academic_profiles_user").on(table.userId)]);
 
+/** Owner-reviewed case metadata only. Learner decisions and reflections are stored locally and never enter this table. */
+export const caseChainApprovals = mysqlTable("case_chain_approvals", {
+  id: int("id").autoincrement().primaryKey(),
+  chainId: varchar("chainId", { length: 120 }).notNull(),
+  status: mysqlEnum("status", ["draft", "approved", "needs_revision"]).default("draft").notNull(),
+  ownerNote: varchar("ownerNote", { length: 500 }).notNull().default(""),
+  updatedByUserId: int("updatedByUserId").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+}, (table) => [uniqueIndex("case_chain_approvals_chain").on(table.chainId)]);
+
 export type CommunityPost = typeof communityPosts.$inferSelect;
 export type CommunityReply = typeof communityReplies.$inferSelect;
 export type CommunityNotification = typeof communityNotifications.$inferSelect;
@@ -138,3 +149,4 @@ export type StudyMaterialSection = typeof studyMaterialSections.$inferSelect;
 export type AcademicProfile = typeof academicProfiles.$inferSelect;
 export type RoundsAccount = typeof roundsAccounts.$inferSelect;
 export type RoundsSession = typeof roundsSessions.$inferSelect;
+export type CaseChainApproval = typeof caseChainApprovals.$inferSelect;
