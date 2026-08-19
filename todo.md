@@ -264,3 +264,10 @@
 - [x] Add original reviewed activities, no-repeat rounds, saved review, and finite private cases for every practical elective
 - [x] Extend high-school navigation, owner visibility, programme documentation, and deterministic coverage for the practical-elective wave
 - [x] Validate and checkpoint the practical-elective high-school release
+- [x] Define high-school topic-unit, Senior 1–6 targeting, varied-session, weak-topic review, and privacy acceptance criteria
+- [x] Add a reusable topic-unit catalogue and local topic progress model for all active Uganda high-school subjects
+- [x] Build an adaptive local session selector that mixes new units, weak-topic review, saved items, and activity modes without repeats
+- [x] Author original level-aware topic-unit practice across every active high-school subject
+- [x] Update high-school home and learning routes with topic choices, level-aware progress, and clear session explanations
+- [x] Add deterministic tests for topic separation, level targeting, adaptive balance, no-repeat sessions, and private local state
+- [x] Validate and checkpoint the coordinated high-school curriculum-deepening release

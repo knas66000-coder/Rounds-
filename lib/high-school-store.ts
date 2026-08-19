@@ -15,6 +15,7 @@ export const HIGH_SCHOOL_LEVELS = [
 ] as const;
 
 export type HighSchoolLevel = (typeof HIGH_SCHOOL_LEVELS)[number]["id"];
+export type HighSchoolLearningBand = "foundation" | "development" | "extension";
 export type HighSchoolRevisionPlan = { focusPackId: string | null; weeklyTarget: 2 | 3 | 4; updatedAt: string | null };
 
 const fallbackRevisionPlan: HighSchoolRevisionPlan = { focusPackId: null, weeklyTarget: 3, updatedAt: null };
@@ -60,4 +61,10 @@ export async function saveHighSchoolRevisionPlan(plan: Pick<HighSchoolRevisionPl
 
 export function highSchoolLevelLabel(level: HighSchoolLevel): string {
   return HIGH_SCHOOL_LEVELS.find((item) => item.id === level)?.title ?? "Senior 1";
+}
+
+export function highSchoolLearningBand(level: HighSchoolLevel): HighSchoolLearningBand {
+  if (level === "s1" || level === "s2") return "foundation";
+  if (level === "s3" || level === "s4") return "development";
+  return "extension";
 }
