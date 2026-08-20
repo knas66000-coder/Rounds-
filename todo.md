@@ -347,8 +347,8 @@
 - [x] Review repository state, public-sharing options, and source-safety boundaries
 - [x] Record public-source and collaborator-access work in the project tracker
 - [x] Prepare public-safe collaborator documentation and a complete source package
-- [ ] Confirm a public repository destination and publish only with explicit approval
-- [ ] Deliver the public app link and collaborator setup instructions
+- [x] Confirm a public repository destination and publish only with explicit approval
+- [x] Deliver the public app link and collaborator setup instructions
 - [x] Inventory the Rounds architecture, feature history, source layout, and execution flows for the developer manual
 - [x] Write the complete Rounds developer manual with implementation and operational guidance
 - [x] Generate and verify the professional Rounds developer manual PDF
@@ -357,3 +357,4 @@
 - [x] Write the prioritized owner roadmap and recommended implementation sequence
 - [x] Generate and verify the professional Rounds robustness roadmap PDF
 - [x] Deliver the Rounds robustness roadmap to the owner
+- [x] Verify and publish the public-safe Rounds source to the owner-provided GitHub repository
