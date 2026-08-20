@@ -1,4 +1,4 @@
-import type { AcademicProgramId } from "./academic-profile";
+import type { AcademicProgramId, LearningPortalId } from "./academic-profile";
 
 export type CourseActivityKind = "recall" | "worked_calculation" | "scenario" | "evidence_reading" | "writing_planner" | "logic_trace" | "oral_practice" | "timed_assessment";
 export type CoursePackReadiness = "active" | "catalog" | "planned";
@@ -154,6 +154,15 @@ export function coursePacksForProgram(program: AcademicProgramId): CoursePack[] 
 
 export function highSchoolCoursePacks(): CoursePack[] {
   return COURSE_PACKS.filter((pack) => pack.audience === "all_high_school" || (Array.isArray(pack.audience) && pack.audience.some((program) => program.startsWith("uganda_high_school_"))));
+}
+
+/** Portal-level catalogues intentionally never combine University and High School packs. */
+export function universityCoursePacks(): CoursePack[] {
+  return COURSE_PACKS.filter((pack) => pack.audience === "all_university" || (Array.isArray(pack.audience) && pack.audience.some((program) => !program.startsWith("uganda_high_school_"))));
+}
+
+export function coursePacksForPortal(portal: LearningPortalId): CoursePack[] {
+  return portal === "university" ? universityCoursePacks() : highSchoolCoursePacks();
 }
 
 export function coursePackForId(packId: string): CoursePack | null {

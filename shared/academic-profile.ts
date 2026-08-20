@@ -30,6 +30,7 @@ export const ACADEMIC_PROGRAMS = [
 
 export type AcademicProgramId = (typeof ACADEMIC_PROGRAMS)[number]["id"];
 export type AcademicProfileInput = { institutionName: string; program: AcademicProgramId };
+export type LearningPortalId = "university" | "high_school";
 
 export function isAcademicProgram(value: string): value is AcademicProgramId {
   return ACADEMIC_PROGRAMS.some((program) => program.id === value);
@@ -37,6 +38,24 @@ export function isAcademicProgram(value: string): value is AcademicProgramId {
 
 export function isUgandaHighSchoolProgram(value: string): value is Extract<AcademicProgramId, `uganda_high_school_${string}`> {
   return value.startsWith("uganda_high_school_") && isAcademicProgram(value);
+}
+
+/** Nursing is intentionally part of the University portal; high-school subjects stay in their own portal. */
+export function portalForProgram(value: string): LearningPortalId | null {
+  if (!isAcademicProgram(value)) return null;
+  return isUgandaHighSchoolProgram(value) ? "high_school" : "university";
+}
+
+export function isUniversityProgram(value: string): value is AcademicProgramId {
+  return portalForProgram(value) === "university";
+}
+
+export function academicProgramsForPortal(portal: LearningPortalId) {
+  return ACADEMIC_PROGRAMS.filter((program) => portalForProgram(program.id) === portal);
+}
+
+export function learningPortalLabel(portal: LearningPortalId): string {
+  return portal === "university" ? "University" : "High School";
 }
 
 export function requiresAcademicOnboarding(profile: { program: string } | null | undefined): boolean {

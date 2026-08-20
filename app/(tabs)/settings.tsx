@@ -132,9 +132,9 @@ export default function SettingsScreen() {
         </View>
 
         <View style={[styles.info, { borderColor: colors.border }]}>
-          <Text style={[styles.infoTitle, { color: colors.foreground }]}>Academic home</Text>
-          <Text style={[styles.infoText, { color: colors.muted }]}>{academicProfile.data ? `${academicProfile.data.institutionName} · ${academicProfile.data.program.replace(/_/g, " ")}` : "Complete your university and program profile to open the correct course pack."}</Text>
-          <Pressable onPress={() => router.push("/academic-onboarding" as never)} accessibilityRole="button"><Text style={[styles.test, { color: colors.primary }]}>Change university or program</Text></Pressable>
+          <Text style={[styles.infoTitle, { color: colors.foreground }]}>Learning portals</Text>
+          <Text style={[styles.infoText, { color: colors.muted }]}>Choose a separate University or High School portal before browsing packs. Nursing is part of University; Uganda high-school subjects remain in the High School portal.</Text>
+          <Pressable onPress={() => router.push("/learning-portals" as never)} accessibilityRole="button"><Text style={[styles.test, { color: colors.primary }]}>Open learning portals</Text></Pressable>
         </View>
 
         <View style={[styles.group, { backgroundColor: colors.surface, borderColor: colors.border }]}>

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { courseActivityLabel, coursePackReadinessLabel, coursePacksForProgram, highSchoolCoursePacks, primaryCoursePackForProgram } from "../shared/course-packs";
+import { courseActivityLabel, coursePackReadinessLabel, coursePacksForPortal, coursePacksForProgram, highSchoolCoursePacks, primaryCoursePackForProgram, universityCoursePacks } from "../shared/course-packs";
 
 describe("Rounds course-pack catalog", () => {
   it("keeps the shared Foundation Year catalog available across university programs without leaking Nursing content", () => {
@@ -66,5 +66,16 @@ describe("Rounds course-pack catalog", () => {
     }
     expect(highSchoolCoursePacks()).toHaveLength(highSchoolPacks.length);
     expect(highSchoolCoursePacks().every((pack) => pack.delivery === "downloadable" && pack.readiness === "active")).toBe(true);
+  });
+
+  it("keeps University and High School portal libraries fully separate, with Nursing inside University", () => {
+    const university = universityCoursePacks();
+    const highSchool = highSchoolCoursePacks();
+    expect(coursePacksForPortal("university")).toEqual(university);
+    expect(coursePacksForPortal("high_school")).toEqual(highSchool);
+    expect(university.some((pack) => pack.id === "nursing-practice")).toBe(true);
+    expect(university.some((pack) => pack.id.startsWith("uganda-high-school-"))).toBe(false);
+    expect(highSchool.some((pack) => pack.id === "nursing-practice")).toBe(false);
+    expect(highSchool.every((pack) => pack.id.startsWith("uganda-high-school-"))).toBe(true);
   });
 });

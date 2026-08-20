@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { academicProfileProblem, isAcademicProgram, isUgandaHighSchoolProgram, programPackFor, requiresAcademicOnboarding } from "../shared/academic-profile";
+import { academicProfileProblem, academicProgramsForPortal, isAcademicProgram, isUniversityProgram, isUgandaHighSchoolProgram, portalForProgram, programPackFor, requiresAcademicOnboarding } from "../shared/academic-profile";
 
 describe("academic profile", () => {
   it("accepts a university and a supported academic program", () => {
@@ -25,5 +25,18 @@ describe("academic profile", () => {
     expect(isUgandaHighSchoolProgram("uganda_high_school_religion_ethics")).toBe(true);
     expect(isUgandaHighSchoolProgram("engineering")).toBe(false);
     expect(programPackFor("uganda_high_school_ict").available).toBe(true);
+  });
+
+  it("splits programs into non-mixed University and High School portals while keeping Nursing in University", () => {
+    expect(portalForProgram("nursing")).toBe("university");
+    expect(portalForProgram("uganda_high_school_biology")).toBe("high_school");
+    expect(portalForProgram("unsupported")).toBeNull();
+    expect(isUniversityProgram("nursing")).toBe(true);
+    expect(isUniversityProgram("uganda_high_school_biology")).toBe(false);
+    const university = academicProgramsForPortal("university");
+    const highSchool = academicProgramsForPortal("high_school");
+    expect(university.some((program) => program.id === "nursing")).toBe(true);
+    expect(university.some((program) => program.id.startsWith("uganda_high_school_"))).toBe(false);
+    expect(highSchool.every((program) => program.id.startsWith("uganda_high_school_"))).toBe(true);
   });
 });

@@ -338,3 +338,9 @@
 - [x] Upgrade shared learning architecture and university course packs through the parity standard
 - [x] Upgrade Uganda-focused high-school course packs through the parity standard
 - [x] Add deterministic parity coverage and validate the course-pack improvement release
+- [x] Define clear University and High School portal boundaries, entry routes, and local profile behavior
+- [x] Record separate-portal navigation work in the project tracker
+- [x] Build a level-selection gateway and dedicated University and High School portal screens
+- [x] Route onboarding, Study navigation, and course libraries through the correct portal without cross-level mixing
+- [x] Add deterministic portal-boundary coverage and validate the native navigation flow
+- [x] Checkpoint the separate University and High School portals release

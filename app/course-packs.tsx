@@ -5,10 +5,12 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
 import { haptic } from "@/lib/haptics";
+import { useAuthSession } from "@/lib/auth-session";
 import { canInstallPack, installLocalCoursePack, isPackInstalled, loadCoursePackInstalls, loadCoursePackResume, saveCoursePackResume, type CoursePackInstall, type CoursePackResume } from "@/lib/course-pack-store";
+import { useLocalLearningProfile } from "@/lib/local-learning-profile";
 import { trpc } from "@/lib/trpc";
-import { isAcademicProgram, isUgandaHighSchoolProgram } from "@/shared/academic-profile";
-import { courseActivityLabel, coursePackReadinessLabel, coursePacksForProgram, highSchoolCoursePacks, type CoursePack } from "@/shared/course-packs";
+import { isAcademicProgram, isUgandaHighSchoolProgram, portalForProgram, type LearningPortalId } from "@/shared/academic-profile";
+import { courseActivityLabel, coursePackReadinessLabel, coursePacksForPortal, coursePacksForProgram, highSchoolCoursePacks, type CoursePack } from "@/shared/course-packs";
 import { starterActivityFor } from "@/shared/course-pack-activities";
 import { caseChainForPack } from "@/shared/case-chains";
 import { universityTopicUnitsForPack } from "@/shared/university-topic-units";
@@ -46,14 +48,19 @@ const packAccents: Record<string, string> = {
 export default function CoursePacksScreen() {
   const colors = useColors();
   const router = useRouter();
-  const params = useLocalSearchParams<{ focus?: string; level?: string }>();
-  const profileQuery = trpc.academicProfile.get.useQuery();
-  const profile = profileQuery.data;
+  const params = useLocalSearchParams<{ focus?: string; level?: string; portal?: string }>();
+  const { isAuthenticated } = useAuthSession();
+  const { profile: localProfile } = useLocalLearningProfile();
+  const profileQuery = trpc.academicProfile.get.useQuery(undefined, { enabled: isAuthenticated });
+  const profile = localProfile ?? profileQuery.data;
+  const requestedPortal: LearningPortalId | null = params.portal === "university" || params.portal === "high_school" ? params.portal : null;
+  const profilePortal = profile ? portalForProgram(profile.program) : null;
+  const portalMatchesProfile = !requestedPortal || profilePortal === requestedPortal;
   const [installs, setInstalls] = useState<CoursePackInstall[]>([]);
   const [resume, setResume] = useState<CoursePackResume | null>(null);
   const [selectedPackId, setSelectedPackId] = useState<string | null>(null);
 
-  const packs = useMemo(() => profile && isAcademicProgram(profile.program) ? (isUgandaHighSchoolProgram(profile.program) ? highSchoolCoursePacks() : coursePacksForProgram(profile.program)) : [], [profile]);
+  const packs = useMemo(() => requestedPortal ? coursePacksForPortal(requestedPortal) : profile && isAcademicProgram(profile.program) ? (isUgandaHighSchoolProgram(profile.program) ? highSchoolCoursePacks() : coursePacksForProgram(profile.program)) : [], [profile, requestedPortal]);
   const selectedPack = packs.find((pack) => pack.id === selectedPackId) ?? packs[0] ?? null;
 
   useEffect(() => {
@@ -69,6 +76,7 @@ export default function CoursePacksScreen() {
 
   const openCourse = async (pack: CoursePack, courseId: string) => {
     haptic.light();
+    if (requestedPortal && !portalMatchesProfile) { router.push({ pathname: "/academic-onboarding", params: { portal: requestedPortal } } as never); return; }
     if (pack.id === "nursing-practice") { router.replace("/" as never); return; }
     if (!isPackInstalled(pack, installs)) {
       Alert.alert("Add for offline first", `Add ${pack.title} to this device before opening its local starter activities.`);
@@ -85,6 +93,7 @@ export default function CoursePacksScreen() {
 
   const addForOffline = async (pack: CoursePack) => {
     haptic.medium();
+    if (requestedPortal && !portalMatchesProfile) { router.push({ pathname: "/academic-onboarding", params: { portal: requestedPortal } } as never); return; }
     const installed = await installLocalCoursePack(pack.id);
     if (!installed) { Alert.alert("Pack unavailable", "This pack is already on the device or is not ready for offline installation."); return; }
     setInstalls((current) => [...current.filter((item) => item.packId !== pack.id), installed]);
@@ -93,8 +102,10 @@ export default function CoursePacksScreen() {
 
   const startLearningRound = (pack: CoursePack) => {
     haptic.medium();
+    if (requestedPortal && !portalMatchesProfile) { router.push({ pathname: "/academic-onboarding", params: { portal: requestedPortal } } as never); return; }
     if (pack.id === "nursing-practice") { router.replace("/" as never); return; }
     if (!isPackInstalled(pack, installs)) { Alert.alert("Add for offline first", `Add ${pack.title} to this device before starting its local learning round.`); return; }
+    if (pack.id.startsWith("uganda-high-school-")) { router.push("/high-school-home" as never); return; }
     if (universityTopicUnitsForPack(pack.id).length) {
       router.push({ pathname: "/university-topics", params: { packId: pack.id } } as never);
       return;
@@ -106,11 +117,12 @@ export default function CoursePacksScreen() {
     const chain = caseChainForPack(pack.id);
     if (!chain || pack.id === "nursing-practice") return;
     haptic.light();
+    if (requestedPortal && !portalMatchesProfile) { router.push({ pathname: "/academic-onboarding", params: { portal: requestedPortal } } as never); return; }
     if (!isPackInstalled(pack, installs)) { Alert.alert("Add for offline first", `Add ${pack.title} to this device before opening its local learning case.`); return; }
     router.push({ pathname: "/case-chain", params: { chainId: chain.id, ...(params.level ? { level: params.level } : {}) } } as never);
   };
 
-  if (!profile || !isAcademicProgram(profile.program)) return null;
+  if (!requestedPortal && (!profile || !isAcademicProgram(profile.program))) return null;
 
   return (
     <ScreenContainer className="px-5" edges={["top", "left", "right"]}>
@@ -119,7 +131,7 @@ export default function CoursePacksScreen() {
         keyExtractor={(pack) => pack.id}
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
-        ListHeaderComponent={<View style={styles.header}><View style={styles.topBar}><Pressable onPress={() => { haptic.light(); router.back(); }} accessibilityRole="button" style={({ pressed }) => [styles.backButton, { backgroundColor: colors.surface, borderColor: colors.border }, pressed && styles.pressed]}><Text style={[styles.backText, { color: colors.primary }]}>‹</Text></Pressable><Text style={[styles.topBarTitle, { color: colors.muted }]}>COURSE LIBRARY</Text><View style={styles.topBarSpacer} /></View><Text style={[styles.title, { color: colors.foreground }]}>Your learning packs</Text><Text style={[styles.sub, { color: colors.muted }]}>{profile.institutionName} · your study content is organised by subject and stored locally after installation.</Text>{resume ? <Text style={[styles.resume, { color: colors.muted }]}>Resume: {resume.courseId.replace(/-/g, " ")}</Text> : null}{selectedPack ? <SelectedPack pack={selectedPack} installed={isPackInstalled(selectedPack, installs)} colors={colors} onOpenCourse={openCourse} onInstall={addForOffline} onStartRound={startLearningRound} onOpenCase={openCaseChain} /> : null}<Text style={[styles.sectionTitle, { color: colors.muted }]}>YOUR AVAILABLE PACKS</Text></View>}
+        ListHeaderComponent={<View style={styles.header}><View style={styles.topBar}><Pressable onPress={() => { haptic.light(); router.back(); }} accessibilityRole="button" style={({ pressed }) => [styles.backButton, { backgroundColor: colors.surface, borderColor: colors.border }, pressed && styles.pressed]}><Text style={[styles.backText, { color: colors.primary }]}>‹</Text></Pressable><Text style={[styles.topBarTitle, { color: colors.muted }]}>{requestedPortal === "university" ? "UNIVERSITY LIBRARY" : requestedPortal === "high_school" ? "HIGH SCHOOL LIBRARY" : "COURSE LIBRARY"}</Text><View style={styles.topBarSpacer} /></View><Text style={[styles.title, { color: colors.foreground }]}>{requestedPortal === "university" ? "University course packs" : requestedPortal === "high_school" ? "High School subjects" : "Your learning packs"}</Text><Text style={[styles.sub, { color: colors.muted }]}>{requestedPortal === "university" ? "University packs only. Nursing belongs here; high-school subjects are kept in their own portal." : requestedPortal === "high_school" ? "Uganda-focused high-school subjects only. University programs and Nursing are kept in their own portal." : `${profile?.institutionName ?? "Your study space"} · your study content is organised by subject and stored locally after installation.`}</Text>{requestedPortal && !portalMatchesProfile ? <Pressable onPress={() => router.push({ pathname: "/academic-onboarding", params: { portal: requestedPortal } } as never)} accessibilityRole="button" style={({ pressed }) => [styles.portalSetup, { borderColor: colors.primary, backgroundColor: colors.surface }, pressed && styles.pressed]}><Text style={[styles.portalSetupTitle, { color: colors.primary }]}>SET THIS PORTAL AS YOUR PRIVATE STUDY PATH</Text><Text style={[styles.portalSetupText, { color: colors.muted }]}>Choose a matching program or subject before starting one of these packs.</Text></Pressable> : null}{resume ? <Text style={[styles.resume, { color: colors.muted }]}>Resume: {resume.courseId.replace(/-/g, " ")}</Text> : null}{selectedPack ? <SelectedPack pack={selectedPack} installed={isPackInstalled(selectedPack, installs)} colors={colors} onOpenCourse={openCourse} onInstall={addForOffline} onStartRound={startLearningRound} onOpenCase={openCaseChain} /> : null}<Text style={[styles.sectionTitle, { color: colors.muted }]}>{requestedPortal === "university" ? "UNIVERSITY PACKS" : requestedPortal === "high_school" ? "HIGH-SCHOOL SUBJECTS" : "YOUR AVAILABLE PACKS"}</Text></View>}
         renderItem={({ item }) => <PackCard pack={item} accent={packAccents[item.id] ?? colors.primary} selected={item.id === selectedPack?.id} installed={isPackInstalled(item, installs)} colors={colors} onPress={() => { haptic.light(); setSelectedPackId(item.id); }} />}
         ListEmptyComponent={<View style={[styles.empty, { borderColor: colors.border, backgroundColor: colors.surface }]}><Text style={[styles.emptyTitle, { color: colors.foreground }]}>Your library is being prepared.</Text><Text style={[styles.emptyText, { color: colors.muted }]}>Return to your program home or review your academic profile.</Text></View>}
       />
@@ -149,6 +161,9 @@ const styles = StyleSheet.create({
   title: { fontFamily: "Georgia", fontSize: 29, lineHeight: 36, fontWeight: "700" },
   sub: { fontSize: 13, lineHeight: 19 },
   resume: { fontSize: 11, lineHeight: 16, textTransform: "capitalize" },
+  portalSetup: { borderWidth: 1, borderRadius: 16, padding: 12, gap: 3 },
+  portalSetupTitle: { fontSize: 9, letterSpacing: 0.9, fontWeight: "900" },
+  portalSetupText: { fontSize: 11, lineHeight: 16 },
   sectionTitle: { fontSize: 10, letterSpacing: 1.5, fontWeight: "900", marginTop: 4 },
   focusSheet: { borderWidth: 1.5, borderRadius: 24, padding: 16, gap: 10, marginTop: 2 },
   focusHeader: { flexDirection: "row", alignItems: "center", gap: 10 },
