@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "pdf": "/home/ubuntu/rounds-nclex/docs/developer-manual/main.pdf",
+  "mode": "standard",
+  "page_count": 17,
+  "selected_pages": [
+    1,
+    2,
+    4,
+    7,
+    11,
+    12,
+    14,
+    17
+  ],
+  "rendered_pages": [
+    "/home/ubuntu/rounds-nclex/docs/developer-manual/review/pages/page-0001.png",
+    "/home/ubuntu/rounds-nclex/docs/developer-manual/review/pages/page-0002.png",
+    "/home/ubuntu/rounds-nclex/docs/developer-manual/review/pages/page-0004.png",
+    "/home/ubuntu/rounds-nclex/docs/developer-manual/review/pages/page-0007.png",
+    "/home/ubuntu/rounds-nclex/docs/developer-manual/review/pages/page-0011.png",
+    "/home/ubuntu/rounds-nclex/docs/developer-manual/review/pages/page-0012.png",
+    "/home/ubuntu/rounds-nclex/docs/developer-manual/review/pages/page-0014.png",
+    "/home/ubuntu/rounds-nclex/docs/developer-manual/review/pages/page-0017.png"
+  ],
+  "contact_sheets": [
+    "/home/ubuntu/rounds-nclex/docs/developer-manual/review/sheets/sheet-01.jpg"
+  ],
+  "settings": {
+    "dpi": 110,
+    "columns": 3,
+    "max_sheet_pages": 12,
+    "thumbnail_width": 320
+  }
+}

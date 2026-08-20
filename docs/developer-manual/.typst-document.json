@@ -1,0 +1,10 @@
+{
+  "entry": "main.typ",
+  "metadata": {
+    "author": "Rounds Development Team",
+    "subtitle": "Architecture, Feature Systems, Execution Flows, Operations, and Collaboration",
+    "title": "Rounds Developer Manual"
+  },
+  "mode": "report",
+  "theme": "report-theme.typ"
+}

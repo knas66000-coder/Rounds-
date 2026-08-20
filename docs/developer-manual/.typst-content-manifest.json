@@ -1,0 +1,17 @@
+{
+  "task_kind": "new-document",
+  "output": "pdf",
+  "signals": [],
+  "hard_constraints": [
+    "Comprehensive developer manual for the Rounds mobile application",
+    "Developer audience rather than learner audience",
+    "Explain current architecture, feature history, code map, execution flows, privacy boundaries, testing, deployment, and collaboration",
+    "Include representative source-code excerpts and diagram-like execution flows",
+    "Use professional portrait report layout"
+  ],
+  "content_features": {
+    "code_blocks": 9,
+    "defined_terms": 28,
+    "portrait_images": 0
+  }
+}

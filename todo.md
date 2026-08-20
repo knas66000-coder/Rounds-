@@ -349,3 +349,7 @@
 - [x] Prepare public-safe collaborator documentation and a complete source package
 - [ ] Confirm a public repository destination and publish only with explicit approval
 - [ ] Deliver the public app link and collaborator setup instructions
+- [x] Inventory the Rounds architecture, feature history, source layout, and execution flows for the developer manual
+- [x] Write the complete Rounds developer manual with implementation and operational guidance
+- [x] Generate and verify the professional Rounds developer manual PDF
+- [x] Checkpoint and deliver the Rounds developer manual

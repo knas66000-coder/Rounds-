@@ -1,0 +1,4 @@
+status=pass
+mode=standard
+pages_checked=1,2,4,7,11,12,14,17
+finding=title,contents,tables,flow diagrams,code blocks,and glossary render without visible clipping or overlap
