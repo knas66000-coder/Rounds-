@@ -344,3 +344,8 @@
 - [x] Route onboarding, Study navigation, and course libraries through the correct portal without cross-level mixing
 - [x] Add deterministic portal-boundary coverage and validate the native navigation flow
 - [x] Checkpoint the separate University and High School portals release
+- [x] Review repository state, public-sharing options, and source-safety boundaries
+- [x] Record public-source and collaborator-access work in the project tracker
+- [x] Prepare public-safe collaborator documentation and a complete source package
+- [ ] Confirm a public repository destination and publish only with explicit approval
+- [ ] Deliver the public app link and collaborator setup instructions

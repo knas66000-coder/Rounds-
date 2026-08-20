@@ -30,8 +30,10 @@ yarn-error.*
 .DS_Store
 *.pem
 
-# local env files
-.env*.local
+# local environment files and credentials
+.env
+.env.*
+!.env.example
 
 # typescript
 *.tsbuildinfo
@@ -52,6 +54,7 @@ app-example
 # Logs
 logs
 *.log
+.manus-logs/
 
 # OS
 Thumbs.db
