@@ -1,0 +1,17 @@
+{
+  "task_kind": "new-document",
+  "output": "pdf",
+  "signals": [],
+  "hard_constraints": [
+    "Owner-facing prioritized roadmap for making Rounds more robust",
+    "Cover reliability, academic content quality, learner retention, privacy and safety, collaboration, and scale",
+    "Distinguish immediate foundations from later growth features",
+    "Provide an explicit recommended implementation sequence",
+    "Use a professional portrait report layout"
+  ],
+  "content_features": {
+    "code_blocks": 0,
+    "defined_terms": 0,
+    "portrait_images": 0
+  }
+}

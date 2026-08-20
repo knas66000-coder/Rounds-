@@ -1,0 +1,10 @@
+{
+  "entry": "main.typ",
+  "metadata": {
+    "author": "Rounds Development Team",
+    "subtitle": "A staged plan for reliability, learning quality, safety, collaboration, and scale",
+    "title": "Rounds Robustness Roadmap"
+  },
+  "mode": "report",
+  "theme": "report-theme.typ"
+}

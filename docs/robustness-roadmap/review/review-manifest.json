@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "pdf": "/home/ubuntu/rounds-nclex/docs/robustness-roadmap/main.pdf",
+  "mode": "standard",
+  "page_count": 9,
+  "selected_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    9
+  ],
+  "rendered_pages": [
+    "/home/ubuntu/rounds-nclex/docs/robustness-roadmap/review/pages/page-0001.png",
+    "/home/ubuntu/rounds-nclex/docs/robustness-roadmap/review/pages/page-0002.png",
+    "/home/ubuntu/rounds-nclex/docs/robustness-roadmap/review/pages/page-0003.png",
+    "/home/ubuntu/rounds-nclex/docs/robustness-roadmap/review/pages/page-0004.png",
+    "/home/ubuntu/rounds-nclex/docs/robustness-roadmap/review/pages/page-0005.png",
+    "/home/ubuntu/rounds-nclex/docs/robustness-roadmap/review/pages/page-0006.png",
+    "/home/ubuntu/rounds-nclex/docs/robustness-roadmap/review/pages/page-0007.png",
+    "/home/ubuntu/rounds-nclex/docs/robustness-roadmap/review/pages/page-0009.png"
+  ],
+  "contact_sheets": [
+    "/home/ubuntu/rounds-nclex/docs/robustness-roadmap/review/sheets/sheet-01.jpg"
+  ],
+  "settings": {
+    "dpi": 110,
+    "columns": 3,
+    "max_sheet_pages": 12,
+    "thumbnail_width": 320
+  }
+}
