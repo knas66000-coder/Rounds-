@@ -358,3 +358,5 @@
 - [x] Generate and verify the professional Rounds robustness roadmap PDF
 - [x] Deliver the Rounds robustness roadmap to the owner
 - [x] Verify and publish the public-safe Rounds source to the owner-provided GitHub repository
+- [x] Add and verify the public Rounds GitHub description and live-application website link
+- [x] Record the public Rounds GitHub metadata update in the project tracker
