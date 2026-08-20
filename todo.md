@@ -363,3 +363,5 @@
 - [x] Check GitHub issues, pull requests, and repository activity for external improvement requests
 - [x] Record the owner-approved Rounds GitHub privacy transition in the project tracker
 - [x] Change the approved Rounds GitHub repository from public to private and verify preserved access
+- [x] Restore and verify public viewing access to the Rounds GitHub repository
+- [x] Record the owner-approved Rounds GitHub public-visibility restoration in the project tracker
