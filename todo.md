@@ -360,3 +360,6 @@
 - [x] Verify and publish the public-safe Rounds source to the owner-provided GitHub repository
 - [x] Add and verify the public Rounds GitHub description and live-application website link
 - [x] Record the public Rounds GitHub metadata update in the project tracker
+- [x] Check GitHub issues, pull requests, and repository activity for external improvement requests
+- [x] Record the owner-approved Rounds GitHub privacy transition in the project tracker
+- [x] Change the approved Rounds GitHub repository from public to private and verify preserved access
