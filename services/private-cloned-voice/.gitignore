@@ -1,0 +1,14 @@
+.env
+config/voice-profiles.json
+private-data/
+models/
+outputs/
+*.wav
+*.mp3
+*.m4a
+*.onnx
+*.bin
+*.pt
+*.pth
+__pycache__/
+.pytest_cache/

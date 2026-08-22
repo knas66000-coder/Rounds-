@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "owner-primary": {
+      "referenceAudioPath": "/srv/private-voice/private-data/owner-primary-reference.wav",
+      "referenceText": "Exact approved transcript for the private reference audio."
+    }
+  }
+}

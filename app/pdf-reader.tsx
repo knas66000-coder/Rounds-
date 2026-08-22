@@ -2,13 +2,12 @@ import { useEffect, useMemo, useState } from "react";
 import { ActivityIndicator, Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
-import * as Speech from "expo-speech";
 
 import { ScreenContainer } from "@/components/screen-container";
-import { useRoundsVoice } from "@/hooks/use-rounds-voice";
 import { useAuthSession } from "@/lib/auth-session";
 import { loadPdfReaderCache, loadPdfReaderProgress, savePdfReaderCache, savePdfReaderProgress, type CachedPdfReader } from "@/lib/pdf-reader-cache";
-import { preparePdfSectionSpeech, stopRoundsSpeech } from "@/lib/voice";
+import { preparePdfSectionSpeech } from "@/lib/voice";
+import { usePrivateClonedVoice } from "@/lib/private-cloned-voice";
 import { trpc } from "@/lib/trpc";
 import { searchReadingSections } from "@/shared/pdf-reader";
 import type { LearnerMaterialPractice } from "@/shared/pdf-practice";
@@ -32,7 +31,7 @@ export default function PdfReaderScreen() {
   const [isNarrating, setIsNarrating] = useState(false);
   const [practice, setPractice] = useState<LearnerMaterialPractice | null>(null);
   const [revealedAnswers, setRevealedAnswers] = useState<Set<number>>(new Set());
-  const { speechOptions } = useRoundsVoice();
+  const { speak, stop: stopClonedVoice } = usePrivateClonedVoice();
 
   useEffect(() => {
     if (!user || !materialId) return;
@@ -49,7 +48,7 @@ export default function PdfReaderScreen() {
     void savePdfReaderCache(user.id, materialId, cacheable);
   }, [user, materialId, readerQuery.data]);
 
-  useEffect(() => () => { void stopRoundsSpeech(Speech); }, []);
+  useEffect(() => () => { void stopClonedVoice(); }, [stopClonedVoice]);
 
   const reader = readerQuery.data ?? cached;
   const sections = useMemo(() => reader?.sections ?? [], [reader]);
@@ -60,7 +59,7 @@ export default function PdfReaderScreen() {
 
   const moveTo = (nextPosition: number) => {
     const next = Math.min(Math.max(0, nextPosition), Math.max(0, sections.length - 1));
-    void stopRoundsSpeech(Speech);
+    void stopClonedVoice();
     setIsNarrating(false);
     setPractice(null);
     setRevealedAnswers(new Set());
@@ -82,21 +81,16 @@ export default function PdfReaderScreen() {
   };
   const readActiveSection = async () => {
     if (!activeSection) return;
-    await stopRoundsSpeech(Speech);
-    if (!speechOptions) {
-      Alert.alert("Choose an English voice", "Install or select an English device voice in Rounds Settings before listening to this passage.");
-      return;
-    }
     setIsNarrating(true);
-    Speech.speak(preparePdfSectionSpeech(activeSection.heading, activeSection.content), {
-      ...speechOptions,
-      onDone: () => setIsNarrating(false),
-      onStopped: () => setIsNarrating(false),
-      onError: () => setIsNarrating(false),
-    });
+    try {
+      await speak(preparePdfSectionSpeech(activeSection.heading, activeSection.content), { onDone: () => setIsNarrating(false) });
+    } catch (error) {
+      setIsNarrating(false);
+      Alert.alert("Cloned speech unavailable", error instanceof Error ? error.message : "The selected passage is still available to read on screen.");
+    }
   };
   const stopNarration = async () => {
-    await stopRoundsSpeech(Speech);
+    await stopClonedVoice();
     setIsNarrating(false);
   };
   const createPractice = async () => {

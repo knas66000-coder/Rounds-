@@ -1,0 +1,9 @@
+# Copy these variable names into the private process environment on the service host.
+# Do not commit real values, profile configuration, voice recordings, or model files.
+VOICE_SERVICE_API_TOKEN=replace-with-a-long-random-token
+VOICE_PROFILES_FILE=/srv/private-voice/config/voice-profiles.json
+ZIPVOICE_MODEL_DIR=/srv/private-voice/models/sherpa-onnx-zipvoice-distill-int8-zh-en-emilia
+ZIPVOICE_VOCODER_PATH=/srv/private-voice/models/vocos_24khz.onnx
+VOICE_SERVICE_MAX_TEXT_CHARS=1200
+VOICE_SERVICE_RATE_LIMIT_PER_MINUTE=12
+VOICE_SERVICE_TTS_STEPS=4

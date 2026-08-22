@@ -4,7 +4,6 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 
 import { ScreenContainer } from "@/components/screen-container";
 import { useColors } from "@/hooks/use-colors";
-import { useRoundsVoice } from "@/hooks/use-rounds-voice";
 import { haptic } from "@/lib/haptics";
 import { highSchoolLevelLabel, highSchoolTopicScopeLabel, isHighSchoolLevel, isHighSchoolTopicScope, type HighSchoolLevel, type HighSchoolTopicScope } from "@/lib/high-school-store";
 import { highSchoolTopicSessionReasonLabel, savedHighSchoolTopicSession, selectedHighSchoolTopicSession, selectHighSchoolTopicSession, type HighSchoolTopicSessionItem } from "@/lib/high-school-topic-session";
@@ -13,15 +12,15 @@ import { savedHighSchoolTopicsForPack } from "@/lib/high-school-saved-topics";
 import { loadHighSchoolTopicProgress, recordHighSchoolTopicOutcome, saveHighSchoolTopicProgress, toggleHighSchoolTopicSaved, type HighSchoolTopicProgressState } from "@/lib/high-school-topic-store";
 import { coursePackForId } from "@/shared/course-packs";
 import { topicUnitModesLabel, topicUnitsForPack, type HighSchoolTopicUnit } from "@/shared/high-school-topic-units";
-import { prepareLocalSpeech, stopRoundsSpeech } from "@/lib/voice";
-import * as Speech from "expo-speech";
+import { prepareLocalSpeech } from "@/lib/voice";
+import { usePrivateClonedVoice } from "@/lib/private-cloned-voice";
 
 const fallbackProgress: HighSchoolTopicProgressState = { records: [], savedUnitIds: [] };
 
 export default function HighSchoolTopicsScreen() {
   const colors = useColors();
   const router = useRouter();
-  const { preferences, selectedVoice } = useRoundsVoice();
+  const { speak, stop: stopClonedVoice } = usePrivateClonedVoice();
   const { packId = "", level: levelParam, scope: scopeParam, unitId: unitIdParam, savedUnitId: savedUnitIdParam } = useLocalSearchParams<{ packId?: string; level?: string; scope?: string; unitId?: string; savedUnitId?: string }>();
   const level: HighSchoolLevel = isHighSchoolLevel(levelParam) ? levelParam : "s1";
   const scope: HighSchoolTopicScope = isHighSchoolTopicScope(scopeParam) ? scopeParam : "level_matched";
@@ -130,8 +129,7 @@ export default function HighSchoolTopicsScreen() {
   const isReflection = unit.mode === "reflection";
   const correct = selected === unit.bestOption;
   const listenToTopic = async () => {
-    await stopRoundsSpeech(Speech);
-    Speech.speak(prepareLocalSpeech(`${unit.title}. ${unit.cue}. ${unit.prompt}`), { rate: preferences.rate, ...(selectedVoice ? { voice: selectedVoice.identifier, language: selectedVoice.language } : {}) });
+    await speak(prepareLocalSpeech(`${unit.title}. ${unit.cue}. ${unit.prompt}`));
   };
   return (
     <ScreenContainer className="px-5" edges={["top", "left", "right"]}>
@@ -144,7 +142,7 @@ export default function HighSchoolTopicsScreen() {
         <View style={[styles.card, { borderColor: colors.border, backgroundColor: colors.surface }]}>
           <View style={styles.meta}><View><Text style={[styles.eyebrow, { color: colors.primary }]}>{topicUnitModesLabel(unit.mode).toUpperCase()}</Text><Text style={[styles.cue, { color: colors.muted }]}>{unit.cue}</Text></View><Pressable onPress={toggleSaved} accessibilityRole="button" style={[styles.save, { borderColor: saved ? colors.primary : colors.border, backgroundColor: saved ? colors.primary : colors.background }]}><Text style={[styles.saveText, { color: saved ? colors.background : colors.primary }]}>{saved ? "★ Saved" : "☆ Save"}</Text></Pressable></View>
           <Text style={[styles.activityTitle, { color: colors.foreground }]}>{unit.title}</Text>
-          <View style={styles.speechRow}><Pressable onPress={() => void listenToTopic()} accessibilityRole="button" style={[styles.speechAction, { borderColor: colors.primary }]}><Text style={[styles.speechActionText, { color: colors.primary }]}>Listen to topic</Text></Pressable><Pressable onPress={() => void stopRoundsSpeech(Speech)} accessibilityRole="button"><Text style={[styles.stopSpeech, { color: colors.muted }]}>Stop</Text></Pressable></View>
+          <View style={styles.speechRow}><Pressable onPress={() => void listenToTopic()} accessibilityRole="button" style={[styles.speechAction, { borderColor: colors.primary }]}><Text style={[styles.speechActionText, { color: colors.primary }]}>Listen to topic</Text></Pressable><Pressable onPress={() => void stopClonedVoice()} accessibilityRole="button"><Text style={[styles.stopSpeech, { color: colors.muted }]}>Stop</Text></Pressable></View>
           {unit.boundaryNote ? <Text style={[styles.boundary, { color: colors.muted }]}>{unit.boundaryNote}</Text> : null}
           {isReflection ? <ReflectionUnit unit={unit} draft={reflection} complete={complete} colors={colors} onChange={setReflection} onSave={saveReflection} /> : <ChoiceUnit unit={unit} selected={selected} complete={complete} correct={correct} colors={colors} onChoose={choose} />}
         </View>

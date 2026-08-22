@@ -1,0 +1,15 @@
+{
+  "ug-en-document-reader": {
+    "description": "Private service pronunciation hints for approved document-reading clarity work.",
+    "words": {
+      "review": {
+        "clear": "ree-view",
+        "emphasised": "ree-VIEW"
+      },
+      "remain": {
+        "clear": "re-main",
+        "emphasised": "re-MAIN"
+      }
+    }
+  }
+}

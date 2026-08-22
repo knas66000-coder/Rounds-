@@ -7,13 +7,13 @@ import { RecordingPresets, requestRecordingPermissionsAsync, setAudioModeAsync, 
 import { ScreenContainer } from "@/components/screen-container";
 import { categories, questionBank, type Category, type Question } from "@/data/questionBank";
 import { useColors } from "@/hooks/use-colors";
-import { useRoundsVoice } from "@/hooks/use-rounds-voice";
 import { encodeRecordedAudio } from "@/lib/audio-encoding";
 import { haptic } from "@/lib/haptics";
 import { buildOralExamQueue, matchOralExamTopic, oralExamFollowUpPrompt, selectOralExamFollowUp } from "@/lib/oral-exam";
 import { evaluateAnswer, type Evaluation } from "@/lib/rounds";
 import { recordLearningOutcome } from "@/lib/adaptive-store";
-import { prepareFeedbackSpeech, prepareQuestionSpeech, prepareRationaleSpeech, stopRoundsSpeech } from "@/lib/voice";
+import { prepareFeedbackSpeech, prepareQuestionSpeech, prepareRationaleSpeech } from "@/lib/voice";
+import { usePrivateClonedVoice } from "@/lib/private-cloned-voice";
 import { trpc } from "@/lib/trpc";
 
 type OralPhase = "setup" | "speaking" | "listening" | "transcribing" | "review" | "complete";
@@ -41,8 +41,8 @@ export default function OralExamScreen() {
   const transcribeMutation = trpc.voice.transcribe.useMutation();
   const materialsQuery = trpc.studyMaterials.list.useQuery();
   const groundingMutation = trpc.studyMaterials.groundOralFeedback.useMutation();
-  const { preferences, speechOptions } = useRoundsVoice();
-  const spokenRationale = preferences.spokenRationale;
+  const { speak, stop: stopClonedVoice } = usePrivateClonedVoice();
+  const spokenRationale = true;
   const question = queue[index];
   const recordingSeconds = Math.min(8, Math.max(0, Math.ceil((recorderState.durationMillis ?? 0) / 1000)));
 
@@ -52,11 +52,11 @@ export default function OralExamScreen() {
 
   useEffect(() => {
     return () => {
-      void stopRoundsSpeech(Speech);
+      void stopClonedVoice();
       if (recordingTimer.current) clearTimeout(recordingTimer.current);
       if (recorderRef.current.isRecording) void recorderRef.current.stop();
     };
-  }, []);
+  }, [stopClonedVoice]);
 
   useEffect(() => {
     const materials = materialsQuery.data ?? [];
@@ -65,7 +65,7 @@ export default function OralExamScreen() {
   }, [materialsQuery.data, selectedMaterialId]);
 
   const startRound = (topic = selectedCategory) => {
-    void stopRoundsSpeech(Speech);
+    void stopClonedVoice();
     const nextQueue = buildOralExamQueue(questionBank, topic, 10);
     if (!nextQueue.length) {
       setNotice("This topic is not available in the installed Nursing pack yet.");
@@ -86,18 +86,14 @@ export default function OralExamScreen() {
   const speakQuestion = async () => {
     if (!question) return;
     haptic.light();
-    await stopRoundsSpeech(Speech);
-    if (!speechOptions) {
-      setNotice("Choose an installed English voice in Settings before asking a question aloud. You can still record or type an answer.");
-      return;
-    }
     setPhase("speaking");
     setNotice("Reading the question. Recording will begin after the prompt.");
-    Speech.speak(prepareQuestionSpeech(question.q), {
-      ...speechOptions,
-      onDone: () => void beginRecording("answer"),
-      onError: () => { setPhase("setup"); setNotice("Speech could not start. You can record or type an answer."); },
-    });
+    try {
+      await speak(prepareQuestionSpeech(question.q), { onDone: () => void beginRecording("answer") });
+    } catch (error) {
+      setPhase("setup");
+      setNotice(error instanceof Error ? error.message : "Private cloned speech could not start. You can record or type an answer.");
+    }
   };
 
   const beginRecording = async (purpose: RecordingPurpose) => {
@@ -161,7 +157,7 @@ export default function OralExamScreen() {
       Alert.alert("Add an answer", "Speak or type your clinical response before submitting.");
       return;
     }
-    await stopRoundsSpeech(Speech);
+    await stopClonedVoice();
     const nextEvaluation = evaluateAnswer(response, question);
     setEvaluation(nextEvaluation);
     setPhase("review");
@@ -176,16 +172,15 @@ export default function OralExamScreen() {
       setQueue((current) => [...current.slice(0, index + 1), suggestedFollowUp, ...current.slice(index + 1).filter((item) => item.id !== suggestedFollowUp.id)]);
     }
     setNotice(suggestedFollowUp ? oralExamFollowUpPrompt(nextEvaluation.matched, question) : "Review the explanation, then continue when ready.");
-    if (speechOptions) Speech.speak(prepareFeedbackSpeech(nextEvaluation.feedback), {
-      ...speechOptions,
+    void speak(prepareFeedbackSpeech(nextEvaluation.feedback), {
       onDone: () => {
-        if (spokenRationale) Speech.speak(prepareRationaleSpeech(question.explanation, question.clinicalSignificance), speechOptions);
+        if (spokenRationale) void speak(prepareRationaleSpeech(question.explanation, question.clinicalSignificance));
       },
-    });
+    }).catch(() => setNotice("Feedback is visible. Private cloned speech is unavailable right now."));
   };
 
   const nextQuestion = () => {
-    void stopRoundsSpeech(Speech);
+    void stopClonedVoice();
     haptic.light();
     if (index + 1 >= queue.length) {
       setPhase("complete");
@@ -203,8 +198,7 @@ export default function OralExamScreen() {
 
   const replayRationale = async () => {
     if (!question) return;
-    await stopRoundsSpeech(Speech);
-    if (speechOptions) Speech.speak(prepareRationaleSpeech(question.explanation, question.clinicalSignificance), speechOptions);
+    await speak(prepareRationaleSpeech(question.explanation, question.clinicalSignificance));
   };
 
   const hasRound = queue.length > 0 && phase !== "complete";
