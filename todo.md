@@ -371,3 +371,4 @@
 - [x] Validate the Rounds public-source hardening changes with type checks, linting, tests, builds, and CORS probes
 - [ ] Publish hardened source and enforce protected-main repository controls
 - [ ] Checkpoint and document the Rounds public-source hardening release
+- [x] Triage and remediate actionable Dependabot security findings without breaking the Expo mobile stack
