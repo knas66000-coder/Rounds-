@@ -8,14 +8,14 @@ import { ScreenContainer } from "@/components/screen-container";
 import { categories, questionBank, type Category } from "@/data/questionBank";
 import { evaluateAnswer, shuffle, type Evaluation, type Verdict } from "@/lib/rounds";
 import { useColors } from "@/hooks/use-colors";
-import { useRoundsVoice } from "@/hooks/use-rounds-voice";
 import { encodeRecordedAudio } from "@/lib/audio-encoding";
 import { trpc } from "@/lib/trpc";
 import { ACTIVE_CATEGORY_KEY, hasAnotherQuestion, nextStepForVerdict, questionsForCategory } from "@/lib/session";
 import { haptic } from "@/lib/haptics";
 import { bookmarkIds, BOOKMARKS_KEY, parseBookmarks, toggleBookmark, type Bookmark } from "@/lib/bookmarks";
 import { recordLearningOutcome } from "@/lib/adaptive-store";
-import { prepareFeedbackSpeech, prepareQuestionSpeech, prepareRationaleSpeech, stopRoundsSpeech } from "@/lib/voice";
+import { prepareFeedbackSpeech, prepareQuestionSpeech, prepareRationaleSpeech } from "@/lib/voice";
+import { usePrivateClonedVoice } from "@/lib/private-cloned-voice";
 
 const STORAGE_KEY = "rounds.session.v1";
 
@@ -42,8 +42,9 @@ export default function HomeScreen() {
   const recorderRef = useRef(recorder);
   const isRecordingRef = useRef(false);
   const transcribeMutation = trpc.voice.transcribe.useMutation();
-  const { preferences, speechOptions, reload: reloadRoundsVoice } = useRoundsVoice();
-  const spokenRationale = preferences.spokenRationale;
+  const { speak, stop: stopClonedVoice } = usePrivateClonedVoice();
+  const stopRoundsSpeech = useCallback(async (_speech?: unknown) => stopClonedVoice(), [stopClonedVoice]);
+  const spokenRationale = true;
   const question = queue[index];
   const answered = results.length;
   const correct = results.filter((item) => item.verdict === "correct").length;
@@ -78,28 +79,23 @@ export default function HomeScreen() {
   const speakQuestion = async (beginRecording: boolean) => {
     haptic.light();
     await stopRoundsSpeech(Speech);
-    if (!speechOptions) {
-      setPhase(evaluation ? "result" : "idle");
-      setVoiceNotice("Choose an installed English voice in Settings before listening. You can still type or record an answer.");
-      return;
-    }
     setPhase("asking");
     setVoiceNotice("Reading the question clearly. You can stop or replay at any time.");
-    Speech.speak(prepareQuestionSpeech(question.q), {
-      ...speechOptions,
-      pitch: 1,
-      onDone: () => {
-        if (beginRecording) void startListening();
-        else {
-          setPhase(evaluation ? "result" : "idle");
-          setVoiceNotice(null);
-        }
-      },
-      onError: () => {
-        if (beginRecording) void startListening();
-        else setPhase(evaluation ? "result" : "idle");
-      },
-    });
+    try {
+      await speak(prepareQuestionSpeech(question.q), {
+        onDone: () => {
+          if (beginRecording) void startListening();
+          else {
+            setPhase(evaluation ? "result" : "idle");
+            setVoiceNotice(null);
+          }
+        },
+      });
+    } catch (error) {
+      setPhase(evaluation ? "result" : "idle");
+      setVoiceNotice(error instanceof Error ? error.message : "Private cloned speech is unavailable. You can still type or record an answer.");
+      if (beginRecording) void startListening();
+    }
   };
 
   const askQuestion = () => {
@@ -191,12 +187,11 @@ export default function HomeScreen() {
     setPhase("result");
     await saveResult(nextEvaluation.verdict);
     await recordLearningOutcome(question.id, nextEvaluation.verdict);
-    if (speechOptions) Speech.speak(prepareFeedbackSpeech(nextEvaluation.feedback), {
-      ...speechOptions,
+    void speak(prepareFeedbackSpeech(nextEvaluation.feedback), {
       onDone: () => {
-        if (spokenRationale) Speech.speak(prepareRationaleSpeech(question.explanation, question.clinicalSignificance), speechOptions);
+        if (spokenRationale) void speak(prepareRationaleSpeech(question.explanation, question.clinicalSignificance));
       },
-    });
+    }).catch(() => setVoiceNotice("Feedback is visible. Private cloned speech is unavailable right now."));
     if (autoMode) {
       autoTimer.current = setTimeout(() => nextQuestion(), 4500);
     }
@@ -248,11 +243,6 @@ export default function HomeScreen() {
     });
     return () => { mounted = false; };
   }, []));
-
-  useFocusEffect(useCallback(() => {
-    void reloadRoundsVoice();
-    return () => undefined;
-  }, [reloadRoundsVoice]));
 
   const toggleAutoMode = () => {
     const nextMode = !autoMode;
@@ -309,8 +299,11 @@ export default function HomeScreen() {
   const playRationale = async () => {
     await stopRoundsSpeech(Speech);
     haptic.light();
-    if (speechOptions) Speech.speak(prepareRationaleSpeech(question.explanation, question.clinicalSignificance), speechOptions);
-    else setVoiceNotice("Choose an installed English voice in Settings before replaying this rationale.");
+    try {
+      await speak(prepareRationaleSpeech(question.explanation, question.clinicalSignificance));
+    } catch (error) {
+      setVoiceNotice(error instanceof Error ? error.message : "Private cloned speech is unavailable right now.");
+    }
   };
 
   const phaseLabel = phase === "asking" ? "Speaking question" : phase === "listening" ? "Listening for your answer" : phase === "transcribing" ? "Transcribing your answer" : phase === "result" ? "Answer reviewed" : phase === "complete" ? "Unique question round completed" : "Ready when you are";
