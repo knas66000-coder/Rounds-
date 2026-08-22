@@ -1,0 +1,15 @@
+{
+  "ug-en-document-reader": {
+    "description": "Local pronunciation hints for words the authorised voice owner flagged during document-reading clone evaluation.",
+    "words": {
+      "review": {
+        "clear": "ree-view",
+        "emphasised": "ree-VIEW"
+      },
+      "remain": {
+        "clear": "re-main",
+        "emphasised": "re-MAIN"
+      }
+    }
+  }
+}

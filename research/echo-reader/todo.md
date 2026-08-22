@@ -1,0 +1,44 @@
+# Project TODO
+
+- [x] Document the offline-first voice assistant design and boundaries.
+- [ ] Implement local assistant command parsing and response generation.
+- [ ] Add on-device text-to-speech controls.
+- [ ] Add device speech-to-text capture with a typed-input fallback.
+- [ ] Build conversation history and clear-history controls.
+- [x] Create a distinctive app icon and apply app branding.
+- [x] Test the offline assistant flow and confirm the app builds cleanly.
+- [x] Replace the local command assistant scope with a dedicated speech-to-text and text-to-speech utility.
+- [x] Validate that the implemented app routes do not call an external AI or speech API or import the phone speech engine.
+- [x] Define the licensed voice-recording source, target language, and intended voice character for a custom model.
+- [x] Select the custom speech-model architecture, training environment, and mobile inference format.
+- [ ] Build the data preparation, training, and model-evaluation pipeline.
+- [ ] Replace native phone speech output with the locally bundled custom voice model.
+- [x] Add a clearly labelled experimental local voice-clone preview using only the authorised Echo Reader guide recording.
+- [ ] Replace fixed clone-preview playback with dynamic local voice-clone generation for new document answers.
+- [x] Keep document retrieval and cloned-voice synthesis as separate local components with explicit consent controls.
+- [x] Tune cloned-voice pronunciation, sentence pacing, and clarity using only authorised Ugandan English reference data.
+- [x] Generate and compare higher-quality local clone samples from fresh document-answer text.
+- [x] Add local pronunciation and emphasis overrides for document words that need clearer cloned-voice delivery.
+- [x] Add authorised Ugandan English recording prompts for difficult words and stressed syllables.
+- [x] Add local reference-audio quality checks and sentence-by-sentence clone generation.
+- [x] Add local output-quality checks to identify unclear artifacts before speech is presented to the user.
+- [ ] Compare the current compact speed-optimized clone model with a higher-fidelity local model for word clarity.
+- [ ] Design an optional managed local voice pack so clone-model assets do not bloat the core document reader.
+- [ ] Separate tiny approved voice references from the larger reusable clone-model asset bundle.
+- [x] Prepare the Echo Reader project content for GitHub submission without committing private large voice recordings or model binaries.
+- [ ] Commit and push the approved project content to the selected GitHub content-research repository.
+- [x] Exclude private voice recordings, prepared references, generated cloned audio, and large model binaries from the GitHub submission.
+- [x] Add authorised vowel-and-consonant recordings as supplemental phonetic clarity data, separate from the main sentence reference.
+- [x] Add document-only assistant answers grounded in local PDF and documentation search results.
+- [x] Show the selected source context and page number alongside every document answer.
+- [x] Add a manual question mode and an auto interaction mode for document requests.
+- [x] Add a local study-question generator for selected document passages.
+- [ ] Define a user-selected local wake phrase and hands-free listening behavior.
+- [ ] Add visible listening-state, privacy notice, and immediate disable controls for microphone use.
+- [ ] Define the limited question categories the local answer engine should support.
+- [x] Support local PDF and documentation ingestion without external document APIs.
+- [x] Build local full-text document search and passage selection for read-aloud.
+- [ ] Add spoken document commands and speech-to-text transcription for users’ requests.
+- [x] Create a consented recording script and audio-data process for the user’s custom voice model.
+- [ ] Support setup of a user-selected local wake word or short wake phrase.
+- [x] Add an in-app guided recording session for consented custom voice training data.
