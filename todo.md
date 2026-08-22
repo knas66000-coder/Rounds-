@@ -365,3 +365,9 @@
 - [x] Change the approved Rounds GitHub repository from public to private and verify preserved access
 - [x] Restore and verify public viewing access to the Rounds GitHub repository
 - [x] Record the owner-approved Rounds GitHub public-visibility restoration in the project tracker
+- [ ] Review and participate in private collaboration-repository discussions with trusted Rounds contributors
+- [x] Audit public-source exposure, repository history, and active Rounds security configuration
+- [x] Remediate confirmed source-exposure risks and add sustainable repository safeguards
+- [x] Validate the Rounds public-source hardening changes with type checks, linting, tests, builds, and CORS probes
+- [ ] Publish hardened source and enforce protected-main repository controls
+- [ ] Checkpoint and document the Rounds public-source hardening release

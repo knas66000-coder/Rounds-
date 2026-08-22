@@ -3,10 +3,11 @@ import express from "express";
 import { createServer } from "http";
 import net from "net";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
-import { registerOAuthRoutes } from "./oauth";
 import { registerStorageProxy } from "./storageProxy";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
+import { ENV } from "./env";
+import { apiSecurityHeaders, isTrustedBrowserOrigin } from "./security";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise((resolve) => {
@@ -31,13 +32,24 @@ async function startServer() {
   const app = express();
   const server = createServer(app);
 
-  // Enable CORS for all routes - reflect the request origin to support credentials
+  app.disable("x-powered-by");
+
+  // Rounds-native authentication sends an explicit session header. Restricting
+  // CORS prevents unknown websites from issuing preflight-approved requests.
   app.use((req, res, next) => {
-    const origin = req.headers.origin;
+    const origin = typeof req.headers.origin === "string" ? req.headers.origin : undefined;
+    res.set(apiSecurityHeaders(ENV.isProduction));
+
     if (origin) {
+      if (!isTrustedBrowserOrigin(origin)) {
+        res.status(403).json({ error: "This browser origin is not permitted." });
+        return;
+      }
+
       res.header("Access-Control-Allow-Origin", origin);
+      res.vary("Origin");
     }
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     res.header(
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept, Authorization, X-Rounds-Session",
@@ -46,17 +58,18 @@ async function startServer() {
 
     // Handle preflight requests
     if (req.method === "OPTIONS") {
-      res.sendStatus(200);
+      res.sendStatus(204);
       return;
     }
     next();
   });
 
-  app.use(express.json({ limit: "50mb" }));
-  app.use(express.urlencoded({ limit: "50mb", extended: true }));
+  app.use(express.json({ limit: "10mb" }));
+  app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
   registerStorageProxy(app);
-  registerOAuthRoutes(app);
+  // The app uses the Rounds-native account and opaque-session procedures in
+  // server/routers.ts. The unused template OAuth endpoints are not registered.
 
   app.get("/api/health", (_req, res) => {
     res.json({ ok: true, timestamp: Date.now() });
