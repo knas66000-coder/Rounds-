@@ -369,6 +369,6 @@
 - [x] Audit public-source exposure, repository history, and active Rounds security configuration
 - [x] Remediate confirmed source-exposure risks and add sustainable repository safeguards
 - [x] Validate the Rounds public-source hardening changes with type checks, linting, tests, builds, and CORS probes
-- [ ] Publish hardened source and enforce protected-main repository controls
-- [ ] Checkpoint and document the Rounds public-source hardening release
+- [x] Publish hardened source and enforce protected-main repository controls
+- [x] Checkpoint and document the Rounds public-source hardening release
 - [x] Triage and remediate actionable Dependabot security findings without breaking the Expo mobile stack
