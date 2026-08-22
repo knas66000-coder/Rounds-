@@ -26,7 +26,7 @@
 - [ ] Design an optional managed local voice pack so clone-model assets do not bloat the core document reader.
 - [ ] Separate tiny approved voice references from the larger reusable clone-model asset bundle.
 - [x] Prepare the Echo Reader project content for GitHub submission without committing private large voice recordings or model binaries.
-- [ ] Commit and push the approved project content to the selected GitHub content-research repository.
+- [x] Commit and push the approved project content to the selected GitHub content-research repository.
 - [x] Exclude private voice recordings, prepared references, generated cloned audio, and large model binaries from the GitHub submission.
 - [x] Add authorised vowel-and-consonant recordings as supplemental phonetic clarity data, separate from the main sentence reference.
 - [x] Add document-only assistant answers grounded in local PDF and documentation search results.
